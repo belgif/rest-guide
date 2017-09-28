@@ -1,0 +1,111 @@
+== JSON
+
+All RESTful services must support *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
+
+
+=== JSON object
+
+For extensibility, the payload of a RESTful request or response should always be a JSON object (instead of an array, string , number, etc). This way the request or response can always be extended with new properties.
+
+Service consumers should be aware that JSON objects can always be extended with additional JSON properties. This shouldn't break the client code. The unknown properties must be _ignored_.
+
+=== JSON properties
+
+All JSON property names are in English and are written in lower camel case notation. Do not use underscore or hypens for composite words (Properties from the <<hal-links,HAL standard>> are an exception to this rule). 
+
+[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nssoNbr": "93017373",
+  "enterprise": {
+    "enterpriseNbr": "0202239951"
+  }
+}
+```
+
+**Properties with a `<null>` value should be stripped from the JSON message.**
+  
+|===
+|*NOK*|*OK*
+a|[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nssoNbr": "93017373",
+  "enterprise": null
+}
+```
+
+a|[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nssoNbr": "93017373"
+}
+```
+|===
+
+**Empty JSON arrays are never stripped from the JSON message.**
+
+```json
+{
+  "activityCodes": []
+}
+``` 
+
+**The JSON properties have no specific order inside a JSON object.** 
+
+[cols="1,1"]
+|===
+a|[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nssoNbr": "93017373"
+}
+```
+
+
+a|[subs="normal"]
+```json
+{
+  "nssoNbr": "93017373",
+  "name": "Belgacom"
+}
+```
+|===
+
+**Dates are written in ISO 8601 full-date format: yyyy-mm-dd**
+
+See http://swagger.io/specification/#data-types-12[Swagger Datatypes^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^]. 
+
+```json
+{
+  "birthday": "1930-07-19"
+}
+``` 
+
+**Date/time are written in ISO 8601 date-time format: yyyy-MM-dd'T'HH:mm:ssXXX**
+
+See http://json-schema.org/latest/json-schema-validation.html#rfc.section.8.3.1[JSON Schema Validation 8.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^]. 
+
+.Example UTC
+```json
+{
+  "lastModification": "2016-04-24T09:26:00Z"
+}
+``` 
+
+.Example with timezone
+```json
+{
+  "lastModification": "2016-04-24T11:26:00+02:00"
+}
+```
+
+
+
+ 
+
+

@@ -1,0 +1,97 @@
+== HTTP Methods
+
+=== GET
+**GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​200 OK|​The requested resource was found or a search request returns some content 
+|204 No Content|The search request returns no result 
+|​​404 Not Found|The requested resource not found 
+|===
+
+=== HEAD
+**HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​200 OK|​The requested resource was found or a search request returns some content 
+|204 No Content|The search request returns no result 
+|​​404 Not Found|The requested resource not found 
+|===
+
+=== PUT
+**PUT must be used to both insert and update a stored resource under a consumer supplied URI​.**
+
+If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a modified version of the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request. 
+
+If the URI does not point to an existing resource, and that URI is capable of being defined as a new resource, the server can create the resource with that URI. The server MUST inform the client by sending a 201 (Created)​ response to indicate succesful creation.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​200 OK|The existing resource is updated ​
+|201 Created|A new resource is created 
+​​|409 Conflict|A constraint on the resource is violated
+|===
+
+=== POST
+*POST must be used to create a new resource in a collection.*  The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
+
+The response should contain a Location HTTP header containing the newly created URI.
+
+POST must be used to execute controllers.
+
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​201 Created|A new resource is created 
+|409 Conflict|The resource already exists 
+|===
+
+=== PATCH
+*PATCH must be used to update partially a representation of a resource.*
+
+The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version. The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​ The set of instructions describing how a resource on the server should be modified has been standardized in several ways: RFC 6902, RFC 7396​.
+
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​200 OK|​Specific resource was requested and found or a search request returns some content 
+|​​404 Not Found|a specific resource was requested and not found 
+|​​409 Conflict|A constraint on the resource is violated​
+|===
+
+=== DELETE
+*DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​200 OK|Specific resource was requested and found or a search request returns some content 
+|===
+
+=== OPTIONS
+OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
+
+
+
+
+
+

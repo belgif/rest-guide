@@ -1,0 +1,79 @@
+== Resources
+
+:rfc3986: https://tools.ietf.org/html/rfc3986
+
+A REST APIs exposes a set of _resources_. Resources model the _data and functionality of a system_. A resource can be data, processing logic, files, or anything else that a service may have access to. 
+
+=== Resource URI
+
+Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rfc3986}[RFC 3986​]).
+
+
+NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]​ +
+​example:   \https://api.socialsecurity.be/employers/406798006​?lang=nl
+
+URI must be intuitively structured.
+
+[caption="Rule {counter:rule-number}: "]
+.URI notation
+==========================
+The **URI notation is in lowerCamelCase** to enhance readability and to separate compound names.
+==========================
+
+.URI notation
+====
+​[green]#​​GOOD:  \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331# +
+[red]#​BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/Social_Secretariats​/331# +
+​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/social-secretariats​/331#
+====
+
+
+
+[caption="Rule {counter:rule-number}: "]
+.URI extensions
+====
+The URI **never contains a file extension**. 
+====
+
+Instead, look at how to express <<Media Types>> using HTTP headers.
+
+.URI extensions
+====
+​[green]#GOOD: \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331# +
+[red]#​BAD: \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331.json#
+====
+
+
+
+[caption="Rule {counter:rule-number}: "]
+.Query parameters
+====
+The query part of a URI may be used to filter the resource output. 
+====
+
+The query component of a URI contains a set of parameters to be interpreted as a variation or derivative of the resource. The query component can provide clients with additional interaction capabilities such as ad hoc searching and filtering.
+
+.Query parameters
+====
+​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
+Filter the resource collection to results 
+
+[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?fields=name,address*# +
+Filter the resource properties to the ones specified in the `fields` query parameter.
+
+[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?lang=nl*# +
+Only return translatable properties in dutch.
+====
+
+=== Resource Archetypes
+There are 3 different resource archetypes: 
+
+* <<Collection>>
+* <<Document>>
+* <<Controller>>
+
+
+include::collection.adoc[]
+include::document.adoc[]
+include::controller.adoc[]
+

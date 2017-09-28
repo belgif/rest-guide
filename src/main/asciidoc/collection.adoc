@@ -1,0 +1,371 @@
+== Collection
+
+A collection resource is a server-managed list of document resources. A plural noun should be used for collection names​.
+
+Each collection resource can decide to return 
+
+1. either an <<List of resource links,array of resource links>> (potentially extended with some business properties to show a summary)
+2. or an <<List of resources,array of the resource itself>> (useful when the business concept is simple / contains little data)
+
+.Collection of employers
+====
+{API}/employers[^]
+====
+
+CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
+
+
+=== List of resource links
+
+A query on this kind of collection returns links to the resources in its result. The link object can be extended with some additionals business properties, needed to display in a master view.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/employ​​e​r​s
+|get all the employers documents in the collection
+
+3+|​​​Parameters
+
+3+|Response
+
+|body
+a|The response is a collection JSON object. 
+
+* `**items**` is the reserved word for the array containing the result. 
+* `**totalItems**` is the reserved word for all the items in the collection result.
+
+Each item should contain a JSON link object to a resource document.
+
+* `**href**` contains a link to the resource document.
+* `**title**` contains a human understandable text to describe the resource
+* `**type**` contains the JSON object class of the resource
+
+a|
+[source,json,subs="normal"]
+----
+​​​{  
+ "items":[  
+   {  
+     "href":"{API}/employers/93017373[/employers/93017373^]",
+     "title":"Belgacom",
+     "nssoRegistrationNbr": "93017373",
+     "companyId": "0202239951",
+     "type":"employer"
+   },
+   {  
+     "href":"{API}/employers/20620259[/employers/20620259^]",
+     "title":"Partena VZW",
+     "type":"employer",
+     "nssoRegistrationNbr": "20620259",
+     "companyId": "0409536968",
+   }
+ ],
+ "totalItems":3
+}​     
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default response code, also when the collection is empty
+​
+|===
+
+.Example
+[subs=normal]
+```
+GET {API}/employers[^] HTTP/1.1​
+```
+
+.JSON schema
+[subs=normal]
+```json
+{
+ "$schema": "http://json-schema.org/draft-04/schema#",
+ "description": "A collection of employers",
+ "type": "object",
+ "properties": {
+  "items": {
+   "type": "array",
+   "items": { "$ref": "\#/definitions/employerLink" }
+  },
+  "totalItems": { "type": "integer" }
+ },
+ "definitions": {
+  "employerLink": {
+   "type": "object",
+   "extends": { "$ref": "include/halResource.json#/definitions/link" },
+   "properties": {
+    "nssoRegistrationNbr": { "$ref": "common.json#/definitions/nssoRegistrationNbr" },
+    "companyId": { "$ref": "common.json#/definitions/companyId" }
+   }
+  }
+ }
+}
+```
+
+=== List of resources
+
+A query on this kind of collection returns the resources themself in its result. This is useful when the resource contains little data and to avoid navigating to the resource document.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/appendices/employerclasses
+|get all the employer class appendix codes
+
+3+|​​​Parameters
+
+3+|Response
+
+|body
+a|The response is a collection JSON object. 
+
+* `**items**` is the reserved word for the array containing the result. 
+* `**totalItems**` is the reserved word for all the items in the collection result.
+
+Each item is the same JSON object as the document resource.
+
+* `**_links/self**` contains a the link to the resource document.
+
+a|
+[source,json,subs="normal"]
+----
+​​​{
+ "items": [
+  {
+   "value": "0",
+   "description": {
+    "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
+    "fr": "Catégorie générale pour les employeurs, de type commercial ou non-commercial."
+   },
+   "_links": {
+    "self": {
+     "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
+    }
+   }
+  }, {
+   "value": "2",
+   "description": {
+    "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
+    "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
+   },
+   "_links": {
+    "self": {
+     "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
+    }
+   }
+  }
+ ],
+ "totalItems":2
+}​     
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default response code, also when the collection is empty
+​
+|===
+
+.Example
+[subs=normal]
+```
+GET {API}/appendices/employerclasses[^] HTTP/1.1​
+```
+
+.JSON schema
+```json
+{
+ "$schema": "http://json-schema.org/draft-04/schema#",
+ "description": "A collection of appendix codes",
+ "type": "object",
+ "properties": {
+  "items": {
+   "type": "array",
+   "items": { "$ref": "appendixCode.json#" }
+  },
+  "totalItems": { "type": "integer" }
+ }
+}
+```
+
+=== Filtered collection
+
+A collection can be filtered using query parameters.​ You can filter on a specific resource property by specifying the property name as query param.
+The query-param `q` is reserved to implement a full text search on all the resource's content.
+​
+[cols="1,2,3"]
+|===
+|<<get>>
+|/employers
+|get all the employers documents in the collection
+
+
+3+|​​​Parameters
+
+|name
+|query-param
+|Filter only employers that have a specific name. 
+
+3+|Response
+
+|body
+a|
+a|
+[source,json, subs=normal]
+----
+​​​{
+	"items": [{
+		"href": "{API}/companies/0202239951[/companies/0202239951^]",
+		"type": "company",
+		"title": "Belgacom"
+	}, {
+		"href": "{API}/companies/0448826918[/companies/0448826918^]",
+		"type": "company",
+		"title": "Carrefour Belgium SA"
+	}],
+	"totalItems": 2,
+	"_links": {}
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default response code, also when the filtered collection is empty
+​
+|===
+
+[subs=normal]
+```
+GET {API}/companies?name=belg[^] HTTP/1.1​
+```
+
+=== Paging over a large collection​
+When a collection contains too many results, the results should be paged. 
+​
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/employers
+|get all the employers documents in the collection
+
+
+3+|​​​Parameters
+
+|​​`**page**`
+|query-param
+|The index of the current page of items. It should be 1-based (the default and first page is 1).
+
+|`​**pageSize**`
+|query-param
+|The maximal number of results per page.
+
+3+|Response
+
+|body
+a|​The response is a collection JSON object. 
+
+* the relation `**next**` is reserved word for the hyperlink to the next page
+* the relation `**previous**` is reserved word for the hyperlink to the previous page
+
+a|
+[source,json, subs="normal"]
+----
+​{
+  "items": [
+    {
+      "href": "{API}/companies/0202239951[/companies/0202239951^]",
+      "type": "company",
+      "title": "Belgacom"
+    },
+    {
+      "href": "{API}/companies/0212165526[/companies/0212165526^]",
+      "type": "company",
+      "title": "CPAS de Silly"
+    }
+  ],
+  "totalItems": 7,
+  "_links": {
+    "next": {
+      "href": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
+    },
+    "previous": {
+      "href": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
+    }
+  }
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default response code, also when the filtered collection is empty
+​
+|===
+
+[subs="normal"]
+```
+GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
+```
+
+=== Create a new resource​
+The collection resource can be used to create new document resources.
+​
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<post>>
+|/employers
+|create a new employer in the collection
+
+
+3+|​​​Request
+|body
+|​The data of the resource to create.
+a|
+[source,json]
+----
+​{
+  "name": "Belgacom",
+  "nossRegistrationNumber": "93017373",
+  "company": {
+    "companyId": "0202239951"
+  }
+}
+----
+
+3+|Response headers
+
+|Location
+|http-header
+|The URI of the newly created resoucre e.g. /employers/93017373
+
+3+|Response
+
+|body
+|​
+|The response contains an empty body.
+
+3+|Response codes
+​​
+|<<http-201,201>>
+|Created
+|Default response code if the query returned results
+​
+|<<http-409,409>>
+|Conflict
+|The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
+
+|===
+
+```
+POST /employers HTTP/1.1
+
+HTTP/1.1 201 Created
+Location: /employers/93017373
+Content-Length: 0
+Date: Wed, 06 Jan 2016 15:37:16 GMT
+```
+

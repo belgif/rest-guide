@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- Parent is the SmalS-MvM master pom -->
+
+    <!-- General attributes -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>be.gcloud</groupId>
+    <artifactId>rest-styleguide</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>REST Styleguide</name>
+    <description>Documentation on the REST style guide for the Belgian federal government</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <asciidoctorj.diagram.version>1.5.0</asciidoctorj.diagram.version>
+        <javaVersion>1.8</javaVersion>
+    </properties>
+    <developers>
+        <developer>
+            <name>Willem Salembier</name>
+            <email>willem.salembier@smals.be</email>
+            <properties>
+                <RegistrationNumber>7130</RegistrationNumber>
+            </properties>
+            <id>wisa</id>
+            <roles>
+                <role>Solution Architect</role>
+                <role>Architect</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <!-- The site deploy user is soadoc and interactive keyboard authentication
+          has been disabled for this particular user in /etc/ssh/sshd_config
+
+          Match user soadoc
+            PasswordAuthentication yes
+            KbdInteractiveAuthentication no
+        -->
+
+        <!--<site>
+            <id>doc.website</id>
+            <name>Documentation Website</name>
+            <url>scp://soa.cloud.smals.be/opt/apache-smals/www</url>
+        </site>-->
+    </distributionManagement>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>2.5</version>
+            </extension>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>2.5</version>
+            </extension>
+        </extensions>
+
+        <defaultGoal>generate-resources</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>1.5.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                        <version>1.5.4.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <backend>html5</backend>
+                    <sourceHighlighter>coderay</sourceHighlighter>
+                    <requires>
+                        <require>asciidoctor-diagram</require>
+                    </requires>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-styleguide</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDocumentName>index.adoc</sourceDocumentName>
+                            <outputDirectory>${project.build.directory}/site/doc</outputDirectory>
+                            <attributes>
+                                <stylesheet>my-theme.css</stylesheet>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+
+</project>

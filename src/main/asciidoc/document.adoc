@@ -1,0 +1,349 @@
+== Document
+
+A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and <<HAL links,_links_>> to other related resources.
+
+.An employer document resource
+====
+​​`{API}/employers/93017373[^]`
+
+[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nossRegistrationNumber": "93017373",
+  "company": {
+    "companyId": "0202239951",
+    "_links": {
+      "self": {
+        "href": "{API}/companies/0202239951[^]",
+        "type": "application/json; 
+                   profile={API}/api/doc/jsonSchemas/company.json"
+      }
+    }
+  }
+}
+```
+====
+
+*Child resources*
+
+A document may have _child resources_ that represent its specific subordinate concepts. Most document resources are contained in a _parent <<Collection,collection resource>>_ and define a *variable path segment with identity key*.
+
+image::collection.png[]
+
+When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable. In that case *prefer associations and create <<document-links,links>>* to other APIs from the employer resource.  
+
+*Identity key*
+
+The _identity key_ is preferably a _natural business identifier_, uniquely identifying the business resource. If such key does not exist, a _surrogate or technical key_ (like http://tools.ietf.org/html/rfc4122[UDDI^]) can be used.
+
+WARNING: Especially for unsecured resources, avoid technical keys that are easy to guess (for example sequential identifiers)
+
+WARNING: Don't use database-generated keys as identity keys in your public API to avoid tight coupling between the database schema and API. Having the key independent of all other columns insulates the database relationships from changes in data values or database design (agility) and guarantees uniqueness.
+
+
+=== Consult
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/employers/{employerId}
+|Consult a single employer 
+
+3+|​​​Parameters
+
+|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+
+3+|Response
+
+|body
+|The response properties and links to other resources.
+a|
+[source,json, subs="normal"]
+----
+​​​{
+  "name": "Belgacom",
+  "nossRegistrationNumber": "93017373",
+  "company": {
+    "companyId": "0202239951",
+    "href": "{API}/companies/0202239951[/companies/0202239951^]"
+  }
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code if the document exists
+
+​​|<<http-304,304>>
+|Not Modified
+|Used for consultations with <<Conditional requests,conditional requests>>.
+
+|<<http-400,400>>
+|Bad request
+a|The dynamic path segment containing the identity key has a wrong data format
+
+e.g.
+[source,json]
+----
+{
+ "id": "63b68bfa-bcdc-40f1",
+ "code": "Bad Request",
+ "message": "The input message is incorrect",
+ "details": [
+  {
+   "kind": "path-param",
+   "message": "This value should be numeric",
+   "ref": "employerId",
+   "value": "abc"
+  }
+ ]
+}
+----
+​|<<http-404,404>>
+|Not Found
+|The document resource does not exist.
+​
+|===
+
+[subs="normal"]
+```
+GET {API}/employers/93017373[^] HTTP/1.1
+```
+
+=== Update
+
+Use `PUT` when you like to do a complete update of a document resource. All values are replaced by the values submitted by the client.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<put>>
+|/employers/{employerId}
+|Replace the entire employer resource with the client data. This implies a full update of the resource. Via `PUT` the client submits new values for all the data. 
+
+3+|Request
+
+|body
+|Full representation of the resource to persist.
+|
+
+3+|​​​Parameters
+
+|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+
+3+|Response
+
+|body
+|empty or a message indicating success
+a|
+[source,json]
+----
+​​​{
+ "id": "63b68bfa-bcdc-40f1",
+ "code": "OK",
+ "message": "Employer successfully updated"
+}
+
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code if the updated succeeded
+
+|<<http-400,400>>
+|Bad request
+|The input data is not valid according the data schema.
+
+|<<http-404,404>>
+|Not Found
+|The resource does not exist and thus cannot be updated.
+​
+|<<http-409,409>>
+|Conflict
+|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+​
+|===
+
+[subs="normal"]
+```
+PUT {API}/employers/93017373[^] HTTP/1.1
+```
+
+=== Partial update
+
+Use `PATCH` when you like to do a partial update of a document resource. The `PATCH` message must be conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification. 
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<patch>>
+|/employers/{employerId}
+|Performs a partial update of an existing employer. 
+
+3+|Request
+
+|body
+|JSON Merge Patch 
+a|
+[source,json]
+----
+​​​{
+  "bankrupt": false
+  "bankruptDate": null
+}
+----
+
+3+|​​​Parameters
+
+|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+
+3+|Response
+
+|body
+|empty or a message indicating success
+a|
+[source,json]
+----
+​​​{
+ "id": "63b68bfa-bcdc-40f1",
+ "code": "OK",
+ "message": "Employer successfully updated"
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code if the updated succeeded
+
+|<<http-400,400>>
+|Bad request
+|The input data is not valid according the data schema.
+
+|<<http-404,404>>
+|Not Found
+|The resource does not exist and thus cannot be updated.
+​
+|<<http-409,409>>
+|Conflict
+|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+​
+|===
+
+[subs="normal"]
+```
+PATCH {API}/employers/93017373[^] HTTP/1.1
+```
+
+=== Remove
+
+Use `DELETE` when you like to delete a document resource.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<delete>>
+|/employers/{employerId}
+|Deletes an employer. 
+
+3+|​​​Parameters
+
+|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+
+3+|Response
+
+|body
+|empty or a message indicating success
+a|
+[source,json]
+----
+​​​{
+ "id": "63b68bfa-bcdc-40f1",
+ "code": "OK",
+ "message": "Employer successfully deleted"
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code if the updated succeeded
+
+|<<http-400,400>>
+|Bad request
+|The input data is not valid according the data schema.
+
+|<<http-404,404>>
+|Not Found
+|The resource does not exist and thus cannot be updated.
+​
+|===
+
+[subs="normal"]
+```
+DELETE {API}/employers/93017373[^] HTTP/1.1
+```
+
+
+=== Api resource
+
+A special kind of document resource is `/api` which contains entry points to our API and links to its documentation.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/api
+|Retrieve documentation and entry points for this API. 
+
+3+|​​​Parameters
+
+3+|Response
+
+|body
+a|The api response contains links to the API entry points. 
+
+<1> Link to the root collections
+
+<2> Link to the HTML documentation
+
+<3> Link to the Swagger specification
+
+<4> Link to the healthCheck resource
+a|
+[source,json]
+----
+​​​{
+ "_links": {
+  "resource:companies": { <1>
+   "href": "/REST/demo/v1/companies"
+  },
+  "resource:employers": {
+   "href": "/REST/demo/v1/employers"
+  },
+  "doc": { <2>
+   "href": "/REST/demo/v1/api/doc/html",
+   "type": "text/html"
+  },
+  "swagger": { <3>
+   "href": "/REST/demo/v1/api/doc/swagger",
+   "type": "application/json"
+  },
+  "healthCheck": { <4>
+   "href": "/REST/demo/v1/api/healthCheck",
+   "type": "application/xml"
+  }
+ }
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code
+​
+|===
+
+[subs="normal"]
+```
+GET {API}/api[^] HTTP/1.1
+```

@@ -1,0 +1,74 @@
+﻿= REST Guidelines
+v0.1, {localdate}
+:doctype: book
+:docinfo:
+:toc: right
+:toclevels: 3
+:sectanchors:
+:sectlinks:
+:sectnums:
+:idprefix:
+:idseparator: -
+:linkattrs:
+:source-highlighter: coderay
+:icons: font
+:iso639-1: http://www.loc.gov/standards/iso639-2/php/code_list.php
+:imagesdir: img
+:stylesheet: my-theme.css
+:checkedbox: pass:normal[&#10004;]
+:API: http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1
+
+:toc!:
+:caption!:
+
+[NOTE]
+.This document is under active development and discussion!
+====
+If you find errors or omissions in this document, please don't hesitate to contact us. New contributors are always welcome!
+====
+
+= REST INTRODUCTION
+
+include::introduction.adoc[]
+
+include::maturity.adoc[]
+
+
+= REST API
+
+include::api.adoc[]
+
+include::uniform_interface.adoc[]
+
+include::resources.adoc[]
+
+include::methods.adoc[]
+
+include::statuscodes.adoc[]
+
+include::mediatypes.adoc[]
+
+include::json.adoc[]
+
+include::jsonschema.adoc[]
+
+include::documentation.adoc[]
+
+include::hypermedia.adoc[]
+
+include::reserved.adoc[]
+
+include::errorhandling.adoc[]
+
+include::oauth.adoc[]
+
+include::monitoring.adoc[]
+
+include::internationalisation.adoc[]
+
+include::versioning.adoc[]
+
+include::caching.adoc[]
+
+
+

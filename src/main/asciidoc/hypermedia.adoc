@@ -1,0 +1,49 @@
+== Hypermedia controls ==
+
+Thanks to _hypermedia controls_ a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
+
+=== HAL links ===
+
+http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language] (HAL) is a simple format that gives a consistent and easy way to hyperlink between resources in your API. 
+
+Each JSON object has a predefined `_links` property.
+
+[[collection-links]]
+.Collection resource
+```json
+{
+  "_links": {
+    "self": {
+      "href": "/companies?pageSize=2",
+      "title": "Current page"
+    },
+    "next": {
+      "href": "/companies?page=2&pageSize=2",
+      "title": "Next page"
+    }
+}
+
+```
+
+[[document-links]]
+.Document resource
+```json
+{
+  "name": "CPAS de Silly",
+  "nossRegistrationNumber": "3870094",
+  "company": {
+    "companyId": "0212165526",
+    "href": "/companies/0212165526"
+    }
+  },
+  "_links": {
+    "self": {
+      "href": "/employers/3870094"
+    }
+  }
+}
+```
+
+
+=== Link HTTP Header ===
+

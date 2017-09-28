@@ -1,0 +1,114 @@
+== Reserved words
+
+A list of reserved words exists for common used practices
+
+=== JSON properties
+
+[cols="1,3,3,1", options="header"]
+|===
+|Term
+|Description
+|Example
+|Ref
+
+|[[json-property-links]]_links
+|JSON property on root level grouping all hyperlinks from this resource.
+a|
+[source,json]
+----
+"_links": {
+  "self": {
+     "href": "/companies/0202239951",
+     "type": "company"
+  }
+}
+----
+|<<HAL links>>
+|===
+
+=== Query parameters
+
+[cols="1,3,3,1", options="header"]
+|===
+|Term
+|Description
+|Example
+|Ref
+
+|[[query-param-lang]]lang
+|Requests to return the information in a specific language. The language code used is the {iso639-1}[two-letter ISO 639-1 standard]
+|?lang=nl
+|
+
+|[[query-param-page]]page
+|When a collection resources is paged, use this parameter to request a specific page. Page numbers are 1-based.
+|?page=3&pageSize=20
+|<<Paging over a large collection​>>
+
+|[[query-param-pageSize]]pageSize
+|When a collection resources is paged, use this parameter to specify the page size.
+|?page=3&pageSize=20
+|<<Paging over a large collection​>>
+
+|[[query-param-q]]q
+|The standard search parameter to do a full-text search.
+|?q=Belgacom
+|<<Filtered collection>>
+
+|[[query-param-sort]]sort
+|Comma-separated list of properties to sort data. 
+
+To indicate sorting direction, names may be prefixed with + (ascending, default) or - (descending)
+|?sort=+name
+|
+
+|===
+
+=== Link references
+
+[cols="1,3,3", options="header"]
+|===
+|Term
+|Description
+|Example
+
+|[[rel-next]]next
+|The next-reference contains the absolute URL of the next page in a paged collection.
+a|
+[source,json, subs=normal]
+----
+"_links": {
+  "next": {
+    "href": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
+  }
+}
+----
+
+|[[rel-previous]]previous
+|The seld-reference contains the absolute URL of the previous page in a paged collection.
+a|
+[source,json, subs=normal]
+----
+"_links": {
+  "previous": {
+    "href": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
+  }
+}
+----
+
+|[[rel-self]]self
+|The self-reference contains the absolute URL of the resource itself.
+a|
+[source,json]
+----
+"_links": {
+  "self": {
+     "href": "/companies/0202239951",
+     "type": "company"
+  }
+}
+----
+
+
+
+|===

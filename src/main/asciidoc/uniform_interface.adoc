@@ -1,0 +1,10 @@
+== Uniform interface ==
+
+The REST uniform interface embraces all aspects of the HyperText Transfer Protocol, version 1.1 (HTTP/1.1) including its request methods, response codes, and message headers.​
+
+The REST uniform interface is based on three fundamental elements:
+
+[arabic]
+. <<Resources>> – How can we express where the data is being transferred to or from?
+. <<HTTP Methods>> – What are the protocol mechanisms used to transfer the data?
+. <<Media Types>> – What type of data is being transferred?

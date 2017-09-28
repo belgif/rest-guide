@@ -1,0 +1,23 @@
+== JSON Schema ==
+
+We favor a contract-first design approach where JSON resource respresentations are described in formal schemas. **JSON schema draft 04** is the standard used and is also reused in your Swagger API specification.
+
+
+**Useful references**
+
+[options="header"]
+|===
+|Name|Link
+|JSON Schema Official Site|http://json-schema.org[http://json-schema.org^]
+|JSON Schema Core specification|http://json-schema.org/latest/json-schema-core.html[http://json-schema.org/latest/json-schema-core^]
+|JSON Schema Validation specification|http://json-schema.org/latest/json-schema-validation.html[http://json-schema.org/latest/json-schema-validation^]
+|JSON Schema User guide|http://spacetelescope.github.io/understanding-json-schema[http://spacetelescope.github.io/understanding-json-schema^]
+|XMLSpy 2017|The XML editor now fully supports JSON and JSON schemas
+|JSON Schema generator based on sample JSON message|http://jsonschema.net​
+|Mock JSON message generator | http://schematic-ipsum.herokuapp.com
+|===
+
+'''
+
+JSON schema allows to add user-defined properties. This sections lists the properties which are not default in the specification.
+
