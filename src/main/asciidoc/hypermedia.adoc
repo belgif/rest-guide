@@ -13,6 +13,12 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 
 ====
 
+[CAUTION]
+.CBSS REMARK
+====
+-	hypermedia controls (HAL)
+====
+
 === HAL links ===
 
 http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language] (HAL) is a simple format that gives a consistent and easy way to hyperlink between resources in your API. 

@@ -25,7 +25,22 @@ All JSON property names are in English and are written in _pascalCase_ (lower ca
 ```
 
 **Properties with a `<null>` value should be stripped from the JSON message.**
-  
+
+[CAUTION]
+.CBSS REMARK
+====
+-	Representation of absent JSON properties (explicit null value vs. omitting property)
+*	stripping property specified in SocSec REST style guide
+*	null values in JSon bodies in zorg & gezondheid comments
+====
+
+[CAUTION]
+.CBSS REMARK
+====
+-	Representation of filtered/unauthorized properties of a data type
+====
+
+
 |===
 |*NOK*|*OK*
 a|[subs="normal"]

@@ -36,6 +36,13 @@ Algemeen
 *	Nog meer gebruik van MUST/SHOULD/MAY
 ====
 
+[CAUTION]
+.CBSS REMARK
+====
+-	type definitions for common data types (ssin, cbeNumber, …)
+-	tracing (ticket across service calls)
+====
+
 include::introduction.adoc[]
 
 include::maturity.adoc[]

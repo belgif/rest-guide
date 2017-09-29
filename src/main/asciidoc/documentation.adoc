@@ -6,3 +6,9 @@ All RESTful services should be documented using the http://swagger.io/[Swagger^]
 
 You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
+[CAUTION]
+.CBSS REMARK
+====
+-	OpenAPI/Swagger service definition guidelines
+====
+

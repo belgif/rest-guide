@@ -13,6 +13,12 @@ https://git01.smals.be/rest/commons/blob/master/src/main/resources/META-INF/sche
 Spec details element: Free format?
 ====
 
+[CAUTION]
+.CBSS REMARK
+====
+-	Error handling: RFC 7807 vs proposal in style guide
+====
+
 [caption="Rule {counter:rule-number}: "]
 .Unique error id
 ==========================

@@ -6,6 +6,12 @@ WARNING: Never use controllers for CRUD operations.
 
 A REST API can rely on controller resources to perform application-specific actions that cannot be logically mapped to one of the standard methods (create, retrieve, update, and delete).
 
+[CAUTION]
+.CBSS REMARK
+====
+-	controller resources vs commands
+====
+
 [caption="Rule {counter:rule-number}: "]
 .Controllers
 ==========================
