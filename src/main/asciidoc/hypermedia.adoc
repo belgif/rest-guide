@@ -19,6 +19,14 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 -	hypermedia controls (HAL)
 ====
 
+[CAUTION]
+.VAS REMARK
+====
+-	(HAL section) https://fedictaim.atlassian.net/wiki/spaces/JCSP/pages/124588658/Zorg+Gezondheid+comments+extensions
+- HAL extensions (Resource summary in the links, available_summaries property in links, _embedded at root level only and with the resource URI as key, embeddable property in links, Recursive embedding)
+====
+
+
 === HAL links ===
 
 http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language] (HAL) is a simple format that gives a consistent and easy way to hyperlink between resources in your API. 

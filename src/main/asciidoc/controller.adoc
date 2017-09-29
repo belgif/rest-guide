@@ -12,6 +12,12 @@ A REST API can rely on controller resources to perform application-specific acti
 -	controller resources vs commands
 ====
 
+[CAUTION]
+.VAS REMARK
+====
+-	command pattern https://fedictaim.atlassian.net/wiki/spaces/JCSP/pages/124588658/Zorg+Gezondheid+comments+extensions
+====
+
 [caption="Rule {counter:rule-number}: "]
 .Controllers
 ==========================
