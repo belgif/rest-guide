@@ -17,7 +17,7 @@ URI must be intuitively structured.
 [caption="Rule {counter:rule-number}: "]
 .URI notation
 ==========================
-The **URI notation is in lowerCamelCase** to enhance readability and to separate compound names.
+The **URI notation is in _pascalCase_ (lower camel case)** to enhance readability and to separate compound names.
 ==========================
 
 .URI notation

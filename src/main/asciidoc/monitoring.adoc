@@ -7,6 +7,14 @@ Each RESTful service must be actively monitored by sending automatic probes (by 
 
 It's mandatory to monitor with a technical resource and not with a business scenario that can easily break. A generic healthCheck resource definition exists, that can easily be integrated into any RESTful service.
 
+[CAUTION]
+.EHEALTH REMARK
+====
+HealtCheck
+*	Monitoring returns the XML monitoring message in order to be interpretable by foglight. This is legacy…
+*	Should become JSON
+====
+
 [NOTE]
 .Library soa-monitoring 
 The http://integrationsoa/rest/dev#monitoring[SOA Monitoring library] facilitates the implementation of the healthCheck resource.

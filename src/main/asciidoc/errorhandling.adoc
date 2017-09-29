@@ -3,6 +3,16 @@
 All RESTful services can reuse a default status message to communicate errors in a standardized way to the service consumer.
 
 
+[CAUTION]
+.EHEALTH REMARK
+====
+ErrorHandling
+•	In RFC 7807 there is no error id specified [WISA] --> is een uri
+•	Access to statusMessage link, oppassen met externe doc resources (JSON schemas, example REST service, …)
+https://git01.smals.be/rest/commons/blob/master/src/main/resources/META-INF/schemas/statusMessage.json
+Spec details element: Free format?
+====
+
 [caption="Rule {counter:rule-number}: "]
 .Unique error id
 ==========================

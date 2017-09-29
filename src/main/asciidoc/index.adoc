@@ -29,6 +29,13 @@ If you find errors or omissions in this document, please don't hesitate to conta
 
 = REST INTRODUCTION
 
+[CAUTION]
+.EHEALTH REMARK
+====
+Algemeen
+*	Nog meer gebruik van MUST/SHOULD/MAY
+====
+
 include::introduction.adoc[]
 
 include::maturity.adoc[]

@@ -2,6 +2,17 @@
 
 RESTful services are secured following the https://tools.ietf.org/html/rfc6749[OAuth 2.0 Authorization Framework (RFC 6749)^].
 
+[CAUTION]
+.EHEALTH REMARK
+====
+OAuth
+*	We also support and promote authorization_code (for confidental clients)
+*	Client Credentials Flow:
+Authentication: is that a standard or Smals specific implementation.
+We use JSON Web Token (JWT) Profile as standard for authentication (RFC7523). uses a certificate to sign a jwt token as assertion.
+
+====
+
 First the client application has to request an _access token_ from the _Authorization Server_. There are currently 2 authorization grant flows supported to obtain an access token: 
 
 * <<Client Credentials flow>>: for authenticated applications (e.g. batch, server-side component) to obtain permissions on behalf of itself

@@ -1,5 +1,12 @@
 == Internationalisation (I18N) ==
 
+[CAUTION]
+.EHEALTH REMARK
+====
+I18N
+*	Accept-Language vs LocalizedString ? One or both options in 1 implementation
+====
+
 === Accept-Language
 
 Users can inform the server that a specific language is requested by adding the `Accept-Language` HTTP header to each request (http://tools.ietf.org/html/rfc7231#section-5.3.5[RFC 7231]). Two-letter {iso639-1}[ISO 639-1] codes are used to indicate the requested language.

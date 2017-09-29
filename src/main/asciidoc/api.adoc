@@ -27,3 +27,12 @@ resources:: All path segments identifying the actual resources.
 
 ==========================
 
+[CAUTION]
+.EHEALTH REMARK
+====
+Voor/nadelen van versie in url vs versie in header?
+              Minder REST based, doordat resource versie krijgt.
+              Anderzijds is versie in header minder makkelijk in gebruik voor testen.
+====
+
+

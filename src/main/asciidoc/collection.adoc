@@ -15,6 +15,12 @@ Each collection resource can decide to return
 CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
 
 
+[CAUTION]
+.EHEALTH REMARK
+====
+*	Vanwaar komen 'items'/'totalItems' ? Van een spec ? (-> https://google.github.io/styleguide/jsoncstyleguide.xml#data.totalItems)
+====
+
 === List of resource links
 
 A query on this kind of collection returns links to the resources in its result. The link object can be extended with some additionals business properties, needed to display in a master view.

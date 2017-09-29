@@ -2,6 +2,17 @@
 
 Thanks to _hypermedia controls_ a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
 
+[CAUTION]
+.EHEALTH REMARK
+====
+*	Eventueel alternatief geconsidereerd (Collection+JSON, Siren, Hydra)?
+*	Wanneer verplicht gebruik? Steeds nood aan self?
+*	Bepaalde functionaliteiten niet geexploiteerd (bvb curies)?
+*	Ook in Swagger te documenteren?
+*	Include host in links or only relative path? (!!change per env!!)
+
+====
+
 === HAL links ===
 
 http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language] (HAL) is a simple format that gives a consistent and easy way to hyperlink between resources in your API. 
@@ -47,3 +58,8 @@ Each JSON object has a predefined `_links` property.
 
 === Link HTTP Header ===
 
+[CAUTION]
+.EHEALTH REMARK
+====
+* Niet ingevuld
+====

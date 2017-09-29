@@ -1,5 +1,13 @@
 == HTTP Methods
 
+
+[CAUTION]
+.EHEALTH REMARK
+====
+HTTP methods en error codes
+*	Ondersteuning voor TRACE?
+====
+
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
@@ -64,6 +72,13 @@ POST must be used to execute controllers.
 *PATCH must be used to update partially a representation of a resource.*
 
 The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version. The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​ The set of instructions describing how a resource on the server should be modified has been standardized in several ways: RFC 6902, RFC 7396​.
+
+[CAUTION]
+.EHEALTH REMARK
+====
+HTTP methods en error codes
+*	PATCH: Which RFC? has been standardized in several ways: RFC 6902, RFC 7396
+====
 
 
 **​​Status codes**

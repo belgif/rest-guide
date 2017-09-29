@@ -2,6 +2,20 @@
 
 A list of reserved words exists for common used practices
 
+
+
+[CAUTION]
+.EHEALTH REMARK
+====
+*	Vanwaar komen 'items'/'totalNumberItems' ? Van een spec ? (-> add a pointer to the spec if needed)
+*	Idem for Location HTTP header
+*	Previous/next voor paginatie, maar geen first/last?
+*	lang of locale? (openid connect = locale)
+*	LocalizedString standaard?
+====
+
+
+
 === JSON properties
 
 [cols="1,3,3,1", options="header"]

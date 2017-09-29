@@ -107,6 +107,13 @@ e.g.
 ​
 |===
 
+[CAUTION]
+.EHEALTH REMARK
+====
+HTTP methods en error codes
+*	GET: search met invalid patient INSS -> eerder 404 (Not found) of 409 (Conflict)?
+====
+
 [subs="normal"]
 ```
 GET {API}/employers/93017373[^] HTTP/1.1
@@ -286,6 +293,16 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 
 
 === Api resource
+
+[CAUTION]
+.EHEALTH REMARK
+====
+/api URL
+*	Mandatory URL? Duplicate of Portal doc (later)?
+*	Standard? Spring?
+*	Hoe makkelijk implementeren (bvb onder JBoss?). Opvang (deels) door gateway??
+*	Usage? En door wie?
+====
 
 A special kind of document resource is `/api` which contains entry points to our API and links to its documentation.
 
