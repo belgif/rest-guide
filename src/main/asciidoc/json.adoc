@@ -27,30 +27,15 @@ All JSON property names are in English and are written in _pascalCase_ (lower ca
 **Properties with a `<null>` value should be stripped from the JSON message.**
 
 [CAUTION]
-.CBSS REMARK
+.representation of absent JSON properties 
 ====
--	Representation of absent JSON properties (explicit null value vs. omitting property)
-*	stripping property specified in SocSec REST style guide
-*	null values in JSon bodies in zorg & gezondheid comments
+issue #4 explicit null value vs. omitting property
 ====
 
 [CAUTION]
 .CBSS REMARK
 ====
 -	Representation of filtered/unauthorized properties of a data type
-====
-
-[CAUTION]
-.VAS REMARK
-====
-**null values in JSON bodies**
-
-For self documentation purpose, we decided our REST APIs to always return all the managed properties in the JSon bodies. It means that if a property is null, the property will be in the JSon body. Reading a response body as then like reading the contract. ;o)
-In the following example, we see that the REST API returns 3 properties and will always return those 3 properties (another version of the API will maybe return more properties). But querying the REST API, you the client will discover which properties are returned for each resource.
-{ "first_name": null,
- "last_name": "Vincent",
- "ssin": "00000000097"}
-To allow this, we created an Holder class and we configure the Jackson ObjectMapper by calling the method setSerializationInclusion(JsonInclude.Include.NON_NULL) (who tells to Jackson to only serialize not null fields: where Holderfields are null in our case).
 ====
 
 |===

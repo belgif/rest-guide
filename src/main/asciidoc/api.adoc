@@ -13,13 +13,13 @@ Compare an API to the concept of http://serviceorientation.com/soaglossary/servi
 .API format
 ==========================
 
-*URI =* `"https://"` [green]#_host_# `"/REST"` [green]#_apiName_# `"/v"` [green]#_majorVersion_# `"/"` [green]#_resources_#
+*URI =* `https://`[green]#_host_#`/`[green]#_pathPrefix_#`/`[green]#_apiName_#`/v`[green]#_majorVersion_#`/`[green]#_resources_#
 
 [gray]#_example:_ \https://services.socialsecurity.be/REST/employerProfile/v1/profiles#
 
-`"https://"`:: Services are at least secured on transport level using a one-way TLS connection. The implicit port is 443.
-host:: Hostname is determined by the http://integrationsoa/site_nl/infrastructure/social_security.html[environment^] where the service is deployed. Currently, RESTful services are deployed on the same SOA platform as SOAP-based services.
-`"/REST"`:: Temporal prefix to discriminate between SOAP and RESTful services.
+`https://`:: Services are at least secured on transport level using a one-way TLS connection. The implicit port is 443.
+host:: Hostname is determined by the environment where the service is deployed
+pathPrefix:: Optional path prefix to discriminate between REST APIs and other resources on the same host. [gray]#(example: /REST)#
 apiName:: Name of the API that groups a functional consistent set of resources. The API name consists of one or multiple _path segments_ written in lowerCamelCase [gray]#(example: /referenceData/geography)#.
 majorVersion:: Major version numbers are numeric and start at 1.
 resources:: All path segments identifying the actual resources.
@@ -28,11 +28,9 @@ resources:: All path segments identifying the actual resources.
 ==========================
 
 [CAUTION]
-.EHEALTH REMARK
+.Versioning in URLs vs HTTP header
 ====
-Voor/nadelen van versie in url vs versie in header?
-              Minder REST based, doordat resource versie krijgt.
-              Anderzijds is versie in header minder makkelijk in gebruik voor testen.
+Zie issue #1
 ====
 
 

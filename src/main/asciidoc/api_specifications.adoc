@@ -1,20 +1,46 @@
 == API specifications
 
+[CAUTION]
+.JSON or YAML
+====
+It is still under discussion whether to use JSON or YAML for Swagger definitions and JSON schemas. See issue #6.
+====
+
 === Swagger
 
 All RESTful services should be documented using the http://swagger.io/[Swagger^] standard. The Swagger specification of the service is exposed as an API resource with URI `/api/doc/swagger.json` (see <<api-resource>>).
 
-You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
-
 [CAUTION]
-.CBSS REMARK
+.Open issue: URL of swagger file still under discussion
 ====
--	OpenAPI/Swagger service definition guidelines
+Cfr discussion of the API resource
 ====
+
+You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
 === JSON Schema
 
 We favor a contract-first design approach where JSON resource respresentations are described in formal schemas. **JSON schema draft 04** is the standard used and is also reused in your Swagger API specification.
+
+[CAUTION]
+.Open issue: location of common JSON schemas
+====
+Under discussion: guidelines how to publish JSON schemas that are used in multiple APIs. See issue #7.
+====
+
+[CAUTION]
+.Open issue: Recommendation whether to use nullable: true
+====
+Guideline depends on output of absent JSON values discussion #4
+====
+
+[caption="Rule {counter:rule-number}: "]
+.use of "additionalProperties" is NOT RECOMMENDED
+==========================
+"additionalProperties" can be used to put restrictions on other properties of a JSON object than those specified in the schema.
+
+Schemas should avoid using additionalProperties declarations, in order to support schema evolution.
+==========================
 
 **Useful references**
 

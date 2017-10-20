@@ -64,9 +64,7 @@ include::mediatypes.adoc[]
 
 include::json.adoc[]
 
-include::jsonschema.adoc[]
-
-include::documentation.adoc[]
+include::api_specifications.adoc[]
 
 include::hypermedia.adoc[]
 

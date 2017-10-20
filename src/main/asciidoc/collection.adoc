@@ -16,23 +16,9 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 
 
 [CAUTION]
-.EHEALTH REMARK
+.Ongoing discussion on modeling of collections
 ====
-*	Vanwaar komen 'items'/'totalItems' ? Van een spec ? (-> https://google.github.io/styleguide/jsoncstyleguide.xml#data.totalItems)
-====
-
-[CAUTION]
-.VAS REMARK
-====
-**Usage of HAL**
-Instead of using the property name items in collections (see list-of-resource-links), we use the property name _links defined by HAL specs because we give a list of resource links. BTW, it is the title in the section list-of-resource-links...
-Because the items of a collection are resources, we chose the property name resource (implied "resources of the collection"). resource without s because each link is pointing on ONE resource (links names with a s should point on collections).
-That said, we could name the property item instead of resource or use a more specific name like person. We wanted to keep the name generic and accurate. resource is generic enough for me and clearly indicate they are links to resources.
-Even if the collection items of a collection are collections, resource is still valid name because collections are also resources.
-
-**count instead of totalItems**
-Because we named the collection items resource, totalItems was no more a valid name for this property. There is no specific reason we chose the name count. We chose count because it is short and explicit. We did not chose total_resources because somebody could use person as link name (instead of resource). It is then not a good idea to use a specific suffix for this property name.
-That said, to prevent any ambiguity with count property name (are we talking about the number of links returned of about the number of resources in the collection?), we could use the name total_count. But we think it is completely unnecessary to indicate the number of returned links because the client can count the number of links himself. Then we chose the property name count to indicate the number of resources in the collection.
+  See issue #2
 ====
 
 === List of resource links

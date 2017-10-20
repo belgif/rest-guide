@@ -295,13 +295,9 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 === Api resource
 
 [CAUTION]
-.EHEALTH REMARK
+.Section under discussion
 ====
-/api URL
-*	Mandatory URL? Duplicate of Portal doc (later)?
-*	Standard? Spring?
-*	Hoe makkelijk implementeren (bvb onder JBoss?). Opvang (deels) door gateway??
-*	Usage? En door wie?
+Use(fulness) of api resource is under discussion. See issue #5
 ====
 
 A special kind of document resource is `/api` which contains entry points to our API and links to its documentation.
