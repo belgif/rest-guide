@@ -11,7 +11,9 @@ Service consumers should be aware that JSON objects can always be extended with 
 
 === JSON properties
 
-All JSON property names are in English and are written in _pascalCase_ (lower camel case) notation. Do not use underscore or hypens for composite words (Properties from the <<hal-links,HAL standard>>, OpenID connect and OAuth2 are an exception to this rule).
+All JSON property names are in English and are written in _pascalCase_ (lower camel case) notation.
+Do not use underscore or hypens for composite words.
+Properties from other standards, like <<hal-links,HAL standard>>, OpenID Connect and OAuth2 are an exception to this rule.
 
 [subs="normal"]
 ```json
@@ -24,10 +26,11 @@ All JSON property names are in English and are written in _pascalCase_ (lower ca
 }
 ```
 
-**Properties with a `<null>` value should be stripped from the JSON message.**
+[caption="Rule {counter:rule-number}: "]
+.Properties with a `<null>` value SHOULD be stripped from the JSON message
 
 [CAUTION]
-.representation of absent JSON properties 
+.Open issue: representation of absent JSON properties and empty arrays
 ====
 issue #4 explicit null value vs. omitting property
 ====
@@ -64,9 +67,9 @@ a|[subs="normal"]
 {
   "activityCodes": []
 }
-``` 
+```
 
-**The JSON properties have no specific order inside a JSON object.** 
+**The JSON properties have no specific order inside a JSON object.**
 
 [cols="1,1"]
 |===
@@ -90,24 +93,24 @@ a|[subs="normal"]
 
 **Dates are written in ISO 8601 full-date format: yyyy-mm-dd**
 
-See http://swagger.io/specification/#data-types-12[Swagger Datatypes^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^]. 
+See http://swagger.io/specification/#data-types-12[Swagger Datatypes^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
 
 ```json
 {
   "birthday": "1930-07-19"
 }
-``` 
+```
 
 **Date/time are written in ISO 8601 date-time format: yyyy-MM-dd'T'HH:mm:ssXXX**
 
-See http://json-schema.org/latest/json-schema-validation.html#rfc.section.8.3.1[JSON Schema Validation 8.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^]. 
+See http://json-schema.org/latest/json-schema-validation.html#rfc.section.8.3.1[JSON Schema Validation 8.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
 
 .Example UTC
 ```json
 {
   "lastModification": "2016-04-24T09:26:00Z"
 }
-``` 
+```
 
 .Example with timezone
 ```json
@@ -136,6 +139,3 @@ In the following example, we specify that only the email can be updated.
  "email" : "x"}}
  ```
 ====
- 
-
-

@@ -1,14 +1,43 @@
 == API specifications
 
+[caption="Rule {counter:rule-number}: "]
+.The contract-first principle MUST be followed
+We favor a contract-first design approach where the specifications of the REST API are created first, and not generated from the code.
+
 [CAUTION]
-.JSON or YAML
+.Open issue: use JSON or YAML for Swagger definitions and JSON schemas
 ====
-It is still under discussion whether to use JSON or YAML for Swagger definitions and JSON schemas. See issue #6.
+See issue #6
 ====
 
-=== Swagger
+=== OpenAPI
 
-All RESTful services should be documented using the http://swagger.io/[Swagger^] standard. The Swagger specification of the service is exposed as an API resource with URI `/api/doc/swagger.json` (see <<api-resource>>).
+OpenAPI is the dominating standard for API documentation, having gained wide industry support.
+
+[caption="Rule {counter:rule-number}: "]
+.Specifications of the API SHOULD be provided using OpenAPI 2.0 (aka Swagger)
+http://swagger.io/[Swagger^] has been standardized as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI standard].
+The OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
+
+The OpenAPI specification of the service is exposed as an API resource with URI `/api/doc/swagger.json` (see <<api-resource>>).
+
+[caption="Rule {counter:rule-number}: "]
+.The version of the API SHOULD be included in the OpenAPI documentation
+
+Example:
+[subs="normal"]
+```YAML
+swagger: 2.0
+info:
+  name: petshop
+  description: API exposing my petshop's functionality
+  version: 1.0.0
+```
+
+[caption="Rule {counter:rule-number}: "]
+.Any additional documentation SHOULD be linked from the API's OpenAPI definition.
+It is recommended to add links in the OpenAPI definition using the 'externalDocs' property to any additional API documentation or user manual.
+
 
 [CAUTION]
 .Open issue: URL of swagger file still under discussion
@@ -20,7 +49,12 @@ You can visualize the Swagger description using the https://swagger.io/swagger-u
 
 === JSON Schema
 
-We favor a contract-first design approach where JSON resource respresentations are described in formal schemas. **JSON schema draft 04** is the standard used and is also reused in your Swagger API specification.
+OpenAPI uses JSON schemas to describe JSON resources.
+JSON schemas can be included directly in the `swagger.json` file or in separate files referenced from the OpenAPI description.
+
+[caption="Rule {counter:rule-number}: "]
+.JSON Schema MUST be used to describe JSON resources.
+The version of JSON Schema to be used is a variant of **JSON schema draft 04**, known as an https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
 
 [CAUTION]
 .Open issue: location of common JSON schemas
