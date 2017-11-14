@@ -1,11 +1,6 @@
 == Internationalisation (I18N) ==
 
-[CAUTION]
-.EHEALTH REMARK
-====
-I18N
-*	Accept-Language vs LocalizedString ? One or both options in 1 implementation
-====
+CAUTION: I18N not part of guidelines at the moment. Further open issues in #12
 
 === Accept-Language
 
@@ -39,7 +34,7 @@ Resources can decide to always return all translations to the client using a `lo
   "de": {
    "type": "string"
   },
- "en": { 
+ "en": {
    "type": "string"
   }
  }
@@ -64,5 +59,3 @@ Clients can filter the representation to specify a single language by adding the
  "fr": "Belgique"
 }
 ```
-
-

@@ -1,5 +1,7 @@
 == Caching ==
 
+CAUTION: caching not part of guidelines at the moment. Further open issues in #11
+
 === Conditional requests
 Conditional requests are those where the client can ask the server if it has an updated copy of the resource. The client will send some information about the cached resource it holds and the server will determine whether updated content should be returned or the client’s copy is the most recent. In the case of the latter an HTTP status of <<http-304,`304 Not Modified`>> is returned.
 

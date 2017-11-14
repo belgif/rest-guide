@@ -1,12 +1,7 @@
 == HTTP Methods
 
 
-[CAUTION]
-.EHEALTH REMARK
-====
-HTTP methods en error codes
-*	Ondersteuning voor TRACE?
-====
+CAUTION: issue #10, add recommendations on TRACE http method?
 
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
@@ -16,9 +11,9 @@ HTTP methods en error codes
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content 
-|204 No Content|The search request returns no result 
-|​​404 Not Found|The requested resource not found 
+|​200 OK|​The requested resource was found or a search request returns some content
+|204 No Content|The search request returns no result
+|​​404 Not Found|The requested resource not found
 |===
 
 === HEAD
@@ -29,15 +24,15 @@ HTTP methods en error codes
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content 
-|204 No Content|The search request returns no result 
-|​​404 Not Found|The requested resource not found 
+|​200 OK|​The requested resource was found or a search request returns some content
+|204 No Content|The search request returns no result
+|​​404 Not Found|The requested resource not found
 |===
 
 === PUT
 **PUT must be used to both insert and update a stored resource under a consumer supplied URI​.**
 
-If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a modified version of the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request. 
+If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a modified version of the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
 
 If the URI does not point to an existing resource, and that URI is capable of being defined as a new resource, the server can create the resource with that URI. The server MUST inform the client by sending a 201 (Created)​ response to indicate succesful creation.
 
@@ -47,7 +42,7 @@ If the URI does not point to an existing resource, and that URI is capable of be
 |===
 |​Code|Description​
 |​200 OK|The existing resource is updated ​
-|201 Created|A new resource is created 
+|201 Created|A new resource is created
 ​​|409 Conflict|A constraint on the resource is violated
 |===
 
@@ -64,8 +59,8 @@ POST must be used to execute controllers.
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​201 Created|A new resource is created 
-|409 Conflict|The resource already exists 
+|​201 Created|A new resource is created
+|409 Conflict|The resource already exists
 |===
 
 === PATCH
@@ -73,21 +68,15 @@ POST must be used to execute controllers.
 
 The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version. The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​ The set of instructions describing how a resource on the server should be modified has been standardized in several ways: RFC 6902, RFC 7396​.
 
-[CAUTION]
-.EHEALTH REMARK
-====
-HTTP methods en error codes
-*	PATCH: Which RFC? has been standardized in several ways: RFC 6902, RFC 7396
-====
-
+CAUTION: use of PATCH under discussion, see issue #9
 
 **​​Status codes**
 
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​Specific resource was requested and found or a search request returns some content 
-|​​404 Not Found|a specific resource was requested and not found 
+|​200 OK|​Specific resource was requested and found or a search request returns some content
+|​​404 Not Found|a specific resource was requested and not found
 |​​409 Conflict|A constraint on the resource is violated​
 |===
 
@@ -99,14 +88,8 @@ HTTP methods en error codes
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|Specific resource was requested and found or a search request returns some content 
+|​200 OK|Specific resource was requested and found or a search request returns some content
 |===
 
 === OPTIONS
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
-
-
-
-
-
-

@@ -1,5 +1,7 @@
 == Monitoring ==
 
+CAUTION: Monitoring not part of guidelines at the moment. Further open issues in #13
+
 Each RESTful service must be actively monitored by sending automatic probes (by default each 10 min). These probes execute a preconfigured monitoring scenario.
 
 
@@ -16,14 +18,14 @@ HealtCheck
 ====
 
 [NOTE]
-.Library soa-monitoring 
+.Library soa-monitoring
 The http://integrationsoa/rest/dev#monitoring[SOA Monitoring library] facilitates the implementation of the healthCheck resource.
 
 [cols="1,2,3"]
 |===
 |​​​​​​​​​<<get>>
 |/api/healthCheck
-|Check the health status of the RESTful service. 
+|Check the health status of the RESTful service.
 
 3+|​​​Parameters
 
@@ -46,7 +48,7 @@ a|
 ----
 ​​​<HealthCheckResponse xmlns="http://services.fgov.be/monitoring/v1">
   <Status> <1>
-    <Level>FATAL</Level> 
+    <Level>FATAL</Level>
     <Message>Health check failed with 1 error and 0 warnings</Message>
   </Status>
   <Component> <2>
@@ -102,5 +104,3 @@ The healthCheck controller returns one of the following status levels:
 |CRITICAL| At least 1 sanity check fails, but the service can operate temporary with reduced functionalities (graceful degradation).
 |FATAL| At least 1 sanity check fails and causes a fatal problem. The service is unavailable.
 |===
-
-

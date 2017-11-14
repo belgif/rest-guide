@@ -1,7 +1,9 @@
 == Versioning ==
 
+CAUTION: versioning is not yet part of REST guidelines. Discussion in issue #1
+
 [CAUTION]
-.Don’t Break Backward Compatibility 
+.Don’t Break Backward Compatibility
 ====
 Change APIs, but keep all consumers running. Consumers usually have independent release lifecycles, focus on stability, and avoid changes that do not provide additional value. APIs are service contracts that cannot be broken via unilateral decisions.
 ====
@@ -25,6 +27,6 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * Support redirection in case an URL has to change (301 Moved Permanently)
 
 
-=== Always Return JSON Objects As Top-Level Data Structures To Support Extensibility === 
+=== Always Return JSON Objects As Top-Level Data Structures To Support Extensibility ===
 
 In a response body, you must always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.

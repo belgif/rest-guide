@@ -74,13 +74,10 @@ include::errorhandling.adoc[]
 
 include::oauth.adoc[]
 
-include::monitoring.adoc[]
+//include::monitoring.adoc[]
 
-include::internationalisation.adoc[]
+//include::internationalisation.adoc[]
 
-include::versioning.adoc[]
+//include::versioning.adoc[]
 
-include::caching.adoc[]
-
-
-
+//include::caching.adoc[]
