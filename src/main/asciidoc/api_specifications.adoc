@@ -1,14 +1,39 @@
 == API specifications
 
 [caption="Rule {counter:rule-number}: "]
-.The contract-first principle MUST be followed
+.The contract-first principle SHOULD be followed
 We favor a contract-first design approach where the specifications of the REST API are created first, and not generated from the code.
+
+A code-first approach may sometimes be necessary however, as current state of technology does not always fully support contract-first development.
+In this case, special attention should be given that the API specifications remain stable and loosely coupeled to the API implementation technology.
 
 [CAUTION]
 .Open issue: use JSON or YAML for Swagger definitions and JSON schemas
 ====
 See issue #6
 ====
+
+
+[caption="Rule {counter:rule-number}: "]
+.The OpenAPI specification file and other API documentation SHOULD be placed under a doc resource
+
+API documentation should be placed under a special doc resource as follows under the api root location:
+
+```
+ /doc
+     /swagger.json
+     /swagger.yaml
+     /<optional other documentation>
+ /<resource1>
+     /...
+ /<resource2>
+     /...
+ ...
+```
+
+The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` and/or` swagger.yaml`.
+In OpenAPI 3.0, it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
+Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
 
 === OpenAPI
 

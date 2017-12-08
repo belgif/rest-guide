@@ -39,7 +39,7 @@ Algemeen
 [CAUTION]
 .CBSS REMARK
 ====
--	type definitions for common data types (ssin, cbeNumber, …)
+-	type definitions for common data types (ssin, cbeNumber, …) => refer to output from functional workgroup
 -	tracing (ticket across service calls)
 ====
 
