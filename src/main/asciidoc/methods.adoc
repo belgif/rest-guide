@@ -1,8 +1,5 @@
 == HTTP Methods
 
-
-CAUTION: issue #10, add recommendations on TRACE http method?
-
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
@@ -32,9 +29,12 @@ CAUTION: issue #10, add recommendations on TRACE http method?
 === PUT
 **PUT must be used to both insert and update a stored resource under a consumer supplied URI​.**
 
-If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a modified version of the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
+If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a new version to replace the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
 
 If the URI does not point to an existing resource, and that URI is capable of being defined as a new resource, the server can create the resource with that URI. The server MUST inform the client by sending a 201 (Created)​ response to indicate succesful creation.
+
+PUT operations may have side effects (i.e. modify state), but MUST be idempotent.
+
 
 **​​Status codes**
 
@@ -53,6 +53,7 @@ The response should contain a Location HTTP header containing the newly created 
 
 POST must be used to execute controllers.
 
+POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
 
 **​​Status codes**
 
@@ -66,9 +67,11 @@ POST must be used to execute controllers.
 === PATCH
 *PATCH must be used to update partially a representation of a resource.*
 
-The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version. The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​ The set of instructions describing how a resource on the server should be modified has been standardized in several ways: RFC 6902, RFC 7396​.
+The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version.
+The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​
+PATCH operations are not required to be idempotent, however they will often be in pratice.
 
-CAUTION: use of PATCH under discussion, see issue #9
+See <<Partial update>> on how to specify the set of instructions describing how a resource on the server should be modified.
 
 **​​Status codes**
 
@@ -79,6 +82,11 @@ CAUTION: use of PATCH under discussion, see issue #9
 |​​404 Not Found|a specific resource was requested and not found
 |​​409 Conflict|A constraint on the resource is violated​
 |===
+
+**Compatibility**
+
+The PATCH http method may not be supported in all components participating in the communication (e.g. HTTP client, intermediary proxy).
+If these can't be upgraded to add support, client and server may agree to work around this by implementing PATCH as POST operations with HTTP header 'X-HTTP-Method-Override: PATCH'.
 
 === DELETE
 *DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.

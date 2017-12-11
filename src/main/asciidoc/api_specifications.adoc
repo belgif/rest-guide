@@ -44,7 +44,7 @@ OpenAPI is the dominating standard for API documentation, having gained wide ind
 http://swagger.io/[Swagger^] has been standardized as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI standard].
 The OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
 
-The OpenAPI specification of the service is exposed as an API resource with URI `/api/doc/swagger.json` (see <<api-resource>>).
+You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
 [caption="Rule {counter:rule-number}: "]
 .The version of the API SHOULD be included in the OpenAPI documentation
@@ -64,14 +64,6 @@ info:
 It is recommended to add links in the OpenAPI definition using the 'externalDocs' property to any additional API documentation or user manual.
 
 
-[CAUTION]
-.Open issue: URL of swagger file still under discussion
-====
-Cfr discussion of the API resource
-====
-
-You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
-
 === JSON Schema
 
 OpenAPI uses JSON schemas to describe JSON resources.
@@ -87,11 +79,9 @@ The version of JSON Schema to be used is a variant of **JSON schema draft 04**, 
 Under discussion: guidelines how to publish JSON schemas that are used in multiple APIs. See issue #7.
 ====
 
-[CAUTION]
-.Open issue: Recommendation whether to use nullable: true
-====
-Guideline depends on output of absent JSON values discussion #4
-====
+CAUTION: Open issue #4: allow null value in JSON or prefer to omit property
+
+CAUTION: Open issue #14: representing JSON Merge Patch in JSON schema
 
 [caption="Rule {counter:rule-number}: "]
 .use of "additionalProperties" is NOT RECOMMENDED
@@ -100,6 +90,16 @@ Guideline depends on output of absent JSON values discussion #4
 
 Schemas should avoid using additionalProperties declarations, in order to support schema evolution.
 ==========================
+
+[caption="Rule {counter:rule-number}: "]
+.Properties should be declared readOnly when appropriate
+====
+Properties can be declared `readOnly: true`.
+This means that it MAY be sent as part of a response but MUST NOT be sent as part of the request.
+Properties marked as readOnly being true SHOULD NOT be in the required list of the defined schema.
+
+Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
+====
 
 **Useful references**
 
