@@ -27,13 +27,14 @@ Properties from other standards, like <<hal-links,HAL standard>>, OpenID Connect
 ```
 
 [caption="Rule {counter:rule-number}: "]
-.Properties with a `<null>` value SHOULD be stripped from the JSON message
+.Null values
+==========================
+Properties with a `null` value SHOULD be stripped from the JSON message.
 
-[CAUTION]
-.Open issue: representation of absent JSON properties and empty arrays
-====
-issue #4 explicit null value vs. omitting property
-====
+A notable exception to this rule are JSON Merge Patch requests, in which a `null` value indicates the removal of a JSON property.
+
+Note that this rule doesn't apply to empty values (e.g. empty strings `""` or empty arrays `[]`) as they are considered different from a `null` value.
+==========================
 
 [CAUTION]
 .CBSS REMARK
@@ -60,14 +61,6 @@ a|[subs="normal"]
 }
 ```
 |===
-
-**Empty JSON arrays are never stripped from the JSON message.**
-
-```json
-{
-  "activityCodes": []
-}
-```
 
 **The JSON properties have no specific order inside a JSON object.**
 
