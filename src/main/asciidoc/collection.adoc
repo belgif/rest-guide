@@ -39,7 +39,7 @@ A query on this kind of collection returns links to the resources in its result.
 a|The response is a collection JSON object. 
 
 * `**items**` is the reserved word for the array containing the result. 
-* `**totalItems**` is the reserved word for all the items in the collection result.
+* `**total**` is the reserved word for all the items in the collection result.
 
 Each item should contain a JSON link object to a resource document.
 
@@ -65,7 +65,7 @@ a|
      "companyId": "0409536968",
    }
  ],
- "totalItems":3
+ "total":3
 }​     
 ----
 
@@ -94,7 +94,7 @@ GET {API}/employers[^] HTTP/1.1​
    "type": "array",
    "items": { "$ref": "\#/definitions/employerLink" }
   },
-  "totalItems": { "type": "integer" }
+  "total": { "type": "integer" }
  },
  "definitions": {
   "employerLink": {
@@ -131,7 +131,7 @@ A query on this kind of collection returns the resources themself in its result.
 a|The response is a collection JSON object. 
 
 * `**items**` is the reserved word for the array containing the result. 
-* `**totalItems**` is the reserved word for all the items in the collection result.
+* `**total**` is the reserved word for all the items in the collection result.
 
 Each item is the same JSON object as the document resource.
 
@@ -158,7 +158,7 @@ a|
    "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
   }
  ],
- "totalItems":2
+ "total":2
 }​     
 ----
 
@@ -186,7 +186,7 @@ GET {API}/appendices/employerclasses[^] HTTP/1.1​
    "type": "array",
    "items": { "$ref": "appendixCode.json#" }
   },
-  "totalItems": { "type": "integer" }
+  "total": { "type": "integer" }
  }
 }
 ```
@@ -224,7 +224,7 @@ a|
 		"href": "{API}/companies/0448826918[/companies/0448826918^]",
 		"title": "Carrefour Belgium SA"
 	}],
-	"totalItems": 2,
+	"total": 2,
 }
 ----
 
@@ -282,7 +282,7 @@ a|
       "title": "CPAS de Silly"
     }
   ],
-  "totalItems": 7,
+  "total": 7,
   "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]",
   "previous": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
 }
