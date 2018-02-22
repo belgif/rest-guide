@@ -2,59 +2,76 @@
 
 Thanks to _hypermedia controls_ a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
 
-[CAUTION]
-.Open issue: Usage of HAL
-====
-See issue #8
-====
+=== Links ===
 
-=== HAL links ===
+All hyperlinks are derived from this minimal link type:
 
-http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language] (HAL) is a simple format that gives a consistent and easy way to hyperlink between resources in your API.
-
-Each JSON object has a predefined `_links` property.
-
-[[collection-links]]
-.Collection resource
+.JSON schema *httpLink.json*
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "/companies?pageSize=2",
-      "title": "Current page"
-    },
-    "next": {
-      "href": "/companies?page=2&pageSize=2",
-      "title": "Next page"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "A base type of objects representing links to resources.",
+  "type": "object",
+  "properties": {
+    "href": {
+      "description": "Any absolute URI that is using http or https protocol",
+      "type": "string",
+      "format": "uri"
     }
+  },
+  "required": [
+    "href"
+  ]
+}
+```
+
+**URIs are always absolute.**
+
+Links can be added anywhere in a JSON document
+
+[subs="normal"]
+```json
+{
+  "name": "Belgacom",
+  "nossRegistrationNumber": "93017373",
+  "company": {
+    "companyId": "0202239951",
+    "href": "{API}/companies/0202239951[/companies/0202239951^]"
+  }
+  "self": "{API}/employers/93017373[/employers/9301737^]"
+}
+```
+
+
+Hyperlinks for pagination inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type
+
+[[collection-links]]
+.Example paging
+[subs="normal"]
+```json
+{
+   "self": "{API}/companies?page=2&pageSize=10[/companies?page=2&pageSize=10^]",
+   "previous": "{API}/companies?page=2&pageSize=1[/companies?page=1&pageSize=10^]",
+   "next": "{API}/companies?page=2&pageSize=3[/companies?page=3&pageSize=10^]"
 }
 
 ```
 
 [[document-links]]
 .Document resource
+[subs="normal"]
 ```json
 {
-  "name": "CPAS de Silly",
-  "nossRegistrationNumber": "3870094",
-  "company": {
-    "companyId": "0212165526",
-    "href": "/companies/0212165526"
+  "name": "CPAS de Silly",
+  "nossRegistrationNumber": "3870094",
+  "company": {
+    "companyId": "0212165526",
+    "href": "{API}/companies/0212165526[/companies/0212165526^]"
     }
   },
-  "_links": {
-    "self": {
-      "href": "/employers/3870094"
-    }
-  }
+  "self": "{API}/employers/3870094[/employers/3870094^]"
 }
 ```
 
+The use of https://tools.ietf.org/html/rfc5988[Web Linking] and http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language (HAL)] is not recommended.
 
-=== Link HTTP Header ===
-
-[CAUTION]
-.EHEALTH REMARK
-====
-* Niet ingevuld
-====

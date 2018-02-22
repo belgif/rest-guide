@@ -56,13 +56,11 @@ a|
      "href":"{API}/employers/93017373[/employers/93017373^]",
      "title":"Belgacom",
      "nssoRegistrationNbr": "93017373",
-     "companyId": "0202239951",
-     "type":"employer"
+     "companyId": "0202239951"
    },
    {  
      "href":"{API}/employers/20620259[/employers/20620259^]",
      "title":"Partena VZW",
-     "type":"employer",
      "nssoRegistrationNbr": "20620259",
      "companyId": "0409536968",
    }
@@ -100,13 +98,17 @@ GET {API}/employers[^] HTTP/1.1​
  },
  "definitions": {
   "employerLink": {
-   "type": "object",
-   "extends": { "$ref": "include/halResource.json#/definitions/link" },
-   "properties": {
-    "nssoRegistrationNbr": { "$ref": "common.json#/definitions/nssoRegistrationNbr" },
-    "companyId": { "$ref": "common.json#/definitions/companyId" }
-   }
-  }
+   "allOf": [
+        { "$ref": "include/httpLink.json" },
+        {
+           "type": "object",
+           "properties": {
+            "nssoRegistrationNbr": { "$ref": "common.json#/definitions/nssoRegistrationNbr" },
+            "companyId": { "$ref": "common.json#/definitions/companyId" }
+           }
+        }
+       ]
+    }
  }
 }
 ```
@@ -133,7 +135,7 @@ a|The response is a collection JSON object.
 
 Each item is the same JSON object as the document resource.
 
-* `**_links/self**` contains a the link to the resource document.
+* `**self**` contains a the URI to the resource document.
 
 a|
 [source,json,subs="normal"]
@@ -146,22 +148,14 @@ a|
     "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
     "fr": "Catégorie générale pour les employeurs, de type commercial ou non-commercial."
    },
-   "_links": {
-    "self": {
-     "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
-    }
-   }
+   "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
   }, {
    "value": "2",
    "description": {
     "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
     "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
    },
-   "_links": {
-    "self": {
-     "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
-    }
-   }
+   "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
   }
  ],
  "totalItems":2
@@ -225,15 +219,12 @@ a|
 ​​​{
 	"items": [{
 		"href": "{API}/companies/0202239951[/companies/0202239951^]",
-		"type": "company",
 		"title": "Belgacom"
 	}, {
 		"href": "{API}/companies/0448826918[/companies/0448826918^]",
-		"type": "company",
 		"title": "Carrefour Belgium SA"
 	}],
 	"totalItems": 2,
-	"_links": {}
 }
 ----
 
@@ -284,24 +275,16 @@ a|
   "items": [
     {
       "href": "{API}/companies/0202239951[/companies/0202239951^]",
-      "type": "company",
       "title": "Belgacom"
     },
     {
       "href": "{API}/companies/0212165526[/companies/0212165526^]",
-      "type": "company",
       "title": "CPAS de Silly"
     }
   ],
   "totalItems": 7,
-  "_links": {
-    "next": {
-      "href": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
-    },
-    "previous": {
-      "href": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
-    }
-  }
+  "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]",
+  "previous": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
 }
 ----
 
