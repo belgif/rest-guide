@@ -1,6 +1,6 @@
 == Document
 
-A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and <<HAL links,_links_>> to other related resources.
+A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and <<links,_links_>> to other related resources.
 
 .An employer document resource
 ====
@@ -13,14 +13,9 @@ A document resource is a _singular concept_ that is referring to a business enti
   "nossRegistrationNumber": "93017373",
   "company": {
     "companyId": "0202239951",
-    "_links": {
-      "self": {
-        "href": "{API}/companies/0202239951[^]",
-        "type": "application/json;
-                   profile={API}/api/doc/jsonSchemas/company.json"
-      }
-    }
+    "href": "{API}/companies/0202239951[^]"
   }
+  "self": "{API}/employers/93017373[^]"
 }
 ```
 ====

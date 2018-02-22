@@ -13,7 +13,7 @@ Service consumers should be aware that JSON objects can always be extended with 
 
 All JSON property names are in English and are written in _lowerCamelCase_ notation.
 Do not use underscore or hypens for composite words.
-Properties from other standards, like <<hal-links,HAL standard>>, OpenID Connect and OAuth2 are an exception to this rule.
+Properties from other standards, like OpenID Connect and OAuth2 are an exception to this rule.
 
 [subs="normal"]
 ```json

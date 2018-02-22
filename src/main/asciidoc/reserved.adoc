@@ -25,19 +25,14 @@ A list of reserved words exists for common used practices
 |Example
 |Ref
 
-|[[json-property-links]]_links
-|JSON property on root level grouping all hyperlinks from this resource.
+|[[json-property-self]]self
+|The URI of the current resource.
 a|
 [source,json]
 ----
-"_links": {
-  "self": {
-     "href": "/companies/0202239951",
-     "type": "company"
-  }
-}
+"self": "/companies/0202239951"
 ----
-|<<HAL links>>
+|<<Links>>
 |===
 
 === Query parameters
@@ -91,23 +86,15 @@ To indicate sorting direction, names may be prefixed with + (ascending, default)
 a|
 [source,json, subs=normal]
 ----
-"_links": {
-  "next": {
-    "href": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
-  }
-}
+"next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
 
 |[[rel-previous]]previous
-|The seld-reference contains the absolute URL of the previous page in a paged collection.
+|The previous-reference contains the absolute URL of the previous page in a paged collection.
 a|
 [source,json, subs=normal]
 ----
-"_links": {
-  "previous": {
-    "href": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
-  }
-}
+"previous": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
 
 |[[rel-self]]self
@@ -115,12 +102,7 @@ a|
 a|
 [source,json]
 ----
-"_links": {
-  "self": {
-     "href": "/companies/0202239951",
-     "type": "company"
-  }
-}
+"self": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
 
 
