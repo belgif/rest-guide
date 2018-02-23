@@ -2,7 +2,7 @@
 v0.1, {localdate}
 :doctype: book
 :docinfo:
-:toc: right
+:toc: left
 :toclevels: 3
 :sectanchors:
 :sectlinks:

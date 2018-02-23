@@ -18,27 +18,20 @@ In case the server could not honor the user requested language, it is advisable 
 
 Resources can decide to always return all translations to the client using a `localisedString` object.
 
-.localizedString.json schema
-```json
-{
- "$schema": "http://json-schema.org/draft-04/schema#",
- "title": "localizedString",
- "type": "object",
- "properties": {
-  "fr": {
-   "type": "string"
-  },
-  "nl": {
-   "type": "string"
-  },
-  "de": {
-   "type": "string"
-  },
- "en": {
-   "type": "string"
-  }
- }
-}
+.localizedString.yaml schema
+```YAML
+$schema: http://json-schema.org/draft-04/schema#
+title: localizedString
+type: object
+properties:
+  fr:
+    type: string
+  nl:
+    type: string
+  de:
+    type: string
+  en:
+    type: string
 ```
 
 .example

@@ -11,9 +11,16 @@ Service consumers should be aware that JSON objects can always be extended with 
 
 === JSON properties
 
+
+[caption="Rule {counter:rule-number}: "]
+.All JSON property names SHOULD be in English and written in _lowerCamelCase_ notation.
+==========================
 All JSON property names are in English and are written in _lowerCamelCase_ notation.
-Do not use underscore or hypens for composite words.
+Also for abbreviations, all letters except the first one should always be lowercased.
+Do not use underscore or hyphens for composite words.
+
 Properties from other standards, like OpenID Connect and OAuth2 are an exception to this rule.
+==========================
 
 [subs="normal"]
 ```json

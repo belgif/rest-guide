@@ -2,7 +2,7 @@
 
 A collection resource is a server-managed list of document resources. A plural noun should be used for collection names​.
 
-Each collection resource can decide to return 
+Each collection resource can decide to return
 
 1. either an <<List of resource links,array of resource links>> (potentially extended with some business properties to show a summary)
 2. or an <<List of resources,array of the resource itself>> (useful when the business concept is simple / contains little data)
@@ -36,9 +36,9 @@ A query on this kind of collection returns links to the resources in its result.
 3+|Response
 
 |body
-a|The response is a collection JSON object. 
+a|The response is a collection JSON object.
 
-* `**items**` is the reserved word for the array containing the result. 
+* `**items**` is the reserved word for the array containing the result.
 * `**total**` is the reserved word for all the items in the collection result.
 
 Each item should contain a JSON link object to a resource document.
@@ -50,15 +50,15 @@ Each item should contain a JSON link object to a resource document.
 a|
 [source,json,subs="normal"]
 ----
-​​​{  
- "items":[  
-   {  
+​​​{
+ "items":[
+   {
      "href":"{API}/employers/93017373[/employers/93017373^]",
      "title":"Belgacom",
      "nssoRegistrationNbr": "93017373",
      "companyId": "0202239951"
    },
-   {  
+   {
      "href":"{API}/employers/20620259[/employers/20620259^]",
      "title":"Partena VZW",
      "nssoRegistrationNbr": "20620259",
@@ -66,7 +66,7 @@ a|
    }
  ],
  "total":3
-}​     
+}​
 ----
 
 3+|Response codes
@@ -84,33 +84,27 @@ GET {API}/employers[^] HTTP/1.1​
 
 .JSON schema
 [subs=normal]
-```json
-{
- "$schema": "http://json-schema.org/draft-04/schema#",
- "description": "A collection of employers",
- "type": "object",
- "properties": {
-  "items": {
-   "type": "array",
-   "items": { "$ref": "\#/definitions/employerLink" }
-  },
-  "total": { "type": "integer" }
- },
- "definitions": {
-  "employerLink": {
-   "allOf": [
-        { "$ref": "include/httpLink.json" },
-        {
-           "type": "object",
-           "properties": {
-            "nssoRegistrationNbr": { "$ref": "common.json#/definitions/nssoRegistrationNbr" },
-            "companyId": { "$ref": "common.json#/definitions/companyId" }
-           }
-        }
-       ]
-    }
- }
-}
+```YAML
+$schema: http://json-schema.org/draft-04/schema#
+description: A collection of employers
+type: object
+properties:
+  items:
+    type: array
+    items:
+      $ref: '#/definitions/employerLink'
+    total:
+      type: integer
+definitions:
+  employerLink:
+    allOf:
+    - $ref: include/HttpLink.yaml
+    - type: object
+      properties:
+        nssoRegistrationNbr:
+          $ref: 'common.yaml#/definitions/nssoRegistrationNbr'
+        companyId:
+          $ref: 'common.yaml#/definitions/companyId'
 ```
 
 === List of resources
@@ -128,9 +122,9 @@ A query on this kind of collection returns the resources themself in its result.
 3+|Response
 
 |body
-a|The response is a collection JSON object. 
+a|The response is a collection JSON object.
 
-* `**items**` is the reserved word for the array containing the result. 
+* `**items**` is the reserved word for the array containing the result.
 * `**total**` is the reserved word for all the items in the collection result.
 
 Each item is the same JSON object as the document resource.
@@ -159,7 +153,7 @@ a|
   }
  ],
  "total":2
-}​     
+}​
 ----
 
 3+|Response codes
@@ -176,19 +170,17 @@ GET {API}/appendices/employerclasses[^] HTTP/1.1​
 ```
 
 .JSON schema
-```json
-{
- "$schema": "http://json-schema.org/draft-04/schema#",
- "description": "A collection of appendix codes",
- "type": "object",
- "properties": {
-  "items": {
-   "type": "array",
-   "items": { "$ref": "appendixCode.json#" }
-  },
-  "total": { "type": "integer" }
- }
-}
+```YAML
+$schema: http://json-schema.org/draft-04/schema#
+description: A collection of appendix codes
+type: object
+properties:
+  items:
+    type: array
+    items:
+      $ref: AppendixCode.yaml#"
+  total:
+    type: integer
 ```
 
 === Filtered collection
@@ -207,7 +199,7 @@ The query-param `q` is reserved to implement a full text search on all the resou
 
 |name
 |query-param
-|Filter only employers that have a specific name. 
+|Filter only employers that have a specific name.
 
 3+|Response
 
@@ -241,7 +233,7 @@ GET {API}/companies?name=belg[^] HTTP/1.1​
 ```
 
 === Paging over a large collection​
-When a collection contains too many results, the results should be paged. 
+When a collection contains too many results, the results should be paged.
 ​
 [cols="1,2,3"]
 |===
@@ -263,7 +255,7 @@ When a collection contains too many results, the results should be paged.
 3+|Response
 
 |body
-a|​The response is a collection JSON object. 
+a|​The response is a collection JSON object.
 
 * the relation `**next**` is reserved word for the hyperlink to the next page
 * the relation `**previous**` is reserved word for the hyperlink to the previous page
@@ -357,4 +349,3 @@ Location: /employers/93017373
 Content-Length: 0
 Date: Wed, 06 Jan 2016 15:37:16 GMT
 ```
-

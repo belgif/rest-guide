@@ -6,23 +6,17 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 
 All hyperlinks are derived from this minimal link type:
 
-.JSON schema *httpLink.json*
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "A base type of objects representing links to resources.",
-  "type": "object",
-  "properties": {
-    "href": {
-      "description": "Any absolute URI that is using http or https protocol",
-      "type": "string",
-      "format": "uri"
-    }
-  },
-  "required": [
-    "href"
-  ]
-}
+.JSON schema *HttpLink.yaml*
+```YAML
+$schema: http://json-schema.org/draft-04/schema#
+description: A base type of objects representing links to resources.
+type: object
+properties:
+  href:
+    description: Any absolute URI that is using http or https protocol
+    type: string
+    format: uri
+required: [href]
 ```
 
 **URIs are always absolute.**
@@ -74,4 +68,3 @@ Hyperlinks for pagination inside collections and self-references should use a si
 ```
 
 The use of https://tools.ietf.org/html/rfc5988[Web Linking] and http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language (HAL)] is not recommended.
-

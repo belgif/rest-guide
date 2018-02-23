@@ -7,18 +7,25 @@ We favor a contract-first design approach where the specifications of the REST A
 A code-first approach may sometimes be necessary however, as current state of technology does not always fully support contract-first development.
 In this case, special attention should be given that the API specifications remain stable and loosely coupeled to the API implementation technology.
 
-[CAUTION]
-.Open issue: use JSON or YAML for Swagger definitions and JSON schemas
-====
-See issue #6
-====
-
+[caption="Rule {counter:rule-number}: "]
+.OpenAPI and JSON Schema files SHOULD use YAML format
+==========================
+OpenAPI and JSON Schema files should use YAML format rather JSON.
+YAML is a superset of JSON which allows a simpler notation, and also allows comments.
+According to usage, a conversion step to JSON might be necessary considering limitations of tools.
+==========================
 
 [caption="Rule {counter:rule-number}: "]
 .The OpenAPI specification file and other API documentation SHOULD be placed under a doc resource
+==========================
+API documentation should be placed under a special `doc` resource under the API root location.
 
-API documentation should be placed under a special doc resource as follows under the api root location:
+The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` and/or` swagger.yaml`.
+In OpenAPI 3.0, it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
+Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
+==========================
 
+Example:
 ```
  /doc
      /swagger.json
@@ -31,23 +38,24 @@ API documentation should be placed under a special doc resource as follows under
  ...
 ```
 
-The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` and/or` swagger.yaml`.
-In OpenAPI 3.0, it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
-Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
-
 === OpenAPI
 
 OpenAPI is the dominating standard for API documentation, having gained wide industry support.
 
 [caption="Rule {counter:rule-number}: "]
 .Specifications of the API SHOULD be provided using OpenAPI 2.0 (aka Swagger)
+==========================
 http://swagger.io/[Swagger^] has been standardized as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI standard].
 The OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
+==========================
 
 You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
 [caption="Rule {counter:rule-number}: "]
-.The version of the API SHOULD be included in the OpenAPI documentation
+.The version of the API SHOULD be included in the OpenAPI definition
+==========================
+The version of the API SHOULD be included in the `info` section of the OpenAPI definition.
+==========================
 
 Example:
 [subs="normal"]
@@ -60,9 +68,10 @@ info:
 ```
 
 [caption="Rule {counter:rule-number}: "]
-.Any additional documentation SHOULD be linked from the API's OpenAPI definition.
+.Any additional documentation SHOULD be linked from the API's OpenAPI definition
+==========================
 It is recommended to add links in the OpenAPI definition using the 'externalDocs' property to any additional API documentation or user manual.
-
+==========================
 
 === JSON Schema
 
@@ -70,16 +79,23 @@ OpenAPI uses JSON schemas to describe JSON resources.
 JSON schemas can be included directly in the `swagger.json` file or in separate files referenced from the OpenAPI description.
 
 [caption="Rule {counter:rule-number}: "]
-.JSON Schema MUST be used to describe JSON resources.
-The version of JSON Schema to be used is a variant of **JSON schema draft 04**, known as an https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
+.JSON Schema MUST be used to describe JSON resources
+==========================
+The version of JSON Schema to be used is the variant of **JSON schema draft 04** defined in the OpenAPI 2.0 specification as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
+==========================
+
+[caption="Rule {counter:rule-number}: "]
+.JSON Schema data type names SHOULD be specified in UpperCamelCase
+==========================
+JSON Schema data type names should always be defined in English and use _UpperCamelCase_ notation.
+Also for abbreviations, all letters except the first one should always be lowercased.
+==========================
 
 [CAUTION]
 .Open issue: location of common JSON schemas
 ====
 Under discussion: guidelines how to publish JSON schemas that are used in multiple APIs. See issue #7.
 ====
-
-CAUTION: Open issue #4: allow null value in JSON or prefer to omit property
 
 CAUTION: Open issue #14: representing JSON Merge Patch in JSON schema
 
