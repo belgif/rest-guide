@@ -14,7 +14,7 @@ A document resource is a _singular concept_ that is referring to a business enti
   "company": {
     "companyId": "0202239951",
     "href": "{API}/companies/0202239951[^]"
-  }
+  },
   "self": "{API}/employers/93017373[^]"
 }
 ```

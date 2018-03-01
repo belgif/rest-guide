@@ -13,7 +13,7 @@ v0.1, {localdate}
 :source-highlighter: coderay
 :icons: font
 :iso639-1: http://www.loc.gov/standards/iso639-2/php/code_list.php
-:imagesdir: img
+:imagesdir: images
 :stylesheet: my-theme.css
 :checkedbox: pass:normal[&#10004;]
 :API: http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1
