@@ -1,56 +1,63 @@
 == Collection
 
-A collection resource is a server-managed list of document resources. A plural noun should be used for collection names​.
+A collection resource is a server-managed list of document resources.
 
-Each collection resource can decide to return
-
-1. either an <<List of resource links,array of resource links>> (potentially extended with some business properties to show a summary)
-2. or an <<List of resources,array of the resource itself>> (useful when the business concept is simple / contains little data)
+[caption="Rule {counter:rule-number}: "]
+.Collection name
+====
+A plural noun SHOULD be used for collection names, for example 'employers' or 'people'.
+====
 
 .Collection of employers
 ====
 {API}/employers[^]
 ====
 
+[[collections-consult]]
+=== Consult
+
+[caption="Rule {counter:rule-number}: "]
+.Representation of a collection
+====
+A collection is represented as a list with links to the resources:
+
+* A query on a collection MUST contain an `items` property with an array of objects, each one representing an item in the collection.
+* In these objects, a `href` property MUST be present with a link to the resource.
+* The unique business identifier SHOULD be present for each item.
+* Each item object MAY be extended with some key business properties, needed for display in a master view.
+* The `title` attribute MAY be used to provide a human-readable description for an item, usable as display text for the link.
+* `total` is the reserved word for all the items in the collection result.
+====
+
 CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
 
+.Response codes
 
-[CAUTION]
-.Ongoing discussion on modeling of collections
-====
-  See issue #2
-====
-
-=== List of resource links
-
-A query on this kind of collection returns links to the resources in its result. The link object can be extended with some additionals business properties, needed to display in a master view.
-
-[cols="1,2,3"]
 |===
-|​​​​​​​​​<<get>>
-|/employ​​e​r​s
-|get all the employers documents in the collection
 
-3+|​​​Parameters
+| <<http-200,200>> | OK | Default response code, also when the collection is empty
+|===
 
-3+|Response
+.Query parameters
 
-|body
-a|The response is a collection JSON object.
+[cols="3*"]
+|===
 
-* `**items**` is the reserved word for the array containing the result.
-* `**total**` is the reserved word for all the items in the collection result.
+| sort
+| Comma-separated list of properties to sort data.
+  Direction is ascending by default. To indicate descending, prefix property with -.
+|?sort=-name
+|===
 
-Each item should contain a JSON link object to a resource document.
-
-* `**href**` contains a link to the resource document.
-* `**title**` contains a human understandable text to describe the resource
-* `**type**` contains the JSON object class of the resource
-
-a|
+.Example
+[subs=normal]
+```
+GET {API}/employers[^] HTTP/1.1​
+```
 [source,json,subs="normal"]
 ----
 ​​​{
+ "self": "{API}/employers",
  "items":[
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
@@ -69,21 +76,7 @@ a|
 }​
 ----
 
-3+|Response codes
-​​|<<http-200,200>>
-|OK
-|Default response code, also when the collection is empty
-​
-|===
-
-.Example
-[subs=normal]
-```
-GET {API}/employers[^] HTTP/1.1​
-```
-
 .JSON schema
-[subs=normal]
 ```YAML
 $schema: http://json-schema.org/draft-04/schema#
 description: A collection of employers
@@ -92,84 +85,70 @@ properties:
   items:
     type: array
     items:
-      $ref: '#/definitions/employerLink'
+      $ref: '#/definitions/EmployerLink'
     total:
       type: integer
 definitions:
-  employerLink:
+  EmployerLink:
     allOf:
     - $ref: include/HttpLink.yaml
     - type: object
       properties:
         nssoRegistrationNbr:
-          $ref: 'common.yaml#/definitions/nssoRegistrationNbr'
+          $ref: 'common.yaml#/definitions/NssoRegistrationNbr'
         companyId:
-          $ref: 'common.yaml#/definitions/companyId'
+          $ref: 'common.yaml#/definitions/CompanyId'
 ```
 
-=== List of resources
+[caption="Rule {counter:rule-number}: "]
+.Getting full representations of collection items
+====
+When the collection items contains little data, you may want to retrieve them in full when getting the collection.
+In this case, the full representations MUST be included in an 'embedded' property as described in (TODO add reference).
+====
 
-A query on this kind of collection returns the resources themself in its result. This is useful when the resource contains little data and to avoid navigating to the resource document.
+.Example
+[subs=normal]
+```
+GET {API}/appendices/employerclasses?embed=employerclass[^] HTTP/1.1​
+```
 
-[cols="1,2,3"]
-|===
-|​​​​​​​​​<<get>>
-|/appendices/employerclasses
-|get all the employer class appendix codes
-
-3+|​​​Parameters
-
-3+|Response
-
-|body
-a|The response is a collection JSON object.
-
-* `**items**` is the reserved word for the array containing the result.
-* `**total**` is the reserved word for all the items in the collection result.
-
-Each item is the same JSON object as the document resource.
-
-* `**self**` contains a the URI to the resource document.
-
-a|
 [source,json,subs="normal"]
 ----
 ​​​{
  "items": [
   {
    "value": "0",
-   "description": {
-    "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
-    "fr": "Catégorie générale pour les employeurs, de type commercial ou non-commercial."
-   },
-   "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
+   "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
   }, {
    "value": "2",
-   "description": {
-    "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
-    "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
-   },
-   "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
+   "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
   }
  ],
- "total":2
+ "total":2,
+ "embedded": {
+   "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
+     "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]",
+     "value": "2",
+     "description": {
+       "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
+       "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
+      }
+   },
+   "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
+     "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]",
+     "value": "0",
+     "description": {
+      "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
+      "fr": "Catégorie générale pour les employeurs, de type commercial ou non-commercial."
+     }
+   }
+ }
 }​
 ----
 
-3+|Response codes
-​​|<<http-200,200>>
-|OK
-|Default response code, also when the collection is empty
-​
-|===
-
-.Example
-[subs=normal]
-```
-GET {API}/appendices/employerclasses[^] HTTP/1.1​
-```
-
 .JSON schema
+
 ```YAML
 $schema: http://json-schema.org/draft-04/schema#
 description: A collection of appendix codes
@@ -178,12 +157,24 @@ properties:
   items:
     type: array
     items:
-      $ref: AppendixCode.yaml#"
+      $ref: '#/definitions/AppendixCodeLink'
   total:
     type: integer
+  embedded:
+    type: object
+    additionalProperties:
+      $ref: 'appendixCode.yaml#/definitions/AppendixCode'
+definitions:
+  AppendixCodeLink:
+    allOf:
+    - $ref: include/HttpLink.yaml
+    - type: object
+      properties:
+        value:
+          $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
 ```
 
-=== Filtered collection
+=== Filtering
 
 A collection can be filtered using query parameters.​ You can filter on a specific resource property by specifying the property name as query param.
 The query-param `q` is reserved to implement a full text search on all the resource's content.
@@ -209,6 +200,7 @@ a|
 [source,json, subs=normal]
 ----
 ​​​{
+  "self": "{API}/companies?name=belg[/companies?name=belg^]",
 	"items": [{
 		"href": "{API}/companies/0202239951[/companies/0202239951^]",
 		"title": "Belgacom"
@@ -232,35 +224,54 @@ a|
 GET {API}/companies?name=belg[^] HTTP/1.1​
 ```
 
-=== Paging over a large collection​
-When a collection contains too many results, the results should be paged.
-​
-[cols="1,2,3"]
+=== Pagination
+
+[caption="Rule {counter:rule-number}: "]
+.Paging over a large collection​
+====
+Collection with too many items MUST support pagination.
+There are two pagination techniques:
+
+* offset-based pagination: numeric offset identifies a page
+* cursor-based (aka key-based or luke index): a unique key element identifies a page
+
+Cursor-based pagination has some advantages, especially for high volumes.
+Take into account the considerations http://zalando.github.io/restful-api-guidelines/#160[listed in the Zalando API guidelines] before choosing a pagination technique.
+====
+
+.Reserved JSON properties:
+
 |===
-|​​​​​​​​​<<get>>
-|/employers
-|get all the employers documents in the collection
 
+|`next` | MANDATORY (except for the last page) | hyperlink to the next page
+|`prev` | OPTIONAL | hyperlink to the previous page
+|`pageSize` | RECOMMENDED | Maximum number of items per page. For the last page, its value should be independent of the number of actually returned items.
+| `page` |MANDATORY (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
+| `first` | OPTIONAL | hyperlink to the first page
+| `last` | OPTIONAL | hyperlink to the last page
 
-3+|​​​Parameters
+|===
 
-|​​`**page**`
-|query-param
-|The index of the current page of items. It should be 1-based (the default and first page is 1).
+Note that the `total` collection property, if used, MUST always present the total number of items across all pages.
+The names of the properties with hyperlink values and the `items` property are derived from the (https://www.iana.org/assignments/link-relations/link-relations.xml)[IANA registered link relations].
 
-|`​**pageSize**`
-|query-param
-|The maximal number of results per page.
+.Reserved query parameters:
 
-3+|Response
+|===
 
-|body
-a|​The response is a collection JSON object.
+| `pageSize` | OPTIONAL |  maximum number of items per page
+| `page` | MANDATORY with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
 
-* the relation `**next**` is reserved word for the hyperlink to the next page
-* the relation `**previous**` is reserved word for the hyperlink to the previous page
+|===
 
-a|
+.Offset-based pagination
+====
+[subs="normal"]
+```
+GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
+```
+====
+
 [source,json, subs="normal"]
 ----
 ​{
@@ -275,22 +286,39 @@ a|
     }
   ],
   "total": 7,
-  "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]",
-  "previous": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
+  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
+  "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
+  "prev": "{API}/companies?page=1&pageSize=2[/companies?page=1&pageSize=2^]",
+  "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
 }
 ----
 
-3+|Response codes
-​​|<<http-200,200>>
-|OK
-|Default response code, also when the filtered collection is empty
-​
-|===
-
+.Cursor-based pagination
+====
 [subs="normal"]
 ```
-GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
+GET {API}/companies?afterCompany=0244640631&pageSize=2[^] HTTP/1.1​
 ```
+====
+
+[source,json, subs="normal"]
+----
+​{
+  "items": [
+    {
+      "href": "{API}/companies/0202239951[/companies/0202239951^]",
+      "title": "Belgacom"
+    },
+    {
+      "href": "{API}/companies/0212165526[/companies/0212165526^]",
+      "title": "CPAS de Silly"
+    }
+  ],
+  "total": 7,
+  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
+  "next": "{API}/companies?afterCompany=0212165526&pageSize=2[/companies?afterCompany=0212165526&pageSize=2^]"
+}
+----
 
 === Create a new resource​
 The collection resource can be used to create new document resources.
@@ -321,7 +349,7 @@ a|
 
 |Location
 |http-header
-|The URI of the newly created resoucre e.g. /employers/93017373
+|The URI of the newly created resource e.g. /employers/93017373
 
 3+|Response
 

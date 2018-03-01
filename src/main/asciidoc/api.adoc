@@ -28,9 +28,7 @@ resources:: All path segments identifying the actual resources.
 ==========================
 
 [CAUTION]
-.Versioning in URLs vs HTTP header
+.Open issue: versioning in URLs vs HTTP header
 ====
 Zie issue #1
 ====
-
-

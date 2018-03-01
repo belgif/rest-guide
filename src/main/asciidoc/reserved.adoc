@@ -2,38 +2,14 @@
 
 A list of reserved words exists for common used practices
 
-
-
 [CAUTION]
 .EHEALTH REMARK
 ====
-*	Vanwaar komen 'items'/'totalNumberItems' ? Van een spec ? (-> add a pointer to the spec if needed)
-*	Idem for Location HTTP header
-*	Previous/next voor paginatie, maar geen first/last?
+*	Location HTTP header (-> add a pointer to the spec if needed)
 *	lang of locale? (openid connect = locale)
 *	LocalizedString standaard?
 ====
 
-
-
-=== JSON properties
-
-[cols="1,3,3,1", options="header"]
-|===
-|Term
-|Description
-|Example
-|Ref
-
-|[[json-property-self]]self
-|The URI of the current resource.
-a|
-[source,json]
-----
-"self": "/companies/0202239951"
-----
-|<<Links>>
-|===
 
 === Query parameters
 
@@ -52,34 +28,35 @@ a|
 |[[query-param-page]]page
 |When a collection resources is paged, use this parameter to request a specific page. Page numbers are 1-based.
 |?page=3&pageSize=20
-|<<Paging over a large collection​>>
+|<<Pagination>>
 
 |[[query-param-pageSize]]pageSize
 |When a collection resources is paged, use this parameter to specify the page size.
 |?page=3&pageSize=20
-|<<Paging over a large collection​>>
+|<<Pagination​>>
 
 |[[query-param-q]]q
 |The standard search parameter to do a full-text search.
 |?q=Belgacom
-|<<Filtered collection>>
+|<<Filtering>>
 
 |[[query-param-sort]]sort
-|Comma-separated list of properties to sort data. 
+|Comma-separated list of properties to sort data.
 
-To indicate sorting direction, names may be prefixed with + (ascending, default) or - (descending)
-|?sort=+name
-|
+Default sorting direction is ascending. To indicate descending direction, the property may be prefixed with -.
+|?sort=-name
+|<<Collection>>
 
 |===
 
-=== Link references
+=== JSON properties
 
-[cols="1,3,3", options="header"]
+[cols="1,3,3,1", options="header"]
 |===
 |Term
 |Description
 |Example
+| Ref
 
 |[[rel-next]]next
 |The next-reference contains the absolute URL of the next page in a paged collection.
@@ -88,14 +65,16 @@ a|
 ----
 "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
+| <<Links>
 
-|[[rel-previous]]previous
+|[[rel-previous]]prev
 |The previous-reference contains the absolute URL of the previous page in a paged collection.
 a|
 [source,json, subs=normal]
 ----
-"previous": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
+"prev": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
+| <<Links>
 
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
@@ -104,7 +83,53 @@ a|
 ----
 "self": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
+| <<Links>
 
+|[[rel-self]]href
+|A reference (absolute URL) to another resource.
+a|
+[source,json]
+----
+"href": "{API}/companies/0202239951[/companies/0202239951^]"
+----
+| <<Links>
 
+|[[rel-self]]first
+|A reference (absolute URL) to the first page in a paged collection.
+a|
+[source,json]
+----
+"first": "{API}/companies?pageSize=2"
+----
+| <<Pagination>
+
+|[[rel-self]]last
+|A reference (absolute URL) to the last page in a paged collection.
+a|
+[source,json]
+----
+"last": "{API}/companies?page=4&pageSize=2",
+----
+| <<Pagination>
+
+| items
+| an array with the items of a collection resource
+|
+| <<Collection>>
+
+| total
+| the total number of items in a collection resource
+|
+| <<Collection>>
+
+| page
+| the index of a page in a paged collection
+|
+| <<Pagination>>
+
+| pageSize
+| the maximum number of items in a page of a paged collection
+|
+| <<Pagination>>
 
 |===

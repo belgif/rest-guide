@@ -45,7 +45,7 @@ Hyperlinks for pagination inside collections and self-references should use a si
 ```json
 {
    "self": "{API}/companies?page=2&pageSize=10[/companies?page=2&pageSize=10^]",
-   "previous": "{API}/companies?page=2&pageSize=1[/companies?page=1&pageSize=10^]",
+   "prev": "{API}/companies?page=2&pageSize=1[/companies?page=1&pageSize=10^]",
    "next": "{API}/companies?page=2&pageSize=3[/companies?page=3&pageSize=10^]"
 }
 

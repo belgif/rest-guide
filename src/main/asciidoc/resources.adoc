@@ -2,7 +2,7 @@
 
 :rfc3986: https://tools.ietf.org/html/rfc3986
 
-A REST APIs exposes a set of _resources_. Resources model the _data and functionality of a system_. A resource can be data, processing logic, files, or anything else that a service may have access to. 
+A REST APIs exposes a set of _resources_. Resources model the _data and functionality of a system_. A resource can be data, processing logic, files, or anything else that a service may have access to.
 
 === Resource URI
 
@@ -17,7 +17,8 @@ URI must be intuitively structured.
 [caption="Rule {counter:rule-number}: "]
 .URI notation
 ==========================
-The **URI notation is in _pascalCase_ (lower camel case)** to enhance readability and to separate compound names.
+The **URI notation MUST use _lowerCamelCase_ ** to enhance readability and to separate compound names.
+As lowerCamelCase is used for JSON property names as well, the casing is consistent throughout the API.
 ==========================
 
 .URI notation
@@ -32,7 +33,8 @@ The **URI notation is in _pascalCase_ (lower camel case)** to enhance readabilit
 [caption="Rule {counter:rule-number}: "]
 .URI extensions
 ====
-The URI **never contains a file extension**. 
+The URI **SHOULD NOT contain a file extension**.
+A notable exception to this rule is the swagger/OpenAPI file.
 ====
 
 Instead, look at how to express <<Media Types>> using HTTP headers.
@@ -48,7 +50,7 @@ Instead, look at how to express <<Media Types>> using HTTP headers.
 [caption="Rule {counter:rule-number}: "]
 .Query parameters
 ====
-The query part of a URI may be used to filter the resource output. 
+The query part of a URI may be used to filter the resource output.
 ====
 
 The query component of a URI contains a set of parameters to be interpreted as a variation or derivative of the resource. The query component can provide clients with additional interaction capabilities such as ad hoc searching and filtering.
@@ -56,7 +58,7 @@ The query component of a URI contains a set of parameters to be interpreted as a
 .Query parameters
 ====
 ​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
-Filter the resource collection to results 
+Filter the resource collection to results
 
 [green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?fields=name,address*# +
 Filter the resource properties to the ones specified in the `fields` query parameter.
@@ -66,7 +68,7 @@ Only return translatable properties in dutch.
 ====
 
 === Resource Archetypes
-There are 3 different resource archetypes: 
+There are 3 different resource archetypes:
 
 * <<Collection>>
 * <<Document>>
@@ -76,4 +78,3 @@ There are 3 different resource archetypes:
 include::collection.adoc[]
 include::document.adoc[]
 include::controller.adoc[]
-
