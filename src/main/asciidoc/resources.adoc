@@ -67,6 +67,19 @@ Filter the resource properties to the ones specified in the `fields` query param
 Only return translatable properties in dutch.
 ====
 
+[caption="Rule {counter:rule-number}: "]
+.Multiple values for the same query parameter
+====
+When a single query parameter can have multiple value, the parameter should be repeated for each value.
+====
+
+.Multi-valued parameter
+====
+```
+GET {API}/employers/01234567?embed=employees&embed=mainAddress
+```
+====
+
 === Resource Archetypes
 There are 3 different resource archetypes:
 

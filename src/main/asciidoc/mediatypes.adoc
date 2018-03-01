@@ -2,19 +2,25 @@
 
 *JSON*
 
-The primary media type to support is *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]). The choice for JSON is particularly made for supporting javascript clients. 
+The primary media type to support is *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
+The choice for JSON is particularly made for supporting JavaScript clients.
 
-WARNING: All internal APIs will use JSON as only data format.
-
+[caption="Rule {counter:rule-number}: "]
+.Representation of structured data
+====
+Structured data MUST be made available in JSON format.
 Always stick to *UTF-8* encoding and specify the charset in the `Content-Type` HTTP header.
+====
 
 ```
 Content-Type: application/json;charset=UTF-8
 ```
 
+CAUTION: open issue: application/<something>+json types (e.g. merge patch, problem)
+
 *XML*
 
-On specific client request a REST service can expose XML messages defined by *XML Schema*.
+On specific client request, a REST service can expose XML messages defined by *XML Schema*.
 
 
 ```
@@ -23,4 +29,6 @@ Content-Type: application/xml;charset=UTF-8
 
 Always stick to *UTF-8* encoding and specify the charset in the `Content-Type` HTTP header.
 
-INFO: We don't recommend implementing both JSON / XML in each REST service. Either this is a . Automatic conversion between the two standards will almost never give a satisfying result.
+INFO: We don't recommend implementing both JSON / XML in each REST service.
+It would require to define and implement two representations of the same data.
+Automatic conversion between the two standards will almost never give a satisfying result.

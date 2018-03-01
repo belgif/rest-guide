@@ -2,7 +2,7 @@
 
 The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
 
-In order to conform to the REST uniform service contract, REST services should stick to this reduced list of status codes. The addition of new status codes should be evaluated bu the REST policy group.
+In order to conform to the REST uniform service contract, REST services should stick to this reduced list of status codes.
 
 === 1xx  Informational
 Request received, continuing process
