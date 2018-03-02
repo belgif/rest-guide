@@ -253,7 +253,7 @@ Take into account the considerations http://zalando.github.io/restful-api-guidel
 |===
 
 Note that the `total` collection property, if used, MUST always present the total number of items across all pages.
-The names of the properties with hyperlink values and the `items` property are derived from the (https://www.iana.org/assignments/link-relations/link-relations.xml)[IANA registered link relations].
+The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
 
 .Reserved query parameters:
 

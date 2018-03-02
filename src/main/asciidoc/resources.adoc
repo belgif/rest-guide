@@ -70,7 +70,7 @@ Only return translatable properties in dutch.
 [caption="Rule {counter:rule-number}: "]
 .Multiple values for the same query parameter
 ====
-When a single query parameter can have multiple value, the parameter should be repeated for each value.
+When a single query parameter can have multiple values, the parameter should be repeated for each value.
 ====
 
 .Multi-valued parameter

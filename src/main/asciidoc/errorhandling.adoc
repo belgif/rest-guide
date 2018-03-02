@@ -4,6 +4,9 @@ All RESTful services can reuse a default status message to communicate errors in
 
 
 [CAUTION]
+This section needs to be revised.
+RFC 7807 will be used instead of the problem message structure described below.
+
 .EHEALTH REMARK
 ====
 ErrorHandling
@@ -11,12 +14,6 @@ ErrorHandling
 •	Access to statusMessage link, oppassen met externe doc resources (JSON schemas, example REST service, …)
 https://git01.smals.be/rest/commons/blob/master/src/main/resources/META-INF/schemas/statusMessage.json
 Spec details element: Free format?
-====
-
-[CAUTION]
-.CBSS REMARK
-====
--	Error handling: RFC 7807 vs proposal in style guide
 ====
 
 [caption="Rule {counter:rule-number}: "]
@@ -65,10 +62,11 @@ Content-Type: application/json
 
 [caption="Rule {counter:rule-number}: "]
 .Error sanitization
-==========================
-The ESB strips sensible information before returning the status message to client.
-==========================
+====
+Sensitive information like stack traces MUST be stripped before returning messages to the client.
+====
 
+E.g. this should not be returned to a client:
 ```
 HTTP/1.1 500 Internal Server Error
 Server: Apache-Coyote/1.1
@@ -79,7 +77,7 @@ Content-Type: application/json
   "id": "ac19acc6-5e11-4b2a-8c10-f9680998d07a",
   "code": "Internal Server Error",
   "message": "Unexpected error occured while processing demand",
-  "stackTrace": [  [ <1>
+  "stackTrace": [  [
       "EJBException: java.lang.RuntimeException: Something horrible happened on the server",
       "org.jboss.as.ejb3.CMTTxInterceptor.handleExceptionInOurTx(CMTTxInterceptor.java:191)",
       "org.jboss.as.ejb3.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:282)",
@@ -96,32 +94,3 @@ Content-Type: application/json
   ]
 }
 ```
-
-<1> The backend service can return a complete stacktrace to the ESB. The information is logged, but stripped from the response.
-
-=== SOA error code mapping ===
-SOAP messages only use the <<http-500,`500 Internal Server Error`>> code to indicate failure. The SOA guidelines standardized http://integrationsoa/site_nl/standards/errorhandling.html[a set of SOA error codes^] to detail the kind of error. With RESTful services it is unnecessary to redefine these error codes, because we align ourselves to the HTTP standard.
-
-* <<4xx Client Error,4xx status codes>> indicate a problem occurs on client-side
-* <<5xx Server Error,5xx status codes>> indicate a problem occurs on server-side 
-
-[cols="1,2,1,2", options="header"]
-|====
-|SOA code|Description|Origin|HTTP status code mapping
-|SOA-00001|Service error|Provider|<<http-500, 500 Internal Server Error>>
-|SOA-01001|Service call not authenticated|Consumer|<<http-401, 401 Unauthorized>>
-|SOA-01002|Service call not authorized|Consumer|<<http-403, 403 Forbidden>>
-|SOA-02001|Service not available. Please contact service desk.|Provider
-a|<<http-500, 500 Internal Server Error>> or +
-<<http-503, 503 Service Unavailable>>
-|SOA-02002|Service temporarily not available. Please try later.|Provider|<<http-503, 503 Service Unavailable>>
-|SOA-03001|Malformed message|Consumer|<<http-400, 400 Bad Request>>
-|SOA-03002|Message must be SOAP|Consumer|N/A
-|SOA-03003|Message must contain SOAP body|Consumer|N/A
-|SOA-03004|WS-I compliance failure|Consumer|N/A
-|SOA-03005|WSDL compliance failure|Consumer|<<http-405, 405 Method Not Allowed>>
-|SOA-03006|XSD compliance failure|Consumer|<<http-400, 400 Bad Request>>
-|SOA-03007|Message content validation failure|Consumer
-a|<<http-400, 400 Bad Request>> or +
-<<http-409, 409 Conflict>>
-|====

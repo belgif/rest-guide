@@ -4,7 +4,15 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 
 === Links ===
 
-All hyperlinks are derived from this minimal link type:
+[caption="Rule {counter:rule-number}: "]
+.Links to self and other resources
+====
+When referencing another resource, a link SHOULD be added using the `href` attribute.
+Each resource SHOULD also contain its own location in a `self` attribute at root level of the JSON document.
+URIs SHOULD always be absolute.
+====
+
+All `href` hyperlinks are derived from this minimal link type:
 
 .JSON schema *HttpLink.yaml*
 ```YAML
@@ -19,8 +27,6 @@ properties:
 required: [href]
 ```
 
-**URIs are always absolute.**
-
 Links can be added anywhere in a JSON document
 
 [subs="normal"]
@@ -31,13 +37,13 @@ Links can be added anywhere in a JSON document
   "company": {
     "companyId": "0202239951",
     "href": "{API}/companies/0202239951[/companies/0202239951^]"
-  }
+  },
   "self": "{API}/employers/93017373[/employers/9301737^]"
 }
 ```
 
 
-Hyperlinks for pagination inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type
+Hyperlinks for <<Pagination>> inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
 
 [[collection-links]]
 .Example paging
