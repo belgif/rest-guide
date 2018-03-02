@@ -1,0 +1,88 @@
+== Performance
+
+=== Embedding resources
+
+In order to reduce the number of requests, optional embedding of subresources may be used.
+
+[caption="Rule {counter:rule-number}: "]
+.Embedding subresources
+====
+Embedded subresources MUST be put in a JSON object named `embedded` at root level of the JSON document.
+In this object, each property key is the URI and the value the full JSON representation of the subresource.
+The URI MUST be the same as the `href` value by which the subresource is referenced in the representation of the main resource.
+
+Embedded resources are returned at the client's request if the `embed` query parameter is specified.
+The name of the JSON property referencing the subresource can be used as value of the `embed` parameter.
+====
+
+This way of embedding resources limits the changes required when a clients starts to use it, and only impacts the JSON Schema type of the root document.
+It also works well when there are multiple occurrences of the same subresource, and when embedding resources more than one level deep.
+
+In JSON Schema, `additionalProperties` can be used to specify the data types allowed in `embedded`.
+Note that it not possible to specify more than one data type this way in OpenAPI 2.0, so the only restriction that can be specified is  `type: object` when there are multiple embedded data types.
+In OpenAPI 3.0, `oneOf` can be used to list all possible data types.
+
+.Embedding subresources
+====
+`GET http://myrestapi/family/32456?embed=children&embed=parents`
+
+```JSON
+{
+  "self": "http://myrestapi/family/32456",
+  "family": {
+    "parents": [{
+      "ssin": "12345678901",
+      "href": "http://myrestapi/people/12345678901"
+    }],
+    "children": [{
+      "ssin": "98765432101",
+      "href": "http://myrestapi/people/98765432101"
+    }]
+  },
+  ​"embedded": {
+    "http://myrestapi/people/12345678901": {
+      "self": "http://myrestapi/people/12345678901",
+      "ssin": "12345678901",
+      "givenName": "Jane",
+      "lastName": "Doe"
+    },
+    "http://myrestapi/people/98765432101": {
+      "self": "http://myrestapi/people/98765432101",
+      "ssin": "98765432101",
+      "givenName": "Bobby",
+      "lastName": "Doe"
+    }
+  }
+}
+```
+
+.JSON schema
+
+```YAML
+$schema: http://json-schema.org/draft-04/schema#
+description: A family
+type: object
+properties:
+  parents:
+    type: array
+    items:
+      $ref: '#/definitions/PersonRef'
+  children:
+    type: array
+    items:
+      $ref: '#/definitions/PersonRef'
+  embedded:
+    type: object
+    additionalProperties:
+      $ref: 'person.yaml#/definitions/Person'
+```
+====
+
+.Query parameters for subresources more than one level deep
+====
+GET {API}/employer/0409536968?embed=employees(address)
+====
+
+=== Caching
+
+TODO

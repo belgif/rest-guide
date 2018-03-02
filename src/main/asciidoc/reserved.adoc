@@ -42,10 +42,14 @@ A list of reserved words exists for common used practices
 
 |[[query-param-sort]]sort
 |Comma-separated list of properties to sort data.
-
 Default sorting direction is ascending. To indicate descending direction, the property may be prefixed with -.
 |?sort=-name
 |<<Collection>>
+
+| embed
+| Request to embed subresource
+| ?embed=mainAddress
+| <<Embedding resources>>
 
 |===
 
@@ -74,7 +78,7 @@ a|
 ----
 "prev": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
-| <<Links>
+| <<Links>>
 
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
@@ -83,7 +87,7 @@ a|
 ----
 "self": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
-| <<Links>
+| <<Links>>
 
 |[[rel-self]]href
 |A reference (absolute URL) to another resource.
@@ -92,7 +96,7 @@ a|
 ----
 "href": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
-| <<Links>
+| <<Links>>
 
 |[[rel-self]]first
 |A reference (absolute URL) to the first page in a paged collection.
@@ -101,7 +105,7 @@ a|
 ----
 "first": "{API}/companies?pageSize=2"
 ----
-| <<Pagination>
+| <<Pagination>>
 
 |[[rel-self]]last
 |A reference (absolute URL) to the last page in a paged collection.
@@ -110,7 +114,7 @@ a|
 ----
 "last": "{API}/companies?page=4&pageSize=2",
 ----
-| <<Pagination>
+| <<Pagination>>
 
 | items
 | an array with the items of a collection resource
@@ -131,5 +135,10 @@ a|
 | the maximum number of items in a page of a paged collection
 |
 | <<Pagination>>
+
+| embedded
+| a map of embedded subresources, with URIs as property key and the resource as value
+|
+| <<Embedding resources>>
 
 |===

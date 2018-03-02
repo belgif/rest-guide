@@ -64,6 +64,8 @@ include::statuscodes.adoc[]
 
 include::mediatypes.adoc[]
 
+include::performance.adoc[]
+
 include::json.adoc[]
 
 include::api_specifications.adoc[]

@@ -49,12 +49,14 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 |?sort=-name
 |===
 
-.Example
+.Consulting a collection
 [subs=normal]
+====
 ```
 GET {API}/employers[^] HTTP/1.1​
 ```
 [source,json,subs="normal"]
+.Response
 ----
 ​​​{
  "self": "{API}/employers",
@@ -99,22 +101,22 @@ definitions:
         companyId:
           $ref: 'common.yaml#/definitions/CompanyId'
 ```
+====
 
 [caption="Rule {counter:rule-number}: "]
 .Getting full representations of collection items
 ====
 When the collection items contains little data, you may want to retrieve them in full when getting the collection.
-In this case, the full representations MUST be included in an 'embedded' property as described in (TODO add reference).
+In this case, the full representations MUST be included in an 'embedded' property as described in <<Embedding resources>>.
 ====
 
-.Example
-[subs=normal]
+.Consulting a collection with items embedded
+====
 ```
-GET {API}/appendices/employerclasses?embed=employerclass[^] HTTP/1.1​
+GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 ```
-
-[source,json,subs="normal"]
-----
+.Response
+```JSON
 ​​​{
  "items": [
   {
@@ -145,10 +147,9 @@ GET {API}/appendices/employerclasses?embed=employerclass[^] HTTP/1.1​
    }
  }
 }​
-----
+```
 
 .JSON schema
-
 ```YAML
 $schema: http://json-schema.org/draft-04/schema#
 description: A collection of appendix codes
@@ -173,6 +174,7 @@ definitions:
         value:
           $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
 ```
+====
 
 === Filtering
 
