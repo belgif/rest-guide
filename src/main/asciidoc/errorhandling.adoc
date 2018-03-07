@@ -110,3 +110,32 @@ Content-Type: application/problem+json
 ==========================
 A problem cannot leak sensitive implementation and infrastructure details. Providers must strip this information (e.g. DB error codes, internal hostnames, stacktraces) before returning the problem detail to the consumer.
 ==========================
+
+E.g. this should not be returned to a client:
+```
+HTTP/1.1 500 Internal Server Error
+Server: Apache-Coyote/1.1
+Content-Type: application/problem+json
+```
+```json
+{
+  "instance": "ac19acc6-5e11-4b2a-8c10-f9680998d07a",
+  "title": "Internal Server Error",
+  "detail": "Unexpected error occured while processing demand",
+  "stackTrace": [  [
+      "EJBException: java.lang.RuntimeException: Something horrible happened on the server",
+      "org.jboss.as.ejb3.CMTTxInterceptor.handleExceptionInOurTx(CMTTxInterceptor.java:191)",
+      "org.jboss.as.ejb3.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:282)",
+      "org.jboss.as.ejb3.CMTTxInterceptor.required(CMTTxInterceptor.java:345)",
+      "org.jboss.as.ejb3.CMTTxInterceptor.processInvocation(CMTTxInterceptor.java:243)"
+    ],
+    [
+      "Caused by: java.lang.RuntimeException: Something horrible has happened on the server",
+      "sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)",
+      "sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)",
+      "sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)",
+      "java.lang.reflect.Method.invoke(Method.java:606)"
+    ]
+  ]
+}
+```
