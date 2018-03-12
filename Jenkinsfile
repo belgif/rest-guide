@@ -129,7 +129,7 @@ node ('docker') {
                            parameters: [booleanParam(name: 'INPUT_APPROVE',
                                                      defaultValue: false,
                                                      description: 'Check this box to promote this image for deployment in Production environment.')],
-                           submitter: 'smals-wisa-*,smals-sem-*', submitterParameter: 'INPUT_APPROVE_SUBMITTER')
+                           submitter: 'smals-wisa-view,smals-sem-admin', submitterParameter: 'INPUT_APPROVE_SUBMITTER')
 
     if ( userInput.INPUT_APPROVE ) {
       echo "The deployment of this image is approved in test.  Refresh [prd] ImagestreamTag."
