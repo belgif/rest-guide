@@ -65,7 +65,7 @@ node ('docker') {
       echo "--"
       echo "${RETURN_CRAWLER}"
       echo "--"
-      echo "OK!"
+      echo "OK!!"
     '''
   }
 
