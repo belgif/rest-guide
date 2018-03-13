@@ -50,8 +50,8 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 |===
 
 .Consulting a collection
-[subs=normal]
 ====
+[subs=normal]
 ```
 GET {API}/employers[^] HTTP/1.1​
 ```
@@ -112,10 +112,13 @@ In this case, the full representations MUST be included in an 'embedded' propert
 
 .Consulting a collection with items embedded
 ====
+[subs=normal]
 ```
 GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 ```
+
 .Response
+[subs=normal]
 ```JSON
 ​​​{
  "items": [
@@ -272,11 +275,11 @@ The names of the properties with hyperlink values and the `items` property are d
 ```
 GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
 ```
-====
 
 [source,json, subs="normal"]
 ----
 ​{
+  "self": "{API}/companies?page=2&pageSize=2[/companies?page=2&pageSize=2^]",
   "items": [
     {
       "href": "{API}/companies/0202239951[/companies/0202239951^]",
@@ -294,6 +297,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
   "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
 }
 ----
+====
 
 .Cursor-based pagination
 ====
@@ -301,11 +305,11 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
 ```
 GET {API}/companies?afterCompany=0244640631&pageSize=2[^] HTTP/1.1​
 ```
-====
 
 [source,json, subs="normal"]
 ----
 ​{
+  "self": "{API}/companies?afterCompany=0244640631&pageSize=2[/companies?afterCompany=0244640631&pageSize=2^]",
   "items": [
     {
       "href": "{API}/companies/0202239951[/companies/0202239951^]",
@@ -321,6 +325,7 @@ GET {API}/companies?afterCompany=0244640631&pageSize=2[^] HTTP/1.1​
   "next": "{API}/companies?afterCompany=0212165526&pageSize=2[/companies?afterCompany=0212165526&pageSize=2^]"
 }
 ----
+====
 
 === Create a new resource​
 The collection resource can be used to create new document resources.
