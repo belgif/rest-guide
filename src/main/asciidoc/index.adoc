@@ -31,20 +31,6 @@ For brevity most URIs in the examples are shortened, but in reality URIs are alw
 
 = REST INTRODUCTION
 
-[CAUTION]
-.EHEALTH REMARK
-====
-Algemeen
-*	Nog meer gebruik van MUST/SHOULD/MAY
-====
-
-[CAUTION]
-.CBSS REMARK
-====
--	type definitions for common data types (ssin, cbeNumber, …) => refer to output from functional workgroup
--	tracing (ticket across service calls)
-====
-
 include::introduction.adoc[]
 
 include::maturity.adoc[]

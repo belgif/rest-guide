@@ -8,7 +8,7 @@ In order to be compliant to the _uniform interface_ as described by Roy Fielding
 . *<<Hypermedia controls>>* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Maturity level
 ==========================
 All REST services *MUST at least respect level 2* and desirably achieve level 3.

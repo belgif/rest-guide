@@ -12,7 +12,7 @@ Service consumers should be aware that JSON objects can always be extended with 
 === JSON properties
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .All JSON property names SHOULD be in English and written in _lowerCamelCase_ notation.
 ==========================
 All JSON property names are in English and are written in _lowerCamelCase_ notation.
@@ -35,7 +35,7 @@ CAUTION: open issue: British or American English? (CBSS remark)
 }
 ```
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Null values
 ==========================
 Properties with a `null` value SHOULD be stripped from the JSON message.
@@ -44,12 +44,6 @@ A notable exception to this rule are JSON Merge Patch requests, in which a `null
 
 Note that this rule doesn't apply to empty values (e.g. empty strings `""` or empty arrays `[]`) as they are considered different from a `null` value.
 ==========================
-
-[CAUTION]
-.CBSS REMARK
-====
--	Representation of filtered/unauthorized properties of a data type
-====
 
 |===
 |*NOK*|*OK*
@@ -110,7 +104,7 @@ See http://json-schema.org/latest/json-schema-validation.html#rfc.section.8.3.1[
 .Example UTC
 ```json
 {
-  "lastModification": "2016-04-24T09:26:00Z"
+  "lastModification": "2016-04-24T09:26:01.5214Z"
 }
 ```
 

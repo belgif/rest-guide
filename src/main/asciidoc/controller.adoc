@@ -7,15 +7,15 @@ WARNING: Never use controllers for CRUD operations.
 A REST API can rely on controller resources to perform application-specific actions that cannot be logically mapped to one of the standard methods (create, retrieve, update, and delete).
 
 [CAUTION]
-.Controller resources vs command pattern
+.Open issue: controller resources vs command pattern
 ====
 See issue #3
 ====
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Controllers
 ==========================
-Controller names typically appear as the last segment in a URI path, with no child resources to follow them in the hierarchy. 
+Controller names typically appear as the last segment in a URI path, with no child resources to follow them in the hierarchy.
 
 This is the *only resource type where a verb can be used to indicate the action to execute*.
 
@@ -28,4 +28,3 @@ POST /alerts/245743/resend
 ```
 
 NOTE: Controller resources are not considered RESTful. They represent a remainder of RPC, XML/HTTP and SOAP. Although controllers can be useful to simplify the API, they shouldn't be overused.
-

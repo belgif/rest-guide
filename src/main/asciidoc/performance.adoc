@@ -4,7 +4,7 @@
 
 In order to reduce the number of requests, optional embedding of subresources may be used.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Embedding subresources
 ====
 Embedded subresources MUST be put in a JSON object named `embedded` at root level of the JSON document.

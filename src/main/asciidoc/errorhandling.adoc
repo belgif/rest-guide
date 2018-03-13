@@ -47,14 +47,14 @@ For any problem occurred during processing, whether it be caused by the client o
 }
 ```
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Media type
 ==========================
 RFC 7807 defines the media type `application/problem+json`
 ==========================
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Unique error id
 ==========================
 Each status message contains a unique id to track the message and store it for support use later on.
@@ -75,7 +75,7 @@ X-Correlation-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 }
 ```
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Consumer-friendly details
 ==========================
 Each status message contains a details property to provide specific information about the failing requests to the consumer.
@@ -105,7 +105,7 @@ Content-Type: application/problem+json
 ```
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Error sanitization
 ==========================
 A problem cannot leak sensitive implementation and infrastructure details. Providers must strip this information (e.g. DB error codes, internal hostnames, stacktraces) before returning the problem detail to the consumer.

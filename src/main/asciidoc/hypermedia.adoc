@@ -4,7 +4,7 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 
 === Links ===
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Links to self and other resources
 ====
 When referencing another resource, a link SHOULD be added using the `href` attribute.
@@ -46,7 +46,8 @@ Links can be added anywhere in a JSON document
 Hyperlinks for <<Pagination>> inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
 
 [[collection-links]]
-.Example paging
+.Pagination links
+====
 [subs="normal"]
 ```json
 {
@@ -54,11 +55,12 @@ Hyperlinks for <<Pagination>> inside collections and self-references should use 
    "prev": "{API}/companies?page=2&pageSize=1[/companies?page=1&pageSize=10^]",
    "next": "{API}/companies?page=2&pageSize=3[/companies?page=3&pageSize=10^]"
 }
-
 ```
+====
 
 [[document-links]]
-.Document resource
+.Document link
+====
 [subs="normal"]
 ```json
 {
@@ -72,5 +74,6 @@ Hyperlinks for <<Pagination>> inside collections and self-references should use 
   "self": "{API}/employers/3870094[/employers/3870094^]"
 }
 ```
+====
 
 The use of https://tools.ietf.org/html/rfc5988[Web Linking] and http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language (HAL)] is not recommended.

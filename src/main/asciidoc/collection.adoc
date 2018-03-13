@@ -2,7 +2,7 @@
 
 A collection resource is a server-managed list of document resources.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Collection name
 ====
 A plural noun SHOULD be used for collection names, for example 'employers' or 'people'.
@@ -16,10 +16,10 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'p
 [[collections-consult]]
 === Consult
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Representation of a collection
 ====
-A collection is represented as a list with links to the resources:
+The representation of a collection MUST contain a list of links to child resources:
 
 * A query on a collection MUST contain an `items` property with an array of objects, each one representing an item in the collection.
 * In these objects, a `href` property MUST be present with a link to the resource.
@@ -103,10 +103,10 @@ definitions:
 ```
 ====
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Getting full representations of collection items
 ====
-When the collection items contains little data, you may want to retrieve them in full when getting the collection.
+When the collection items contain few data, you may want to retrieve them in full when getting the collection.
 In this case, the full representations MUST be included in an 'embedded' property as described in <<Embedding resources>>.
 ====
 
@@ -228,7 +228,7 @@ GET {API}/companies?name=belg[^] HTTP/1.1​
 
 === Pagination
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Paging over a large collection​
 ====
 Collection with too many items MUST support pagination.

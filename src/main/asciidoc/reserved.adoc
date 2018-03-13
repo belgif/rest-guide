@@ -69,7 +69,7 @@ a|
 ----
 "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
 ----
-| <<Links>
+| <<Links>>
 
 |[[rel-previous]]prev
 |The previous-reference contains the absolute URL of the previous page in a paged collection.
@@ -83,7 +83,7 @@ a|
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
 a|
-[source,json]
+[source,json, subs=normal]
 ----
 "self": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
@@ -92,7 +92,7 @@ a|
 |[[rel-self]]href
 |A reference (absolute URL) to another resource.
 a|
-[source,json]
+[source,json, subs=normal]
 ----
 "href": "{API}/companies/0202239951[/companies/0202239951^]"
 ----
@@ -101,7 +101,7 @@ a|
 |[[rel-self]]first
 |A reference (absolute URL) to the first page in a paged collection.
 a|
-[source,json]
+[source,json, subs=normal]
 ----
 "first": "{API}/companies?pageSize=2"
 ----
@@ -110,7 +110,7 @@ a|
 |[[rel-self]]last
 |A reference (absolute URL) to the last page in a paged collection.
 a|
-[source,json]
+[source,json, subs=normal]
 ----
 "last": "{API}/companies?page=4&pageSize=2",
 ----

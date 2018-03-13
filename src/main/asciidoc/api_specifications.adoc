@@ -1,6 +1,6 @@
 == API specifications
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .API contract-first approach
 ====
 The contract-first principle SHOULD be followed when developing an API.
@@ -10,23 +10,24 @@ A code-first approach may sometimes be necessary however, as current state of te
 In this case, special attention should be given that the API specifications remain stable and loosely coupled to the API implementation technology.
 ====
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Use of YAML format in OpenAPI and JSON Schema
-==========================
-OpenAPI and JSON Schema files SHOULD use YAML format rather JSON.
+====
+OpenAPI and JSON Schema files SHOULD use YAML format rather than JSON.
 YAML is a superset of JSON which allows a simpler notation, and also allows comments.
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
-==========================
+====
 
-[caption="Rule {counter:rule-number}: "]
+[[doc-resource,doc resource]]
+[.rule, caption="Rule {counter:rule-number}: "]
 .`doc` resource
-==========================
+====
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 
-The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` and/or` swagger.yaml`.
-In OpenAPI 3.0, it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
+The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
+In the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification], it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
 Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
-==========================
+====
 
 .`doc` resource
 ====
@@ -43,26 +44,26 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ```
 ====
 
-=== OpenAPI
+=== OpenAPI (Swagger)
 
 OpenAPI is the dominating standard for API documentation, having gained wide industry support.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .OpenAPI 2.0 (Swagger)
-==========================
+====
 Specifications of the API SHOULD be provided using OpenAPI 2.0 (aka Swagger).
+====
 
 http://swagger.io/[Swagger^] has been standardized as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI standard].
 The OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
-==========================
 
 You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Version of the API
-==========================
+====
 The version of the API SHOULD be included in the `info` section of the OpenAPI definition.
-==========================
+====
 
 Example:
 [subs="normal"]
@@ -74,12 +75,10 @@ info:
   version: 1.0.0
 ```
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Additional documentation
 ====
-Any additional documentation SHOULD be linked from the API's OpenAPI definition.
-
-It is recommended to add links in the OpenAPI definition using the 'externalDocs' property to any additional API documentation or user manual.
+Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
 ====
 
 === JSON Schema
@@ -87,30 +86,22 @@ It is recommended to add links in the OpenAPI definition using the 'externalDocs
 OpenAPI uses JSON schemas to describe JSON resources.
 JSON schemas can be included directly in the `swagger.json` file or in separate files referenced from the OpenAPI description.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .JSON Schema
-==========================
+====
 JSON Schema MUST be used to describe JSON resources.
 
 The version of JSON Schema to be used is the variant of **JSON schema draft 04** defined in the OpenAPI 2.0 specification as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
-==========================
+====
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .JSON Schema data type names
-==========================
+====
 JSON Schema data type names SHOULD be defined in English and use _UpperCamelCase_ notation.
 Also for abbreviations, all letters except the first one should always be lowercased.
-==========================
-
-[CAUTION]
-.Open issue: location of common JSON schemas
-====
-Under discussion: guidelines how to publish JSON schemas that are used in multiple APIs. See issue #7.
 ====
 
-CAUTION: Open issue #14: representing JSON Merge Patch in JSON schema
-
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .additionalProperties
 ====
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
@@ -122,7 +113,7 @@ An exception is its use to describe an object representing a map of key-value pa
 
 An example of `additionalProperties` is the declaration of the types of resources in an `embedded` object, as described in <<Embedded resources>>.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .readOnly properties
 ====
 Properties SHOULD  be declared readOnly when appropriate.

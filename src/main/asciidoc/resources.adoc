@@ -14,7 +14,7 @@ NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]​ +
 
 URI must be intuitively structured.
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .URI notation
 ==========================
 The **URI notation MUST use _lowerCamelCase_ ** to enhance readability and to separate compound names.
@@ -30,11 +30,12 @@ As lowerCamelCase is used for JSON property names as well, the casing is consist
 
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .URI extensions
 ====
 The URI **SHOULD NOT contain a file extension**.
-A notable exception to this rule is the swagger/OpenAPI file.
+
+A notable exception to this rule is the swagger/OpenAPI file (see <<doc-resource>>).
 ====
 
 Instead, look at how to express <<Media Types>> using HTTP headers.
@@ -47,7 +48,7 @@ Instead, look at how to express <<Media Types>> using HTTP headers.
 
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Query parameters
 ====
 The query part of a URI may be used to filter the resource output.
@@ -60,21 +61,22 @@ The query component of a URI contains a set of parameters to be interpreted as a
 ​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
 Filter the resource collection to results
 
-[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?fields=name,address*# +
-Filter the resource properties to the ones specified in the `fields` query parameter.
+[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?select=name&select=address*# +
+Filter the resource properties to the ones specified in the `select` query parameter.
 
 [green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?lang=nl*# +
 Only return translatable properties in dutch.
 ====
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .Multiple values for the same query parameter
 ====
-When a single query parameter can have multiple values, the parameter should be repeated for each value.
+When a single query parameter can have multiple values, the parameter SHOULD be repeated for each value.
 ====
 
 .Multi-valued parameter
 ====
+[subs=normal]
 ```
 GET {API}/employers/01234567?embed=employees&embed=mainAddress
 ```

@@ -1,6 +1,6 @@
 == API ==
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .API
 ==========================
 An API bundles a set of resources which are _functionally related_ and form an autonomous _unit of business logic_.
@@ -9,7 +9,7 @@ An API bundles a set of resources which are _functionally related_ and form an a
 Compare an API to the concept of http://serviceorientation.com/soaglossary/service[_Services_ in service-orientation^] or the concept of http://martinfowler.com/bliki/BoundedContext.html[_Bounded Contexts_ in Domain-Driven Development^].
 
 
-[caption="Rule {counter:rule-number}: "]
+[.rule, caption="Rule {counter:rule-number}: "]
 .API format
 ==========================
 
@@ -28,7 +28,8 @@ resources:: All path segments identifying the actual resources.
 ==========================
 
 [CAUTION]
-.Open issue: versioning in URLs vs HTTP header
+.Open issue: version in URL
 ====
-Zie issue #1
+Versioning in URL still under discussion (vs media types in HTTP header).
+See issue #1.
 ====

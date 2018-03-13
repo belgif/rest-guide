@@ -4,7 +4,7 @@ A document resource is a _singular concept_ that is referring to a business enti
 
 .An employer document resource
 ====
-​​`{API}/employers/93017373[^]`
+​​`GET {API}/employers/93017373[^]`
 
 [subs="normal"]
 ```json
@@ -30,7 +30,7 @@ When defining child resources, stick to concepts _within the same API_. An emplo
 
 *Identity key*
 
-The _identity key_ is preferably a _natural business identifier_, uniquely identifying the business resource. If such key does not exist, a _surrogate or technical key_ (like http://tools.ietf.org/html/rfc4122[UDDI^]) can be used.
+The _identity key_ is preferably a _natural business identifier_, uniquely identifying the business resource. If such key does not exist, a _surrogate or technical key_ (like http://tools.ietf.org/html/rfc4122[UUID^]) can be used.
 
 WARNING: Especially for unsecured resources, avoid technical keys that are easy to guess (for example sequential identifiers)
 
@@ -38,6 +38,13 @@ WARNING: Don't use database-generated keys as identity keys in your public API t
 
 
 === Consult
+
+.Consulting a document
+====
+[subs="normal"]
+```
+GET {API}/employers/93017373[^] HTTP/1.1
+```
 
 [cols="1,2,3"]
 |===
@@ -47,7 +54,7 @@ WARNING: Don't use database-generated keys as identity keys in your public API t
 
 3+|​​​Parameters
 
-|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
 
 3+|Response
 
@@ -57,6 +64,7 @@ a|
 [source,json, subs="normal"]
 ----
 ​​​{
+  "self": "{API}/employers/93017373[/employers/93017373^]",
   "name": "Belgacom",
   "nossRegistrationNumber": "93017373",
   "company": {
@@ -79,7 +87,7 @@ a|
 |Bad request
 a|The dynamic path segment containing the identity key has a wrong data format
 
-e.g.
+(TODO: update example with RFC7807 Problem JSON format)
 [source,json]
 ----
 {
@@ -101,18 +109,7 @@ e.g.
 |The document resource does not exist.
 ​
 |===
-
-[CAUTION]
-.EHEALTH REMARK
 ====
-HTTP methods en error codes
-*	GET: search met invalid patient INSS -> eerder 404 (Not found) of 409 (Conflict)?
-====
-
-[subs="normal"]
-```
-GET {API}/employers/93017373[^] HTTP/1.1
-```
 
 === Update
 
@@ -143,6 +140,13 @@ CAUTION: guidelines how to use POST are still under discussion in issue #3
 
 Use `PUT` when you like to do a complete update of a document resource. All values are replaced by the values submitted by the client.
 
+.PUT on a document resource
+====
+[subs="normal"]
+```
+PUT {API}/employers/93017373[^] HTTP/1.1
+```
+
 [cols="1,2,3"]
 |===
 |​​​​​​​​​<<put>>
@@ -157,9 +161,11 @@ Use `PUT` when you like to do a complete update of a document resource. All valu
 
 3+|​​​Parameters
 
-|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
 
 3+|Response
+
+TODO: update JSON response to RFC 7807
 
 |body
 |empty or a message indicating success
@@ -192,11 +198,7 @@ a|
 |The client data is in conflict with the data on the server e.g. optimistic locking issues.
 ​
 |===
-
-[subs="normal"]
-```
-PUT {API}/employers/93017373[^] HTTP/1.1
-```
+====
 
 ==== Partial update
 
@@ -209,6 +211,15 @@ The `PATCH` message MUST be conform to the JSON Merge Patch (https://tools.ietf.
 * properties not present in the request are preserved
 
 APIs should support both the MIME type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON mime type.
+
+CAUTION: Open issue #14: representing JSON Merge Patch in JSON schema
+
+.JSON merge patch
+====
+[subs="normal"]
+```
+PATCH {API}/employers/93017373[^] HTTP/1.1
+```
 
 [cols="1,2,3"]
 |===
@@ -224,16 +235,18 @@ a|
 [source,json]
 ----
 ​​​{
-  "bankrupt": false
+  "bankrupt": false,
   "bankruptDate": null
 }
 ----
 
 3+|​​​Parameters
 
-|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
 
 3+|Response
+
+TODO: update JSON response to RFC 7807
 
 |body
 |empty or a message indicating success
@@ -265,15 +278,18 @@ a|
 |The client data is in conflict with the data on the server e.g. optimistic locking issues.
 ​
 |===
-
-[subs="normal"]
-```
-PATCH {API}/employers/93017373[^] HTTP/1.1
-```
+====
 
 === Remove
 
 Use `DELETE` when you like to delete a document resource.
+
+.Deleting a document resource
+====
+[subs="normal"]
+```
+DELETE {API}/employers/93017373[^] HTTP/1.1
+```
 
 [cols="1,2,3"]
 |===
@@ -283,9 +299,11 @@ Use `DELETE` when you like to delete a document resource.
 
 3+|​​​Parameters
 
-|`employerId`|path-param|e.g. CBE number uniquely identifying the employer.
+|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
 
 3+|Response
+
+TODO: update JSON response to RFC 7807
 
 |body
 |empty or a message indicating success
@@ -313,8 +331,4 @@ a|
 |The resource does not exist and thus cannot be updated.
 ​
 |===
-
-[subs="normal"]
-```
-DELETE {API}/employers/93017373[^] HTTP/1.1
-```
+====
