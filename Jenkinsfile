@@ -75,40 +75,40 @@ node ('docker') {
 
   stage ('\u2466 Auto Release Tag.') {
     echo "We use an Imagestream for Rest Styleguide deployment in Test environment (Openshift Project : ssb-test-community-tools)"
+    withCredentials([string(credentialsId: 'git_technical_user_artifactory_token', variable: 'ARTIFACTORY_TOKEN')]) {
+      sh '''
+        curl -sSfLo ${WORKSPACE}/getNextDockerGCloudReleaseTag http://git-cicd.gcloud.belgium.be/openshift/scripts/raw/master/artifactory-helper/getNextDockerGCloudReleaseTag.sh
+        curl -sSfLo ${WORKSPACE}/promoteDockerImage http://git-cicd.gcloud.belgium.be/openshift/scripts/raw/master/artifactory-helper/promoteDockerImage.sh
+        chmod +x ${WORKSPACE}/promoteDockerImage            \
+                 ${WORKSPACE}/getNextDockerGCloudReleaseTag
 
-    sh '''
-      curl -sSfLo ${WORKSPACE}/getNextDockerGCloudReleaseTag http://git-cicd.gcloud.belgium.be/openshift/scripts/raw/master/artifactory-helper/getNextDockerGCloudReleaseTag.sh
-      curl -sSfLo ${WORKSPACE}/promoteDockerImage http://git-cicd.gcloud.belgium.be/openshift/scripts/raw/master/artifactory-helper/promoteDockerImage.sh
-      chmod +x ${WORKSPACE}/promoteDockerImage            \
-               ${WORKSPACE}/getNextDockerGCloudReleaseTag
+        ARTIFACTORY_USERNAME="apidockerpromoting"
 
-      export ARTIFACTORY_USERNAME="apidockerpromoting"
-      export ARTIFACTORY_TOKEN="eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJ4Z0pPNEVDLWhFZGdMVjdTVFAxcE9ENzc4bnRlVzJlVFpIRVFfb3JwOUZBIn0.eyJzdWIiOiJqZnJ0QDAxYnZoanRtbjdmNmZ5MGNhemp6OXMwYnQyXC91c2Vyc1wvYXBpZG9ja2VycHJvbW90aW5nIiwic2NwIjoibWVtYmVyLW9mLWdyb3VwczpEb2NrZXJQcm9tb3RpbmcgYXBpOioiLCJhdWQiOiJqZnJ0QDAxYnZoanRtbjdmNmZ5MGNhemp6OXMwYnQyIiwiaXNzIjoiamZydEAwMWJ2aGp0bW43ZjZmeTBjYXpqejlzMGJ0MiIsImlhdCI6MTUwODkyMTIyMSwianRpIjoiMTg5NjE0NzctYTE1MC00YzZlLWI0YmQtMDgyMWVhMDM0YzNkIn0.J_bIptVx8snAeZDATqyffOH6NxbnJabRqa4M4lyawVYvVPjGq2akGOThRap6TMUDluSydARNKFDZIjwS2L4NiSI2oVAYpsdzO9BfCX7OqBGG1H-V5HhyhpUXafryUU9E3IgnSVUGLwKLor5g21xaJ3JWJM2qIXcgpqjeJbZ2kG6EbkFL2eppu_tgDQl9yI8VbGviaWD5vMs8UvwFzmP-Cdp9jwHrzHTfzkXqjuPaDDN4-nDP6rsuQGl9pmG08R3UpZH50VBGUs6OCoz5uByLC8SWpSvQW8CLS8peelSstVa6cHAYXBaUeGWw7fqZahMTJjm4UMqQfRRJSfIK0fMWqw"
+        GCLOUD_DOCKER_TAG=$(${WORKSPACE}/getNextDockerGCloudReleaseTag --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
+                                        --artifactory_username=${ARTIFACTORY_USERNAME} \
+                                        --artifactory_token=${ARTIFACTORY_TOKEN} \
+                                        --docker_registry="docker.release" \
+                                        --docker_image="gcloud-rest-styleguide-website" \
+                                        --docker_version_in_tag="${APPLICATION_VERSION}" )
 
-      GCLOUD_DOCKER_TAG=$(${WORKSPACE}/getNextDockerGCloudReleaseTag --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
-                                      --artifactory_username=${ARTIFACTORY_USERNAME} \
-                                      --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                      --docker_registry="docker.release" \
-                                      --docker_image="gcloud-rest-styleguide-website" \
-                                      --docker_version_in_tag="${APPLICATION_VERSION}" )
+        echo ${GCLOUD_DOCKER_TAG} > GCLOUD_DOCKER_TAG
 
-      echo ${GCLOUD_DOCKER_TAG} > GCLOUD_DOCKER_TAG
+        ${WORKSPACE}/promoteDockerImage --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
+                                        --artifactory_username=${ARTIFACTORY_USERNAME} \
+                                        --artifactory_token=${ARTIFACTORY_TOKEN} \
+                                        --repoKey="docker.snapshot" \
+                                        --targetRepo="docker.release" \
+                                        --dockerRepository="gcloud-rest-styleguide-website" \
+                                        --tag="latest" \
+                                        --targetTag="${GCLOUD_DOCKER_TAG}" \
+                                        --copy="true"
 
-      ${WORKSPACE}/promoteDockerImage --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
-                                      --artifactory_username=${ARTIFACTORY_USERNAME} \
-                                      --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                      --repoKey="docker.snapshot" \
-                                      --targetRepo="docker.release" \
-                                      --dockerRepository="gcloud-rest-styleguide-website" \
-                                      --tag="latest" \
-                                      --targetTag="${GCLOUD_DOCKER_TAG}" \
-                                      --copy="true"
+        oc tag --scheduled=true --alias=false container-release.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide-release:${GCLOUD_DOCKER_TAG}
 
-      oc tag --scheduled=true --alias=false container-release.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide-release:${GCLOUD_DOCKER_TAG}
+      '''
+    }
 
-    '''
-
-    GCLOUD_DOCKER_TAG = readFile('GCLOUD_DOCKER_TAG').trim()
+    env.GCLOUD_DOCKER_TAG = readFile('GCLOUD_DOCKER_TAG').trim()
 
   }
 
