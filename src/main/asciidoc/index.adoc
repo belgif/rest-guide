@@ -1,5 +1,5 @@
 ﻿= REST Guidelines
-v0.1, {localdate}
+{localdate}
 :doctype: book
 :docinfo:
 :toc: left
@@ -29,22 +29,17 @@ If you find errors or omissions in this document, please don't hesitate to conta
 For brevity most URIs in the examples are shortened, but in reality URIs are always in absolute notation.
 ====
 
-include::changelog.adoc[]
-
-= REST INTRODUCTION
-
 include::introduction.adoc[]
 
-include::maturity.adoc[]
-
-
-= REST API
+include::changelog.adoc[]
 
 include::api.adoc[]
 
-include::uniform_interface.adoc[]
-
 include::resources.adoc[]
+
+include::document.adoc[]
+include::collection.adoc[]
+include::controller.adoc[]
 
 include::methods.adoc[]
 
@@ -64,7 +59,7 @@ include::reserved.adoc[]
 
 include::errorhandling.adoc[]
 
-include::oauth.adoc[]
+// include::oauth.adoc[]
 
 //include::monitoring.adoc[]
 
