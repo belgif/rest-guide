@@ -29,6 +29,8 @@ If you find errors or omissions in this document, please don't hesitate to conta
 For brevity most URIs in the examples are shortened, but in reality URIs are always in absolute notation.
 ====
 
+include::changelog.adoc[]
+
 = REST INTRODUCTION
 
 include::introduction.adoc[]

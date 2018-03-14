@@ -114,24 +114,3 @@ See http://json-schema.org/latest/json-schema-validation.html#rfc.section.8.3.1[
   "lastModification": "2016-04-24T11:26:00+02:00"
 }
 ```
-
-
-[CAUTION]
-.VAS REMARK
-====
-Updatable fields
-
-* For self documentation purpose and to prevent some business logic to be duplicated in the front-end, we decided to return a shadow resource representation where each given property mean the property is updatable. The value of those properties is not important but we decided to use not null values ("x" for text properties, 1 for number properties and true for boolean properties) to allow the client to check if the property is defined or to check if the property is null or not.
-
-* Because updatable properties can differs from one user to another, you should be careful with caching. You can either disable HTTP caching completely (you will find a lot of examples on Google), either use the Vary HTTP header and to specify an header with the user ID.
-In the following example, we specify that only the email can be updated.
-
-```json
-{ "first_name": "Marcel",
- "last_name" : "Vincent",
- "ssin" : "00000000097",
- "email" : "marcel.vincent@gmail.com",
- "_updatable": {
- "email" : "x"}}
- ```
-====

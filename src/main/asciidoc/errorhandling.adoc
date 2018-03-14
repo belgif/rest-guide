@@ -12,7 +12,7 @@ For any problem occurred during processing, whether it be caused by the client o
 ```json
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": " Problem Detail for HTTP APIs (RFC 7807)",
+  "description": "Problem Detail for HTTP APIs (RFC 7807)",
   "type": "object",
   "properties": {
     "type": {

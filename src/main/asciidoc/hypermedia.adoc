@@ -12,6 +12,8 @@ Each resource SHOULD also contain its own location in a `self` attribute at root
 URIs SHOULD always be absolute.
 ====
 
+CAUTION: For brevity, most URIs in the style guide examples are shortened, but in reality URIs should always be absolute.
+
 All `href` hyperlinks are derived from this minimal link type:
 
 .JSON schema *HttpLink.yaml*

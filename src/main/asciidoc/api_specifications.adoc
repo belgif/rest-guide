@@ -25,9 +25,11 @@ According to usage, a conversion step to JSON might be necessary considering lim
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 
 The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
-In the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification], it is RECOMMENDED that the root OpenAPI document be named `openapi.json` or `openapi.yaml`.
-Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
+
+Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification].
 ====
+
+Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
 
 .`doc` resource
 ====
@@ -101,17 +103,17 @@ JSON Schema data type names SHOULD be defined in English and use _UpperCamelCase
 Also for abbreviations, all letters except the first one should always be lowercased.
 ====
 
+`additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
+
 [.rule, caption="Rule {counter:rule-number}: "]
 .additionalProperties
 ====
-`additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
-
-Schemas SHOULD avoid using `additionalProperties` declarations, in order to support schema evolution.
-
-An exception is its use to describe an object representing a map of key-value pairs, rather than a business object.
+`additionalProperties` SHOULD be used exclusively to describe an object representing a map of key-value pairs.
+The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
 ====
 
-An example of `additionalProperties` is the declaration of the types of resources in an `embedded` object, as described in <<Embedded resources>>.
+An example is the description a map of `embedded` resources, as described in <<Embedded resources>>.
+Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .readOnly properties
