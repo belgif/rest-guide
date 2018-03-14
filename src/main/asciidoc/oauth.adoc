@@ -1,5 +1,115 @@
 == OAuth ==
 
-RESTful services are secured following the https://tools.ietf.org/html/rfc6749[OAuth 2.0 Authorization Framework (RFC 6749)^].
+RESTful services are secured following the https://tools.ietf.org/html/rfc6749[OAuth 2.0^] and OpenID Connect standards.
 
 CAUTION: further guidelines are being worked out by the REST Security workgroup
+
+[CAUTION]
+.EHEALTH REMARK
+====
+OAuth
+*	We also support and promote authorization_code (for confidental clients)
+*	Client Credentials Flow:
+Authentication: is that a standard or Smals specific implementation.
+We use JSON Web Token (JWT) Profile as standard for authentication (RFC7523). uses a certificate to sign a jwt token as assertion.
+
+====
+
+[CAUTION]
+.CBSS REMARK
+====
+-	Security: specify use cases present in each organization (system-to-system/user-to-system, sensitivity level, … )
+*	Starting from these, standardize on technologies (e.g. OAuth2, OpenID Connect, signature, encryption, certificate formats/creation process, …)
+====
+
+First the client application has to request an _access token_ from the _Authorization Server_. There are currently 2 authorization grant flows supported to obtain an access token:
+
+* <<Client Credentials flow>>: for authenticated applications (e.g. batch, server-side component) to obtain permissions on behalf of itself
+* <<Implicit flow>>: for unauthenticated applications (e.g. JavaScript, mobile app, fat client) to obtain permission on behalf of an end-user
+
+The access token is a https://tools.ietf.org/html/rfc7519[JSON Web Token or JWT (RFC 7519)^] containing an identity and list of scopes. The access token is signed to protect its integrity.
+
+.Example access token
+[subs=normal]
+```
+[red]#eyJhbGciOiJSUzI1NiIsImtpZCI6InNtYWxzb2F1dGgifQ#.[fuchsia]#eyJpc3MiOiJzb29uIiwiYXVkIjoib2F1dGg6Y2xpZW50Y3JlZGVudGlhbDp0ZXN0OmZ1bGwiLCJpYXQi
+OjE0ODM1MjE2OTQsImV4cCI6MTQ4MzUyMjI5NCwibmJmIjoxNDgzNTIxNjM0LCJzdWIiOiJvYXV0aDpjbGllbnRjcmVkZW50aWFsOnRlc3Q6ZnVsbCIsImp0aSI6ImU5NjBjNDg0LWU3NDQtNGRmZi1iNDc1LTEyZjVlMjVkMGIyZCIsIkFUTSI6IlVNQU5fUEFTU1dPUkRfQ0VSVCIsInVzZXJfdHlwZSI6IkFQUExJQ0FUSU9OIiwiZW50aXR5X2NiZSI6IjA0MDY3OTgwMDYiLCJzY29wZSI6InNjb3BlX2RlbW9fY2NfcmVhZCJ9#.[aqua]#G19HOpSIVblJW2voNbKPttigbUz3l72FFm84rBAP_evHKAVSwVEcOzmC4RibNtgD2qUw-AHWaOWvXyxQXHP8DyumqSbUo5_E8VwlpI95bLnBLS9KIVhBI_ihYKjGRgNiIkDpb4gy94D5xgh0VIUVcq-l9KmRBZ2lpp9LOSYPFvY#
+```
+
+Several libraries or services (e.g. http://jwt.io[jwt.io^]) exist to visualize the content of a JWT.
+
+.Example decoded access token
+[subs=normal]
+```
+[red]#{
+  "alg": "RS256",
+  "kid": "fedoauth"
+}#.[fuchsia]#{
+  "iss": "soon",
+  "aud": "oauth:clientcredential:test:full",
+  "iat": 1483521694,
+  "exp": 1483522294,
+  "nbf": 1483521634,
+  "sub": "oauth:clientcredential:test:full",
+  "jti": "e960c484-e744-4dff-b475-12f5e25d0b2d",
+  "ATM": "UMAN_PASSWORD_CERT",
+  "user_type": "APPLICATION",
+  "entity_cbe": "0406798006",
+  "scope": "scope_demo_cc_read"
+}#.[aqua]#_signature value_#
+```
+
+The access token can be used to invoke protected resources by adding it to the ```Authorization``` HTTP header.
+
+[subs=normal]
+```
+GET http://api.fgov.be/demo/hello/sayHello
+Authorization: Bearer [red]#eyJhbGc#..[aqua]#FvY#
+```
+
+=== Client Credentials flow ===
+
+This flow applies to applications that request an access token using its own client credentials (e.g. batch programs or any server-side application that accesses a resource not on behalf of an end-user)
+
+
+The secrets are in _Cryptographic Message Syntax (CMS)_ format (PKCS#7) and include the X.509 certificate of the client and a signed random-generated string.
+
+image::client-credentials.png[]
+
+The client asks the Authorization Server to generate an _access token_ on its behalf
+
+```
+POST https://privateservices.socialsecurity.be/REST/oauth/clientCredential
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&
+client_id=b2F1dGg6Y2xpZW50Y3JlZGVudGlhbDp0ZXN0OmZ1bGw%3D& <1>
+client_secret=MIAGCS..AAA& <2>
+scope=scope_demo_cc_read <3>
+```
+
+<1> `client_id` is the base64-encoded common name (`CN`) of the client X.509 certificate
+<2> `client_secret` is the CMS secret previously described
+<3> `scope` is the list of requested scopes necessary to invoke protected resources.
+
+
+If allowed, the Authorization Server returns the ```accessToken``` in a JSON message.
+
+[subs=normal]
+```json
++HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8+
+{
+    "accessToken": "eyJhbGc..FvY",
+    "expiresAt": "2016-12-30T11:32:21.111Z",
+    "expiresIn": 599,
+    "clientId": "oauth:clientcredential:test:full"
+}
+```
+
+
+=== Implicit flow ===
+
+This flow is optimized for clients that cannot securily store credentials client-side (e.g. Javascript in the browser, public mobile or desktop applications). The access token is issued to the end-user of the application, not the application itself.
+
+##TODO##

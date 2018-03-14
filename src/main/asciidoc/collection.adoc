@@ -13,7 +13,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'p
 {API}/employers[^]
 ====
 
-[[collections-consult]]
+[[collections-consult, Consulting a collection]]
 === Consult
 
 [.rule, caption="Rule {counter:rule-number}: "]

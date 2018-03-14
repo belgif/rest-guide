@@ -1,4 +1,17 @@
-== API ==
+== REST API
+
+=== Uniform interface
+
+The REST uniform interface embraces all aspects of the HyperText Transfer Protocol, version 1.1 (HTTP/1.1) including its request methods, response codes, and message headers.​
+
+The REST uniform interface is based on three fundamental elements:
+
+[arabic]
+. <<Resources>> – How can we express where the data is being transferred to or from?
+. <<HTTP Methods>> – What are the protocol mechanisms used to transfer the data?
+. <<Media Types>> – What type of data is being transferred?
+
+=== API
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .API
@@ -33,3 +46,26 @@ resources:: All path segments identifying the actual resources.
 Versioning in URL still under discussion (vs media types in HTTP header).
 See issue #1.
 ====
+
+=== Richardson Maturity Model
+
+The Richardson Maturity Model (developed by Leonard Richardson) breaks down the principal elements of a RESTful interface into three steps.
+In order to be compliant to the _uniform interface_ as described by Roy Fielding, all three levels must be fulfilled.
+
+. *<<Resources>>* -- Level 1 tackles the question of handling complexity by using divide and conquer, breaking a large service endpoint down into multiple resources, each represented by a unique URI.
+. *<<HTTP Methods>>* -- Level 2 introduces a standard set of verbs so that we handle similar situations in the same way, removing unnecessary variation.
+. *<<Hypermedia controls>>* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
+
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Maturity level
+==========================
+All REST services *MUST at least respect level 2* and desirably achieve level 3.
+==========================
+
+.References
+****
+* http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm['Architectural Styles and the Design of Network-based Software Architectures'^] by Roy Fielding. This dissertation defined the REST architectural principles.
+* http://martinfowler.com/articles/richardsonMaturityModel.html['Richardson Maturity Model'^] by Martin Fowler
+* http://www.crummy.com/writing/speaking/2008-QCon/act3.html['The Maturity Heuristic'^] by Leonard Richardson
+****

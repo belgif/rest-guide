@@ -85,11 +85,6 @@ GET {API}/employers/01234567?embed=employees&embed=mainAddress
 === Resource Archetypes
 There are 3 different resource archetypes:
 
-* <<Collection>>
 * <<Document>>
+* <<Collection>>
 * <<Controller>>
-
-
-include::collection.adoc[]
-include::document.adoc[]
-include::controller.adoc[]
