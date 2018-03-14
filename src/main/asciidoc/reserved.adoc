@@ -2,15 +2,6 @@
 
 A list of reserved words exists for common used practices
 
-[CAUTION]
-.EHEALTH REMARK
-====
-*	Location HTTP header (-> add a pointer to the spec if needed)
-*	lang of locale? (openid connect = locale)
-*	LocalizedString standaard?
-====
-
-
 === Query parameters
 
 [cols="1,3,3,1", options="header"]
@@ -19,11 +10,6 @@ A list of reserved words exists for common used practices
 |Description
 |Example
 |Ref
-
-|[[query-param-lang]]lang
-|Requests to return the information in a specific language. The language code used is the {iso639-1}[two-letter ISO 639-1 standard]
-|?lang=nl
-|
 
 |[[query-param-page]]page
 |When a collection resources is paged, use this parameter to request a specific page. Page numbers are 1-based.
@@ -141,4 +127,29 @@ a|
 |
 | <<Embedding resources>>
 
+|===
+
+=== HTTP headers
+
+https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all standardized and common non-standard HTTP headers.
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Custom HTTP headers
+====
+Custom HTTP headers SHOULD be prefixed with the organization's name.
+====
+
+`X-` headers were initially reserved for unstandardized parameters, but the usage of `X-` headers is deprecated (https://tools.ietf.org/html/rfc6648[RFC-6648]).
+Instead, it is recommended that company specific header' names should incorporate the organization’s name.
+However, for backwards compatibility reasons, headers with the `X-` prefix may still be used.
+
+.Headers referenced in the style guide
+|===
+|HTTP Header  | Type     | Description | Reference
+|Location     | Response | Used in redirection, or when a new resource has been created. |<<Create a new resource​>>, <<POST>>, status codes <<http-301,301>>, <<http-303,303>> and <<http-307,307>>
+|Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | <<Media Types>>, status code <<http-406,406>>
+|Content-Type	| Request/Response | The Media type of the body of the request. | <<Media Types>>, status code <<http-415,415>>
+|X-HTTP-Method-Override | Request | Override the method specified in the request. | <<PATCH>>
+|Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable | <<http-503>>
+|Allow        | Response | Valid methods for a specified resource. | <<http-405>>
 |===
