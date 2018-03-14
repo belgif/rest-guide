@@ -1,0 +1,9 @@
+== Changelog
+
+* 2018-03-14
+** added reserved HTTP headers and rule on custom http headers (<<reserved-HTTP-headers>>)
+** content negotiation and JSON subtypes added to <<Media Types>>
+** <<collections-consult>>: empty items array mandatory when collection is empty
+** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
+* 2018-03-07
+** <<Error handling>>: use of RFC 7807

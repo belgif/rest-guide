@@ -25,6 +25,7 @@ The representation of a collection MUST contain a list of links to child resourc
 * In these objects, a `href` property MUST be present with a link to the resource.
 * The unique business identifier SHOULD be present for each item.
 * Each item object MAY be extended with some key business properties, needed for display in a master view.
+* In case the collection is empty, the `items` property MUST have an empty array as value.
 * The `title` attribute MAY be used to provide a human-readable description for an item, usable as display text for the link.
 * `total` is the reserved word for all the items in the collection result.
 ====
@@ -110,7 +111,7 @@ When the collection items contain few data, you may want to retrieve them in ful
 In this case, the full representations MUST be included in an 'embedded' property as described in <<Embedding resources>>.
 ====
 
-.Consulting a collection with items embedded
+.Consulting a collection with embedded items
 ====
 [subs=normal]
 ```
@@ -121,6 +122,7 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 [subs=normal]
 ```JSON
 ​​​{
+ "self": "{API}/appendices/employerclasses?embed=items[/appendices/employerclasses?embed=items^]",
  "items": [
   {
    "value": "0",

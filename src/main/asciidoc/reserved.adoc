@@ -129,6 +129,7 @@ a|
 
 |===
 
+[[reserved-HTTP-headers, reserved HTTP headers]]
 === HTTP headers
 
 https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all standardized and common non-standard HTTP headers.
@@ -147,8 +148,8 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |===
 |HTTP Header  | Type     | Description | Reference
 |Location     | Response | Used in redirection, or when a new resource has been created. |<<Create a new resource​>>, <<POST>>, status codes <<http-301,301>>, <<http-303,303>> and <<http-307,307>>
-|Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | <<Media Types>>, status code <<http-406,406>>
-|Content-Type	| Request/Response | The Media type of the body of the request. | <<Media Types>>, status code <<http-415,415>>
+|Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | <<Media Types>>
+|Content-Type	| Request/Response | The Media type of the body of the request. | <<Media Types>>
 |X-HTTP-Method-Override | Request | Override the method specified in the request. | <<PATCH>>
 |Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable | <<http-503>>
 |Allow        | Response | Valid methods for a specified resource. | <<http-405>>
