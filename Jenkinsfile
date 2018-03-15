@@ -123,24 +123,25 @@ node ('docker') {
   }
 
   stage ('\u2468 Deployment in Production Env.') {
-    def userInput = input (id: 'INPUT_APPROVE_ID',
-                           message: 'G-Cloud Rest Styleguide Website Pipeline Promotion parameters : ',
-                           ok: 'OK',
-                           parameters: [booleanParam(name: 'INPUT_APPROVE',
-                                                     defaultValue: false,
-                                                     description: 'Check this box to promote this image for deployment in Production environment.')],
-                           submitter: 'smals-wisa-view,smals-sem-admin', submitterParameter: 'INPUT_APPROVE_SUBMITTER')
+    // def userInput = input (id: 'INPUT_APPROVE_ID',
+    //                        message: 'G-Cloud Rest Styleguide Website Pipeline Promotion parameters : ',
+    //                        ok: 'OK',
+    //                        parameters: [booleanParam(name: 'INPUT_APPROVE',
+    //                                                  defaultValue: false,
+    //                                                  description: 'Check this box to promote this image for deployment in Production environment.')],
+    //                        submitter: 'smals-wisa-view,smals-sem-admin', submitterParameter: 'INPUT_APPROVE_SUBMITTER')
 
-    if ( userInput.INPUT_APPROVE ) {
-      echo "The deployment of this image is approved in test.  Refresh [prd] ImagestreamTag."
+    // if ( userInput.INPUT_APPROVE ) {
+    //  echo "The deployment of this image is approved in test.  Refresh [prd] ImagestreamTag."
+      echo "Refresh [prd] ImagestreamTag."
 
       openshiftTag(srcStream: "gcloud-rest-styleguide-release", srcTag: "${GCLOUD_DOCKER_TAG}",
                    destStream: "gcloud-rest-styleguide-release", destTag: "prd",
                    alias: 'true', verbose: 'false')
 
-    } else {
-      echo "The deployment of this image is not approved in test.  Do not tag this image for Production deployment."
-    }
+    // } else {
+    //   echo "The deployment of this image is not approved in test.  Do not tag this image for Production deployment."
+    // }
   }
 
 }
