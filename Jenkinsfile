@@ -96,14 +96,14 @@ node ('docker') {
         ${WORKSPACE}/promoteDockerImage --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
                                         --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                        --repoKey="docker.snapshot" \
+                                        --repoKey="docker.release" \
                                         --targetRepo="docker.release" \
                                         --dockerRepository="gcloud-rest-styleguide-website" \
-                                        --tag="latest" \
+                                        --tag="RC" \
                                         --targetTag="${GCLOUD_DOCKER_TAG}" \
                                         --copy="true"
 
-        oc tag --scheduled=true --alias=false container-release.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide-release:${GCLOUD_DOCKER_TAG}
+        oc tag --scheduled=true --alias=false container-release.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}
 
       '''
     }
@@ -116,8 +116,8 @@ node ('docker') {
     echo "Refresh [tst] ImagestreamTag."
     echo "Sleep while Openshift masters refresh all imagestreams ..."
     sh 'sleep 120'
-    openshiftTag(srcStream: "gcloud-rest-styleguide-release", srcTag: "${GCLOUD_DOCKER_TAG}",
-                 destStream: "gcloud-rest-styleguide-release", destTag: "tst",
+    openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
+                 destStream: "gcloud-rest-styleguide", destTag: "tst",
                  alias: 'true', verbose: 'false')
 
   }
@@ -135,8 +135,8 @@ node ('docker') {
       echo "The deployment of this image is approved in test.  Refresh [prd] ImagestreamTag."
       echo "Refresh [prd] ImagestreamTag."
 
-      openshiftTag(srcStream: "gcloud-rest-styleguide-release", srcTag: "${GCLOUD_DOCKER_TAG}",
-                   destStream: "gcloud-rest-styleguide-release", destTag: "prd",
+      openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
+                   destStream: "gcloud-rest-styleguide", destTag: "prd",
                    alias: 'true', verbose: 'false')
 
     // } else {
