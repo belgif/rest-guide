@@ -75,7 +75,7 @@ GET {API}/employers[^] HTTP/1.1​
      "companyId": "0409536968",
    }
  ],
- "total":3
+ "total":2
 }​
 ----
 
@@ -266,7 +266,7 @@ The names of the properties with hyperlink values and the `items` property are d
 
 |===
 
-| `pageSize` | OPTIONAL |  maximum number of items per page
+| `pageSize` | OPTIONAL |  maximum number of items per page desired by client; must have a default value if absent.
 | `page` | MANDATORY with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
 
 |===
@@ -292,6 +292,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
       "title": "CPAS de Silly"
     }
   ],
+  "pageSize": 2
   "total": 7,
   "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
   "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
@@ -305,7 +306,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
 ====
 [subs="normal"]
 ```
-GET {API}/companies?afterCompany=0244640631&pageSize=2[^] HTTP/1.1​
+GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 ```
 
 [source,json, subs="normal"]
@@ -322,6 +323,7 @@ GET {API}/companies?afterCompany=0244640631&pageSize=2[^] HTTP/1.1​
       "title": "CPAS de Silly"
     }
   ],
+  "pageSize": 2,
   "total": 7,
   "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
   "next": "{API}/companies?afterCompany=0212165526&pageSize=2[/companies?afterCompany=0212165526&pageSize=2^]"
