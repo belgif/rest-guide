@@ -61,7 +61,7 @@ node ('docker') {
     echo "Do some unit test on deployed website here ..."
     sh '''
       set +e
-      RETURN_CRAWLER=$(docker run -i -e TARGET=http://gcloud-rest-styleguide-website.test.paas.services.gcloud.belgium.be/rest/index.html container-release.gcloud.belgium.be/crawler:latest)
+      RETURN_CRAWLER=$(docker run -i -e TARGET=http://gcloud-rest-styleguide-website.paas.services.gcloud.belgium.be/rest/index.html container-release.gcloud.belgium.be/crawler:latest)
       echo "--"
       echo "${RETURN_CRAWLER}"
       echo "--"
