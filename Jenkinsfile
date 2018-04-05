@@ -59,14 +59,14 @@ node ('docker') {
   stage('\u2464 Crawling') {
     echo "Running crawler here ..."
     echo "Do some unit test on deployed website here ..."
-    sh '''
-      set +e
-      RETURN_CRAWLER=$(docker run -i -e TARGET=http://gcloud-rest-styleguide-website.paas.services.gcloud.belgium.be/rest/index.html container-release.gcloud.belgium.be/crawler:latest)
-      echo "--"
-      echo "${RETURN_CRAWLER}"
-      echo "--"
-      echo "!!! OK !!!"
-    '''
+    // sh '''
+    //   set +e
+    //   RETURN_CRAWLER=$(docker run -i -e TARGET=http://gcloud-rest-styleguide-website.paas.services.gcloud.belgium.be/rest/index.html container-release.gcloud.belgium.be/crawler:latest)
+    //   echo "--"
+    //   echo "${RETURN_CRAWLER}"
+    //   echo "--"
+    //   echo "!!! OK !!!"
+    // '''
   }
 
   stage('\u2465 Undeploy Website') {
