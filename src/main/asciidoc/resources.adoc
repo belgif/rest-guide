@@ -87,4 +87,3 @@ There are 3 different resource archetypes:
 
 * <<Document>>
 * <<Collection>>
-* <<Controller>>

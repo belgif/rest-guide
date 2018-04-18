@@ -332,3 +332,27 @@ a|
 ​
 |===
 ====
+
+=== Other actions
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Non-CRUD actions
+====
+If a business action isn't a standard CRUD operation on a resource, it is RECOMMENDED to model it as a child resource on which a POST action can be executed.
+
+The child resource's name SHOULD be the intent of the action (noun) rather than the action itself (verb).
+====
+
+.Non-CRUD actions
+====
+​[green]#​​GOOD:  POST /account/123/withdrawals# +
+[red]#​BAD:   POST /account/123/withdraw#
+====
+
+This ensures extensiblity, e.g. the API can be extended to consult a history of all withdrawals executed on the account.
+
+[CAUTION]
+.Open issue: controller resource for operations without side-effects (GET)
+====
+See issue #3 - example: /convertMoney?from=EUR&amount=45&to=USD
+====
