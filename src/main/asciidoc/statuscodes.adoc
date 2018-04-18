@@ -25,14 +25,15 @@ In most cases, 200 is the code the client hopes to see. It indicates that the RE
 |[[http-201]]201 Created
 |**201 (“Created”) must be used to indicate successful resource creation**
 
-A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request. There may also be times when a new resource is created as a result of some controller action, in which case 201 would also be an appropriate response.
+A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request.
+There may also be times when a new resource is created as a result of some custom POST action, in which case 201 would also be an appropriate response.
 |<<put>>
 
 |[[http-202]]202 Accepted
 |**202 (“Accepted”) must be used to indicate successful start of an asynchronous action**
 
 A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process.
-Controller resources may send 202 responses, but other resource types should not.
+A POST method may send 202 responses, but other methods should not. (TODO - long-running tasks - issue #17)
 |
 
 |[[http-204]]204 No Content
@@ -60,7 +61,7 @@ The 301 status code indicates that the REST API’s resource model has been sign
 |[[http-303]]303 See Other
 |**303 (“See Other”) should be used to refer the client to a different URI**
 
-A 303 response indicates that a controller resource has finished its work, but instead of sending a potentially unwanted response body, it sends the client the URI of a response resource. This can be the URI of a temporary status message, or the URI to some already existing, more permanent,resource.
+A 303 response indicates that a long-running action has finished its work, but instead of sending a potentially unwanted response body, it sends the client the URI of a response resource. This can be the URI of a temporary status message, or the URI to some already existing, more permanent,resource.
 
 Generally speaking, the 303 status code allows a REST API to send a reference to a resource without forcing the client to download its state. Instead, the client may send a GET request to the value of the Location header.
 |
@@ -114,7 +115,8 @@ The 404 error status code indicates that the REST API can’t map the client’s
 |[[http-405]]405 Method Not Allowed
 |**405 (“Method Not Allowed”) must be used when the HTTP method is not supported.**
 
-The API responds with a 405 error to indicate that the client tried to use an HTTP method that the resource does not allow. For instance, a read-only resource could support only GET and HEAD, while a controller resource might allow GET and POST, but not PUT or DELETE.
+The API responds with a 405 error to indicate that the client tried to use an HTTP method that the resource does not allow.
+For example, when a PUT or POST action is performed on a read-only resource supporting only GET and HEAD.
 
 A 405 response must include the Allow header, which lists the HTTP methods that the resource supports. For example: `Allow: GET, POST`
 |

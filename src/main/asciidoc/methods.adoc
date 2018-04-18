@@ -51,8 +51,6 @@ PUT operations may have side effects (i.e. modify state), but MUST be idempotent
 
 The response should contain a Location HTTP header containing the newly created URI.
 
-POST must be used to execute controllers.
-
 POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
 
 **​​Status codes**

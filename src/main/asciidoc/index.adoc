@@ -39,7 +39,6 @@ include::resources.adoc[]
 
 include::document.adoc[]
 include::collection.adoc[]
-include::controller.adoc[]
 
 include::methods.adoc[]
 
