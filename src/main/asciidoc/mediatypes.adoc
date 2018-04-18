@@ -47,8 +47,6 @@ MIME types of format `application/<subtype>+json` may be used for standardized J
 * `application/merge-patch+json` for JSON Merge Patch payloads (see <<Partial update>>)
 * `application/problem+json` for Problem Detail for HTTP APIs (RFC 7807) payloads (see <<Error handling>>)
 
-CAUTION: open issue #1: using Accept/Content-Type for versioning
-
 *XML*
 
 On specific client request, a REST service can expose XML messages defined by *XML Schema*.

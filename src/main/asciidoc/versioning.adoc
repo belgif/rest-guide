@@ -1,32 +1,115 @@
 == Versioning ==
 
-CAUTION: versioning is not yet part of REST guidelines. Discussion in issue #1
+=== Preserving compatiblity
 
 [CAUTION]
 .Don’t Break Backward Compatibility
 ====
-Change APIs, but keep all consumers running. Consumers usually have independent release lifecycles, focus on stability, and avoid changes that do not provide additional value. APIs are service contracts that cannot be broken via unilateral decisions.
+Change APIs, but keep all consumers running.
+Consumers usually have independent release lifecycles, focus on stability, and avoid changes that do not provide additional value.
+APIs are service contracts that cannot be broken via unilateral decisions.
 ====
+
+Backwards-incompatible changes, requiring a big bang release, are only feasible if:
+
+* there is a very limited number of clients
+* the release is well coordinated
+* a temporary service interruption is allowed.
+
+In this case, the major version number could be kept the same as only a single version is active at a given time.
 
 There are two techniques to change APIs without breaking them:
 
-* follow rules for compatible extensions
-* introduce new API versions and still support older versions
+* evolve the API, allowing clients to gradually implement changes by following rules for compatible extensions and deprecation
+* introduce new major API version and still support older version(s) for a period in which clients can transition to the new version
 
-We strongly encourage using compatible API extensions and discourage versioning. With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
+[.rule, caption="Rule {counter:rule-number}: "]
+.Prefer API evolution
+====
+We strongly encourage using API evolution when possible and discourage versioning:
 
-=== Prefer Compatible Extensions ===
+* versioning requires maintaining and supporting two service contracts
+* API evolution maintains stable URIs (e.g. links from other APIs) and allows for a more gradual migration of clients
+====
 
+NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn't included as an option in this guide as it has various practical problems
+
+=== API evolution
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.JSON object as top level structure
+====
+In a response body, you MUST always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility.
+
+JSON objects support compatible extension by additional attributes.
+This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+====
+
+With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Compatible extensions
+====
 Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 
-* Ignore unknown fields in the payload
-* Add only optional, never mandatory fields
+* New fields may be added to response. Clients MUST ignore unknown fields in response payloads.
+* Add only optional, never mandatory fields to request payloads
 * Never change the meaning of a field.
-* Enum ranges cannot not be extended when used for output parameters — clients may not be prepared to handle it. However, enum ranges can be extended when used for input parameters.
-* Enum ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too. Enum values can be reduced when used as output parameters.
+* Never change input validation logic to be more restrictive
+* Enum ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too.
+* Enum values can be reduced when used as output parameters, but not extended as clients might not be ready to handle them.
 * Support redirection in case an URL has to change (301 Moved Permanently)
+* a new resource variant (with another name) can be created in addition to the old resource variant
+====
 
+[.rule, caption="Rule {counter:rule-number}: "]
+.Deprecation
+====
+Deprecation MAY be used to indicate parts of an API are not recommended to be used anymore.
 
-=== Always Return JSON Objects As Top-Level Data Structures To Support Extensibility ===
+OpenAPI 2.0 only allows specifying deprecation on methods and path elements.
+Their deprecation SHOULD be documented in OpenAPI by specifying `deprecated: true`.
+For other deprecations e.g. of a JSON property, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 
-In a response body, you must always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility. JSON objects support compatible extension by additional attributes. This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+Deprecated elements MAY be completely removed them after a period in which clients can adapt.
+Always communicate clearly about the deprecated fields and transition period to clients.
+====
+
+Use of deprecated elements in requests may be tracked by the server in order to evaluate the impact of their removal.
+However, this isn't possible for response elements, so there is always remains some risk for breaking clients.
+
+=== API versioning
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Version numbering
+====
+The version string of an API SHOULD contain a major, minor and optionally a patch number.
+
+Only the major version of the API is part of the base URL (`basePath` in Swagger) of the API.
+Thereby, for a major version only a single minor and patch version can be available in production at a time.
+The version of the API MUST be included in the `info` section of the OpenAPI definition.
+====
+
+.API version in OpenAPI 2.0
+====
+[subs="normal"]
+```YAML
+swagger: 2.0
+info:
+  name: petshop
+  description: API exposing my petshop's functionality
+  version: 2.1.2
+host: petstore.swagger.io
+basePath: /v2
+```
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Removing an old version
+====
+The same guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements:
+
+* provide a transition period supporting old and new versions at the same time before removing the old version
+* always communicate clearly about the transition period to clients
+* use of the old version may be tracked by the server in order to evaluate the impact of their removal.
+====

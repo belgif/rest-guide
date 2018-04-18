@@ -62,22 +62,6 @@ The OpenAPI 3.0 standard should not be used yet for now, as tooling and library 
 You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
 
 [.rule, caption="Rule {counter:rule-number}: "]
-.Version of the API
-====
-The version of the API SHOULD be included in the `info` section of the OpenAPI definition.
-====
-
-Example:
-[subs="normal"]
-```YAML
-swagger: 2.0
-info:
-  name: petshop
-  description: API exposing my petshop's functionality
-  version: 1.0.0
-```
-
-[.rule, caption="Rule {counter:rule-number}: "]
 .Additional documentation
 ====
 Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
