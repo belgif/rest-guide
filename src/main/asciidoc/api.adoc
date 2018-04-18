@@ -24,8 +24,7 @@ Compare an API to the concept of http://serviceorientation.com/soaglossary/servi
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .API format
-==========================
-
+====
 *URI =* `https://`[green]#_host_#`/`[green]#_pathPrefix_#`/`[green]#_apiName_#`/v`[green]#_majorVersion_#`/`[green]#_resources_#
 
 [gray]#_example:_ \https://services.socialsecurity.be/REST/employerProfile/v1/profiles#
@@ -36,15 +35,6 @@ pathPrefix:: Optional path prefix to discriminate between REST APIs and other re
 apiName:: Name of the API that groups a functional consistent set of resources. The API name consists of one or multiple _path segments_ written in lowerCamelCase [gray]#(example: /referenceData/geography)#.
 majorVersion:: Major version numbers are integers and start at 1.
 resources:: All path segments identifying the actual resources.
-
-
-==========================
-
-[CAUTION]
-.Open issue: version in URL
-====
-Versioning in URL still under discussion (vs media types in HTTP header).
-See issue #1.
 ====
 
 === Richardson Maturity Model
@@ -59,9 +49,9 @@ In order to be compliant to the _uniform interface_ as described by Roy Fielding
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Maturity level
-==========================
+====
 All REST services *MUST at least respect level 2* and desirably achieve level 3.
-==========================
+====
 
 .References
 ****

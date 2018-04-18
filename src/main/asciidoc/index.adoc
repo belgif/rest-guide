@@ -58,12 +58,12 @@ include::reserved.adoc[]
 
 include::errorhandling.adoc[]
 
+include::versioning.adoc[]
+
 // include::oauth.adoc[]
 
 //include::monitoring.adoc[]
 
 //include::internationalisation.adoc[]
-
-//include::versioning.adoc[]
 
 //include::caching.adoc[]
