@@ -77,14 +77,49 @@ JSON schemas can be included directly in the `swagger.json` file or in separate 
 ====
 JSON Schema MUST be used to describe JSON resources.
 
-The version of JSON Schema to be used is the variant of **JSON schema draft 04** defined in the OpenAPI 2.0 specification as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
+The version of JSON Schema to be used is the variant of **JSON schema draft 04** defined in the OpenAPI 2.0 specification as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
+
+Duplication of types in multiple APIs SHOULD be avoided. Rather, put the type in a reusable JSON Schema.
+According to usage, a conversion step to inline the definitions into the OpenAPI file might be necessary considering limitations of tools.
+
+A JSON schema file can contain multiple types, belonging to a single logical domain.
+
+A JSON Schema file SHOULD be versioned with at least a major version number, that is increased when backwards compatibility is broken.
+If the schema's `$id` is specified, the major version SHOULD be part of it.
 ====
+
+JSON schemas for types in this style guide will be published on https://www.gcloud.belgium.be/rest/.
+(TODO: add links when they're made available).
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .JSON Schema data type names
 ====
 JSON Schema data type names SHOULD be defined in English and use _UpperCamelCase_ notation.
 Also for abbreviations, all letters except the first one should always be lowercased.
+====
+
+.JSON Schema
+====
+.JSON schema
+```YAML
+"$id": http://example.org/personidentification.yaml/v1
+"$schema": http://json-schema.org/draft-04/schema#
+description: This schema defines common person identifier types
+definitions:
+  Ssin:
+    description: "Social Security Identification Number: issued by the National Register or CBSS Register."
+    type: string
+    pattern: \d{11}
+  NationalNumber:
+    description: "National Number: identification number of a natural person issued by the National Register"
+    type: string
+    pattern: \d{11}
+```
+
+Example reference to a type:
+```YAML
+"$ref": 'http://example.org/personidentification.yaml/v1#/definitions/Ssin'
+```
 ====
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
