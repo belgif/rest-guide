@@ -33,7 +33,7 @@ Compare an API to the concept of http://serviceorientation.com/soaglossary/servi
 host:: Hostname is determined by the environment where the service is deployed
 pathPrefix:: Optional path prefix to discriminate between REST APIs and other resources on the same host. [gray]#(example: /REST)#
 apiName:: Name of the API that groups a functional consistent set of resources. The API name consists of one or multiple _path segments_ written in lowerCamelCase [gray]#(example: /referenceData/geography)#.
-majorVersion:: Major version numbers are integers and start at 1.
+majorVersion:: Major version numbers are integers and start at 1. See <<API versioning>>.
 resources:: All path segments identifying the actual resources.
 ====
 
