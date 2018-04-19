@@ -90,6 +90,8 @@ Thereby, for a major version only a single minor and patch version can be availa
 The version of the API MUST be included in the `info` section of the OpenAPI definition.
 ====
 
+Note that reusable JSON Schemas are to be versioned as well, as specified in <<JSON Schema>>.
+
 .API version in OpenAPI 2.0
 ====
 [subs="normal"]
