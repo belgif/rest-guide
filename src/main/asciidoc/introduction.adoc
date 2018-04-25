@@ -14,5 +14,6 @@ The main benefit for choosing RESTful services is to increase flexibility and to
 
 This guide does not include guidelines on how to secure REST APIs.
 These are under development by the REST Security Working Group, based on the OpenID Connect and https://tools.ietf.org/html/rfc6749[OAuth 2.0^] standards.
+It also doesn't include any specifications on how to represent common business data either (e.g. social security number, address, ...), which are being worked on by the REST Functional Working Group.
 
-It doesn't include specifications on how to represent common business data either (e.g. social security number, address, ...), which are being worked on by the REST Functional Working Group.
+Contact: mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be]
