@@ -37,6 +37,11 @@ Default sorting direction is ascending. To indicate descending direction, the pr
 | ?embed=mainAddress
 | <<Embedding resources>>
 
+| [[query-param-lang]]lang
+| language to filter multi-language descriptions
+| ?lang=fr
+| <<Multi-language descriptions>>
+
 |===
 
 === JSON properties

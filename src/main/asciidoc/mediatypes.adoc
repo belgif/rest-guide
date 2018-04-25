@@ -1,6 +1,6 @@
 == Media Types
 
-The HTTP protocol supports content negation for media types of the response.
+The HTTP protocol supports content negotiation for media types of the response.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Content negotation
