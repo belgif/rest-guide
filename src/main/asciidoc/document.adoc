@@ -338,21 +338,25 @@ a|
 [.rule, caption="Rule {counter:rule-number}: "]
 .Non-CRUD actions
 ====
-If a business action isn't a standard CRUD operation on a resource, it is RECOMMENDED to model it as a child resource on which a POST action can be executed.
+If a business action isn't a standard CRUD operation on a resource, it is RECOMMENDED to model it as a child resource.
 
-The child resource's name SHOULD be the intent of the action (noun) rather than the action itself (verb).
+The HTTP method SHOULD be:
+
+* POST for actions with side effects (state change) or actions without side effects but requiring a request body
+* GET for idempotent actions without side effects
+
+For actions with side effects, the child resource's name is RECOMMENDED to be a noun describing the intent of the action rather than the action itself (verb).
 ====
 
-.Non-CRUD actions
+.Non-CRUD POST action
 ====
 ​[green]#​​GOOD:  POST /account/123/withdrawals# +
 [red]#​BAD:   POST /account/123/withdraw#
 ====
 
-This ensures extensiblity, e.g. the API can be extended to consult a history of all withdrawals executed on the account.
+Using a noun ensures extensiblity, for example the API can be extended to consult a history of all withdrawals executed on the account.
 
-[CAUTION]
-.Open issue: controller resource for operations without side-effects (GET)
+.Non-CRUD GET action
 ====
-See issue #3 - example: /convertMoney?from=EUR&amount=45&to=USD
+`GET /convertMoney?from=EUR&amount=45&to=USD`
 ====

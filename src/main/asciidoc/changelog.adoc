@@ -1,6 +1,8 @@
 == Changelog
 * 2018-04-25
 ** added <<Internationalization (I18N)>> guidelines
+** updated <<Other actions>> about non-CRUD operations, allowing verb as child resource and GET method in some cases
+** update format of version number in <<JSON Schema>>
 * 2018-04-19
 ** guidelines about reusable <<JSON Schema>>s
 * 2018-04-18

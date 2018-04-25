@@ -85,7 +85,7 @@ According to usage, a conversion step to inline the definitions into the OpenAPI
 A JSON schema file can contain multiple types, belonging to a single logical domain.
 
 A JSON Schema file SHOULD be versioned with at least a major version number, that is increased when backwards compatibility is broken.
-If the schema's `id` is specified, the major version SHOULD be part of it.
+If the schema's `id` is specified, it SHOULD end with the major version number.
 ====
 
 JSON schemas for types in this style guide will be published on https://www.gcloud.belgium.be/rest/.
@@ -102,7 +102,7 @@ Also for abbreviations, all letters except the first one should always be lowerc
 ====
 .JSON schema
 ```YAML
-id: http://example.org/personidentification.yaml/v1
+id: http://example.org/person/identification/v1
 "$schema": http://json-schema.org/draft-04/schema#
 description: This schema defines common person identifier types
 definitions:
@@ -118,7 +118,7 @@ definitions:
 
 Example reference to a type:
 ```YAML
-"$ref": 'http://example.org/personidentification.yaml/v1#/definitions/Ssin'
+"$ref": 'http://example.org/person/identification/v1#/definitions/Ssin'
 ```
 ====
 
