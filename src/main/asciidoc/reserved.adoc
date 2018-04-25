@@ -143,6 +143,8 @@ https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all
 .Custom HTTP headers
 ====
 Custom HTTP headers SHOULD be prefixed with the organization's name.
+
+Custom headers that are standardized across Belgian Government organizations use the `BelGov-` prefix.
 ====
 
 `X-` headers were initially reserved for unstandardized parameters, but the usage of `X-` headers is deprecated (https://tools.ietf.org/html/rfc6648[RFC-6648]).

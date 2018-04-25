@@ -130,11 +130,10 @@ In this case, use of PUT isn't advised.
 JSON Merge Patch is limited however, e.g. it doesn't allow for an update of a single element of an array.
 If this proves to be an issue, this might however indicate that the array elements might be beter modeled as seperate subresources.
 
-. use POST (with a proper description of what is happening) instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
+. use POST on a child resource instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
+  See <<non-CRUD operations>> for more information.
 
 Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recommended, as it proves to be difficult to implement.
-
-CAUTION: guidelines how to use POST are still under discussion in issue #3
 
 ==== Full update
 
@@ -333,10 +332,10 @@ a|
 |===
 ====
 
-=== Other actions
+=== Non-CRUD operations
 
 [.rule, caption="Rule {counter:rule-number}: "]
-.Non-CRUD actions
+.Non-CRUD operations
 ====
 If a business action isn't a standard CRUD operation on a resource, it is RECOMMENDED to model it as a child resource.
 
@@ -348,7 +347,7 @@ The HTTP method SHOULD be:
 For actions with side effects, the child resource's name is RECOMMENDED to be a noun describing the intent of the action rather than the action itself (verb).
 ====
 
-.Non-CRUD POST action
+.Non-CRUD POST operation
 ====
 ​[green]#​​GOOD:  POST /account/123/withdrawals# +
 [red]#​BAD:   POST /account/123/withdraw#
@@ -356,7 +355,7 @@ For actions with side effects, the child resource's name is RECOMMENDED to be a 
 
 Using a noun ensures extensiblity, for example the API can be extended to consult a history of all withdrawals executed on the account.
 
-.Non-CRUD GET action
+.Non-CRUD GET operation
 ====
 `GET /convertMoney?from=EUR&amount=45&to=USD`
 ====
