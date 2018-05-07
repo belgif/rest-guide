@@ -24,6 +24,8 @@ If-Modified-Since: Mon, 03 Jan 2011 17:45:57 GMT
 
 If the resource hasn’t changed since `Mon, 03 Jan 2011 17:45:57 GMT` the server will return with an empty body with the <<http-304,`304`>> response code.
 
+_Remark_: the `max-age` header precision unit is the second. It may not be precise enough if there are two updates within a second.
+
 ==== Content-based
 The `ETag` (or Entity Tag) works in a similar way to the `Last-Modified` header except its value is a digest of the resources contents (for instance, an MD5 hash). This allows the server to identify if the cached contents of the resource are different to the most recent version.
 This tag is useful when for when the last modified date is difficult to determine.
@@ -40,8 +42,27 @@ If-None-Match: "15f0fff99ed5aae4edffdd6496d7131f"
 
 As with the `If-Modified-Since` header, if the current version has the same ETag value, indicating its value is the same as the browser’s cached copy, then an HTTP status of <<http-304,`304`>> is returned.
 
+==== Vary header
+The "Vary" header field in a response describes what parts of a request message, aside from the method, Host header field, and request target, might influence the origin server's process for selecting and representing this response.
+
+See https://www.fastly.com/blog/best-practices-using-vary-header[Best Practices for Using the Vary Header] for hint over the `Vary header`usage`.
+
+Example :
+
+* Vary: Accept-Encoding => avoid caching and serving XML response when the second request ask JSON.
+
+*Never use* : `Vary: *`  => will result in a cache hit of 0.
+
+==== Recommandations
+
+The following schema shows a decision tree for the caching setup for a given resource:
+
+image::http-cache-decision-tree.png[]
+
 .References
 ****
 https://devcenter.heroku.com/articles/increasing-application-performance-with-http-cache-headers[Increasing Application Performance with HTTP Cache Headers^] +
-http://www.mobify.com/blog/beginners-guide-to-http-cache-headers[A Beginner's Guide to HTTP Cache Headers^]
+http://www.mobify.com/blog/beginners-guide-to-http-cache-headers[A Beginner's Guide to HTTP Cache Headers^] +
+https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en[Google HTTP Caching^] +
+https://www.fastly.com/blog/best-practices-using-vary-header[Best Practices for Using the Vary Header]
 ****
