@@ -161,4 +161,10 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |X-HTTP-Method-Override | Request | Override the method specified in the request. | <<PATCH>>
 |Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable | <<http-503>>
 |Allow        | Response | Valid methods for a specified resource. | <<http-405>>
+|ETag         | Request  | Identifier for returned response content |  <<Conditional requests>>
+|If-None-Match | Response | Return resource if ETag changed | <<Conditional requests>>
+|Last-Modified  | Request | Time on which resource was last modified | <<Conditional requests>>
+|If-Modified-Since | Response | Return resource only if changed since specified timestamp | <<Conditional requests>>
+|Vary | Response | Specifies which request headers change response content | <<Client caching directives>>
+|Cache-Control | Response | Indicates HTTP client how to cache responses | <<Client caching directives>>
 |===
