@@ -1,4 +1,6 @@
 == Changelog
+* 2018-05-28
+** added <<Caching>> guidelines
 * 2018-04-25
 ** added <<Internationalization (I18N)>> guidelines
 ** updated <<Non-CRUD operations>>, allowing verb as child resource and GET method in some cases

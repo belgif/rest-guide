@@ -85,4 +85,103 @@ GET {API}/employer/0409536968?embed=employees(address)
 
 === Caching
 
-TODO
+[.rule, caption="Rule {counter:rule-number}: "]
+.HTTP Caching
+====
+HTTP caching SHOULD be considered for resource types for which the same resources are repeatedly retrieved by clients.
+====
+The following schema shows a decision tree for the caching setup for a given resource:
+
+image::http-cache-decision-tree.png[]
+
+==== Conditional requests
+Conditional requests are those where the client can ask the server if it has an updated copy of the resource.
+The client will send some information about the cached resource it holds and the server will determine whether updated content should be returned or the client’s copy is already up to date.
+In the latter case, an HTTP status of <<http-304,`304 Not Modified`>> is returned.
+
+image::conditional.jpg[]
+
+Though conditional requests do invoke a call across the network, unmodified resources result in an empty response body – saving the cost of transferring the resource back to the end client.
+The backend service is also often able to very quickly determine a resource’s last version or modification date without accessing the resource which itself saves non-trivial processing time.
+
+===== Time-based
+A time-based conditional request is based on the the last modified time of the resource.
+If the cached copy's last modification time is still the most recent one, the server returns the 304 response code.
+To enable time-based conditional requests, the application specifies the last modified time of a resource via the `Last-Modified` response header.
+```
+Last-Modified: Mon, 03 Jan 2011 17:45:57 GMT
+```
+
+The next time the browser requests this resource it will only ask for the contents of the resource if they’re unchanged since this date using the `If-Modified-Since` request header
+```
+If-Modified-Since: Mon, 03 Jan 2011 17:45:57 GMT
+```
+
+If the resource hasn’t changed since `Mon, 03 Jan 2011 17:45:57 GMT` the server will return with an empty body with the <<http-304,`304`>> response code.
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Precision of `Last-Modified` header
+====
+The `Last-Modified` header doesn't allow subsecond precision, which may lead to incorrect cache hits if there are two updates within a second.
+
+Because of this, the `ETag` SHOULD be preferred over the `Last-Modified` header.
+====
+
+===== Content-based
+The `ETag` (or Entity Tag) works in a similar way as the `Last-Modified` header except its value is a free-form tag identifying a resource version.
+Valid ETags can be a MD5 hash, a version number or a modification timestamp, allowing more precision than when using a `Last-Modified`-header.
+
+This allows the server to identify if the cached contents of the resource are different to the most recent version.
+
+```
+ETag: "15f0fff99ed5aae4edffdd6496d7131f"
+```
+
+On subsequent browser requests, the `If-None-Match` request header is sent with the ETag value of the last requested version of the resource.
+```
+If-None-Match: "15f0fff99ed5aae4edffdd6496d7131f"
+```
+
+As with the `If-Modified-Since` header, if the current version has the same ETag value as the browser’s cached copy, then an HTTP status of <<http-304,`304`>> is returned.
+
+==== Client caching directives
+
+===== Cache-Control header
+
+An HTTP client cache may cache server responses and decide to not even contact the server when the resource is requested again, saving the round trip to the server.
+The `Cache-Control` response header specifies directives for the client under which conditions and how long it should cache the response contents.
+This is useful for resources which don't change frequently, and a client doesn't need to be always synchronized with the latest version of the resource.
+
+.Cache-Control response header
+====
+```
+Cache-Control:public, max-age=86400
+```
+
+The response data may be cached by clients and intermediary servers as it is public, and should expire from the cache after 1 day (86400 seconds).
+====
+
+===== Vary header
+The `Vary` response header describes which request headers, aside from the method, Host header field, and request target, influence the origin server's process for selecting and representing this response.
+It is used to prevent unwanted cache hits.
+
+See https://www.fastly.com/blog/best-practices-using-vary-header[Best Practices for Using the Vary Header] for more guidelines on the usage of the `Vary` header.
+
+.Vary response header
+====
+```
+Vary: Accept
+```
+
+This avoids using a cached XML response when a second request asks for JSON.
+====
+
+CAUTION: Never use `Vary: *` as it will result in a cache hit of 0.
+
+.References
+****
+https://devcenter.heroku.com/articles/increasing-application-performance-with-http-cache-headers[Increasing Application Performance with HTTP Cache Headers^] +
+http://www.mobify.com/blog/beginners-guide-to-http-cache-headers[A Beginner's Guide to HTTP Cache Headers^] +
+https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en[Google HTTP Caching^] +
+https://www.fastly.com/blog/best-practices-using-vary-header[Best Practices for Using the Vary Header]
+****

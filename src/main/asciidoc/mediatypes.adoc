@@ -12,6 +12,8 @@ A REST response or request with payload MUST include the `Content-Type` HTTP hea
 Status code <<http-406,406>> MUST be used to indicate that the requested media type could not be provided.
 
 Status code <<http-415,415>> MUST be used to indicate an unsupported media type in the request payload.
+
+If a resource supports multiple content types through negotation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see <<Caching>>).
 ====
 
 .Content negotiation
