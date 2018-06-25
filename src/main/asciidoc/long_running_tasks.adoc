@@ -1,0 +1,81 @@
+=== Long running tasks
+
+Some requests need to be processed asynchronously. This section discuss how to implement POST request that take too long to complete.
+
+The solution is to create a new resource (that represents the long running task) and return a 202 (`accepted`) response code when receiving the POST request.
+This new resource can be fetched by the client to get updates on the processing status of its request.
+
+When getting the task resource, we can have the following scenario :
+
+* Still processing: Return response code 200 and a representation of the task's current status
+* Success: Return response code 303 (`see other`) with the `Location`header containing the uri of the task's output.
+* Failure: Return response code 200 with a representation of the task (includes the reason of the failure)
+
+==== Example
+====== 1. `POST /images/tasks`
+Response:
+
+```
+HTTP/1.1 202 Accepted  1
+Content-Type: application/json;charset=UTF-8
+Content-Location: http://www.example.org/images/tasks/1
+Date: Sun, 13 Sep 2009 01:49:27 GMT
+
+{
+  "status": {
+    "state":"pending",
+    "message": "Your request has been accepted for processing",
+    "pingAfter": "2009-09-13T01:59:27Z"
+  }
+}
+```
+* the response contains a code indicating that the server accepted the request for processing
+* A hint to check for the status at a later time
+
+====== 2. `GET /images/task/1`
+
+====== 2.1 The server is still processing the task
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "status": {
+    "state":"pending",
+    "message": "Your request is currently being processed.",
+    "pingAfter": "2009-09-13T02:09:27Z
+  }
+}
+```
+
+====== 2.2 The processing is completed
+
+```
+HTTP/1.1 303 See Other  1
+Location: http://www.example.org/images/1
+Content-Type: application/json;charset=UTF-8
+Content-Location: http://www.example.org/images/task/1
+{
+  "status": {
+    "state":"done",
+    "message": "Your request has been processed."
+  }
+}
+```
+
+* The location header provide the location of the "result" of the processing.
+
+====== 2.3 The server failed to process the task
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+{
+  "status": {
+    "state":"failed",
+    "message": "Failed to complete the request.",
+    "detail": "Invalid image format."
+    "completed":"2009-09-13T02:10:00Z"
+  }
+}
+```
