@@ -94,13 +94,13 @@ properties:
 definitions:
   EmployerLink:
     allOf:
-    - $ref: include/HttpLink.yaml
+    - $ref: 'common.yaml#/definitions/HttpLink'
     - type: object
       properties:
         nssoRegistrationNbr:
-          $ref: 'common.yaml#/definitions/NssoRegistrationNbr'
+          $ref: 'organization.yaml#/definitions/NssoRegistrationNbr'
         companyId:
-          $ref: 'common.yaml#/definitions/CompanyId'
+          $ref: 'organization.yaml#/definitions/CompanyId'
 ```
 ====
 
@@ -173,7 +173,7 @@ properties:
 definitions:
   AppendixCodeLink:
     allOf:
-    - $ref: include/HttpLink.yaml
+    - $ref: 'common.yaml#/definitions/HttpLink'
     - type: object
       properties:
         value:
