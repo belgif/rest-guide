@@ -56,18 +56,18 @@ An API MAY offer to filter the representation to a single language by using the 
 
 A `LocalizedString` type is defined supporting the three official Belgian languages.
 
-.LocalizedString JSON Schema
+.LocalizedString JSON Schema (from link:schemas/common/v1/common.yaml[common.yaml])
 ```YAML
-"$schema": http://json-schema.org/draft-04/schema#
-title: LocalizedString
-type: object
-properties:
-  fr:
-    type: string
-  nl:
-    type: string
-  de:
-    type: string
+LocalizedString:
+  description: A description specified in multiple languages
+  type: object
+  properties:
+    fr:
+      type: string
+    nl:
+      type: string
+    de:
+      type: string
 ```
 
 .Multi-language descriptions

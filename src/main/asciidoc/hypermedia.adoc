@@ -16,17 +16,17 @@ CAUTION: For brevity, most URIs in the style guide examples are shortened, but i
 
 All `href` hyperlinks are derived from this minimal link type:
 
-.JSON schema *HttpLink.yaml*
+.HttpLink JSON schema (from link:schemas/common/v1/common.yaml[common.yaml])
 ```YAML
-$schema: http://json-schema.org/draft-04/schema#
-description: A base type of objects representing links to resources.
-type: object
-properties:
-  href:
-    description: Any absolute URI that is using http or https protocol
-    type: string
-    format: uri
-required: [href]
+HttpLink:
+  description: A base type of objects representing links to resources.
+  type: object
+  properties:
+    href:
+      description: Any absolute URI that is using http or https protocol
+      type: string
+      format: uri
+  required: [href]
 ```
 
 Links can be added anywhere in a JSON document
