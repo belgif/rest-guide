@@ -1,81 +1,108 @@
 === Long running tasks
 
-Some requests need to be processed asynchronously. This section discuss how to implement POST request that take too long to complete.
+Some operations need to be performed asynchronously, as they take too long to complete.
 
-The solution is to create a new resource (that represents the long running task) and return a 202 (`accepted`) response code when receiving the POST request.
-This new resource can be fetched by the client to get updates on the processing status of its request.
+[.rule, caption="Rule {counter:rule-number}: "]
+.Long running tasks
+====
+Long running tasks MUST be represented as a resource, created using a POST action.
+This POST action returns a `202 Accepted` response with the URL of the task returned in a `Location` HTTP header.
+This new resource can be fetched by the client to get the processing status of the task.
 
-When getting the task resource, we can have the following scenario :
+When GETting the task resource, the response contains a `status` may be:
 
-* Still processing: Return response code 200 and a representation of the task's current status
-* Success: Return response code 303 (`see other`) with the `Location`header containing the uri of the task's output.
-* Failure: Return response code 200 with a representation of the task (includes the reason of the failure)
+* Still processing: status `200 OK` and a representation of the task's current status
+* Success: status `303 See Other` with the `Location` header containing the URL of the task's output.
+* Failure: status `200 OK` with a representation of the task's status, including the reason of the failure
+====
 
-==== Example
-====== 1. `POST /images/tasks`
-Response:
+Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without `Location` header.
+
+.Long running task
+====
+*Submitting the task*
+
+`POST /images/tasks`
 
 ```
-HTTP/1.1 202 Accepted  1
+HTTP/1.1 202 Accepted
 Content-Type: application/json;charset=UTF-8
-Content-Location: http://www.example.org/images/tasks/1
+Location: http://www.example.org/images/tasks/1
 Date: Sun, 13 Sep 2009 01:49:27 GMT
-
+```
+```JSON
 {
   "status": {
-    "state":"pending",
+    "state": "pending",
     "message": "Your request has been accepted for processing",
     "pingAfter": "2009-09-13T01:59:27Z"
   }
 }
 ```
-* the response contains a code indicating that the server accepted the request for processing
-* A hint to check for the status at a later time
 
-====== 2. `GET /images/task/1`
+The response contains a code indicating that the server accepted the request for processing.
+`pingAfter` hints when to check for the status at a later time.
 
-====== 2.1 The server is still processing the task
+*Getting the processing status*
+
+`GET /images/task/1`
+
+_When the server is still processing the task_
 
 ```
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+```
+```JSON
 {
   "status": {
-    "state":"pending",
+    "state": "pending",
     "message": "Your request is currently being processed.",
-    "pingAfter": "2009-09-13T02:09:27Z
+    "pingAfter": "2009-09-13T02:09:27Z"
   }
 }
 ```
 
-====== 2.2 The processing is completed
+_When processing has completed_
 
 ```
-HTTP/1.1 303 See Other  1
+HTTP/1.1 303 See Other
 Location: http://www.example.org/images/1
 Content-Type: application/json;charset=UTF-8
-Content-Location: http://www.example.org/images/task/1
+```
+```JSON
 {
   "status": {
-    "state":"done",
+    "state": "done",
     "message": "Your request has been processed."
   }
 }
 ```
 
-* The location header provide the location of the "result" of the processing.
+The `Location` header refers to the result of the task.
 
-====== 2.3 The server failed to process the task
+_In case of failure during processing_
 
 ```
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+```
+```JSON
 {
   "status": {
-    "state":"failed",
+    "state": "failed",
     "message": "Failed to complete the request.",
-    "detail": "Invalid image format."
-    "completed":"2009-09-13T02:10:00Z"
+    "completed":"2009-09-13T02:10:00Z",
+    "problem": {
+      "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
+      "title": "Bad Request",
+      "status": 400,
+      "type": "http://example.org/errors/invalidImageFormat",
+      "detail": "Invalid image format"
+    }
   }
 }
 ```
+
+Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
+The cause of failure is represented using an an embedded Problem object, as defined in <<Error handling>>.
