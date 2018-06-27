@@ -4,6 +4,8 @@ The full list of HTTP status codes is documented http://www.ietf.org/assignments
 
 In order to conform to the REST uniform service contract, REST services should stick to this reduced list of status codes.
 
+http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
+
 === 1xx  Informational
 Request received, continuing process
 
@@ -170,7 +172,3 @@ A 500 error is never the client’s fault and therefore it is reasonable for the
 The server MAY send a Retry-After header field to suggest an appropriate amount of time for the client to wait before retrying the request.
 |
 |===
-
-The following flow chart shows the usage of the standard HTTP status codes.
-
-image::statuscodes.jpg[]
