@@ -1,0 +1,31 @@
+$schema: http://json-schema.org/draft-04/schema#
+description: status of a long running task
+type: object
+properties:
+  state:
+    type: string
+    enum:
+    - processing
+    - failed
+    - done
+  pollAfter:
+    description: hint when to check the status again
+    type: string
+    format: date-time
+  completed:
+    description: when the task has completed (in case state is done or failed)
+    type: string
+    format: date-time
+  problem:
+    $ref: Problem.yaml
+required: [state]
+example:
+  state: failed
+  completed: 2018-09-13T02:10:00Z
+  problem:
+    instance: "d9e35127-e9b1-4201-a211-2b52e52508df"
+    title: Bad Request
+    status: 400
+    type: http://example.org/errors/invalidImageFormat
+    detail: Invalid image format
+  
