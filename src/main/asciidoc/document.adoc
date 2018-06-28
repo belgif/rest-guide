@@ -371,13 +371,14 @@ Long running tasks MUST be represented as a resource, created using a POST actio
 This POST action returns a `202 Accepted` response with the URL of the task returned in a `Location` HTTP header.
 This new resource can be fetched by the client to get the processing status of the task.
 
-When GETting the task resource, the response contains a `status` may be:
+When GETting the task resource, the response can be:
 
 * Still processing: status `200 OK` and a representation of the task's current status
 * Success: status `303 See Other` with the `Location` header containing the URL of the task's output.
 * Failure: status `200 OK` with a representation of the task's status, including the reason of the failure
 ====
 
+The schema link:schemas/common/v1/LongRunningTaskStatus.yaml[LongRunningTaskStatus.yaml] defines the representation of a task's status.
 Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without `Location` header.
 
 .Long running task
@@ -394,16 +395,16 @@ Date: Sun, 13 Sep 2009 01:49:27 GMT
 ```
 ```JSON
 {
+  "self": "/images/tasks",
   "status": {
-    "state": "pending",
-    "message": "Your request has been accepted for processing",
-    "pingAfter": "2009-09-13T01:59:27Z"
+    "state": "processing",
+    "pollAfter": "2009-09-13T01:59:27Z"
   }
 }
 ```
 
 The response contains a code indicating that the server accepted the request for processing.
-`pingAfter` hints when to check for the status at a later time.
+`pollAfter` hints when to check for the status at a later time.
 
 *Getting the processing status*
 
@@ -417,10 +418,10 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```JSON
 {
+  "self": "/images/tasks/1",
   "status": {
-    "state": "pending",
-    "message": "Your request is currently being processed.",
-    "pingAfter": "2009-09-13T02:09:27Z"
+    "state": "processing",
+    "pollAfter": "2009-09-13T02:09:27Z"
   }
 }
 ```
@@ -434,9 +435,10 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```JSON
 {
+  "self": "/images/tasks/1",
   "status": {
     "state": "done",
-    "message": "Your request has been processed."
+    "completed":"2009-09-13T02:10:00Z",
   }
 }
 ```
@@ -451,9 +453,9 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```JSON
 {
+  "self": "/images/tasks/1",
   "status": {
     "state": "failed",
-    "message": "Failed to complete the request.",
     "completed":"2009-09-13T02:10:00Z",
     "problem": {
       "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
@@ -468,3 +470,4 @@ Content-Type: application/json;charset=UTF-8
 
 Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
 The cause of failure is represented using an an embedded Problem object, as defined in <<Error handling>>.
+====
