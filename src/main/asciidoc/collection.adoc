@@ -88,19 +88,19 @@ properties:
   items:
     type: array
     items:
-      $ref: '#/definitions/EmployerLink'
+      $ref: "#/definitions/EmployerLink"
     total:
       type: integer
 definitions:
   EmployerLink:
     allOf:
-    - $ref: 'common.yaml#/definitions/HttpLink'
+    - $ref: common/v1/HttpLink.yaml
     - type: object
       properties:
         nssoRegistrationNbr:
-          $ref: 'organization.yaml#/definitions/NssoRegistrationNbr'
+          $ref: organization/v1/NssoRegistrationNbr
         companyId:
-          $ref: 'organization.yaml#/definitions/CompanyId'
+          $ref: organization/v1/CompanyId.yaml
 ```
 ====
 
@@ -173,7 +173,7 @@ properties:
 definitions:
   AppendixCodeLink:
     allOf:
-    - $ref: 'common.yaml#/definitions/HttpLink'
+    - $ref: 'common/v1/HttpLink.yaml'
     - type: object
       properties:
         value:
