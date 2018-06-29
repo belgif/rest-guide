@@ -366,9 +366,9 @@ Some operations need to be performed asynchronously, as they take too long to co
 [.rule, caption="Rule {counter:rule-number}: "]
 .Long running tasks
 ====
-Long running tasks MUST be represented as a resource, created using a POST action.
-This POST action returns a `202 Accepted` response with the URL of the task returned in a `Location` HTTP header.
-This new resource can be fetched by the client to get the processing status of the task.
+Long running tasks MUST be represented as a resource.
+The task resource is created using a POST action returning a `202 Accepted` response containing the URL of the task in the `Location` HTTP header.
+It can then be fetched by the client to get the processing status of the task.
 
 When GETting the task resource, the response can be:
 
@@ -377,8 +377,8 @@ When GETting the task resource, the response can be:
 * Failure: status `200 OK` with a representation of the task's status, including the reason of the failure
 ====
 
+Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
 The schema link:schemas/common/v1/LongRunningTaskStatus.yaml[LongRunningTaskStatus.yaml] defines the representation of a task's status.
-Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without `Location` header.
 
 .Long running task
 ====
@@ -390,20 +390,20 @@ Variations on the above may be required, e.g. if the task has no output, the res
 HTTP/1.1 202 Accepted
 Content-Type: application/json;charset=UTF-8
 Location: http://www.example.org/images/tasks/1
-Date: Sun, 13 Sep 2009 01:49:27 GMT
+Date: Sun, 13 Sep 2018 01:49:27 GMT
 ```
 ```JSON
 {
   "self": "/images/tasks",
   "status": {
     "state": "processing",
-    "pollAfter": "2009-09-13T01:59:27Z"
+    "pollAfter": "2018-09-13T01:59:27Z"
   }
 }
 ```
 
-The response contains a code indicating that the server accepted the request for processing.
-`pollAfter` hints when to check for the status at a later time.
+The response `202 Accepted` status indicates that the server accepted the request for processing.
+`pollAfter` hints when to check for an updated status at a later time.
 
 *Getting the processing status*
 
@@ -420,7 +420,7 @@ Content-Type: application/json;charset=UTF-8
   "self": "/images/tasks/1",
   "status": {
     "state": "processing",
-    "pollAfter": "2009-09-13T02:09:27Z"
+    "pollAfter": "2018-09-13T02:09:27Z"
   }
 }
 ```
@@ -437,7 +437,7 @@ Content-Type: application/json;charset=UTF-8
   "self": "/images/tasks/1",
   "status": {
     "state": "done",
-    "completed":"2009-09-13T02:10:00Z",
+    "completed":"2018-09-13T02:10:00Z",
   }
 }
 ```
@@ -455,7 +455,7 @@ Content-Type: application/json;charset=UTF-8
   "self": "/images/tasks/1",
   "status": {
     "state": "failed",
-    "completed":"2009-09-13T02:10:00Z",
+    "completed":"2018-09-13T02:10:00Z",
     "problem": {
       "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
       "title": "Bad Request",
@@ -468,5 +468,5 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
-The cause of failure is represented using an an embedded Problem object, as defined in <<Error handling>>.
+The cause of failure is represented using an embedded Problem object, as defined in <<Error handling>>.
 ====
