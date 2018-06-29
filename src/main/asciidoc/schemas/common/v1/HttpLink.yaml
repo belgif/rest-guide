@@ -1,0 +1,9 @@
+$schema: http://json-schema.org/draft-04/schema#
+description: A base type of objects representing links to resources.
+type: object
+properties:
+  href:
+    description: Any absolute URI that is using http or https protocol
+    type: string
+    format: uri
+required: [href]

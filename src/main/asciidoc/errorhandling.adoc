@@ -8,7 +8,7 @@ For any problem occurred during processing, whether it be caused by the client o
 2.  a RFC 7807 problem detail message
 
 
-.Problem Details JSON schema (from link:schemas/common/v1/common.yaml[common.yaml])
+.Problem Details JSON schema (from link:schemas/common/v1/Problem.yaml[Problem.yaml])
 ```YAML
 Problem:
   description: A Problem Details object (RFC 7807)
