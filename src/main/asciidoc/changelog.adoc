@@ -1,6 +1,7 @@
 == Changelog
 * 2018-08-08
 ** added clarifications and example for use of `HttpLink` to <<Hypermedia controls>>
+** changed guideline for <<JSON Schema>>s to single root type per file and add rule on common BelGov schemas
 * 2018-06-29
 ** added common JSON schemas containing types referenced throughout the guide
 ** added MergePatch type to <<Partial update>>
