@@ -43,6 +43,50 @@ Links can be added anywhere in a JSON document
 }
 ```
 
+Note that
+
+.href links
+====
+GET {API}/companies/1
+```json
+{
+   "owner": {
+      "ssin": "12345678901",
+      "href": "http://example.org/v1/people/12345678901"
+   },
+   "website": "https://wwww.mycompany.com"
+}
+```
+
+PATCH {API}/companies/1
+```json
+{
+   "owner": {
+      "ssin": "12345678902"
+   },
+   "website": "https://wwww.mynewwebsite.com"
+}
+```
+
+The corresponding JSON Schema includes the `HttpLink` type in the owner definition using `allOf`.
+As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.
+```YAML
+type: object
+properties:
+  owner:
+    type: object
+    allOf:
+      - "$ref": http://gcloud.be/rest/schemas/common/v1/HttpLink
+      - type: object
+        properties:
+          ssin:
+            "$ref": "#definitions/Ssin"
+  website:
+    type: string
+    format: uri
+```
+
+====
 
 Hyperlinks for <<Pagination>> inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
 
