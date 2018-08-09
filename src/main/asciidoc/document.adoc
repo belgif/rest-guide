@@ -144,6 +144,12 @@ Use `PUT` when you like to do a complete update of a document resource. All valu
 [subs="normal"]
 ```
 PUT {API}/employers/93017373[^] HTTP/1.1
+
+{
+    "employerId": "93017373",
+    "name": "Belgacom"
+}
+
 ```
 
 [cols="1,2,3"]
@@ -164,17 +170,14 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 
 3+|Response
 
-TODO: update JSON response to RFC 7807
-
 |body
 |empty or a message indicating success
 a|
 [source,json]
 ----
 ​​​{
- "id": "63b68bfa-bcdc-40f1",
- "code": "OK",
- "message": "Employer successfully updated"
+    "employerId": "93017373",
+    "name": "Belgacom"
 }
 
 ----
@@ -182,7 +185,11 @@ a|
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|Default success code if the updated succeeded
+|Success code with resource after update echoed
+
+​​|<<http-204,204>>
+|No Content
+|Success code without returning the resource
 
 |<<http-400,400>>
 |Bad request
@@ -244,24 +251,26 @@ a|
 
 3+|Response
 
-TODO: update JSON response to RFC 7807
-
 |body
-|empty or a message indicating success
+|empty or the complete resource after applying PATCH
 a|
 [source,json]
 ----
 ​​​{
- "id": "63b68bfa-bcdc-40f1",
- "code": "OK",
- "message": "Employer successfully updated"
+    "employerId": "93017373",
+    "name": "Belgacom",
+    "bankrupt": false
 }
 ----
 
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|Default success code if the updated succeeded
+|Success code with resource after applying PATCH returned
+
+​​|<<http-204,204>>
+|No Content
+|Success code without returning the resource
 
 |<<http-400,400>>
 |Bad request
@@ -301,24 +310,29 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 
 3+|Response
 
-TODO: update JSON response to RFC 7807
-
 |body
 |empty or a message indicating success
 a|
-[source,json]
+[source]
 ----
-​​​{
- "id": "63b68bfa-bcdc-40f1",
- "code": "OK",
- "message": "Employer successfully deleted"
+204 No Content
+
+or​​​
+
+200 OK
+{
+ "message": "Employer didn't exist"
 }
 ----
 
 3+|Response codes
+​​|<<http-204,204>>
+|No Content
+|Default success code if the delete succeeded
+
 ​​|<<http-200,200>>
 |OK
-|Default success code if the updated succeeded
+|Success code with additional message
 
 |<<http-400,400>>
 |Bad request
@@ -331,43 +345,6 @@ a|
 |===
 ====
 
-#TODO# #TODO# #TODO#
-
-.Delete existing company
-```
-DELETE /companies/{companyId}
-
-HTTP/1.1 204 No Content
-```
-
-
-* What to do if company didn't exist?
-
-.Redelete removed companies
-```
-DELETE /companies/{companyId}
-
-HTTP/1.1 409 Conflict
-Content-Type: application/problem+json
-```
-```json
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "title": "Not Found",
-   "status": 409,
-   "detail": "The company doesn't exist"
-}
-```
-
-or idempotent?? #TODO#
-
-```
-DELETE /companies/{companyId}
-
-HTTP/1.1 204 No Content
-```
-
-or 404 Not Found?
 
 === Non-CRUD operations
 
