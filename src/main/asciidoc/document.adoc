@@ -87,18 +87,18 @@ a|
 |Bad request
 a|The dynamic path segment containing the identity key has a wrong data format
 
-(TODO: update example with RFC7807 Problem JSON format)
 [source,json]
 ----
 {
- "id": "63b68bfa-bcdc-40f1",
- "code": "Bad Request",
- "message": "The input message is incorrect",
- "details": [
+ "instance": "63b68bfa-bcdc-40f1",
+ "title": "Bad Request",
+ "code": 400,
+ "detail": "The input message is incorrect",
+ "invalidParams": [
   {
-   "kind": "path-param",
-   "message": "This value should be numeric",
-   "ref": "employerId",
+   "in": "path",
+   "name": "employerId",
+   "reason": "This value should be numeric",
    "value": "abc"
   }
  ]
@@ -330,6 +330,44 @@ a|
 ​
 |===
 ====
+
+#TODO# #TODO# #TODO#
+
+.Delete existing company
+```
+DELETE /companies/{companyId}
+
+HTTP/1.1 204 No Content
+```
+
+
+* What to do if company didn't exist?
+
+.Redelete removed companies
+```
+DELETE /companies/{companyId}
+
+HTTP/1.1 409 Conflict
+Content-Type: application/problem+json
+```
+```json
+{
+   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
+   "title": "Not Found",
+   "status": 409,
+   "detail": "The company doesn't exist"
+}
+```
+
+or idempotent?? #TODO#
+
+```
+DELETE /companies/{companyId}
+
+HTTP/1.1 204 No Content
+```
+
+or 404 Not Found?
 
 === Non-CRUD operations
 
