@@ -28,9 +28,9 @@ CAUTION: open issue: British or American English? (CBSS remark)
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": "93017373",
-  "enterprise": {
-    "enterpriseNbr": "0202239951"
+  "nssoNbr": 93017373,
+  "company": {
+    "cbeNbr": 202239951
   }
 }
 ```
@@ -51,7 +51,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": "93017373",
+  "nssoNbr": 93017373,
   "enterprise": null
 }
 ```
@@ -60,7 +60,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": "93017373"
+  "nssoNbr": 93017373
 }
 ```
 |===
@@ -73,7 +73,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": "93017373"
+  "nssoNbr": 93017373
 }
 ```
 
@@ -81,7 +81,7 @@ a|[subs="normal"]
 a|[subs="normal"]
 ```json
 {
-  "nssoNbr": "93017373",
+  "nssoNbr": 93017373,
   "name": "Belgacom"
 }
 ```

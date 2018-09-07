@@ -10,10 +10,10 @@ A document resource is a _singular concept_ that is referring to a business enti
 ```json
 {
   "name": "Belgacom",
-  "nossRegistrationNumber": "93017373",
+  "nssoNbr": 93017373,
   "company": {
-    "companyId": "0202239951",
-    "href": "{API}/companies/0202239951[^]"
+    "cbeNbr": 202239951,
+    "href": "{API}/companies/202239951[^]"
   },
   "self": "{API}/employers/93017373[^]"
 }
@@ -66,10 +66,10 @@ a|
 ​​​{
   "self": "{API}/employers/93017373[/employers/93017373^]",
   "name": "Belgacom",
-  "nossRegistrationNumber": "93017373",
+  "nssoNbr": 93017373,
   "company": {
-    "companyId": "0202239951",
-    "href": "{API}/companies/0202239951[/companies/0202239951^]"
+    "cbeNbr": 202239951,
+    "href": "{API}/companies/202239951[/companies/202239951^]"
   }
 }
 ----
@@ -146,7 +146,7 @@ Use `PUT` when you like to do a complete update of a document resource. All valu
 PUT {API}/employers/93017373[^] HTTP/1.1
 
 {
-    "employerId": "93017373",
+    "employerId": 93017373,
     "name": "Belgacom"
 }
 
@@ -176,7 +176,7 @@ a|
 [source,json]
 ----
 ​​​{
-    "employerId": "93017373",
+    "employerId": 93017373,
     "name": "Belgacom"
 }
 
@@ -257,7 +257,7 @@ a|
 [source,json]
 ----
 ​​​{
-    "employerId": "93017373",
+    "employerId": 93017373,
     "name": "Belgacom",
     "bankrupt": false
 }

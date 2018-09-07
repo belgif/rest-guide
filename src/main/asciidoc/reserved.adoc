@@ -76,7 +76,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"self": "{API}/companies/0202239951[/companies/0202239951^]"
+"self": "{API}/companies/202239951[/companies/202239951^]"
 ----
 | <<Links>>
 
@@ -85,7 +85,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"href": "{API}/companies/0202239951[/companies/0202239951^]"
+"href": "{API}/companies/202239951[/companies/202239951^]"
 ----
 | <<Links>>
 
