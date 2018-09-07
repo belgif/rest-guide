@@ -121,7 +121,7 @@ POST /companies/abc
 
 {
     "mandator": {
-        "companyId": "123456"
+        "cbeNbr": "123456"
     }
 }
 ```
@@ -138,13 +138,13 @@ Content-Type: application/problem+json
    "invalidParams": [
        {
           "in": "path",
-          "name": "companyId",
+          "name": "cbeNbr",
           "reason": "should be numeric",
           "value": "abc"
        },
        {
           "in": "body",
-          "name": "mandator.companyId",
+          "name": "mandator.cbeNbr",
           "reason": "have minimum 9 digits",
           "value": "123456"
        }
@@ -174,7 +174,7 @@ Content-Type: application/problem+json
 === Authentication
 
 ```
-GET /companies/0202239951
+GET /companies/202239951
 ```
 
 ```
@@ -212,7 +212,7 @@ Content-Type: application/problem+json
 Either the client doesn't have the right scope to invoke the operation.
 
 ```
-GET /companies/0202239951
+GET /companies/202239951
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
@@ -233,7 +233,7 @@ Content-Type: application/problem+json
 Either the client doesn't have the permission to invoke an operation on a specific resource (data access).
 
 ```
-PUT /companies/0202239951
+PUT /companies/202239951
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
@@ -255,7 +255,7 @@ Content-Type: application/problem+json
 In case the resource collection doesn't exist
 
 ```
-GET /company/{companyId}
+GET /companies/{cbeNbr}
 
 HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
@@ -273,7 +273,7 @@ Content-Type: application/problem+json
 In case the resource document doesn't exist
 
 ```
-GET /companies/{companyId}/invoices/{invoiceId}
+GET /companies/{cbeNbr}/invoices/{invoiceId}
 
 HTTP/1.1 404 Not Found
 Server: Apache-Coyote/1.1
@@ -287,7 +287,7 @@ Content-Type: application/problem+json
    "detail": "The company doesn't exist",
    "invalidParams": [{
       "in": "path",
-      "name": "companyId",
+      "name": "cbeNbr",
       "reason": "company number does not exist",
       "value": "4074567892"
    }]
@@ -319,7 +319,7 @@ Content-Type: application/problem+json
 === Too many requests
 
 ```
-GET /companies/{companyId}
+GET /companies/{cbeNbr}
 ```
 ```
 HTTP/1.1 429 Too many requests

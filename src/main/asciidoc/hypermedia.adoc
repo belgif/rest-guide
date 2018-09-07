@@ -34,10 +34,10 @@ Links can be added anywhere in a JSON document
 ```json
 {
   "name": "Belgacom",
-  "nossRegistrationNumber": "93017373",
+  "nssoNbr": 93017373,
   "company": {
-    "companyId": "0202239951",
-    "href": "{API}/companies/0202239951[/companies/0202239951^]"
+    "cbeNbr": 202239951,
+    "href": "{API}/companies/202239951[/companies/202239951^]"
   },
   "self": "{API}/employers/93017373[/employers/9301737^]"
 }
@@ -110,10 +110,10 @@ Hyperlinks for <<Pagination>> inside collections and self-references should use 
 ```json
 {
   "name": "CPAS de Silly",
-  "nossRegistrationNumber": "3870094",
+  "nssoNbr": 3870094,
   "company": {
-    "companyId": "0212165526",
-    "href": "{API}/companies/0212165526[/companies/0212165526^]"
+    "cbeNbr": 212165526,
+    "href": "{API}/companies/212165526[/companies/212165526^]"
     }
   },
   "self": "{API}/employers/3870094[/employers/3870094^]"

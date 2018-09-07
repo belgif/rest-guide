@@ -80,7 +80,7 @@ properties:
 
 .Query parameters for subresources more than one level deep
 ====
-GET {API}/employer/0409536968?embed=employees(address)
+GET {API}/employer/409536968?embed=employees(address)
 ====
 
 === Caching

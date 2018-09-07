@@ -65,14 +65,14 @@ GET {API}/employers[^] HTTP/1.1​
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
      "title":"Belgacom",
-     "nssoRegistrationNbr": "93017373",
-     "companyId": "0202239951"
+     "nssoNbr": 93017373,
+     "cbeNbr": 202239951
    },
    {
      "href":"{API}/employers/20620259[/employers/20620259^]",
      "title":"Partena VZW",
-     "nssoRegistrationNbr": "20620259",
-     "companyId": "0409536968",
+     "nssoNbr": 20620259,
+     "cbeNbr": 409536968,
    }
  ],
  "total":2
@@ -97,10 +97,10 @@ definitions:
     - $ref: common/v1/HttpLink.yaml
     - type: object
       properties:
-        nssoRegistrationNbr:
-          $ref: organization/v1/NssoRegistrationNbr
-        companyId:
-          $ref: organization/v1/CompanyId.yaml
+        nssoNbr:
+          $ref: organization/v1/NssoNbr.yaml
+        cbeNbr:
+          $ref: organization/v1/CbeNbr.yaml
 ```
 ====
 
@@ -209,10 +209,10 @@ a|
 ​​​{
   "self": "{API}/companies?name=belg[/companies?name=belg^]",
 	"items": [{
-		"href": "{API}/companies/0202239951[/companies/0202239951^]",
+		"href": "{API}/companies/202239951[/companies/202239951^]",
 		"title": "Belgacom"
 	}, {
-		"href": "{API}/companies/0448826918[/companies/0448826918^]",
+		"href": "{API}/companies/448826918[/companies/448826918^]",
 		"title": "Carrefour Belgium SA"
 	}],
 	"total": 2,
@@ -284,11 +284,11 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
   "self": "{API}/companies?page=2&pageSize=2[/companies?page=2&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/companies/0202239951[/companies/0202239951^]",
+      "href": "{API}/companies/202239951[/companies/202239951^]",
       "title": "Belgacom"
     },
     {
-      "href": "{API}/companies/0212165526[/companies/0212165526^]",
+      "href": "{API}/companies/212165526[/companies/212165526^]",
       "title": "CPAS de Silly"
     }
   ],
@@ -315,11 +315,11 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
   "self": "{API}/companies?afterCompany=0244640631&pageSize=2[/companies?afterCompany=0244640631&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/companies/0202239951[/companies/0202239951^]",
+      "href": "{API}/companies/202239951[/companies/202239951^]",
       "title": "Belgacom"
     },
     {
-      "href": "{API}/companies/0212165526[/companies/0212165526^]",
+      "href": "{API}/companies/212165526[/companies/212165526^]",
       "title": "CPAS de Silly"
     }
   ],
@@ -349,9 +349,9 @@ a|
 ----
 ​{
   "name": "Belgacom",
-  "nossRegistrationNumber": "93017373",
+  "nssoNbr": 93017373,
   "company": {
-    "companyId": "0202239951"
+    "cbeNbr": 202239951
   }
 }
 ----
