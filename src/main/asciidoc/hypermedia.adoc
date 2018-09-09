@@ -25,10 +25,11 @@ href:
   description: Any absolute URI that is using http or https protocol
   type: string
   format: uri
-required: [href]
+  readOnly: true
 ```
 
-Links can be added anywhere in a JSON document
+Links should not be used in request bodies in a PUT, POST or PATCH context, as indicated by the `readOnly: true` property on `href`.
+In a JSON response, they can be added anywhere:
 
 [subs="normal"]
 ```json
@@ -42,8 +43,6 @@ Links can be added anywhere in a JSON document
   "self": "{API}/employers/93017373[/employers/9301737^]"
 }
 ```
-
-Note that
 
 .href links
 ====
