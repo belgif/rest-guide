@@ -169,6 +169,23 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
 
+.Enum values
+====
+Enum values SHOULD be declared in lowerCamelCase, just as property names.
+====
+
+.Enum declaration
+====
+```YAML
+state:
+  type: string
+  enum:
+  - processing
+  - failed
+  - done
+```
+====
+
 **Useful references**
 
 [options="header"]

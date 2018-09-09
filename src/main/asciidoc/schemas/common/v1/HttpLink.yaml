@@ -6,4 +6,4 @@ properties:
     description: Any absolute URI that is using http or https protocol
     type: string
     format: uri
-required: [href]
+    readOnly: true

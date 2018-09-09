@@ -1,4 +1,9 @@
 == Changelog
+* 2018-09-09
+** HttpLink type updated in <<Hypermedia controls>> to be read only instead of required
+** new rule in <<JSON Schema>> for enum values
+* 2018-08-09
+** Standardized Problem response for several use cases in <<Error handling>> and updated Problem examples throughout the guide
 * 2018-08-08
 ** added clarifications and example for use of `HttpLink` to <<Hypermedia controls>>
 ** changed guideline for <<JSON Schema>>s to single root type per file and add rule on common BelGov schemas
