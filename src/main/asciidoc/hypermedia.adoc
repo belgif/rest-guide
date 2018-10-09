@@ -75,7 +75,7 @@ properties:
   owner:
     type: object
     allOf:
-      - "$ref": http://gcloud.be/rest/schemas/common/v1/HttpLink
+      - "$ref": http://www.gcloud.belgium.be/rest/schemas/common/v1/HttpLink.yaml
       - type: object
         properties:
           ssin:
