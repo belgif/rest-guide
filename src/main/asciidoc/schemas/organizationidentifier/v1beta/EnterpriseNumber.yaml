@@ -1,0 +1,7 @@
+id: https://www.gcloud.belgium.be/rest/schemas/organizationidentifier/v1beta/EnterpriseNumber
+$schema: http://json-schema.org/draft-04/schema#
+description: Enterprise number issued by CBE
+#should we call it OrganizationNumber like in vocabularies?
+type: string
+pattern: "[0|1]\d{9}"
+# => debate string with pattern vs integer values

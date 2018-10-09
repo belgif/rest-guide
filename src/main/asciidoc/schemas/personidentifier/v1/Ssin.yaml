@@ -1,0 +1,5 @@
+id: https://www.gcloud.belgium.be/rest/schemas/personidentifier/v1/Ssin
+$schema: http://json-schema.org/draft-04/schema#
+description: "Social Security Identification Number issued by the National Register or CBSS"
+type: string
+pattern: \d{11}
