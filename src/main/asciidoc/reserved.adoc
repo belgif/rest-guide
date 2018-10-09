@@ -27,7 +27,7 @@ A list of reserved words exists for common used practices
 |<<Filtering>>
 
 |[[query-param-sort]]sort
-|Comma-separated list of properties to sort data.
+|Multi-value query param with list of properties to sort on.
 Default sorting direction is ascending. To indicate descending direction, the property may be prefixed with -.
 |?sort=-name
 |<<Collection>>
