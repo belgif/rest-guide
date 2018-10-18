@@ -1,4 +1,4 @@
-id: https://www.gcloud.belgium.be/rest/schemas/personidentifier/v1/Nrn
+id: https://www.gcloud.belgium.be/rest/schemas/person/identifier/v1beta/Nrn
 $schema: http://json-schema.org/draft-04/schema#
 description: "National Register Number: identification number of a natural person issued by the National Register"
 type: string
