@@ -1,4 +1,4 @@
-id: https://www.gcloud.belgium.be/rest/schemas/location/v1beta/NationalityNisCode
+id: https://www.gcloud.belgium.be/rest/schemas/location/v1beta/CountryNisCode
 $schema: http://json-schema.org/draft-04/schema#
 description: NIS code representing a country, as defined by statbel.fgov.be
 type: integer
