@@ -199,11 +199,11 @@ If you want to filter a collection with an operator other than "equal", you can 
 | Example
 
 | `_lt`
-| little than
+| less than
 | `age_lt=18`
 
 | `_le`
-| little or equal
+| less or equal
 | `age_le=18`
 
 | `_gt`
