@@ -182,9 +182,67 @@ AppendixCodeLink:
 
 === Filtering
 
-A collection can be filtered using query parameters.​ You can filter on a specific resource property by specifying the property name as query param.
+A collection can be filtered using query parameters.
+
+You can filter on a specific resource property by specifying the property name as query param. It means that the property value must be equals to the query-param value.
+
 The query-param `q` is reserved to implement a full text search on all the resource's content.
-​
+
+If you want to filter a collection with an operator other than "equal", you can use the following suffix:
+
+[cols="1,2,2"]
+[options="header"]
+|===
+
+| Suffix
+| Meaning
+| Example
+
+| `_lt`
+| little than
+| `age_lt=18`
+
+| `_le`
+| little or equal
+| `age_le=18`
+
+| `_gt`
+| greather than
+| `age_gt=18`
+
+| `_ge`
+| greather or equal
+| `age_ge=18`
+
+| `_contains`
+| text contains
+| `ssin_contains=771006`
+
+| `_startsWith`
+| text start with
+| `ssin_startsWith=771006`
+
+| `_endsWith`
+| text end with
+| `ssin_endsWith=41`
+
+| `_matches`
+| text match the regex
+| `ssin_matches=\d{2}0229\d{5}`
+
+|===
+
+If you need more complex queries (parenthesis, or operator,...), you can use RSQL.
+
+.Persons that are younger than 18 years and older than 65 years
+====
+[subs=normal]
+```
+GET {API}/persons?query=age=lt=18,age=gt=65 HTTP/1.1
+```
+Means that
+====
+
 [cols="1,2,3"]
 |===
 |<<get>>
@@ -197,6 +255,38 @@ The query-param `q` is reserved to implement a full text search on all the resou
 |name
 |query-param
 |Filter only employers that have a specific name.
+
+|name_contains
+|query-param
+|Filter only employers that have a name containing the given value.
+
+|name_startsWith
+|query-param
+|Filter only employers that have a name starting with the given value.
+
+|name_endsWith
+|query-param
+|Filter only employers that have a name ending with the given value.
+
+|age_lt
+|query-param
+|Filter only employers that are younger than the given age.
+
+|age_le
+|query-param
+|Filter only employers that are not older than the given age.
+
+|age_gt
+|query-param
+|Filter only employers that are older than the given age.
+
+|age_ge
+|query-param
+|Filter only employers that are not younger than the given age.
+
+|ssin_matches
+|query-param
+|Filter only employers that have a SSIN matching the given regular expression.
 
 3+|Response
 
