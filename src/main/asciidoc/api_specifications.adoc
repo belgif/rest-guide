@@ -195,7 +195,7 @@ state:
 [.rule, caption="Rule {counter:rule-number}: "]
 .String and integer types
 ====
-When defining the type for a properties representing a numerical code or ID:
+When defining the type for a property representing a numerical code or ID:
 
 * if the values constitute a list of sequentially generated codes (e.g. gender ISO code), `type: integer` SHOULD be used. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32`).
 * if the values are of fixed length or not sequentially generated, `type: string` SHOULD be used (e.g. Ssin, EnterpriseNumber). This avoids leading zeros to be hidden.
