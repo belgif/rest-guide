@@ -2,6 +2,7 @@
 * 2018-11-26
 ** add SelfLink type in <<Hypermedia controls>>
 ** recommend American English for <<JSON>> property names and <<JSON Schema>> data types
+** add recommendations on typing of properties in <<JSON Schema>> (integer/string, enums)
 * 2018-09-09
 ** HttpLink type updated in <<Hypermedia controls>> to be read only instead of required
 ** new rule in <<JSON Schema>> for enum values
