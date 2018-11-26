@@ -112,8 +112,8 @@ The JSON schema files will be made available both in YAML and JSON format throug
 [.rule, caption="Rule {counter:rule-number}: "]
 .JSON Schema data type names
 ====
-JSON Schema data type names SHOULD be defined in English and use _UpperCamelCase_ notation.
-Also for abbreviations, all letters except the first one should always be lowercased.
+JSON Schema data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
+For abbreviations as well, all letters except the first one should be lowercased.
 ====
 
 .JSON Schema
