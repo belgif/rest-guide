@@ -25,6 +25,7 @@ Accept: image/jpeg, image/png
 Response HTTP headers:
 ```
 Content-Type: image/png
+Vary: Accept
 ```
 ====
 
