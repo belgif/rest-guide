@@ -1,4 +1,6 @@
 == Changelog
+* 2018-11-26
+** add SelfLink type in <<Hypermedia controls>>
 * 2018-09-09
 ** HttpLink type updated in <<Hypermedia controls>> to be read only instead of required
 ** new rule in <<JSON Schema>> for enum values
