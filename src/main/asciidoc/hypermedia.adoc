@@ -48,6 +48,8 @@ In a JSON response, they can be added anywhere.
 .Resource links
 ====
 GET {API}/companies/1
+
+[subs="normal"]
 ```json
 {
    "self": "{API}/companies/1[/companies/1^]"
@@ -60,6 +62,8 @@ GET {API}/companies/1
 ```
 
 PATCH {API}/companies/1
+
+[subs="normal"]
 ```json
 {
    "owner": {
@@ -71,6 +75,7 @@ PATCH {API}/companies/1
 
 The corresponding JSON Schema includes the link types using `allOf`.
 As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.
+[subs="normal"]
 ```YAML
 definitions:
   Company:
@@ -91,9 +96,6 @@ definitions:
           ssin:
             "$ref": "#definitions/Ssin"
 ```
-
-
-
 ====
 
 Hyperlinks for <<Pagination>> inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
