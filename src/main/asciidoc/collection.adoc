@@ -214,23 +214,22 @@ If you want to filter a collection with an operator other than "equal", you can 
 | greather or equal
 | `age_ge=18`
 
-| `_contains`
-| text contains
-| `ssin_contains=771006`
-
-| `_startsWith`
-| text start with
-| `ssin_startsWith=771006`
-
-| `_endsWith`
-| text end with
-| `ssin_endsWith=41`
-
 | `_matches`
-| text match the regex
+| text matches
 | `ssin_matches=\d{2}0229\d{5}`
+  `ssin_matches=771006369*`
+  `ssin_matches=*reeth`
+  `ssin_matches=~vanreeth`
 
 |===
+
+The suffix `matches` can have different behaviors, depending of the API. For example:
+
+- the API can accept a * at the beginning and/or at the end and/or in the middle of the string
+- the API can acccept regular expressions
+- the API can do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,...)
+
+The syntax and the behavior of each `matches` query parameter must be documented.
 
 If you need more complex queries (parenthesis, or operator,...), you can use RSQL.
 
@@ -255,18 +254,6 @@ Means that
 |name
 |query-param
 |Filter only employers that have a specific name.
-
-|name_contains
-|query-param
-|Filter only employers that have a name containing the given value.
-
-|name_startsWith
-|query-param
-|Filter only employers that have a name starting with the given value.
-
-|name_endsWith
-|query-param
-|Filter only employers that have a name ending with the given value.
 
 |age_lt
 |query-param
