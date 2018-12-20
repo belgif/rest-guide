@@ -1,5 +1,0 @@
-id: https://www.gcloud.belgium.be/rest/schemas/organization/identifier/v1beta/SiteNumber
-$schema: http://json-schema.org/draft-04/schema#
-description: Site/Establishment number issued by CBE
-type: string
-pattern: "[2-8]\d{9}"

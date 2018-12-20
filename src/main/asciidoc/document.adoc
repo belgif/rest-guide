@@ -217,7 +217,7 @@ The `PATCH` message MUST be conform to the JSON Merge Patch (https://tools.ietf.
 * properties not present in the request are preserved
 
 APIs should support both the MIME type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON mime type.
-As JSON Merge Patch requests can not be fully specified as a JSON Schema type, a MergePatch marker type should be used, defined in link:schemas/common/v1/MergePatch.yaml[MergePatch.yaml].
+As JSON Merge Patch requests can not be fully specified as a JSON Schema type, a MergePatch marker type should be used, defined in link:schemas/common/v1/common-v1.yaml[common-v1.yaml].
 
 .JSON merge patch
 ====
@@ -393,7 +393,7 @@ When GETting the task resource, the response can be:
 ====
 
 Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
-The schema link:schemas/common/v1/LongRunningTaskStatus.yaml[LongRunningTaskStatus.yaml] defines the representation of a task's status.
+The schema link:schemas/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
 
 .Long running task
 ====

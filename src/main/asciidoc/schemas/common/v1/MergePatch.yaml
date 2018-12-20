@@ -1,4 +1,0 @@
-$schema: http://json-schema.org/draft-04/schema#
-description: JSON Merge Patch (RFC 7386) request body
-type: object
-# Marker type as JSON Merge Patch requests can not be fully specified as a JSON Schema type

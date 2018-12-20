@@ -1,5 +1,0 @@
-id: https://www.gcloud.belgium.be/rest/schemas/organization/identifier/v1beta/CbeNumber
-$schema: http://json-schema.org/draft-04/schema#
-description: Identifier issued by CBE, either identifying a site (establishment) or enterprise
-type: string
-pattern: "\d{10}"
