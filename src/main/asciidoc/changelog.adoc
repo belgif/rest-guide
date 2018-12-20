@@ -2,6 +2,7 @@
 * 2018-12-20
 ** modified guidelines on organization of reusable data types in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
+** updated references in <<API specifications>> with new tools
 * 2018-11-26
 ** add SelfLink type in <<Hypermedia controls>>
 ** recommend American English for <<JSON>> property names and <<JSON Schema>> data types
