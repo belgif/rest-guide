@@ -10,10 +10,31 @@ A code-first approach may sometimes be necessary however, as current state of te
 In this case, special attention should be given that the API specifications remain stable and loosely coupled to the API implementation technology.
 ====
 
+=== OpenAPI (Swagger)
+
+OpenAPI is the dominating standard for API documentation, having gained wide industry support.
+It is based on http://swagger.io/[Swagger^], which has been standardized as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI 2.0].
+
 [.rule, caption="Rule {counter:rule-number}: "]
-.Use of YAML format in OpenAPI and JSON Schema
+.OpenAPI 2.0 (Swagger)
 ====
-OpenAPI and JSON Schema files SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
+Specifications of the API SHOULD be provided using *OpenAPI 2.0* (aka Swagger).
+OpenAPI 2.0 uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources,  which is a variant of the **JSON Schema draft 04** standard.
+====
+
+The newer OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
+You can visualize OpenAPI files using tools like https://swagger.io/swagger-ui/[Swagger UI^], https://github.com/moon0326/swagger-ui-watcher[Swagger UI Watcher^] or https://senya.io[Senya^].
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Additional documentation
+====
+Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Use of YAML format in OpenAPI
+====
+OpenAPI files SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
 
 YAML is a superset of JSON which allows a simpler notation, and also allows comments.
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
@@ -47,85 +68,37 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ```
 ====
 
-=== OpenAPI (Swagger)
-
-OpenAPI is the dominating standard for API documentation, having gained wide industry support.
-
 [.rule, caption="Rule {counter:rule-number}: "]
-.OpenAPI 2.0 (Swagger)
+.Reusable OpenAPI definitions
 ====
-Specifications of the API SHOULD be provided using OpenAPI 2.0 (aka Swagger).
-====
+Instead of specifying everything directly in the `swagger.yaml` file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
+These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type definitions, but also parameter, path items and response objects.
 
-http://swagger.io/[Swagger^] has been standardized as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI standard].
-The OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
+To work around limitations of certain tools, a conversion step to inline the definitions into the `swagger.yaml` file may be necessary.
 
-You can visualize the Swagger description using the https://swagger.io/swagger-ui/[Swagger UI^]. The `url` query parameter specifies to Swagger file to load.
+Duplication of types in multiple APIs SHOULD be avoided. Rather, put the type in a reusable OpenAPI file.
+Files reusable from multiple APIs SHOULD be organized in this structure:
+```
+<domain>/<version>/<domain-version>.yaml
+<domain>/<subdomain>/<version>/<domain-subdomain-version>.yaml
+```
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.Additional documentation
-====
-Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
-====
-
-=== JSON Schema
-
-OpenAPI uses JSON schemas to describe JSON resources.
-
-[.rule, caption="Rule {counter:rule-number}: "]
-.JSON Schema
-====
-JSON Schema MUST be used to describe JSON resources.
-
-The version of JSON Schema to be used is the variant of **JSON schema draft 04** defined in the OpenAPI 2.0 specification as the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object].
-
-JSON schemas can be included directly in the `swagger.json` file or in separate files referenced from the OpenAPI description.
-According to usage, a conversion step to inline the definitions into the OpenAPI file might be necessary considering limitations of tools.
-
-Duplication of types in multiple APIs SHOULD be avoided. Rather, put the type in a reusable JSON Schema.
-
-A JSON Schema file SHOULD contain a single root type.
-Any dependent types used by this root type MUST be added under a `definitions` property.
-The file name SHOULD correspond to the name of the data type.
-
-A JSON Schema file SHOULD be versioned with at least a major version number, that is increased when backwards compatibility is broken.
-Multiple JSON Schema files defining types in the same domain may be versioned as a whole.
-If the schema's `id` is specified, it MUST contain the major version number.
+Definitions SHOULD be grouped per (sub)domain in a file.
+Each file has its own lifecycle, with a major version number in it's directory and file name, that is increased when backwards compatibility is broken.
+This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the swagger file as well.
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.Common schema types for Belgian government institutions
+While it is not strictly necessary for external definitions to be put in a valid OpenAPI 2.0 file, doing so makes it possible to use standard OpenAPI/Swagger tooling on them.
+
+.Reusable OpenAPI file
 ====
-Common JSON schemas for use by Belgian government institutions are published on https://www.gcloud.belgium.be/rest/schemas/.
-Types in these schemas SHOULD be used instead of defining your own variants.
-
-(TODO: this path is not yet navigable).
-
-Each subpath defines a domain that is versioned as a whole.
-The technical types referenced in this style guide are available in the `common` subpath.
-Other types for business concepts commonly used by Belgian government institutions are added in other subpaths.
-
-The JSON schema files will be made available both in YAML and JSON format through content negotiation (see <<Media Types>>), with YAML being the default format.
-(TODO: still to be done; only available as <type>.yaml currently)
-====
-
-[.rule, caption="Rule {counter:rule-number}: "]
-.JSON Schema data type names
-====
-JSON Schema data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
-For abbreviations as well, all letters except the first one should be lowercased.
-====
-
-.JSON Schema
-====
-
 .person-identifier-v1.yaml
 ```YAML
 swagger: "2.0"
 info:
   title: data types for person identifiers
   version: v1beta
-paths: {}
+paths: {} # empty paths property required to be a valid OpenAPI file
 definitions:
   Ssin:
     description: "Social Security Identification Number issued by the National Register or CBSS"
@@ -133,10 +106,34 @@ definitions:
     pattern: \d{11}
 ```
 
-A type can be referenced from an OpenAPI or JSON Schema document:
+A type can be referenced from another OpenAPI file:
 ```YAML
 "$ref": http://example.org/person/identifier/v1#/definitions/Ssin
 ```
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Common definitions for Belgian government institutions
+====
+Common definitions for use by Belgian government institutions are published on https://www.gcloud.belgium.be/rest/schemas/.
+Types in these schemas SHOULD be used instead of defining your own variants.
+
+(TODO: this path is not yet navigable).
+
+The technical types referenced in this style guide are available in the `common` and `problem` subpath.
+Other types for business concepts commonly used by Belgian government institutions are added in other subpaths.
+
+The OpenAPI files will be made available both in YAML and JSON format through content negotiation (see <<Media Types>>), with YAML being the default format.
+(TODO: only available as <type>.yaml currently)
+====
+
+=== JSON data types
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Data type names
+====
+Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
+For abbreviations as well, all letters except the first one should be lowercased.
 ====
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
@@ -201,7 +198,7 @@ When defining the type for a property representing a numerical code or ID:
 [options="header"]
 |===
 |Name|Link
-|Senya OpenAPI editor (IntelliJ IDEA plugin) | http://senya.io
+|Senya OpenAPI editor (IntelliJ IDEA plugin) | https://senya.io
 |KaiZen OpenAPI editor (Eclipse plugin) | https://github.com/RepreZen/KaiZen-OpenAPI-Editor
 |Swagger UI watcher | https://github.com/moon0326/swagger-ui-watcher
 |Swagger UI | https://swagger.io/swagger-ui/
