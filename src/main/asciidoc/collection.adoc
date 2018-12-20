@@ -79,28 +79,28 @@ GET {API}/employers[^] HTTP/1.1​
 }​
 ----
 
-.JSON schema
+.JSON data types
 ```YAML
-$schema: http://json-schema.org/draft-04/schema#
-description: A collection of employers
-type: object
-properties:
-  items:
-    type: array
-    items:
-      $ref: "#/definitions/EmployerLink"
-    total:
-      type: integer
-definitions:
-  EmployerLink:
-    allOf:
-    - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
-    - type: object
-      properties:
-        nssoNbr:
-          $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/NssoNbr
-        cbeNbr:
-          $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNbr
+EmployersResponse:
+  allOf:
+  - $ref: common/v1/common-v1.yaml#/definitions/SelfLink
+  - type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: "#EmployerLink"
+      total:
+        type: integer
+EmployerLink:
+  allOf:
+  - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
+  - type: object
+    properties:
+      nssoNbr:
+        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/NssoNbr
+      cbeNbr:
+        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNbr
 ```
 ====
 
@@ -154,30 +154,29 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 }​
 ```
 
-.JSON schema
+.JSON data types
 ```YAML
-$schema: http://json-schema.org/draft-04/schema#
-description: A collection of appendix codes
-type: object
-properties:
-  items:
-    type: array
+AppendixCodesResponse:
+  description: A collection of appendix codes
+  type: object
+  properties:
     items:
-      $ref: '#/definitions/AppendixCodeLink'
-  total:
-    type: integer
-  embedded:
-    type: object
-    additionalProperties:
-      $ref: 'appendixCode.yaml#/definitions/AppendixCode'
-definitions:
-  AppendixCodeLink:
-    allOf:
-    - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
-    - type: object
-      properties:
-        value:
-          $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
+      type: array
+      items:
+        $ref: '#/definitions/AppendixCodeLink'
+    total:
+      type: integer
+    embedded:
+      type: object
+      additionalProperties:
+        $ref: 'appendixCode.yaml#/definitions/AppendixCode'
+AppendixCodeLink:
+  allOf:
+  - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
+  - type: object
+    properties:
+      value:
+        $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
 ```
 ====
 

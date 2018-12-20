@@ -56,25 +56,25 @@ In OpenAPI 3.0, `oneOf` can be used to list all possible data types.
 }
 ```
 
-.JSON schema
+.JSON data type
 
 ```YAML
-$schema: http://json-schema.org/draft-04/schema#
-description: A family
-type: object
-properties:
-  parents:
-    type: array
-    items:
-      $ref: '#/definitions/PersonRef'
-  children:
-    type: array
-    items:
-      $ref: '#/definitions/PersonRef'
-  embedded:
-    type: object
-    additionalProperties:
-      $ref: 'person.yaml#/definitions/Person'
+Family:
+  description: A family
+  type: object
+  properties:
+    parents:
+      type: array
+      items:
+        $ref: '#/definitions/PersonRef'
+    children:
+      type: array
+      items:
+        $ref: '#/definitions/PersonRef'
+    embedded:
+      type: object
+      additionalProperties:
+        $ref: 'person.yaml#/definitions/Person'
 ```
 ====
 

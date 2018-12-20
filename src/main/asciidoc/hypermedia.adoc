@@ -16,7 +16,7 @@ CAUTION: For brevity, most URIs in the style guide examples are shortened, but i
 
 All `href` hyperlinks are derived from this minimal link type:
 
-.HttpLink JSON schema (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
+.HttpLink JSON data type (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
 HttpLink:
   description: A base type of objects representing links to resources.
@@ -31,7 +31,7 @@ HttpLink:
 
 `self` hyperlinks are derived from the following type:
 
-.SelfLink JSON schema (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
+.SelfLink JSON data type (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
 SelfLink:
   description: A base type representing a link to the resource's own location within its representation
@@ -75,7 +75,7 @@ PATCH {API}/companies/1
 }
 ```
 
-The corresponding JSON Schema includes the link types using `allOf`.
+The corresponding JSON data type includes the link types using `allOf`.
 As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.
 [subs="normal"]
 ```YAML

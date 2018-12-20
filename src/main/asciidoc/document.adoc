@@ -217,7 +217,7 @@ The `PATCH` message MUST be conform to the JSON Merge Patch (https://tools.ietf.
 * properties not present in the request are preserved
 
 APIs should support both the MIME type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON mime type.
-As JSON Merge Patch requests can not be fully specified as a JSON Schema type, a MergePatch marker type should be used, defined in link:schemas/common/v1/common-v1.yaml[common-v1.yaml].
+As JSON Merge Patch requests can not be fully specified as an OpenAPI data type, a MergePatch marker type should be used, defined in link:schemas/common/v1/common-v1.yaml[common-v1.yaml].
 
 .JSON merge patch
 ====
