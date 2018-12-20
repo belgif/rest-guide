@@ -16,30 +16,32 @@ CAUTION: For brevity, most URIs in the style guide examples are shortened, but i
 
 All `href` hyperlinks are derived from this minimal link type:
 
-.HttpLink JSON schema (from link:schemas/common/v1/HttpLink.yaml[HttpLink.yaml])
+.HttpLink JSON schema (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
-description: A base type of objects representing links to resources.
-type: object
-properties:
-href:
-  description: Any absolute URI that is using http or https protocol
-  type: string
-  format: uri
-  readOnly: true
+HttpLink:
+  description: A base type of objects representing links to resources.
+  type: object
+  properties:
+  href:
+    description: Any absolute URI that is using http or https protocol
+    type: string
+    format: uri
+    readOnly: true
 ```
 
 `self` hyperlinks are derived from the following type:
 
-.SelfLink JSON schema (from link:schemas/common/v1/SelfLink.yaml[SelfLink.yaml])
+.SelfLink JSON schema (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
-description: A base type representing a link to the resource's own location within its representation
-type: object
-properties:
-  self:
-    description: Absolute URI (http or https) to the the resource's own location.
-    type: string
-    format: uri
-    readOnly: true
+SelfLink:
+  description: A base type representing a link to the resource's own location within its representation
+  type: object
+  properties:
+    self:
+      description: Absolute URI (http or https) to the the resource's own location.
+      type: string
+      format: uri
+      readOnly: true
 ```
 
 Links should not be used in request bodies in a PUT, POST or PATCH context, as indicated by the `readOnly: true` property.
@@ -80,7 +82,7 @@ As `website` isn't a reference to another API resource, it is not defined using 
 definitions:
   Company:
     allOf:
-    - "$ref": http://www.gcloud.belgium.be/rest/schemas/common/v1/SelfLink.yaml
+    - "$ref": http://www.gcloud.belgium.be/rest/schemas/common/v1/common-v1.yaml#/definitions/SelfLink
     - type: object
       properties:
         owner:
@@ -90,7 +92,7 @@ definitions:
           format: uri
   PersonReference:
     allOf:
-      - "$ref": http://www.gcloud.belgium.be/rest/schemas/common/v1/HttpLink.yaml
+      - "$ref": http://www.gcloud.belgium.be/rest/schemas/common/v1/common-v1.yaml#/definitions/HttpLink
       - type: object
         properties:
           ssin:

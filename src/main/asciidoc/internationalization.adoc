@@ -12,7 +12,7 @@ One of following strategies may be chosen for internationalization:
 === Accept-Language
 
 As for <<Media Types>>, HTTP supports content negotiation for the language used in response content.
-
+````
 [.rule, caption="Rule {counter:rule-number}: "]
 .HTTP language headers
 ====
@@ -56,17 +56,18 @@ An API MAY offer to filter the representation to a single language by using the 
 
 A `LocalizedString` type is defined supporting the three official Belgian languages.
 
-.LocalizedString JSON Schema (from link:schemas/common/v1/LocalizedString.yaml[LocalizedString.yaml])
+.LocalizedString JSON Schema (from link:schemas/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
-description: A description specified in multiple languages
-type: object
-properties:
-fr:
-  type: string
-nl:
-  type: string
-de:
-  type: string
+LocalizedString:
+  description: A description specified in multiple languages
+  type: object
+  properties:
+  fr:
+    type: string
+  nl:
+    type: string
+  de:
+    type: string
 ```
 
 .Multi-language descriptions

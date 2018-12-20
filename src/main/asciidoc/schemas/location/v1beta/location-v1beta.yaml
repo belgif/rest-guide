@@ -1,0 +1,18 @@
+swagger: "2.0"
+info:
+  title: types related to location
+  version: v1beta
+  #=> to debate: do we define CountryIso3166Alpha2Code?  or NationalityIsoCode?
+paths: {}
+definitions:
+  CountryIsoCode:
+    description: Country represented by an ISO 3166-1 alpha-2 code
+    #TODO: another type including ISO 3166-3 codes as well?
+    type: string
+    pattern: "[A-Z]{2}"
+  CountryNisCode:
+    description: NIS code representing a country as defined by statbel.fgov.be
+    type: integer
+    minimum: 100
+    maximum: 999
+

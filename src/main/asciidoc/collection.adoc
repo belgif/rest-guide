@@ -94,13 +94,13 @@ properties:
 definitions:
   EmployerLink:
     allOf:
-    - $ref: common/v1/HttpLink.yaml
+    - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
     - type: object
       properties:
         nssoNbr:
-          $ref: organization/v1/NssoNbr.yaml
+          $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/NssoNbr
         cbeNbr:
-          $ref: organization/v1/CbeNbr.yaml
+          $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNbr
 ```
 ====
 
@@ -173,7 +173,7 @@ properties:
 definitions:
   AppendixCodeLink:
     allOf:
-    - $ref: 'common/v1/HttpLink.yaml'
+    - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
     - type: object
       properties:
         value:

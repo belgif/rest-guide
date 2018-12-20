@@ -1,7 +1,0 @@
-id: https://www.gcloud.belgium.be/rest/schemas/location/v1beta/CountryIsoCode
-$schema: http://json-schema.org/draft-04/schema#
-#=> to debate: do we define CountryIso3166Alpha2Code?  or NationalityIsoCode?
-description: Country represented by an ISO 3166-1 alpha-2 code
-#TODO: another type including ISO 3166-3 codes as well?
-type: string
-pattern: "[A-Z]{2}"

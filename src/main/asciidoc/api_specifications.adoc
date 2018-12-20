@@ -119,29 +119,23 @@ For abbreviations as well, all letters except the first one should be lowercased
 .JSON Schema
 ====
 
-The two types below are defined in the first version of the "person identifier" domain.
-
-.Ssin.yaml
+.person-identifier-v1.yaml
 ```YAML
-id: http://example.org/person/identifier/v1/Ssin
-"$schema": http://json-schema.org/draft-04/schema#
-description: "Social Security Identification Number issued by the National Register or CBSS"
-type: string
-pattern: \d{11}
-```
-
-.Nrn.yaml
-```YAML
-id: http://example.org/person/identifier/v1/Nrn
-"$schema": http://json-schema.org/draft-04/schema#
-description: "National Register Number: identification number of a natural person issued by the National Register"
-type: string
-pattern: \d{11}
+swagger: "2.0"
+info:
+  title: data types for person identifiers
+  version: v1beta
+paths: {}
+definitions:
+  Ssin:
+    description: "Social Security Identification Number issued by the National Register or CBSS"
+    type: string
+    pattern: \d{11}
 ```
 
 A type can be referenced from an OpenAPI or JSON Schema document:
 ```YAML
-"$ref": http://example.org/person/identifier/v1/Ssin
+"$ref": http://example.org/person/identifier/v1#/definitions/Ssin
 ```
 ====
 

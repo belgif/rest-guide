@@ -1,0 +1,19 @@
+swagger: "2.0"
+info:
+  title: data types related to organizations
+  version: v1beta
+paths: {}
+definitions:
+  CbeNumber:
+    description: Identifier issued by CBE, either identifying a site (establishment) or enterprise
+    type: string
+    pattern: "\d{10}"
+  EnterpriseNumber:
+    description: Enterprise number issued by CBE
+    #should we call it OrganizationNumber like in vocabularies?
+    type: string
+    pattern: "[0|1]\d{9}"
+  SiteNumber:
+    description: Site/Establishment number issued by CBE
+    type: string
+    pattern: "[2-8]\d{9}"

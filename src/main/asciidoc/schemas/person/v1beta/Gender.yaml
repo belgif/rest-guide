@@ -1,8 +1,0 @@
-id: https://www.gcloud.belgium.be/rest/schemas/person/v1beta/Gender
-$schema: http://json-schema.org/draft-04/schema#
-description: Gender of a person, following the ISO 5218 standard: 0 = Unknown, 1 = male, 2 = female
-type: integer
-enum: 
-- 0
-- 1
-- 2
