@@ -4,7 +4,7 @@ info:
   version: v1beta
 paths: {}
 parameters:
-  SsinQueryParameter:
+  SsinPathParameter:
     in: path
     name: ssin
     required: true
