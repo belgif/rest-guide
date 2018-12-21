@@ -80,7 +80,7 @@ a|
 ----
 | <<Links>>
 
-|[[rel-self]]href
+|[[rel-href]]href
 |A reference (absolute URL) to another resource.
 a|
 [source,json, subs=normal]
@@ -89,7 +89,7 @@ a|
 ----
 | <<Links>>
 
-|[[rel-self]]first
+|[[rel-first]]first
 |A reference (absolute URL) to the first page in a paged collection.
 a|
 [source,json, subs=normal]
@@ -98,7 +98,7 @@ a|
 ----
 | <<Pagination>>
 
-|[[rel-self]]last
+|[[rel-last]]last
 |A reference (absolute URL) to the last page in a paged collection.
 a|
 [source,json, subs=normal]
@@ -151,7 +151,7 @@ Custom headers that are standardized across Belgian Government organizations use
 Instead, it is recommended that company specific header' names should incorporate the organization’s name.
 However, for backwards compatibility reasons, headers with the `X-` prefix may still be used.
 
-.Headers referenced in the style guide
+.Standard HTTP Headers referenced in the style guide
 |===
 |HTTP Header  | Type     | Description | Reference
 
@@ -167,4 +167,11 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |If-Modified-Since | Response | Return resource only if changed since specified timestamp | <<Conditional requests>>
 |Vary | Response | Specifies which request headers change response content | <<Client caching directives>>
 |Cache-Control | Response | Indicates HTTP client how to cache responses | <<Client caching directives>>
+|===
+
+.BelGov HTTP headers
+|===
+|HTTP Header        | Type             | Description                                                         | Reference
+|BelGov-Trace-Id    | Request/Response | Unique ID for tracing purposes, identifying the request or response | <<Tracing>>
+|BelGov-Related-Trace-Id | Response | BelGov-Trace-Id value used on related request | <<Tracing>>
 |===
