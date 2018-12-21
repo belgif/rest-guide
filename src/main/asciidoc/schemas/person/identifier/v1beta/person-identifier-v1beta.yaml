@@ -3,6 +3,13 @@ info:
   title: data types for person identifiers
   version: v1beta
 paths: {}
+parameters:
+  SsinQueryParameter:
+    in: path
+    name: ssin
+    required: true
+    type: string
+    pattern: \d{11}
 definitions:
   Ssin:
     description: "Social Security Identification Number issued by the National Register or CBSS"
