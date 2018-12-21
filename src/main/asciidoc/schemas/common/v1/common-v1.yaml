@@ -1,8 +1,23 @@
 swagger: "2.0"
 info:
   title: common technical data types
-  version: v1
+  version: 1.0.0
 paths: {}
+parameters:
+  LangQueryParameter:
+    in: query
+    name: lang
+    type: string
+    enum:
+      - fr
+      - nl
+      - de
+  PageQueryParameter:
+      description: Number of requested page in a paged resource collection. Page numbers are 1-based.
+      in: query
+      name: page
+      type: integer
+      minimum: 1
 definitions:
   LongRunningTaskStatus:
     description: status of a long running task
