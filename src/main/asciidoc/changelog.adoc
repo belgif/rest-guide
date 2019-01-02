@@ -4,6 +4,9 @@
 ** gCloud JSON Schemas refactored to this new file structure
 ** updated references in <<API specifications>> with new tools
 ** added guidelines about <<Tracing>> with standardized HTTP headers
+** add OpenAPI example of multi-valued query param to <<resources>>
+** added rule: place reference data resources in `/refData` (<<doc-resource>>)
+** add list of reserved resource names to <<Reserved words>>
 * 2018-11-26
 ** add SelfLink type in <<Hypermedia controls>>
 ** recommend American English for <<JSON>> property names and <<JSON data types>>
