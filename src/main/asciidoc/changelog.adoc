@@ -1,5 +1,5 @@
 == Changelog
-* 2018-12-21
+* 2019-01-02
 ** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
 ** updated references in <<API specifications>> with new tools
@@ -7,6 +7,7 @@
 ** add OpenAPI example of multi-valued query param to <<resources>>
 ** added rule: place reference data resources in `/refData` (<<doc-resource>>)
 ** add list of reserved resource names to <<Reserved words>>
+** document `select` reserved query param to filter resource representation (<<document-consult>>)
 * 2018-11-26
 ** add SelfLink type in <<Hypermedia controls>>
 ** recommend American English for <<JSON>> property names and <<JSON data types>>

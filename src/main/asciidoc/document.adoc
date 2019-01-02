@@ -36,7 +36,7 @@ WARNING: Especially for unsecured resources, avoid technical keys that are easy 
 
 WARNING: Don't use database-generated keys as identity keys in your public API to avoid tight coupling between the database schema and API. Having the key independent of all other columns insulates the database relationships from changes in data values or database design (agility) and guarantees uniqueness.
 
-
+[[document-consult,Consult (Document)]]
 === Consult
 
 .Consulting a document
@@ -109,6 +109,25 @@ a|The dynamic path segment containing the identity key has a wrong data format
 |The document resource does not exist.
 ​
 |===
+====
+
+The `select` query parameter is reserved to return a resource representation with only the specified properties.
+
+.Limiting result to specific properties
+====
+
+```
+GET /employers/93017373?select=name
+```
+
+[source,json, subs=normal]
+----
+​​​{
+  "self": "{API}/employers/93017373[/employers/93017373^]",
+  "name": "Belgacom"
+}
+----
+
 ====
 
 === Update
