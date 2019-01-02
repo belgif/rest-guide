@@ -42,24 +42,33 @@ According to usage, a conversion step to JSON might be necessary considering lim
 
 [[doc-resource,doc resource]]
 [.rule, caption="Rule {counter:rule-number}: "]
-.`doc` resource
+.`doc` and `refData` resources
 ====
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 
 The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
-
 Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification].
+
+Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
+As reference data is typically static, consider supporting <<Caching>> headers for these resources.
 ====
 
 Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
 
-.`doc` resource
+.`doc` and `refData` resources
 ====
 ```
  /doc
      /swagger.json
      /swagger.yaml
      /<optional other documentation>
+ /refData
+     /<list1OfCodes>
+        /<code1>
+        /<code2>
+        /...
+     /<list2OfCodes>
+        /...
  /<resource1>
      /...
  /<resource2>
@@ -115,10 +124,8 @@ A type can be referenced from another OpenAPI file:
 [.rule, caption="Rule {counter:rule-number}: "]
 .Common definitions for Belgian government institutions
 ====
-Common definitions for use by Belgian government institutions are published on https://www.gcloud.belgium.be/rest/schemas/.
+Common definitions for use by Belgian government institutions are published on https://www.gcloud.belgium.be/rest/schemas/ (TODO: this path is not yet navigable).
 Types in these schemas SHOULD be used instead of defining your own variants.
-
-(TODO: this path is not yet navigable).
 
 The technical types referenced in this style guide are available in the `common` and `problem` subpath.
 Other types for business concepts commonly used by Belgian government institutions are added in other subpaths.
