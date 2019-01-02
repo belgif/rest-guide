@@ -26,6 +26,11 @@ A list of reserved words exists for common used practices
 |?q=Belgacom
 |<<Filtering>>
 
+|[[query-param-select]]select
+| Filter the resource properties to the ones specified.
+| ?select=name&select=address
+| <<document-consult>>
+
 |[[query-param-sort]]sort
 |Multi-value query param with list of properties to sort on.
 Default sorting direction is ascending. To indicate descending direction, the property may be prefixed with -.
