@@ -11,3 +11,4 @@ definitions:
     - 0
     - 1
     - 2
+  # code 9 in ISO 5218 signifies "not applicable" (e.g. when the gender property is applied to a genderless object) but is omitted here as it is not expected to be used in most use cases

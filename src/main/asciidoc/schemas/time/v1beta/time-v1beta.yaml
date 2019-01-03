@@ -1,0 +1,59 @@
+swagger: "2.0"
+info:
+  title: data types related to time
+  version: v1beta
+paths: {}
+definitions:
+  YearQuarter:
+    description: a quarter of a year, e.g. 2019Q1
+    type: string
+    pattern: "[0-9]{4}Q(1|2|3|4)"
+  Quarter:
+    type: integer
+    minimum: 1
+    maximum: 4
+    #TODO: validate use of integer (instead of string like in YearQuarter)
+  IncompleteDate:
+    description: Flexible date type that allows the absence of an exact day or month. Format yyyy-mm-dd, yyyy-mm-00 or yyyy-00-00
+    type: string
+    pattern: "[0-9]{4}-[0-1][0-9]-[0-3][0-9]"
+  Period: #TODO: change name to DatePeriod?
+    description: period from start to end date. Both start and end dates are mandatory.
+    type: object
+    properties:
+      startDate:
+        type: string
+        format: date
+      endDate:
+        type: string
+        format: date
+    required: [startDate, endDate]
+  OpenPeriod:
+    description: period from mandatory start to optional end date.
+    type: object
+    properties:
+      startDate:
+        type: string
+        format: date
+      endDate:
+        type: string
+        format: date
+    required: [startDate]
+  QuarterPeriod:
+    description: period from start quarter to end quarter. Both start and end quarters are mandatory.
+    type: object
+    properties:
+      startQuarter:
+        $ref: #/definitions/Quarter
+      endQuarter:
+        $ref: #/definitions/Quarter
+    required: [startQuarter, endQuarter]
+  OpenQuarterPeriod:
+    description: period from mandatory start quarter to optional end quarter.
+    type: object
+    properties:
+      startQuarter:
+        $ref: #/definitions/YearQuarter
+      endQuarter:
+        $ref: #/definitions/YearQuarter
+    required: [startQuarter]
