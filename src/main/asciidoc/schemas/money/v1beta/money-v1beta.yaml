@@ -1,0 +1,14 @@
+swagger: "2.0"
+info:
+  title: data types for money
+  version: v1beta
+paths: {}
+definitions:
+  EuroCentPositiveAmount:
+    description: Money amount in eurocents >= 0
+    type: integer
+    minimum: 0
+  EuroCentAmount:
+    description: Money amount in eurocents, also allows negative amounts.
+    type: integer
+  #TODO: add international money/currency types? decimals are not well supported cfr https://opensource.zalando.com/restful-api-guidelines/#common-data-types

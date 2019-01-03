@@ -7,7 +7,7 @@ paths: {}
 definitions:
   CountryIsoCode:
     description: Country represented by an ISO 3166-1 alpha-2 code
-    #TODO: another type including ISO 3166-3 codes as well?
+    #TODO: add another type including ISO 3166-3 codes as well for former countries, and one combining both?
     type: string
     pattern: "[A-Z]{2}"
   CountryNisCode:
@@ -15,4 +15,4 @@ definitions:
     type: integer
     minimum: 100
     maximum: 999
-
+  # TODO: other location types ~ BEST format and NR format
