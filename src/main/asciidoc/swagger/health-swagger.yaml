@@ -1,0 +1,82 @@
+swagger: "2.0"
+info:
+  title: Template for healthCheck
+  version: "1.0"
+  description: healthCheck allows to retrieve the status of the API.
+tags:
+  - name: Monitoring
+paths:
+  /health:
+    get:
+      tags:
+        - Monitoring
+      summary: Check health of the service
+      description: This resource is only available to supervision users
+      operationId: checkHealth
+      externalDocs:
+        url: https://www.gcloud.belgium.be/rest/#health
+      produces:
+        - application/json
+      security:
+        - "oauth_implicit": ["scope:health"] # details also the components which are down
+        - "oauth_implicit": [] # only returns up/down
+      responses:
+        "200":
+          description: The service is UP
+          schema:
+            $ref: "#/definitions/HealthStatus"
+          examples:
+            application/json:
+              {
+                "status": "up"
+              }
+        "503":
+          description: The service is down or outOfService
+          schema:
+            $ref: "#/definitions/HealthStatus"
+          examples: {
+            "application/json":
+              {
+                "status": "down",
+                "details": {
+                  "datastore": {
+                    "status": "outOfService"
+                  }
+                }
+              }
+          }
+securityDefinitions:
+  oauth_implicit:
+    type: oauth2
+    authorizationUrl: https://example.com/api/oauth/authorize
+    flow: implicit
+definitions:
+  HealthStatus:
+    description: Response message for the API health
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        $ref: "#/definitions/HealthLevel"
+      details:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/ComponentStatus"
+  ComponentStatus:
+    description: Status of a service component
+    type: object
+    required:
+      - status
+    properties:
+      status:
+        $ref: "#/definitions/HealthLevel"
+  HealthLevel:
+    description: Level indicating the health status of the service
+    type: string
+    enum:
+      - up
+      - degraded
+      - down
+      - unknown
+      - outOfService
