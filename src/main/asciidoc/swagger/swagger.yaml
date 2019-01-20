@@ -1,0 +1,13 @@
+swagger: "2.0"
+info:
+  title: Demo service
+  version: "1.0"
+  description: healthCheck allows to retrieve the status of the API.
+basePath: /demo/v1
+tags:
+  - name: Monitoring
+schemes:
+  - https
+paths:
+  /health:
+    $ref: "./health-swagger.yaml#/paths/~1health"
