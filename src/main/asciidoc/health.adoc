@@ -1,0 +1,77 @@
+== Health ==
+
+Each REST API exposes a health resource which simply returns the current status of the service.
+
+When invoked without any access token, the resource simply returns its status, always using a ```200 OK``` status code, even when the service itself is failing.
+
+.Sample service is up
+```json
+{
+    "status": "up"
+}
+```
+
+When invoked with an access token containing a scope ```scope:health```, the resource returns details of its subsystems or components.
+
+.Sample service is down
+```json
+{
+    "status": "down",
+    "details": {
+        "dataStore": {
+            "status": "down"
+        },
+        "queues": {
+            "status": "up"
+        }
+    }
+}
+```
+
+The resource is formalized in the swagger file: https://www.gcloud.belgium.be/rest/swagger/health-swagger.yaml
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<get>>
+|/health
+|Check the health status of the API.
+
+3+|Response
+
+|body
+a|The status of the service. Details are shown when the client presents a valid access token with ```scope:health```.
+a|
+[source,json]
+----
+​​​{
+   "status": "up"
+}
+
+{
+  "status": "down",
+  "details": {
+    "datastore": {
+      "status": "outOfService"
+    }
+  }
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default success code
+​
+|===
+
+=== Status levels ===
+The health resource returns one of the following status levels indicating the component or system:
+
+[cols="1,4"]
+|===
+|up| is functioning as expected.
+|degraded| is partly unavailable but service can be continued with reduced functionality.
+|down| has suffered an unexpected failure.
+|unknown| is in an unknown state.
+|outOfService| has been taken out of service and should not be used.
+|===
