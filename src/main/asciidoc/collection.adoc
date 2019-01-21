@@ -184,11 +184,26 @@ AppendixCodeLink:
 
 A collection can be filtered using query parameters.
 
-You can filter on a specific resource property by specifying the property name as query param. It means that the property value must be equals to the query-param value.
+You can filter a collection by specifying the property name as query param. It means that the property value must be equals to the query-param value.
 
-The query-param `q` is reserved to implement a full text search on all the resource's content.
+For string query parameters, if you want to allow more flexible filtering (start with, end with fuzy search,...), you have to specify the syntax and the behavior of each query parameter in the documentation.
 
-If you want to filter a collection with an operator other than "equal", you can use the following suffix:
+- the API can accept exact strings
+- the API can accept a `*` at the beginning and/or at the end and/or in the middle of the string
+- the API can always to a "start with" filtering without the need to add a '*' at the end of the string
+- the API can accept regular expressions
+- the API can accept a `~` at the beginning of the string to do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,... the algorythm used must me specified in the documentation)
+
+.Examples of string filtering
+====
+ ssin=0000000097       (exact search)
+ ssin=\d{2}0229\d{5}   (reg ex)
+ ssin=000000000*       (start with)
+ lastName=*reeth       (end with)
+ lastName=~vanreeth    (matches, using phonetic search for example)
+====
+
+If you want to filter a collection with an operator other than = (equal), you can use the following suffix:
 
 [cols="1,2,2"]
 [options="header"]
@@ -214,22 +229,9 @@ If you want to filter a collection with an operator other than "equal", you can 
 | greather or equal
 | `age_ge=18`
 
-| `_matches`
-| text matches
-| `ssin_matches=\d{2}0229\d{5}`
-  `ssin_matches=771006369*`
-  `ssin_matches=*reeth`
-  `ssin_matches=~vanreeth`
-
 |===
 
-The suffix `matches` can have different behaviors, depending of the API. For example:
-
-- the API can accept a * at the beginning and/or at the end and/or in the middle of the string
-- the API can acccept regular expressions
-- the API can do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,...)
-
-The syntax and the behavior of each `matches` query parameter must be documented.
+The query-param `q` is reserved to implement a full text search on all the resource's content.
 
 If you need more complex queries (parenthesis, or operator,...), you can use RSQL.
 
@@ -253,27 +255,15 @@ Means that
 
 |name
 |query-param
-|Filter only employers that have a specific name.
+|Filter only employers with a name starting with the specified name.
 
-|age_lt
+|totalEmployees_le
 |query-param
-|Filter only employers that are younger than the given age.
+|Filter only employers that at most x employees.
 
-|age_le
+|totalEmployees_ge
 |query-param
-|Filter only employers that are not older than the given age.
-
-|age_gt
-|query-param
-|Filter only employers that are older than the given age.
-
-|age_ge
-|query-param
-|Filter only employers that are not younger than the given age.
-
-|ssin_matches
-|query-param
-|Filter only employers that have a SSIN matching the given regular expression.
+|Filter only employers that at least x employees.
 
 3+|Response
 
@@ -283,15 +273,12 @@ a|
 [source,json, subs=normal]
 ----
 ​​​{
-  "self": "{API}/companies?name=belg[/companies?name=belg^]",
+  "self": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/companies?name=smal]",
 	"items": [{
-		"href": "{API}/companies/202239951[/companies/202239951^]",
-		"title": "Belgacom"
-	}, {
-		"href": "{API}/companies/448826918[/companies/448826918^]",
-		"title": "Carrefour Belgium SA"
+		"href": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/companies/406798006",
+		"title": "Smals"
 	}],
-	"total": 2,
+	"total": 1,
 }
 ----
 
