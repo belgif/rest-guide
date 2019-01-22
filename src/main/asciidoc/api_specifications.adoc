@@ -214,6 +214,17 @@ Following tools can be used to edit OpenAPI files
 |Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
 |===
 
+Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
+
+[options="header"]
+|===
+|Name|Link| Comments
+|openapi-generator| https://openapi-generator.tech/ | Started as fork of swagger-codegen.
+|swagger-codegen| https://github.com/swagger-api/swagger-codegen|
+|===
+
+
+
 === References
 
 [options="header"]
