@@ -26,3 +26,11 @@ Rules must follow the following format:
 <the rule, using RFC 2119 key words>
 ====
 ```
+
+# Building the styleguide
+
+The styleguide is built with [https://maven.apache.org](Apache Maven).
+
+With Maven installed, run `mvn site` in the root directory of the project. 
+The styleguide will be built in the `target/site/doc/` directory.
+
