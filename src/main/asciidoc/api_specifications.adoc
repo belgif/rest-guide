@@ -101,7 +101,7 @@ While it is not strictly necessary for external definitions to be put in a valid
 
 .Reusable OpenAPI file
 ====
-.person-identifier-v1.yaml
+./person/identifier/v1/person-identifier-v1.yaml
 ```YAML
 swagger: "2.0"
 info:
@@ -117,7 +117,7 @@ definitions:
 
 A type can be referenced from another OpenAPI file:
 ```YAML
-"$ref": http://example.org/person/identifier/v1#/definitions/Ssin
+"$ref": "./person/identifier/v1/person-identifier-v1.yaml#/definitions/Ssin"
 ```
 ====
 
