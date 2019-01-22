@@ -13,11 +13,16 @@ parameters:
       - nl
       - de
   PageQueryParameter:
-      description: Number of requested page in a paged resource collection. Page numbers are 1-based.
-      in: query
-      name: page
-      type: integer
-      minimum: 1
+    description: Number of requested page in a paged resource collection. Page numbers are 1-based.
+    in: query
+    name: page
+    type: integer
+    minimum: 1
+  SelectQueryParameter:
+    description: Only return selected parts of resource's representation. Parameter value is in BNF-notation.
+    in: query
+    name: select
+    type: string
 definitions:
   LongRunningTaskStatus:
     description: status of a long running task
