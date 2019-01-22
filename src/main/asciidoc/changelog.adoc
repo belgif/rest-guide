@@ -2,7 +2,7 @@
 * 2019-01-22
 ** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
-** updated list of <<Tools>> to edit OpenAPI files
+** updated list of Swagger editors and code generators in <<Tools>>
 ** added guidelines about <<Tracing>> with standardized HTTP headers
 ** add OpenAPI example of multi-valued query param to <<resources>>
 ** added rule: place reference data resources in `/refData` (<<doc-resource>>)
