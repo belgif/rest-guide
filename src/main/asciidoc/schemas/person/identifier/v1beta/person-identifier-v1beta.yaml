@@ -10,6 +10,11 @@ parameters:
     required: true
     type: string
     pattern: \d{11}
+  SsinQueryParameter:
+    in: query
+    name: ssin
+    type: string
+    pattern: \d{11}
 definitions:
   Ssin:
     description: "Social Security Identification Number issued by the National Register or CBSS"
