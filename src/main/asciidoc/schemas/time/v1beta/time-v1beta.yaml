@@ -28,7 +28,7 @@ definitions:
         type: string
         format: date
     required: [startDate, endDate]
-  OpenPeriod:
+  OpenEndedPeriod:
     description: period from mandatory start to optional end date.
     type: object
     properties:
@@ -48,7 +48,7 @@ definitions:
       endQuarter:
         $ref: #/definitions/Quarter
     required: [startQuarter, endQuarter]
-  OpenQuarterPeriod:
+  OpenEndedQuarterPeriod:
     description: period from mandatory start quarter to optional end quarter.
     type: object
     properties:
