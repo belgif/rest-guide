@@ -152,24 +152,41 @@ Content-Type: application/problem+json
 }
 ```
 
-|===
-|Field |Description
-
-|invalidParams
-|An array of schema violations
-
-|invalidParams[].in
-|The location of the error, e.g. body, path, query, header (cfr Swagger parameters)
-
-|invalidParams[].name
-|The name of the invalid parameter
-
-|invalidParams[].reason
-|A message explaining the violation
-
-|invalidParams[].value
-|The value of the erroneous parameter
-|===
+.InvalidParamProblem schema definition (from link:schemas/problem/v1/problem-v1.yaml[problem-v1.yaml])
+```yaml
+  InvalidParamProblem:
+    description: Problem details for invalid input parameter(s)
+    allOf:
+      - $ref: '#/definitions/Problem'
+      - type: object
+        properties:
+          invalidParams:
+            type: array
+            description: An array of input parameter OpenAPI violations
+            items:
+              $ref: '#/definitions/InvalidParam'
+  InvalidParam:
+    type: object
+    properties:
+      in:
+        description: The location of the invalid parameter (cfr Swagger parameters)
+        type: string
+        enum:
+          - body
+          - path
+          - query
+          - header
+      name:
+        description: The name of the invalid parameter
+        type: string
+      reason:
+        description: A message explaining the violation
+        type: string
+      value:
+        description: The value of the erroneous parameter
+        # allow all types, as type is mandatory in Swagger. Known issue: property is ignored when using swagger codegen (see #25)
+        type: [string, number, integer, boolean, array, object, 'null']
+```
 
 === Authentication
 
