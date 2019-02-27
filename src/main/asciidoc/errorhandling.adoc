@@ -131,6 +131,7 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 
 {
+   "type": "https://www.gcloud.belgium.be/rest/problems/invalidParam",
    "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
    "title": "Bad Request",
    "status": 400,
