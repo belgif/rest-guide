@@ -1,4 +1,6 @@
 == Changelog
+* 2019-??-??
+** add InvalidParamProblem schema to problem-v1.yaml, see <<Schema validation error>>
 * 2019-01-22
 ** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
