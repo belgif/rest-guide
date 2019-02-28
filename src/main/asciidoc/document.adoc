@@ -116,7 +116,22 @@ a|The dynamic path segment containing the identity key has a wrong data format
 ====
 The `select` query parameter is reserved to return a resource representation with only the specified properties.
 
-The value of this parameter SHOULD be in https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF notation].
+The value of this parameter SHOULD follow this https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF grammar]:
+
+```BNF
+
+<fields>            ::= [ <negation> ] <fields_struct>
+<fields_struct>     ::= "(" <field_items> ")"
+<field_items>       ::= <field> [ "," <field_items> ]
+<field>             ::= <field_name> | <fields_substruct>
+<fields_substruct>  ::= <field_name> <fields_struct>
+<field_name>        ::= <dash_letter_digit> [ <field_name> ]
+<dash_letter_digit> ::= <dash> | <letter> | <digit>
+<dash>              ::= "-" | "_"
+<letter>            ::= "A" | ... | "Z" | "a" | ... | "z"
+<digit>             ::= "0" | ... | "9"
+<negation>          ::= "!"
+```
 ====
 
 .Select query parameter
@@ -136,7 +151,7 @@ GET /employers/93017373?select=(name)
 
 Note that parentheses around the value of the `select` parameter are required, even when selecting a single property.
 
-The BNF notation can also be used for nested properties:
+This notation can also be used for nested properties:
 
 ```
 GET /employers/93017373?select=(name,address(street(name,code)))
