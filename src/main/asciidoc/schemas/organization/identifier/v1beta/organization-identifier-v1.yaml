@@ -7,17 +7,17 @@ definitions:
   CbeNumber:
     description: Identifier issued by CBE, either identifying a site (establishment) or enterprise
     type: string
-    pattern: "[0-8]\d{9}"
+    pattern: '[0-8]\d{9}'
     #TODO: validate - changed from \d{10}
   EnterpriseNumber:
     description: Enterprise number issued by CBE
     # CBE now uses the term '(registered) entities' instead of 'enterprises'. However, the enterprise number is continued to be used
     # International term (like in vocabularies): organization
     type: string
-    pattern: "[0|1]\d{9}"
+    pattern: '[0|1]\d{9}'
   EstablishmentUnitNumber:
     # CBE uses "establishment unit number". Internationally: Site (rather than Establishment Unit)
     description: Site/Establishment Unit number issued by CBE
     type: string
-    pattern: "[2-8]\d{9}"
+    pattern: '[2-8]\d{9}'
 #TODO: add nsso registration number => input from NSSO/Smals. At CBSS: supports 0\d{9} and 51\d{8}. The ones starting with 51 are temporary ones.
