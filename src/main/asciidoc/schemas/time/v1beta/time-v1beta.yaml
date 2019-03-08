@@ -7,7 +7,7 @@ definitions:
   YearQuarter:
     description: a quarter of a year, e.g. 2019Q1
     type: string
-    pattern: "[0-9]{4}Q(1|2|3|4)"
+    pattern: '[0-9]{4}Q(1|2|3|4)'
   Quarter:
     type: integer
     minimum: 1
@@ -16,7 +16,7 @@ definitions:
   IncompleteDate:
     description: Flexible date type that allows the absence of an exact day or month. Format yyyy-mm-dd, yyyy-mm-00 or yyyy-00-00
     type: string
-    pattern: "[0-9]{4}-[0-1][0-9]-[0-3][0-9]"
+    pattern: '[0-9]{4}-[0-1][0-9]-[0-3][0-9]'
   Period: #TODO: change name to DatePeriod?
     description: period from start to end date. Both start and end dates are mandatory.
     type: object
@@ -44,16 +44,16 @@ definitions:
     type: object
     properties:
       startQuarter:
-        $ref: #/definitions/Quarter
+        $ref: '#/definitions/Quarter'
       endQuarter:
-        $ref: #/definitions/Quarter
+        $ref: '#/definitions/Quarter'
     required: [startQuarter, endQuarter]
   OpenEndedQuarterPeriod:
     description: period from mandatory start quarter to optional end quarter.
     type: object
     properties:
       startQuarter:
-        $ref: #/definitions/YearQuarter
+        $ref: '#/definitions/YearQuarter'
       endQuarter:
-        $ref: #/definitions/YearQuarter
+        $ref: '#/definitions/YearQuarter'
     required: [startQuarter]
