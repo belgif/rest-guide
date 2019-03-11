@@ -67,5 +67,4 @@ definitions:
         type: string
       value:
         description: The value of the erroneous parameter
-        # allow all types, as type is mandatory. Known issue: property is ignored when using swagger codegen (see #25)
-        type: [string, number, integer, boolean, array, object, 'null']
+        # no type specified, allowing any type. This is valid OpenAPI 2.0 even though some editors may indicate an error (issue #25)
