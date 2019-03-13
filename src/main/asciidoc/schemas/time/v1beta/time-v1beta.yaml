@@ -12,12 +12,11 @@ definitions:
     type: integer
     minimum: 1
     maximum: 4
-    #TODO: validate use of integer (instead of string like in YearQuarter)
   IncompleteDate:
     description: Flexible date type that allows the absence of an exact day or month. Format yyyy-mm-dd, yyyy-mm-00 or yyyy-00-00
     type: string
     pattern: '[0-9]{4}-[0-1][0-9]-[0-3][0-9]'
-  Period: #TODO: change name to DatePeriod?
+  Period:
     description: period from start to end date. Both start and end dates are mandatory.
     type: object
     properties:
@@ -44,9 +43,9 @@ definitions:
     type: object
     properties:
       startQuarter:
-        $ref: '#/definitions/Quarter'
+        $ref: '#/definitions/YearQuarter'
       endQuarter:
-        $ref: '#/definitions/Quarter'
+        $ref: '#/definitions/YearQuarter'
     required: [startQuarter, endQuarter]
   OpenEndedQuarterPeriod:
     description: period from mandatory start quarter to optional end quarter.
