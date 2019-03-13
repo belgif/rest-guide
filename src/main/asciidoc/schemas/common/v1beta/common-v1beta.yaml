@@ -66,4 +66,4 @@ definitions:
   Uuid:
     description: Universally Unique Identifier, as standardized in RFC 4122 and ISO/IEC 9834-8
     type: string
-    pattern: "[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}"
+    pattern: '[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}'
