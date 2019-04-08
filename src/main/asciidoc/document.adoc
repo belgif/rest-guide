@@ -482,7 +482,7 @@ The response `202 Accepted` status indicates that the server accepted the reques
 
 *Getting the processing status*
 
-`GET /images/task/1`
+`GET /images/tasks/1`
 
 _When the server is still processing the task_
 
