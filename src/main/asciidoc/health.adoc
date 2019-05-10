@@ -60,18 +60,22 @@ a|
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|Default success code
+|When service is `up` or `degraded`
 ​
+​​|<<http-503,503>>
+|Service Unavailable
+|When service is `down` or `outOfService`
+
 |===
 
 === Status levels ===
 The health resource returns one of the following status levels indicating the component or system:
 
-[cols="1,4"]
+[cols="1,1,4", options="header"]
 |===
-|up| is functioning as expected.
-|degraded| is partly unavailable but service can be continued with reduced functionality.
-|down| has suffered an unexpected failure.
-|unknown| is in an unknown state.
-|outOfService| has been taken out of service and should not be used.
+|Status|Status Code|Description
+|up| 200|is functioning as expected.
+|degraded| 200|is partly unavailable but service can be continued with reduced functionality.
+|down| 503|is suffering unexpected failures
+|outOfService| 503|has been taken out of service and should not be used.
 |===
