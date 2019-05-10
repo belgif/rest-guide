@@ -61,21 +61,46 @@ X-Correlation-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```
 ```json
 {
-  "instance":"d9e35127-e9b1-4201-a211-2b52e52508df",
-  "title":"Not Found",
+  "type": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound"
+  "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
   "status": 404,
-  "detail":"No employer with company id 0206731645"
+  "title": "Enterprise not found",
+  "detail": "No enterprise with CBE number 0206731645",
+  "invalidParams": [
+      {
+        "in": "path",
+        "name": "cbeNumber",
+        "reason": "the CBE number is not assigned",
+        "value": "0206731645"
+      }
+  ]
 }
 ```
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Consumer-friendly details
 ==========================
-Each status message contains a details property to provide specific information about the failing requests to the consumer.
+Each status message contains a ```detail``` property to provide specific information about the failing requests to the consumer.
 ==========================
 
-#TODO# clarify list of standardized problem types (APIs can overrdie this locally with additional information)
+```
+POST /enterprises/203456798/employers
+{
+    "name": "John"
+}
+```
 
+```
+HTTP/1.1 409 Conflict
+Content-Type: application/problem+json
+{
+   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
+   "type": "/problems/companyInactive",
+   "title": "Conflict",
+   "status": 409,
+   "detail": "Company 203456798 has ceased its activities since 2017-01-01"
+}
+```
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Error sanitization
@@ -112,46 +137,12 @@ Content-Type: application/problem+json
 }
 ```
 
-=== Schema validation error
+=== Generic problem types
 
-Whenever a client submits a request not compliant to the Swagger definition of the API, the service returns a `400 Bad Request`.
+A list of generic problem types is standardized for all G-Cloud REST APIs. The problem description has a type defined in https://www.gcloud.belgium.be/rest/problems.
 
-```
-POST /companies/abc
 
-{
-    "mandator": {
-        "cbeNbr": "123456"
-    }
-}
-```
-
-```
-HTTP/1.1 400 Bad Request
-Content-Type: application/problem+json
-
-{
-   "type": "https://www.gcloud.belgium.be/rest/problems/invalidParam",
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "title": "Bad Request",
-   "status": 400,
-   "detail": "The input message is incorrect",
-   "invalidParams": [
-       {
-          "in": "path",
-          "name": "cbeNbr",
-          "reason": "should be numeric",
-          "value": "abc"
-       },
-       {
-          "in": "body",
-          "name": "mandator.cbeNbr",
-          "reason": "have minimum 9 digits",
-          "value": "123456"
-       }
-   ]
-}
-```
+include::problems/badRequest.adoc[leveloffset=3]
 
 .InvalidParamProblem schema definition (from link:schemas/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ```yaml
@@ -188,134 +179,22 @@ Content-Type: application/problem+json
         # allow all types, as type is mandatory in Swagger. Known issue: property is ignored when using swagger codegen (see #25)
         type: [string, number, integer, boolean, array, object, 'null']
 ```
+include::problems/noAccessToken.adoc[leveloffset=3]
+include::problems/invalidAccessToken.adoc[leveloffset=3]
+include::problems/expiredAccessToken.adoc[leveloffset=3]
+include::problems/revokedAccessToken.adoc[leveloffset=3]
+include::problems/missingScope.adoc[leveloffset=3]
+include::problems/missingPermission.adoc[leveloffset=3]
+include::problems/resourceNotFound.adoc[leveloffset=3]
+include::problems/tooManyRequests.adoc[leveloffset=3]
 
-=== Authentication
 
-```
-GET /companies/202239951
-```
+=== API specific problem types
 
-```
-HTTP/1.1 401 Unauthorized
-Content-Type: application/problem+json
-
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "https://www.gcloud.belgium.be/rest/problems/noAccessToken",
-   "title": "Unauthorized",
-   "status": 401,
-   "detail": "Missing access token"
-}
-```
-
-|===
-|Type|Description
-
-|/problems/noAccessToken
-|The `Authorization` HTTP header doesn't contain a access token.
-
-|/problems/invalidAccessToken
-|The `Authorization` HTTP header contains an invalid access token (e.g. should be JWT, unrecognized authorization server).
-
-|/problems/expiredAccessToken
-|The access token is expired and cannot be used anymore.
-
-|/problems/revokedAccessToken
-|The access token has been revoked.
-
-|===
-
-=== Authorization
-
-Either the client doesn't have the right scope to invoke the operation.
+Each API can define it's own problem types. The path `/problems/{problemId}` should resolve to a HTML page containing additional information about the specific problem.
 
 ```
-GET /companies/202239951
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-```
-
-```
-HTTP/1.1 403 Forbidden
-Content-Type: application/problem+json
-
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "/problems/missingScope",
-   "title": "Forbidden",
-   "status": 403,
-   "detail": "not permitted to consult company resource",
-   "requiredScopes": ["company-read"]
-}
-```
-
-Either the client doesn't have the permission to invoke an operation on a specific resource (data access).
-
-```
-PUT /companies/202239951
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-```
-
-```
-HTTP/1.1 403 Forbidden
-Content-Type: application/problem+json
-
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "/problems/insufficientPermission",
-   "title": "Forbidden",
-   "status": 403,
-   "detail": "not permitted to update the company details"
-}
-```
-
-=== Resource not found
-
-In case the resource collection doesn't exist
-
-```
-GET /companies/{cbeNbr}
-
-HTTP/1.1 404 Not Found
-Content-Type: application/problem+json
-```
-```json
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "/problems/resourceNotFound",
-   "title": "Not Found",
-   "status": 404,
-   "detail": "The resource /company doesn't exist"
-}
-```
-
-In case the resource document doesn't exist
-
-```
-GET /companies/{cbeNbr}/invoices/{invoiceId}
-
-HTTP/1.1 404 Not Found
-Server: Apache-Coyote/1.1
-Content-Type: application/problem+json
-```
-```json
-{
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "title": "Not Found",
-   "status": 404,
-   "detail": "The company doesn't exist",
-   "invalidParams": [{
-      "in": "path",
-      "name": "cbeNbr",
-      "reason": "company number does not exist",
-      "value": "4074567892"
-   }]
-}
-```
-
-=== Conflicts
-
-```
-POST /companies/203456798/employers
+POST /enterprises/203456798/employers
 {
     "name": "John"
 }
@@ -330,26 +209,5 @@ Content-Type: application/problem+json
    "title": "Conflict",
    "status": 409,
    "detail": "Company 203456798 has ceased its activities since 2017-01-01"
-}
-```
-
-
-=== Too many requests
-
-```
-GET /companies/{cbeNbr}
-```
-```
-HTTP/1.1 429 Too many requests
-Content-Type: application/problem+json
-{
-   "type": "/problems/tooManyRequests",
-   "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "title": "Too many requests",
-   "status": 429,
-   "detail": "No more requests accepted before 2018-08-09T06:56:00Z",
-   "limit": "200",
-   "retryAfter": "2018-08-09T06:56:00Z",
-   "retryAfterSec": "60"
 }
 ```

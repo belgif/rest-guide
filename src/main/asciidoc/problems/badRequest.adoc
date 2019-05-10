@@ -1,0 +1,45 @@
+= Bad Request
+:nofooter:
+
+*Status code* 400 Bad Request
+
+*Description* The consumer request is not conform to the Swagger specification of the API. If the parameters are invalid, look for more details in the `invalidParams` property.
+
+
+```
+POST /enterprises/abc
+
+{
+    "mandator": {
+        "cbeNumber": "123456"
+    }
+}
+```
+
+returns
+
+```
+HTTP/1.1 400 Bad Request
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/badRequest",
+   "status": 400,
+   "title": "Bad Request",
+   "detail": "The input message is incorrect",
+   "invalidParams": [
+       {
+          "in": "path",
+          "name": "cbeNumber",
+          "reason": "should be numeric",
+          "value": "abc"
+       },
+       {
+          "in": "body",
+          "name": "mandator.cbeNumber",
+          "reason": "should have minimum 9 digits",
+          "value": "123456"
+       }
+   ]
+}
+```

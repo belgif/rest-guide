@@ -1,0 +1,47 @@
+= Resource Not Found
+:nofooter:
+
+*Status code* 404 Not Found
+
+*Description* The requested resource cannot be found. The `detail` property reveals additional information about why the resource was not found.
+
+
+Either the resource path isn't specified in the API's `/doc/swagger.yaml` specification.
+
+```
+GET /enterprises
+
+HTTP/1.1 404 Not Found
+Content-Type: application/problem+json
+
+{
+  "type": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound"
+  "status": 404,
+  "title": "Resource Not Found",
+  "detail": "No resource /enterprises found"
+}
+```
+
+Either the path parameters don't resolve to an existing resource. Look for the more details in the `invalidParams` property.
+
+```
+GET /enterprises/0206731645
+
+HTTP/1.1 404 Not Found
+Content-Type: application/problem+json
+
+{
+  "type": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound"
+  "status": 404,
+  "title": "Enterprise not found",
+  "detail": "No enterprise with CBE number 0206731645",
+  "invalidParams": [
+      {
+        "in": "path",
+        "name": "cbeNumber",
+        "reason": "the CBE number is not assigned",
+        "value": "0206731645"
+      }
+  ]
+}
+```

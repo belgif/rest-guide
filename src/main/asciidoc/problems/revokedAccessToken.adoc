@@ -1,0 +1,23 @@
+= Revoked Access Token
+:nofooter:
+
+*Status code* 401 Unauthorized
+
+*Description* The access token passed in the `Authorization` HTTP header has been revoked. Renew the access token and resubmit the request.
+
+```
+POST /enterprises
+Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
+```
+
+```
+HTTP/1.1 401 Unauthorized
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/expiredAccessToken",
+   "status": 401,
+   "title": "Revoked Access Token",
+   "detail": "The Bearer access token 'ds4d2f13sdds2q13qxcgbdf245' found in the Authorization HTTP header has been revoked"
+}
+```
