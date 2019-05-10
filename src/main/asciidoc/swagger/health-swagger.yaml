@@ -75,8 +75,7 @@ definitions:
     description: Level indicating the health status of the service
     type: string
     enum:
-      - up
-      - degraded
-      - down
-      - unknown
-      - outOfService
+      - up # is functioning as expected
+      - degraded # is partly unavailable but service can be continued with reduced functionality
+      - down # is suffering unexpected failures
+      - outOfService # has been taken out of service and should not be used
