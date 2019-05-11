@@ -69,8 +69,8 @@ X-Correlation-Id: d9e35127-e9b1-4201-a211-2b52e52508df
   "invalidParams": [
       {
         "in": "path",
-        "name": "cbeNumber",
-        "reason": "the CBE number is not assigned",
+        "name": "enterpriseNumber",
+        "reason": "the enterprise number is not assigned",
         "value": "0206731645"
       }
   ]
@@ -84,7 +84,7 @@ Each status message contains a ```detail``` property to provide specific informa
 ==========================
 
 ```
-POST /enterprises/203456798/employers
+POST /enterprises/0203456798/employers
 {
     "name": "John"
 }
@@ -95,10 +95,10 @@ HTTP/1.1 409 Conflict
 Content-Type: application/problem+json
 {
    "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "/problems/companyInactive",
+   "type": "/problems/enterpriseInactive",
    "title": "Conflict",
    "status": 409,
-   "detail": "Company 203456798 has ceased its activities since 2017-01-01"
+   "detail": "Enterprise 0203456798 has ceased its activities since 2017-01-01"
 }
 ```
 
@@ -146,38 +146,37 @@ include::problems/badRequest.adoc[leveloffset=3]
 
 .InvalidParamProblem schema definition (from link:schemas/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ```yaml
-  InvalidParamProblem:
-    description: Problem details for invalid input parameter(s)
-    allOf:
-      - $ref: '#/definitions/Problem'
-      - type: object
-        properties:
-          invalidParams:
-            type: array
-            description: An array of input parameter OpenAPI violations
-            items:
-              $ref: '#/definitions/InvalidParam'
-  InvalidParam:
-    type: object
-    properties:
-      in:
-        description: The location of the invalid parameter (cfr Swagger parameters)
-        type: string
-        enum:
-          - body
-          - path
-          - query
-          - header
-      name:
-        description: The name of the invalid parameter
-        type: string
-      reason:
-        description: A message explaining the violation
-        type: string
-      value:
-        description: The value of the erroneous parameter
-        # allow all types, as type is mandatory in Swagger. Known issue: property is ignored when using swagger codegen (see #25)
-        type: [string, number, integer, boolean, array, object, 'null']
+InvalidParamProblem:
+  description: Problem details for invalid input parameter(s)
+  allOf:
+    - $ref: '#/definitions/Problem'
+    - type: object
+      properties:
+        invalidParams:
+          type: array
+          description: An array of parameter OpenAPI violations
+          items:
+            $ref: '#/definitions/InvalidParam'
+InvalidParam:
+  type: object
+  properties:
+    in:
+      description: The location of the invalid parameter (cfr Swagger parameters)
+      type: string
+      enum:
+        - body
+        - path
+        - query
+        - header
+    name:
+      description: The name of the invalid parameter
+      type: string
+    reason:
+      description: A message explaining the violation
+      type: string
+    value:
+      description: The value of the erroneous parameter
+      # no type specified, allowing any type. This is valid OpenAPI 2.0 even though some editors may indicate an error (issue #25)
 ```
 include::problems/noAccessToken.adoc[leveloffset=3]
 include::problems/invalidAccessToken.adoc[leveloffset=3]
@@ -191,10 +190,10 @@ include::problems/tooManyRequests.adoc[leveloffset=3]
 
 === API specific problem types
 
-Each API can define it's own problem types. The path `/problems/{problemId}` should resolve to a HTML page containing additional information about the specific problem.
+Each API can define its own problem types. The path `/problems/{problemId}` should resolve to a HTML page containing additional information about the specific problem.
 
 ```
-POST /enterprises/203456798/employers
+POST /enterprises/0203456798/employers
 {
     "name": "John"
 }
@@ -205,9 +204,9 @@ HTTP/1.1 409 Conflict
 Content-Type: application/problem+json
 {
    "instance": "88d8393b-f314-4cb3-8ef8-047971dba4ba",
-   "type": "/problems/companyInactive",
+   "type": "/problems/enterpriseInactive",
    "title": "Conflict",
    "status": 409,
-   "detail": "Company 203456798 has ceased its activities since 2017-01-01"
+   "detail": "Enterprise 0203456798 has ceased its activities since 2017-01-01"
 }
 ```

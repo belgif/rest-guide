@@ -11,7 +11,7 @@ POST /enterprises/abc
 
 {
     "mandator": {
-        "cbeNumber": "123456"
+        "enterpriseNumber": "123456"
     }
 }
 ```
@@ -30,14 +30,14 @@ Content-Type: application/problem+json
    "invalidParams": [
        {
           "in": "path",
-          "name": "cbeNumber",
+          "name": "enterpriseNumber",
           "reason": "should be numeric",
           "value": "abc"
        },
        {
           "in": "body",
-          "name": "mandator.cbeNumber",
-          "reason": "should have minimum 9 digits",
+          "name": "mandator.enterpriseNumber",
+          "reason": "should have 10 digits",
           "value": "123456"
        }
    ]
