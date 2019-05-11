@@ -19,6 +19,6 @@ Content-Type: application/problem+json
    "type": "https://www.gcloud.belgium.be/rest/problems/missingPermission",
    "status": 403,
    "title": "Missing Permission",
-   "detail": "not permitted to update the company details"
+   "detail": "not permitted to update the enterprise details"
 }
 ```

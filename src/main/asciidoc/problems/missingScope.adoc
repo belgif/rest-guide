@@ -18,8 +18,8 @@ Content-Type: application/problem+json
    "type": "https://www.gcloud.belgium.be/rest/problems/missingScope",
    "status": 403,
    "title": "Missing Scope",
-   "detail": "Forbidden to consult the company resource",
-   "requiredScopes": ["company-read"]
+   "detail": "Forbidden to consult the enterprise resource",
+   "requiredScopes": ["enterprise-read"]
 }
 ```
 
