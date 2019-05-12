@@ -36,6 +36,45 @@ WARNING: Especially for unsecured resources, avoid technical keys that are easy 
 
 WARNING: Don't use database-generated keys as identity keys in your public API to avoid tight coupling between the database schema and API. Having the key independent of all other columns insulates the database relationships from changes in data values or database design (agility) and guarantees uniqueness.
 
+[.rule, caption="Rule {counter:rule-number}: "]
+.Identifier name
+====
+The identifier should be named `id` unless there already exists another standardized name for the business identifier.
+
+In a JSON representation, it SHOULD NOT be prefixed unless the identifier is not of the resource on which the operation applies and there's ambiguity.
+
+If the identifier is used as path parameter, it should be prefixed by the resource type.
+====
+
+.Identifier name
+====
+
+```
+GET /stores/{storeId}/orders/{orderId} <1>
+
+{
+  "id": 123,  <2>
+  "clientId": 456, <3>
+  "store": {
+     "id": 789, <4>
+     "href": "/stores/789"
+  }
+}
+```
+<1> path parameter: prefixed with resource type
+<2> use id as JSON property name for the resource being consulted
+<3> identifier doesn't refer to the consulted resource. It would be ambiguous with the order's id.
+<4> Clearly refers to the store's id, so no prefix required.
+
+`enterpriseNumber` is a standard business name for the CBE enterprise identifier, so it should be used instead of `id`:
+```
+GET /enterprises/{enterpriseNumber}
+{
+   "enterpriseNumber":  "0202239951"
+}
+```
+====
+
 [[document-consult,Consult (Document)]]
 === Consult
 

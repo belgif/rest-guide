@@ -10,6 +10,7 @@ A code-first approach may sometimes be necessary however, as current state of te
 In this case, special attention should be given that the API specifications remain stable and loosely coupled to the API implementation technology.
 ====
 
+[[openapi]]
 === OpenAPI (Swagger)
 
 OpenAPI is the dominating standard for API documentation, having gained wide industry support.
@@ -32,12 +33,19 @@ Any additional documentation SHOULD be linked from the API's OpenAPI definition 
 ====
 
 [.rule, caption="Rule {counter:rule-number}: "]
-.Use of YAML format in OpenAPI
+.Use YAML format for OpenAPI
 ====
 OpenAPI files SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
 
 YAML is a superset of JSON which allows a simpler notation, and also allows comments.
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Use tags to group operations
+====
+When an API has many operations, use https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#tagObject[tags] to group them together.
+This will make the visual representation (SwaggerUI) more readable.
 ====
 
 [[doc-resource,doc resource]]
@@ -76,6 +84,37 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
  ...
 ```
 ====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Add examples in OpenAPI
+====
+Add example response values to the OpenAPI specification under the `examples` property.
+====
+
+```YAML
+  /enterprises/{enterpriseNumber}:
+    get:
+      operationId: getEnterprise
+      parameters:
+      - in: path
+        name: enterpriseNumber
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Enterprise'
+          examples:
+            application/json:
+              {
+                "name": "Belgacom",
+                "enterpriseNumber": "0202239951"
+              }
+```
+
+WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
+  Any additional examples should be put in external documentation.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Reusable OpenAPI definitions
@@ -137,11 +176,22 @@ The OpenAPI files will be made available both in YAML and JSON format through co
 === JSON data types
 
 [.rule, caption="Rule {counter:rule-number}: "]
-.Data type names
+.Naming of data types
 ====
 Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
 For abbreviations as well, all letters except the first one should be lowercased.
+
+Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as data type name or part of it.
+
+A data type name SHOULD refer to the business meaning rather than how it is defined.
 ====
+
+|===
+|KO|OK
+
+|CustomerInformation | Customer
+|LanguageEnumeration | Language
+|===
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
 
@@ -221,6 +271,9 @@ Following tools can be used to generate server stubs and API client libraries fr
 |Name|Link| Comments
 |openapi-generator| https://openapi-generator.tech/ | Started as fork of swagger-codegen.
 |swagger-codegen| https://github.com/swagger-api/swagger-codegen|
+|swagger-validator-maven-plugin|https://github.com/sylvainlaurent/swagger-validator-maven-plugin| Perform validation of swagger files during build.
+|styleguide-validationrules|https://git-cicd.gcloud.belgium.be/rest/styleguide-validationrules (network access restricted) | Validation rules for swagger-validator-maven-plugin to check conformance to this style guide.
+
 |===
 
 
