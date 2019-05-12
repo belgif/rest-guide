@@ -29,7 +29,8 @@ Vary: Accept
 ```
 ====
 
-*JSON*
+[discrete]
+=== JSON
 
 The primary media type to support is *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
 The choice for JSON is particularly made for supporting JavaScript clients.
@@ -50,7 +51,9 @@ MIME types of format `application/<subtype>+json` may be used for standardized J
 * `application/merge-patch+json` for JSON Merge Patch payloads (see <<Partial update>>)
 * `application/problem+json` for Problem Detail for HTTP APIs (RFC 7807) payloads (see <<Error handling>>)
 
-*XML*
+[discrete]
+
+=== XML
 
 On specific client request, a REST service can expose XML messages defined by *XML Schema*.
 
@@ -64,3 +67,53 @@ Always stick to *UTF-8* encoding and specify the charset in the `Content-Type` H
 CAUTION: It is not recommended to implement both JSON / XML in each REST service.
 It would require to define and implement two representations of the same data.
 Automatic conversion between the two standards will almost never give a satisfying result.
+
+[discrete]
+[[media-types-openapi]]
+=== Media types in OpenAPI
+
+The request and response body's media type are specified in an OpenAPI specification respectively by the `consumes` and `produces` keywords:
+
+* at operation level
+* at root level, as default media types for the entire specification
+
+.Specifying media types at operation level
+====
+```YAML
+  /persons/{ssin}/photo:
+    get:
+      summary: Get the photo of the person
+      operationId: getPhoto
+      produces:
+      - image/jpeg  # for photo
+      - application/problem+json # for problems
+      parameters:
+      - $ref: "person/identifier/v1beta/person-identifier-v1beta.yaml#/parameters/SsinQueryParameter"
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: file
+        400:
+          $ref: "#/responses/InvalidSsinResponse"
+        404:
+          $ref: "#/responses/UnknownSsinResponse"
+====
+
+NOTE: OpenAPI 2.0 doesn't support specifying a different media type per status code.
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Default media types
+====
+OpenAPI 2.0 specifications SHOULD specify following default media types:
+
+```YAML
+consumes:
+- application/json
+
+produces:
+- application/json
+- application/problem+json
+```
+====
+

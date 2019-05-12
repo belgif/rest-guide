@@ -63,9 +63,10 @@ The 301 status code indicates that the REST API’s resource model has been sign
 |[[http-303]]303 See Other
 |**303 (“See Other”) should be used to refer the client to a different URI**
 
-A 303 response indicates that a long-running action has finished its work, but instead of sending a potentially unwanted response body, it sends the client the URI of a response resource. This can be the URI of a temporary status message, or the URI to some already existing, more permanent,resource.
+The 303 status code allows a REST API to send a reference to a resource without forcing the client to download its state. Instead, the client may send a GET request to the value of the Location header.
 
-Generally speaking, the 303 status code allows a REST API to send a reference to a resource without forcing the client to download its state. Instead, the client may send a GET request to the value of the Location header.
+It can be used when a long-running action has finished its work, but instead of sending a potentially unwanted response body, it sends the client the URI of a response resource. This can be the URI of a temporary status message, or the URI to some already existing, more permanent, resource.
+
 |
 
 |[[http-304]]304 Not Modified

@@ -1,6 +1,11 @@
 == Changelog
 * 2019-??-??
 ** add InvalidParamProblem schema to problem-v1.yaml, see <<Schema validation error>>
+** new rule: naming of identifiers in <<Document>>
+** add status code `303 See Other` to <<create-resource, Create a new resource >>
+** new rule: use tags in <<openapi,OpenAPI>>
+** new section: how to specify <<media-types-openapi, media types in OpenAPI>>
+** update rules: naming of <<JSON properties>> and naming of <<JSON data types>> to make names more meaningful
 * 2019-01-22
 ** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
