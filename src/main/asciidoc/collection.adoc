@@ -330,6 +330,7 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 ----
 ====
 
+[[create-resource]]
 === Create a new resource​
 The collection resource can be used to create new document resources.
 ​
@@ -372,10 +373,16 @@ a|
 |<<http-201,201>>
 |Created
 |Default response code if the query returned results
-​
+
 |<<http-409,409>>
 |Conflict
 |The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
+
+|<<http-303,303>>
+|See Other
+| The resource already exists.
+  May be returned instead of `409 Conflict` if it is considered a normal use case to perform the operation for an already existing resource.
+  The `Location` header refers to the resource.
 
 |===
 
