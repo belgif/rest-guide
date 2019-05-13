@@ -96,6 +96,20 @@
                             </attributes>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-problems</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/asciidoc/problems</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/site/doc/problems</outputDirectory>
+                            <attributes>
+                                <stylesheet>../my-theme.css</stylesheet>
+                            </attributes>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

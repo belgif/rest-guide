@@ -1,0 +1,23 @@
+= Invalid Access Token
+:nofooter:
+
+*Status code* 401 Unauthorized
+
+*Description* The consumer must pass a valid access token in the `Authorization` HTTP header for each request to a secure resource.
+
+```
+POST /enterprises
+Authorization: Bearer foo
+```
+
+```
+HTTP/1.1 401 Unauthorized
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/invalidAccessToken",
+   "status": 401,
+   "title": "Invalid Access Token",
+   "detail": "The Bearer access token found in the Authorization HTTP header is invalid"
+}
+```
