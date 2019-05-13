@@ -1,0 +1,25 @@
+= Missing Scope
+:nofooter:
+
+*Status code* 403 Forbidden
+
+*Description* The consumer access token doesn't have the required scope to invoke the operation. The `requiredScope` property lists the required scopes.
+
+```
+GET /enterprises/202239951
+Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
+```
+
+```
+HTTP/1.1 403 Forbidden
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/missingScope",
+   "status": 403,
+   "title": "Missing Scope",
+   "detail": "Forbidden to consult the enterprise resource",
+   "requiredScopes": ["enterprise-read"]
+}
+```
+

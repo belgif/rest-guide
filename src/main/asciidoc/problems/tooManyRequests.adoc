@@ -1,0 +1,23 @@
+= Too Many Requests
+:nofooter:
+
+*Status code* 429 Too Many Requests
+
+*Description* The consumer quota was passed. The . The property `limit` contains the number of requests allowed. `retryAfter` indicates when the time when the counters will be reset. `retryAfterSec` indicates how many seconds the consumer must wait before resubmitting the request.
+
+```
+GET /enterprises/0206731645
+```
+```
+HTTP/1.1 429 Too many requests
+Content-Type: application/problem+json
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/tooManyRequests",
+   "status": 429,
+   "title": "Too Many Requests",
+   "detail": "No more requests accepted before 2018-08-09T06:56:00Z",
+   "limit": "200",
+   "retryAfter": "2018-08-09T06:56:00Z",
+   "retryAfterSec": "60"
+}
+```
