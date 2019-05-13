@@ -1,7 +1,7 @@
 = Missing Scope
 :nofooter:
 
-*Status code* 401 Forbidden
+*Status code* 403 Forbidden
 
 *Description* The consumer access token doesn't have the required scope to invoke the operation. The `requiredScope` property lists the required scopes.
 

@@ -1,7 +1,7 @@
 = Missing Permission
 :nofooter:
 
-*Status code* 400 Bad Request
+*Status code* 403 Forbidden
 
 *Description* The consumer doesn't have the right to invoke an operation on the given resource. The refusal is not related to the consumer scope but to access the specific resource itself (data access).
 

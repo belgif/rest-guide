@@ -18,6 +18,6 @@ Content-Type: application/problem+json
    "type": "https://www.gcloud.belgium.be/rest/problems/invalidAccessToken",
    "status": 401,
    "title": "Invalid Access Token",
-   "detail": "The Bearer access token 'foo' found in the Authorization HTTP header is invalid"
+   "detail": "The Bearer access token found in the Authorization HTTP header is invalid"
 }
 ```
