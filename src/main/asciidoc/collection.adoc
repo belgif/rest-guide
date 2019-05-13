@@ -196,12 +196,12 @@ Examples:
 - the API can accept a `*` at the beginning and/or at the end and/or in the middle of the string
 - the API can always do a "start with" filtering without the need to add a '*' at the end of the string
 - the API can accept regular expressions
-- the API can accept a `~` at the beginning of the string to do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,... the algorythm used must me specified in the documentation)
+- the API can accept a `~` at the beginning of the string to do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,... the algorythm used must me specified in the documentation). Please note that the `~` character must be encoded (it is an unsafe character).
 
 .Examples of string filtering
 ====
  ssin=0000000097       (exact search)
- ssin=\d{2}0229\d{5}   (reg ex)
+ ssin=\d{2}0229\d{5}   (reg ex; please note that the `\{}` characters must be encoded (they are unsafe characters)
  ssin=000000000*       (start with)
  lastName=*reeth       (end with)
  lastName=~vanreeth    (matches, using phonetic search for example)
