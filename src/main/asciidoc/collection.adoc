@@ -186,11 +186,15 @@ A collection can be filtered using query parameters.
 
 You can filter a collection by specifying the property name as query param. It means that the property value must be equals to the query-param value.
 
+When the same query parameter is given more than once, it means the resources must match one of the value (`OR` operator).
+
 For string query parameters, if you want to allow more flexible filtering (start with, end with fuzy search,...), you have to specify the syntax and the behavior of each query parameter in the documentation.
+
+Examples:
 
 - the API can accept exact strings
 - the API can accept a `*` at the beginning and/or at the end and/or in the middle of the string
-- the API can always to a "start with" filtering without the need to add a '*' at the end of the string
+- the API can always do a "start with" filtering without the need to add a '*' at the end of the string
 - the API can accept regular expressions
 - the API can accept a `~` at the beginning of the string to do approximative search (trigram search, phonetic search, Levenshtein distance, soundex,... the algorythm used must me specified in the documentation)
 
@@ -203,7 +207,7 @@ For string query parameters, if you want to allow more flexible filtering (start
  lastName=~vanreeth    (matches, using phonetic search for example)
 ====
 
-If you want to filter a collection with an operator other than = (equal), you can use the following suffix:
+If you want to filter a collection with an operator other than `=`, you can use the following suffix:
 
 [cols="1,2,2"]
 [options="header"]
@@ -235,35 +239,35 @@ The query-param `q` is reserved to implement a full text search on all the resou
 
 If you need more complex queries (parenthesis, or operator,...), you can use RSQL.
 
-.Persons that are younger than 18 years and older than 65 years
+.Persons that are younger than 18 years who are ate least 65 years old
 ====
 [subs=normal]
 ```
-GET {API}/persons?query=age=lt=18,age=gt=65 HTTP/1.1
+GET {API}/persons?query=age=le=17,age=ge=65 HTTP/1.1
 ```
-Means that
+
 ====
 
 [cols="1,2,3"]
 |===
 |<<get>>
-|/employers
-|get all the employers documents in the collection
+|/persons
+|get all the persons in the collection
 
 
 3+|​​​Parameters
 
 |name
 |query-param
-|Filter only employers with a name starting with the specified name.
+|Filter only persons with a name starting with the specified name.
 
-|totalEmployees_le
+|age_le
 |query-param
-|Filter only employers that at most x employees.
+|Filter only persons that are at most the specified age old.
 
-|totalEmployees_ge
+|age_ge
 |query-param
-|Filter only employers that at least x employees.
+|Filter only persons that are at least the specified age old.
 
 3+|Response
 
@@ -273,10 +277,10 @@ a|
 [source,json, subs=normal]
 ----
 ​​​{
-  "self": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/companies?name=smal]",
+  "self": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/persons?name=dupont]",
 	"items": [{
-		"href": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/companies/406798006",
-		"title": "Smals"
+		"href": "http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/persons/406798006",
+		"title": "Jean Dupont"
 	}],
 	"total": 1,
 }
@@ -285,13 +289,13 @@ a|
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|Default response code, also when the filtered collection is empty
+|Default response code, also when the filtered collection is empty.
 ​
 |===
 
 [subs=normal]
 ```
-GET {API}/companies?name=belg[^] HTTP/1.1​
+GET {API}/persons?name=dupon HTTP/1.1​
 ```
 
 === Pagination
