@@ -120,12 +120,12 @@ The value of this parameter SHOULD follow this https://en.wikipedia.org/wiki/Bac
 
 ```BNF
 
-<fields>            ::= [ <negation> ] <fields_struct>
-<fields_struct>     ::= "(" <field_items> ")"
-<field_items>       ::= <field> [ "," <field_items> ]
-<field>             ::= <field_name> | <fields_substruct>
-<fields_substruct>  ::= <field_name> <fields_struct>
-<field_name>        ::= <dash_letter_digit> [ <field_name> ]
+<selects>            ::= [ <negation> ] <selects_struct>
+<selects_struct>     ::= "(" <select_items> ")"
+<select_items>       ::= <select> [ "," <select_items> ]
+<select>             ::= <select_name> | <selects_substruct>
+<selects_substruct>  ::= <select_name> <selects_struct>
+<select_name>        ::= <dash_letter_digit> [ <select_name> ]
 <dash_letter_digit> ::= <dash> | <letter> | <digit>
 <dash>              ::= "-" | "_"
 <letter>            ::= "A" | ... | "Z" | "a" | ... | "z"
