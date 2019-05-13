@@ -2,7 +2,7 @@
 
 Each REST API exposes a health resource which simply returns the current status of the service.
 
-When invoked without any access token, the resource simply returns its status, always using a ```200 OK``` status code, even when the service itself is failing.
+When invoked without any access token, the resource simply returns its status. The status code is either ```200 OK``` when the service is up or partialy available, or `503 Service Unavailable' when the service is down or out of service.
 
 .Sample service is up
 ```json
