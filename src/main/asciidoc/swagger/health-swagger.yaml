@@ -71,6 +71,9 @@ definitions:
     properties:
       status:
         $ref: "#/definitions/HealthLevel"
+      message:
+        description: Optional description clarifying the health status of the component
+        type: string
   HealthLevel:
     description: Level indicating the health status of the service
     type: string
