@@ -19,7 +19,7 @@ As for <<Media Types>>, HTTP supports content negotiation for the language used 
 Users can inform the server that a specific language is requested by adding the `Accept-Language` HTTP header to each request (http://tools.ietf.org/html/rfc7231#section-5.3.5[RFC 7231]).
 
 Its value is a language tag (https://tools.ietf.org/html/rfc5646[RFC 5646]), consisting of a {iso639-1}[ISO 639-1] lowercase language code, optionally followed by an uppercase country code indicating a country-specific variant.
-Internationalized APIs of Belgian Federal Government organizations MUST also support the variants in `Accept-Language' ending on '-BE' for the official Belgian languages.
+Internationalized APIs of Belgian Federal Government organizations MUST also support the variants for the official Belgian languages ending on `-BE`.
 Multiple languages may be specified in order of preference.
 A wildcard `*` matches any language.
 
