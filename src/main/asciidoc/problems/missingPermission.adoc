@@ -3,7 +3,8 @@
 
 *Status code* 403 Forbidden
 
-*Description* The consumer doesn't have the right to invoke an operation on the given resource. The refusal is not related to the consumer scope but to access the specific resource itself (data access).
+*Description* The consumer doesn't have the right to invoke an operation on the given resource.
+The refusal is not related to the consumer scope but to access to the specific resource itself (data access).
 
 
 ```
@@ -19,6 +20,6 @@ Content-Type: application/problem+json
    "type": "https://www.gcloud.belgium.be/rest/problems/missingPermission",
    "status": 403,
    "title": "Missing Permission",
-   "detail": "not permitted to update the enterprise details"
+   "detail": "Not permitted to update the details of this enterprise"
 }
 ```

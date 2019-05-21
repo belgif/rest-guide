@@ -3,7 +3,7 @@
 
 *Status code* 403 Forbidden
 
-*Description* The consumer access token doesn't have the required scope to invoke the operation. The `requiredScope` property lists the required scopes.
+*Description* The consumer access token doesn't have the required scope to invoke the operation. The `requiredScopes` property lists the required scopes.
 
 ```
 GET /enterprises/202239951
