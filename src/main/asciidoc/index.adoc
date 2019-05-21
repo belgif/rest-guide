@@ -38,6 +38,7 @@ include::api.adoc[]
 include::resources.adoc[]
 
 include::document.adoc[]
+
 include::collection.adoc[]
 
 include::methods.adoc[]
