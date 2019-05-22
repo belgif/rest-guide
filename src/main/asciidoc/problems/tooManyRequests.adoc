@@ -19,8 +19,8 @@ Content-Type: application/problem+json
    "status": 429,
    "title": "Too Many Requests",
    "detail": "No more requests accepted before 2018-08-09T06:56:00Z",
-   "limit": "200",
+   "limit": 200,
    "retryAfter": "2018-08-09T06:56:00Z",
-   "retryAfterSec": "60"
+   "retryAfterSec": 60
 }
 ```
