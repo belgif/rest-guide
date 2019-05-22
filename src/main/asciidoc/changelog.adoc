@@ -1,5 +1,5 @@
 == Changelog
-* 2019-??-??
+* 2019-05-22
 ** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see <<Standardized problem types>>
 ** new rule: naming of identifiers in <<Document>>
 ** add status code `303 See Other` to <<create-resource, Create a new resource >>
