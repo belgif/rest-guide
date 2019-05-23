@@ -87,7 +87,7 @@ node ('docker') {
         GCLOUD_DOCKER_TAG=$(${WORKSPACE}/getNextDockerGCloudReleaseTag --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
                                         --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                        --docker_registry="gcloud-docker-release" \
+                                        --docker_registry="gcloud-docker-release-local" \
                                         --docker_image="gcloud-rest-styleguide-website" \
                                         --docker_version_in_tag="${APPLICATION_VERSION}" )
 
@@ -96,8 +96,8 @@ node ('docker') {
         ${WORKSPACE}/promoteDockerImage --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
                                         --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                        --repoKey="gcloud-docker-release" \
-                                        --targetRepo="gcloud-docker-release" \
+                                        --repoKey="gcloud-docker-release-local" \
+                                        --targetRepo="gcloud-docker-release-local" \
                                         --dockerRepository="gcloud-rest-styleguide-website" \
                                         --tag="RC" \
                                         --targetTag="${GCLOUD_DOCKER_TAG}" \
