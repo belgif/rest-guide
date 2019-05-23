@@ -82,7 +82,7 @@ node ('docker') {
         chmod +x ${WORKSPACE}/promoteDockerImage            \
                  ${WORKSPACE}/getNextDockerGCloudReleaseTag
 
-        ARTIFACTORY_USERNAME="apidockerpromoting"
+        ARTIFACTORY_USERNAME="gcloud-docker-promoting"
 
         GCLOUD_DOCKER_TAG=$(${WORKSPACE}/getNextDockerGCloudReleaseTag --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
