@@ -73,11 +73,6 @@ node ('docker') {
     openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '0', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
   }
 
-
-ARTIFACTORY_API_USERNAME=&quot;gcloud-docker-promoting&quot;
-ARTIFACTORY_API_TOKEN=&quot;${JENKINS_ARTIFACTORY_API_TOKEN}&quot;
-
-
   stage ('\u2466 Auto Release Tag.') {
     echo "We use an Imagestream for Rest Styleguide deployment in Test environment (Openshift Project : ssb-test-community-tools)"
     withCredentials([string(credentialsId: 'git_technical_user_artifactory_token', variable: 'ARTIFACTORY_TOKEN')]) {
