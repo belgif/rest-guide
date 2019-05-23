@@ -73,6 +73,11 @@ node ('docker') {
     openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '0', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
   }
 
+
+ARTIFACTORY_API_USERNAME=&quot;gcloud-docker-promoting&quot;
+ARTIFACTORY_API_TOKEN=&quot;${JENKINS_ARTIFACTORY_API_TOKEN}&quot;
+
+
   stage ('\u2466 Auto Release Tag.') {
     echo "We use an Imagestream for Rest Styleguide deployment in Test environment (Openshift Project : ssb-test-community-tools)"
     withCredentials([string(credentialsId: 'git_technical_user_artifactory_token', variable: 'ARTIFACTORY_TOKEN')]) {
@@ -87,7 +92,7 @@ node ('docker') {
         GCLOUD_DOCKER_TAG=$(${WORKSPACE}/getNextDockerGCloudReleaseTag --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
                                         --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                        --docker_registry="docker.release" \
+                                        --docker_registry="gcloud-docker-release" \
                                         --docker_image="gcloud-rest-styleguide-website" \
                                         --docker_version_in_tag="${APPLICATION_VERSION}" )
 
@@ -96,8 +101,8 @@ node ('docker') {
         ${WORKSPACE}/promoteDockerImage --artifactory_url="https://repo.gcloud.belgium.be/artifactory" \
                                         --artifactory_username=${ARTIFACTORY_USERNAME} \
                                         --artifactory_token=${ARTIFACTORY_TOKEN} \
-                                        --repoKey="docker.release" \
-                                        --targetRepo="docker.release" \
+                                        --repoKey="gcloud-docker-release" \
+                                        --targetRepo="gcloud-docker-release" \
                                         --dockerRepository="gcloud-rest-styleguide-website" \
                                         --tag="RC" \
                                         --targetTag="${GCLOUD_DOCKER_TAG}" \
