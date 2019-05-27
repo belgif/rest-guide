@@ -19,7 +19,7 @@ A list of reserved words exists for common used practices
 |[[query-param-pageSize]]pageSize
 |When a collection resources is paged, use this parameter to specify the page size.
 |?page=3&pageSize=20
-|<<Pagination​>>
+|<<Pagination>>
 
 |[[query-param-q]]q
 |The standard search parameter to do a full-text search.

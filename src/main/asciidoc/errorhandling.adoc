@@ -139,7 +139,9 @@ Content-Type: application/problem+json
 
 === Standardized problem types
 
-A list of problem types is standardized for all G-Cloud REST APIs. The problem description has a type defined in https://www.gcloud.belgium.be/rest/problems.
+A list of problem types is standardized for all G-Cloud REST APIs. The problem description has a type defined in `+https://www.gcloud.belgium.be/rest/problems+`.
+
+WARNING: Links to https://www.gcloud.belgium.be/rest/problems are not resolvable at the moment. This will be fixed in the future.
 
 
 include::problems/badRequest.adoc[leveloffset=3]

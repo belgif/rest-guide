@@ -115,4 +115,4 @@ Hyperlinks for <<Pagination>> inside collections and self-references should use 
 ```
 ====
 
-The use of https://tools.ietf.org/html/rfc5988[Web Linking] and http://tools.ietf.org/html/draft-kelly-json-hal[Hypertext Application Language (HAL)] is not recommended.
+The use of https://tools.ietf.org/html/rfc5988[Web Linking] and https://tools.ietf.org/html/draft-kelly-json-hal-08[Hypertext Application Language (HAL)] is not recommended.

@@ -181,7 +181,6 @@ CAUTION: Never use `Vary: *` as it will result in a cache hit of 0.
 .References
 ****
 https://devcenter.heroku.com/articles/increasing-application-performance-with-http-cache-headers[Increasing Application Performance with HTTP Cache Headers^] +
-http://www.mobify.com/blog/beginners-guide-to-http-cache-headers[A Beginner's Guide to HTTP Cache Headers^] +
 https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en[Google HTTP Caching^] +
 https://www.fastly.com/blog/best-practices-using-vary-header[Best Practices for Using the Vary Header]
 ****
