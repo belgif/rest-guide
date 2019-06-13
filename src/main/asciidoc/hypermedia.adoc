@@ -22,11 +22,11 @@ HttpLink:
   description: A base type of objects representing links to resources.
   type: object
   properties:
-  href:
-    description: Any absolute URI that is using http or https protocol
-    type: string
-    format: uri
-    readOnly: true
+    href:
+      description: Any absolute URI that is using http or https protocol
+      type: string
+      format: uri
+      readOnly: true
 ```
 
 `self` hyperlinks are derived from the following type:
