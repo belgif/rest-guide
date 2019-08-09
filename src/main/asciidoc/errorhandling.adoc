@@ -1,4 +1,4 @@
-== Error handling ==
+== Error handling
 
 https://tools.ietf.org/html/rfc7807[Problem Details for HTTP APIs (RFC 7807)^] defines a simple JSON format to convey additional information about an error to an API consumer. This information complements the HTTP status codes [https://tools.ietf.org/html/rfc7231#section-6[RFC7231]].
 

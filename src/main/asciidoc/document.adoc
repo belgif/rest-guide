@@ -102,7 +102,7 @@ GET {API}/employers/93017373[^] HTTP/1.1
 a|
 [source,json, subs="normal"]
 ----
-​​​{
+{
   "self": "{API}/employers/93017373[/employers/93017373^]",
   "name": "Belgacom",
   "nssoNbr": 93017373,
@@ -182,7 +182,7 @@ GET /employers/93017373?select=(name)
 
 [source,json, subs=normal]
 ----
-​​​{
+{
   "self": "{API}/employers/93017373?select=(name)[/employers/93017373?select=(name)^]",
   "name": "Proximus"
 }
@@ -197,9 +197,9 @@ GET /employers/93017373?select=(name,address(street(name,code)))
 ```
 [source,json, subs=normal]
 ----
-​​​{
+{
   "self": "{API}/employers/93017373[/employers/93017373^]",
-  "name": "Proximus"
+  "name": "Proximus",
   "address": {
     "street": {
       "name": "Koning Albert II laan",
@@ -274,7 +274,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 a|
 [source,json]
 ----
-​​​{
+{
     "employerId": 93017373,
     "name": "Belgacom"
 }
@@ -338,7 +338,7 @@ PATCH {API}/employers/93017373[^] HTTP/1.1
 a|
 [source,json]
 ----
-​​​{
+{
   "bankrupt": false,
   "bankruptDate": null
 }
@@ -355,7 +355,7 @@ a|
 a|
 [source,json]
 ----
-​​​{
+{
     "employerId": 93017373,
     "name": "Belgacom",
     "bankrupt": false

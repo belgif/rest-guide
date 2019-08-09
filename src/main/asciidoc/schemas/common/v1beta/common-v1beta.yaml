@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title:
+  title: common technical data types
   description: common types in beta status
   version: v1beta
 tags:
