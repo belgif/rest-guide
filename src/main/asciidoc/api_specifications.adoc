@@ -181,6 +181,8 @@ The OpenAPI files will be made available both in YAML and JSON format through co
 Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
 For abbreviations as well, all letters except the first one should be lowercased.
 
+Do not use underscores (_), hyphens (-) or dots (.) in a data type name, nor use a digit as first letter.
+
 Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as data type name or part of it.
 
 A data type name SHOULD refer to the business meaning rather than how it is defined.
@@ -189,6 +191,7 @@ A data type name SHOULD refer to the business meaning rather than how it is defi
 |===
 |KO|OK
 
+|SSIN | Ssin
 |CustomerInformation | Customer
 |LanguageEnumeration | Language
 |===

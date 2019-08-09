@@ -28,7 +28,7 @@ A list of reserved words exists for common used practices
 
 |[[query-param-select]]select
 | Filter the resource properties to the ones specified.
-| ?select=name&select=address
+| ?select=(name,address)
 | <<document-consult>>
 
 |[[query-param-sort]]sort

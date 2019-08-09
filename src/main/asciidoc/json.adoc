@@ -15,19 +15,22 @@ Service consumers should be aware that JSON objects can always be extended with 
 .Naming of JSON properties
 ====
 All JSON property names are in American English and are written in _lowerCamelCase_ notation.
-For abbreviations as well, all letters except the first one should be lowercased.
-Do not use underscore or hyphens for composite words.
+This also applies to abbreviations part of a property name : all letters after the first one should always be lowercase.
 
-Properties from other standards, like OpenID Connect and OAuth2 are an exception to this rule.
+Do not use underscores (_), hyphens (-) or dots (.) in a property name, nor use a digit as first letter.
 
 Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as property name or as part of it.
 
 A JSON property SHOULD refer to the business meaning of its value rather than how it is defined.
+
+Properties used from other standards, like OpenID Connect and OAuth2, are allowed to deviate from this rule.
 ====
 
 |===
 |KO|OK
 
+|SSIN | ssin
+|partnerSSIN | partnerSsin
 |customerInformation | customer
 |descriptionString | description
 |===

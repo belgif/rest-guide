@@ -61,7 +61,7 @@ The query component of a URI contains a set of parameters to be interpreted as a
 ​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
 Filter the resource collection using a search string.
 
-[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?select=name&select=address*# +
+[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?select=(name,address)*# +
 Filter the resource properties to the ones specified in the `select` query parameter.
 
 [green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?lang=nl*# +

@@ -144,6 +144,12 @@ The 412 error response indicates that the client specified one or more precondit
 **Only use for http://tools.ietf.org/html/rfc7232[conditional HTTP requests^], not constraints expressed in the HTTP payload. ** Use <<http-409,`409 Conflict`>> instead.
 |
 
+|[[http-413]]413 Payload Too Large|
+**413 (“Payload Too Large”) should be used when a request is refused because its payload  is too large**
+
+The 413 error response indicates that the request is larger than the server is willing or able to process.
+|
+
 |[[http-415]]415 Unsupported Media Type
 |**415 (“Unsupported Media Type”) must be used when the media type of a request’s payload cannot be processed**
 
