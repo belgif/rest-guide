@@ -38,21 +38,21 @@ definitions:
         type: string
         format: date
     required: [startDate]
-  QuarterPeriod:
+  YearQuarterPeriod:
     description: period from start quarter to end quarter. Both start and end quarters are mandatory.
     type: object
     properties:
-      startQuarter:
+      startYearQuarter:
         $ref: '#/definitions/YearQuarter'
-      endQuarter:
+      endYearQuarter:
         $ref: '#/definitions/YearQuarter'
-    required: [startQuarter, endQuarter]
-  OpenEndedQuarterPeriod:
+    required: [startYearQuarter, endYearQuarter]
+  OpenEndedYearQuarterPeriod:
     description: period from mandatory start quarter to optional end quarter.
     type: object
     properties:
-      startQuarter:
+      startYearQuarter:
         $ref: '#/definitions/YearQuarter'
-      endQuarter:
+      endYearQuarter:
         $ref: '#/definitions/YearQuarter'
-    required: [startQuarter]
+    required: [startYearQuarter]
