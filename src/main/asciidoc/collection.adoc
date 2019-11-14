@@ -59,7 +59,7 @@ GET {API}/employers[^] HTTP/1.1​
 [source,json,subs="normal"]
 .Response
 ----
-​​​{
+{
  "self": "{API}/employers",
  "items":[
    {
@@ -205,7 +205,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-​​​{
+{
   "self": "{API}/companies?name=belg[/companies?name=belg^]",
 	"items": [{
 		"href": "{API}/companies/202239951[/companies/202239951^]",
@@ -279,7 +279,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
 
 [source,json, subs="normal"]
 ----
-​{
+{
   "self": "{API}/companies?page=2&pageSize=2[/companies?page=2&pageSize=2^]",
   "items": [
     {
@@ -310,7 +310,7 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 
 [source,json, subs="normal"]
 ----
-​{
+{
   "self": "{API}/companies?afterCompany=0244640631&pageSize=2[/companies?afterCompany=0244640631&pageSize=2^]",
   "items": [
     {
@@ -332,8 +332,9 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 
 [[create-resource]]
 === Create a new resource​
-The collection resource can be used to create new document resources.
-​
+The collection resource can be used to create new document resources from the `POST` request body.
+Absent optional values are set to their default value if one is specified in the OpenAPI specification.
+
 [cols="1,2,3"]
 |===
 |​​​​​​​​​<<post>>
@@ -347,7 +348,7 @@ The collection resource can be used to create new document resources.
 a|
 [source,json]
 ----
-​{
+{
   "name": "Belgacom",
   "nssoNbr": 93017373,
   "company": {

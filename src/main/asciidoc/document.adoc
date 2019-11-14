@@ -236,7 +236,9 @@ Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recom
 
 ==== Full update
 
-Use `PUT` when you like to do a complete update of a document resource. All values are replaced by the values submitted by the client.
+Use `PUT` when you like to do a complete update of a document resource.
+All values are replaced by the values submitted by the client.
+Absent optional values in the request are set to their default value if one is specified in the OpenAPI specification.
 
 .PUT on a document resource
 ====

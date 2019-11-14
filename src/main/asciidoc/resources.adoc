@@ -19,16 +19,16 @@ URI must be intuitively structured.
 ==========================
 The **URI notation MUST use _lowerCamelCase_ ** to enhance readability and to separate compound names.
 As lowerCamelCase is used for JSON property names as well, the casing is consistent throughout the API.
+Trailing slashes MUST NOT be used.
 ==========================
 
 .URI notation
 ====
-​[green]#​​GOOD:  \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331# +
-[red]#​BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/Social_Secretariats​/331# +
-​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/social-secretariats​/331#
+​[green]#GOOD:  \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331# +
+ [red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/Social_Secretariats/331# +
+​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/social-secretariats/331# +
+​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331/#
 ====
-
-
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .URI extensions
