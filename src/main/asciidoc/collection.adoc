@@ -47,7 +47,7 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 | sort
 | Multi-value query param with list of properties to sort on.
   Direction is ascending by default. To indicate descending, prefix property with -.
-|?sort=-name
+|?sort=age&sort=-name
 |===
 
 .Consulting a collection
