@@ -2,6 +2,8 @@
 * 2019-xx-xx
 ** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
+** updated <<Resource URI>> notation rule: no trailing slashes in URIs
+** added rule: <<default values>> in OpenAPI specification
 * 2019-05-23
 ** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see <<Standardized problem types>>
 ** new rule: naming of identifiers in <<Document>>

@@ -85,6 +85,13 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ```
 ====
 
+[[default-values,default values]]
+[.rule, caption="Rule {counter:rule-number}: "]
+.`default` values
+====
+Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI specification.
+====
+
 [.rule, caption="Rule {counter:rule-number}: "]
 .Add examples in OpenAPI
 ====
