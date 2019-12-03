@@ -20,8 +20,12 @@ It is based on http://swagger.io/[Swagger^], which has been standardized as http
 .OpenAPI 2.0 (Swagger)
 ====
 Specifications of the API SHOULD be provided using *OpenAPI 2.0* (aka Swagger).
-OpenAPI 2.0 uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources,  which is a variant of the **JSON Schema draft 04** standard.
+OpenAPI 2.0 uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources.
+The Schema Object follows a variant of the *JSON Schema draft 04* standard, with some significant incompatibilities.
 ====
+
+The OpenAPI 2.0 standard specifies how to define https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Objects]
+and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Data Types] and the differences with the JSON Schema standard.
 
 The newer OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
 You can visualize OpenAPI files using tools like https://swagger.io/swagger-ui/[Swagger UI^], https://github.com/moon0326/swagger-ui-watcher[Swagger UI Watcher^] or https://senya.io[Senya^].
