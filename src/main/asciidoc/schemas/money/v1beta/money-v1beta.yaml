@@ -6,9 +6,27 @@ paths: {}
 definitions:
   EuroCentPositiveAmount:
     description: Money amount in eurocents >= 0
-    type: integer
+    type: integer # representation as EuroCent instead of Euro to avoid floating point rounding problems and need for unofficial decimal format  
     minimum: 0
   EuroCentAmount:
     description: Money amount in eurocents, also allows negative amounts.
-    type: integer
+    type: integer # representation as EuroCent instead of Euro to avoid floating point rounding problems and need for unofficial decimal format
   #TODO: add international money/currency types? decimals are not well supported cfr https://opensource.zalando.com/restful-api-guidelines/#common-data-types
+  Iban:
+    description: International Bank Account Number, as defined in ISO 13616:2007
+    type: string
+    pattern: "[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}"
+    # consists of:
+    #   country code (two letters - ISO 3166-1 alpha-2)
+    #   two check digits
+    #   up to 30 alphanumeric characters that are country-specific
+  Bic:
+    description: Business Identifier Code, also known as Swift Code. International identifier for financial and non-financial institutions, commonly used for international bank transfers.
+    type: string
+    pattern: "[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?"
+    # consists of:
+    #   institution code (4 letters)
+    #   country code (2 letters - ISO 3166-1 alpha-2)
+    #   location code (2 alphanumeric characters)
+    #   optional branch code (3 alphanumeric characters)
+    

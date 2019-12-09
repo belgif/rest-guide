@@ -5,12 +5,14 @@ info:
 paths: {}
 parameters:
   SsinPathParameter:
+    description: "Social Security Identification Number issued by the National Register or CBSS"
     in: path
     name: ssin
     required: true
     type: string
     pattern: '\d{11}'
   SsinQueryParameter:
+    description: "Social Security Identification Number issued by the National Register or CBSS"
     in: query
     name: ssin
     type: string

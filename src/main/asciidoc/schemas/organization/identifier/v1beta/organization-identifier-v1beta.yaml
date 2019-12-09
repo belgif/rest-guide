@@ -1,0 +1,31 @@
+swagger: "2.0"
+info:
+  title: data types related to organizations
+  version: v1beta
+paths: {}
+definitions:
+  CbeNumber:
+    description: Identifier issued by CBE for either a site (establishment unit) or a registered organization
+    type: string
+    pattern: '[0-8]\d{9}'
+    #TODO: synchronize descriptions with vocabularies
+  EnterpriseNumber:
+    description: Identifier issued by CBE for a registered organization
+    type: string
+    pattern: '[0|1]\d{9}'
+  EstablishmentUnitNumber:
+    description: Identifier issued by CBE for a site (establishment) of an organization 
+    type: string
+    pattern: '[2-8]\d{9}'
+  NssoNumber:
+    description: Identifier issued by NSSO (RSZ/NSSO) for an employer
+    type: string
+    pattern: '\d{9}'
+    # consists of 7 digits plus 2 check digits
+    # TODO: is this also used for RSZPPO numbers? in current services, it seems to be. Does it need an additional field (RSZPPO yes/no) to be unique across RSZ+RSZ-PPO
+  NssoNumberIncludingProvisional:
+    description: Identifier issued by NSSO for an employer, including both definitive and provisional identifiers
+    type: string
+    pattern: '5?\d{9}'
+    # definitive identifiers have length 9, provisional ones length 10 and start with 5
+    
