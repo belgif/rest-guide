@@ -102,49 +102,9 @@ There are two different resource archetypes:
 * <<Collection>>
 * <<Controller>>
 
-include::document.adoc[leveloffset=+1]
+include::resources-document.adoc[leveloffset=+1]
 
-include::collection.adoc[leveloffset=+1]
+include::resources-collection.adoc[leveloffset=+1]
 
-=== Controller
+include::resources-controller.adoc[leveloffset=+1]
 
-A controller resource represents an action other than a standard CRUD-operation.
-
-[.rule, caption="Rule {counter:rule-number}: "]
-.Controller resource
-====
-A controller resource name is a verb instead of a noun.
-
-The HTTP method on a controller SHOULD be:
-
-* POST for actions with side effects (state change) or actions without side effects but requiring a request body
-* GET for idempotent actions without side effects
-
-For actions with side effects, the child resource's name is RECOMMENDED to be a noun describing the intent of the action rather than the action itself (verb).
-====
-
-[.rule, caption="Rule {counter:rule-number}: "]
-.Controller vs document
-====
-Before using a controller resource to represent an action, consider reifying the action as a document (noun) describing the intent of the action.
-====
-
-<<long-running-tasks>> are an example of actions modelled as a document instead of a controller.
-
-.Controller resources
-====
-Withdrawal from an account as a controller resource:
-
-`POST /account/123/withdraw`
-
-As a document:
-
-`POST /account/123/withdrawals`
-
-Using a noun improves extensibility in this case.
-For instance, a GET operation could be added to consult a history of all withdrawals executed on the account.
-
-A controller can be represented as a GET operation when it has no side effects:
-
-`GET /convertMoney?from=EUR&amount=45&to=USD`
-====
