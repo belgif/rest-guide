@@ -1,7 +1,6 @@
 This REST styleguide is established by the REST design working group, which includes various participating Belgian government institutions.
 
 The styleguide, built from these sources, is publicly available on https://www.gcloud.belgium.be/rest/.
-An [automatic build](http://gcloud-rest-styleguide-website.test.ext.ssbcloud.be/rest/) triggered on commit is also available.
 
 # Guidelines to write the styleguide
 
@@ -29,7 +28,7 @@ Rules must follow the following format:
 
 # Building the styleguide
 
-The styleguide is built with [https://maven.apache.org](Apache Maven).
+The styleguide is built with [Apache Maven](https://maven.apache.org).
 
 With Maven installed, run `mvn site` in the root directory of the project. 
 The styleguide will be built in the `target/site/doc/` directory.
