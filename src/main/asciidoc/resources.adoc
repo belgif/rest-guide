@@ -96,7 +96,7 @@ parameters:
 ====
 
 === Resource Archetypes
-There are two different resource archetypes:
+There are three different resource archetypes:
 
 * <<Document>>
 * <<Collection>>
