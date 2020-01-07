@@ -1,0 +1,10 @@
+swagger: "2.0"
+info:
+  title: data types related to time
+  version: v1beta
+paths: {}
+definitions:
+  YearMonth:
+    description: A month of a year, e.g. 2020-01
+    type: string
+    pattern: '[0-9]{4}-[0-1][0-9]'
