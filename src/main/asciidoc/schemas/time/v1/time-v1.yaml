@@ -1,14 +1,15 @@
 swagger: "2.0"
 info:
   title: data types related to time
-  version: v1beta
+  version: v1
 paths: {}
 definitions:
   YearQuarter:
-    description: a quarter of a year, e.g. 2019Q1
     type: string
     pattern: '[0-9]{4}Q(1|2|3|4)'
+    description: '[quarter in a Gregorian Calendar Year](https://en.wikipedia.org/wiki/Calendar_year#Quarters) with the year included e.g. 2019Q1'
   Quarter:
+    description: '[quarter in a Gregorian Calendar Year](https://en.wikipedia.org/wiki/Calendar_year#Quarters)'
     type: integer
     minimum: 1
     maximum: 4

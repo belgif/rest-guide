@@ -10,9 +10,4 @@ definitions:
     #TODO: add another type including ISO 3166-3 codes as well for former countries, and one combining both?
     type: string
     pattern: "[A-Z]{2}"
-  CountryNisCode:
-    description: NIS code representing a country as defined by statbel.fgov.be
-    type: integer
-    minimum: 100
-    maximum: 999
   # TODO: other location types ~ BEST format and NR format
