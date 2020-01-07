@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: data types related to organizations
+  title: data types for NSSO employer identifiers
   version: v1beta
 paths: {}
 definitions:
