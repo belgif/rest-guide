@@ -47,7 +47,9 @@ PUT operations may have side effects (i.e. modify state), but MUST be idempotent
 |===
 
 === POST
-*POST must be used to create a new resource in a collection.*  The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
+*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
+
+The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
 
 The response should contain a Location HTTP header containing the newly created URI.
 

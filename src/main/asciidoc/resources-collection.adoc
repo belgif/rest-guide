@@ -72,11 +72,11 @@ GET {API}/employers[^] HTTP/1.1​
      "href":"{API}/employers/20620259[/employers/20620259^]",
      "title":"Partena VZW",
      "nssoNbr": 20620259,
-     "cbeNbr": 409536968,
+     "cbeNbr": 409536968
    }
  ],
  "total":2
-}​
+}
 ----
 
 .JSON data types
@@ -214,7 +214,7 @@ a|
 		"href": "{API}/companies/448826918[/companies/448826918^]",
 		"title": "Carrefour Belgium SA"
 	}],
-	"total": 2,
+	"total": 2
 }
 ----
 
@@ -291,7 +291,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
       "title": "CPAS de Silly"
     }
   ],
-  "pageSize": 2
+  "pageSize": 2,
   "total": 7,
   "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
   "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
@@ -387,11 +387,12 @@ a|
 
 |===
 
-```
+[source]
+----
 POST /employers HTTP/1.1
 
 HTTP/1.1 201 Created
 Location: /employers/93017373
 Content-Length: 0
 Date: Wed, 06 Jan 2016 15:37:16 GMT
-```
+----
