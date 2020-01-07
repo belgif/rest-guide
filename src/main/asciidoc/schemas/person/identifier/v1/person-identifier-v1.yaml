@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   title: data types for person identifiers
-  version: v1beta
+  version: v1
 paths: {}
 parameters:
   SsinPathParameter:
