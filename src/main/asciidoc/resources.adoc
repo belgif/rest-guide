@@ -100,3 +100,11 @@ There are two different resource archetypes:
 
 * <<Document>>
 * <<Collection>>
+* <<Controller>>
+
+include::resources-document.adoc[leveloffset=+1]
+
+include::resources-collection.adoc[leveloffset=+1]
+
+include::resources-controller.adoc[leveloffset=+1]
+

@@ -446,35 +446,7 @@ or​​​
 |===
 ====
 
-
-=== Non-CRUD operations
-
-[.rule, caption="Rule {counter:rule-number}: "]
-.Non-CRUD operations
-====
-If a business action isn't a standard CRUD operation on a resource, it is RECOMMENDED to model it as a child resource.
-
-The HTTP method SHOULD be:
-
-* POST for actions with side effects (state change) or actions without side effects but requiring a request body
-* GET for idempotent actions without side effects
-
-For actions with side effects, the child resource's name is RECOMMENDED to be a noun describing the intent of the action rather than the action itself (verb).
-====
-
-.Non-CRUD POST operation
-====
-​[green]#​​GOOD:  POST /account/123/withdrawals# +
-[red]#​BAD:   POST /account/123/withdraw#
-====
-
-Using a noun ensures extensiblity, for example the API can be extended to consult a history of all withdrawals executed on the account.
-
-.Non-CRUD GET operation
-====
-`GET /convertMoney?from=EUR&amount=45&to=USD`
-====
-
+[[long-running-tasks]]
 === Long running tasks
 
 Some operations need to be performed asynchronously, as they take too long to complete.
