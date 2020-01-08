@@ -7,7 +7,8 @@ definitions:
   YearQuarter:
     type: string
     pattern: '[0-9]{4}Q(1|2|3|4)'
-    description: '[quarter in a Gregorian Calendar Year](https://en.wikipedia.org/wiki/Calendar_year#Quarters) with the year included e.g. 2019Q1'
+    description: '[quarter in a Gregorian Calendar Year](https://en.wikipedia.org/wiki/Calendar_year#Quarters) with the year included'
+    example: '2020Q1'
   Quarter:
     description: '[quarter in a Gregorian Calendar Year](https://en.wikipedia.org/wiki/Calendar_year#Quarters)'
     type: integer
