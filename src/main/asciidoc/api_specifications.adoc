@@ -19,9 +19,9 @@ It is based on http://swagger.io/[Swagger^], which has been standardized as http
 [.rule, caption="Rule {counter:rule-number}: "]
 .OpenAPI 2.0 (Swagger)
 ====
-Specifications of the API SHOULD be provided using *OpenAPI 2.0* (aka Swagger).
+Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger).
 OpenAPI 2.0 uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources.
-The Schema Object follows a variant of the *JSON Schema draft 04* standard, with some significant incompatibilities.
+The Schema Object follows a variant of the https://json-schema.org/specification-links.html#draft-4[*JSON Schema draft 04*] standard, with some significant incompatibilities.
 ====
 
 The OpenAPI 2.0 standard specifies how to define https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Objects]
