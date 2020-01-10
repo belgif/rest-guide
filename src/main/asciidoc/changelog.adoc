@@ -1,5 +1,5 @@
 == Changelog
-* 2019-xx-xx
+* 2020-01-10
 ** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
 ** updated <<Resource URI>> notation rule: no trailing slashes in URIs
