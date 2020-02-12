@@ -9,5 +9,5 @@ definitions:
     description: Country represented by an ISO 3166-1 alpha-2 code
     #TODO: add another type including ISO 3166-3 codes as well for former countries, and one combining both?
     type: string
-    pattern: "[A-Z]{2}"
+    pattern: "^[A-Z]{2}$"
   # TODO: other location types ~ BEST format and NR format

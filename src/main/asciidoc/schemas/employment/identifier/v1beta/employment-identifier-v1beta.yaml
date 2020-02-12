@@ -7,4 +7,4 @@ definitions:
   EmployerId:
     description: Identifier issued by NSSO (RSZ/NSSO) for an employer
     type: string
-    pattern: [0,5]{0-1}\d{9} #TODO: verify. String with leading zeros or integer type? If integer, can pattern be applied?
+    pattern: '^[0,5]{0-1}\d{9}$' #TODO: verify. String with leading zeros or integer type? If integer, can pattern be applied?
