@@ -7,4 +7,4 @@ definitions:
   YearMonth:
     description: A month of a year, e.g. 2020-01
     type: string
-    pattern: '[0-9]{4}-[0-1][0-9]'
+    pattern: '^[0-9]{4}-[0-1][0-9]$'

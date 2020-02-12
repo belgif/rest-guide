@@ -7,13 +7,13 @@ definitions:
   CbeNumber:
     description: Identifier issued by CBE for either a site (establishment unit) or a registered organization
     type: string
-    pattern: '[0-8]\d{9}'
+    pattern: '^[0-8]\d{9}$'
     #TODO: synchronize descriptions with vocabularies
   EnterpriseNumber:
     description: Identifier issued by CBE for a registered organization
     type: string
-    pattern: '[0|1]\d{9}'
+    pattern: '^[0|1]\d{9}$'
   EstablishmentUnitNumber:
     description: Identifier issued by CBE for a site (establishment) of an organization 
     type: string
-    pattern: '[2-8]\d{9}'
+    pattern: '^[2-8]\d{9}$'
