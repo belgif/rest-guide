@@ -5,6 +5,6 @@ info:
 paths: {}
 definitions:
   EmployerId:
-    description: Identifier issued by NSSO (RSZ/NSSO) for an employer
+    description: Definitive or provisional NSSO number, assigned to each registered employer or local or provincial administration.
     type: string
-    pattern: '^[0,5]{0-1}\d{9}$' #TODO: verify. String with leading zeros or integer type? If integer, can pattern be applied?
+    pattern: '^5?\d{9}$' #TODO: verify pattern. String with mandatory, optional or no leading zeros or integer type? If integer, no pattern can be applied.
