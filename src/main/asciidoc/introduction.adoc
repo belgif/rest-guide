@@ -3,7 +3,9 @@
 This style guide for RESTful services is a collaborative effort by several Belgian government institutions.
 It aims to improve compatibility between RESTful services offered by government institutions or any other organization adopting the guidelines.
 
-It is a living document, meant to be updated when new interoperability issues arise or when REST-related standards evolve.
+This guide is a living document, updated when new interoperability issues arise or when REST-related standards evolve.
+All changes are reviewed by the REST design workgroup, in which the Belgian government organizations are represented.
+If you find errors or omissions, or want to contribute, you can open an issue or pull request on https://github.com/belgif/rest-guide[GitHub].
 
 The main benefit for choosing RESTful services is to increase flexibility and to offer web service support to client platforms not able to communicate using SOAP web services.
 
@@ -18,6 +20,14 @@ Topics not covered in this guide:
 * Semantics of common business data (e.g. social security number, address, ...). These are managed by the REST Functional Working Group in the https://github.com/belgif/fedvoc[belgif fedvoc repository].
 * OpenAPI specifications for common data types can be found https://github.com/belgif/rest-guide/tree/master/src/main/asciidoc/schemas[here].
 
-Contact: mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be]
+.Links
+****
+* Sources: https://github.com/belgif/rest-guide
+* Issues: https://github.com/belgif/rest-guide/issues
+* Contact: mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be]
+****
 
-Issues can be raised on the https://github.com/belgif/rest-guide/issues[rest-guide GitHub project].
+[NOTE]
+====
+For brevity most URIs in examples are shortened, but in practice URIs should be in absolute notation.
+====

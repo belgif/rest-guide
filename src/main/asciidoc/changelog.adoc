@@ -1,6 +1,6 @@
 == Changelog
-* 2020-??-??
-** add links to the GitHub rest-guide project, to the vocabularies and OAS schemas in the <<Introduction>>
+* 2020-03-24
+** add links to the GitHub, vocabularies and OAS schemas in the <<Introduction>>
 * 2020-01-10
 ** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
