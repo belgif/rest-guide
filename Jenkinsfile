@@ -7,7 +7,7 @@ node("maven") {
               extensions: [],
               submoduleCfg: [],
               userRemoteConfigs: [[
-                url: 'git@git-cicd.gcloud.belgium.be:rest/styleguide.git',
+                url: 'git@github.com:belgif/rest-guide.git',
                 credentialsId: 'git_technical_user'
               ]]
     ]);
@@ -35,7 +35,7 @@ node () {
               extensions: [],
               submoduleCfg: [],
               userRemoteConfigs: [[
-                url: 'git@git-cicd.gcloud.belgium.be:rest/styleguide.git',
+                url: 'git@github.com:belgif/rest-guide.git',
                 credentialsId: 'git_technical_user'
               ]]
     ]);
