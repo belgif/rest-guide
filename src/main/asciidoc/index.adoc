@@ -21,14 +21,6 @@
 :toc!:
 :caption!:
 
-[NOTE]
-.This document is under active development and discussion!
-====
-If you find errors or omissions in this document, please don't hesitate to contact us. New contributors are always welcome!
-
-For brevity most URIs in the examples are shortened, but in reality URIs are always in absolute notation.
-====
-
 include::introduction.adoc[]
 
 include::changelog.adoc[]
