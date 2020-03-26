@@ -1,4 +1,7 @@
 == Changelog
+* 2020-xx-xx
+** allow OpenAPI 3.0 in <<api-specs>>
+** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list in <<api-specs>>
 * 2020-03-24
 ** add links to GitHub, vocabularies and OAS schemas in the <<Introduction>>
 * 2020-01-10
