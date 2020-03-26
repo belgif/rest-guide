@@ -1,3 +1,4 @@
+[[api-specs]]
 == API specifications
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -17,17 +18,19 @@ OpenAPI is the dominating standard for API documentation, having gained wide ind
 It is based on http://swagger.io/[Swagger^], which has been standardized as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI 2.0].
 
 [.rule, caption="Rule {counter:rule-number}: "]
-.OpenAPI 2.0 (Swagger)
+.OpenAPI
 ====
-Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger).
-OpenAPI 2.0 uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources.
-The Schema Object follows a variant of the https://json-schema.org/specification-links.html#draft-4[*JSON Schema draft 04*] standard, with some significant incompatibilities.
+Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md[*OpenAPI 3.0*].
+OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-4[*JSON Schema*], with some significant incompatibilities.
 ====
 
 The OpenAPI 2.0 standard specifies how to define https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Objects]
 and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Data Types] and the differences with the JSON Schema standard.
 
-The newer OpenAPI 3.0 standard should not be used yet for now, as tooling and library support is not yet sufficiently up to date with this version.
+[NOTE]
+OpenAPI 3.0 fixes some shortcomings in OpenAPI 2.0.
+However, this guide has not been updated yet for OpenAPI 3.0 but most is still applicable.
+
 You can visualize OpenAPI files using tools like https://swagger.io/swagger-ui/[Swagger UI^], https://github.com/moon0326/swagger-ui-watcher[Swagger UI Watcher^] or https://senya.io[Senya^].
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -306,7 +309,7 @@ Following tools can be used to edit OpenAPI files
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Plugin for IntelliJ. Text-only Swagger editor
 |RepreZen | https://www.reprezen.com/ | Commercial editor based on KaiZen. Graphical and text view.
 |Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
-|Stoplight Studio | https://stoplight.io/studio/ | Open Source editor with graphical and text view, both web based or as desktop application. Supports validation of API style guides (Spectral).
+|Stoplight Studio | https://stoplight.io/studio/ | Open Source editor with graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |===
 
 Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
@@ -316,18 +319,14 @@ Following tools can be used to generate server stubs and API client libraries fr
 |Name|Link| Comments
 |openapi-generator| https://openapi-generator.tech/ | Started as fork of swagger-codegen.
 |swagger-codegen| https://github.com/swagger-api/swagger-codegen|
-|swagger-validator-maven-plugin|https://github.com/sylvainlaurent/swagger-validator-maven-plugin| Perform validation of swagger files during build.
-|styleguide-validationrules|https://git-cicd.gcloud.belgium.be/rest/styleguide-validationrules (network access restricted) | Validation rules for swagger-validator-maven-plugin to check conformance to this style guide.
-
 |===
-
-
 
 === References
 
 [options="header"]
 |===
 |Name|Link
-|OpenAPI 2.0 specification| https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md
+|OpenAPI 2.0 specification| http://spec.openapis.org/oas/v2.0.html
+|OpenAPI 3.0 specification| http://spec.openapis.org/oas/v3.0.3.html
 |Swagger | https://swagger.io/docs/specification/2-0/basic-structure/
 |===
