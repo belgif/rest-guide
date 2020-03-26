@@ -7,4 +7,5 @@ definitions:
   EmployerId:
     description: Definitive or provisional NSSO number, assigned to each registered employer or local or provincial administration.
     type: string
-    pattern: '^5?\d{9}$' #TODO: verify pattern. String with mandatory, optional or no leading zeros or integer type? If integer, no pattern can be applied.
+    pattern: '^5?\d{9}$' # first digit 5 indicates a provisional NSSO number
+    example: '000100006'
