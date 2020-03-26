@@ -58,3 +58,8 @@ definitions:
       endYearQuarter:
         $ref: '#/definitions/YearQuarter'
     required: [startYearQuarter]
+  YearMonth:
+    description: A month of a year
+    type: string
+    pattern: '^[0-9]{4}-[0-1][0-9]$'
+    example: '2020-01'
