@@ -90,13 +90,13 @@ The request and response body's media type are specified in an OpenAPI specifica
       parameters:
       - $ref: "person/identifier/v1beta/person-identifier-v1beta.yaml#/parameters/SsinQueryParameter"
       responses:
-        200:
+        "200":
           description: successful operation
           schema:
             type: file
-        400:
+        "400":
           $ref: "#/responses/InvalidSsinResponse"
-        404:
+        "404":
           $ref: "#/responses/UnknownSsinResponse"
 ====
 
