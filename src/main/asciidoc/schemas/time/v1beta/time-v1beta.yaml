@@ -6,6 +6,7 @@ paths: {}
 definitions:
   Year:
     description: A year in the Gregorian Calendar
-    type: string
-    pattern: '^[0-9]{4}$'
-    example: '2020'
+    type: integer
+    minimum: 1
+    maximum: 9999
+    example: 2020
