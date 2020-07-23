@@ -49,7 +49,7 @@
 ** added <<Caching>> guidelines
 * 2018-04-25
 ** added <<Internationalization (I18N)>> guidelines
-** updated <<Non-CRUD operations>>, allowing verb as child resource and GET method in some cases
+** updated <<Controller>>, allowing verb as child resource and GET method in some cases
 ** update format of version number in <<API specifications>>
 ** added contact email address in <<Introduction>>
 ** prefix `BelGov-` added for custom <<reserved HTTP headers>>
