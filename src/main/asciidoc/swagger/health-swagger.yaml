@@ -17,9 +17,7 @@ paths:
         url: https://www.gcloud.belgium.be/rest/#health
       produces:
         - application/json
-      security:
-        - "oauth_implicit": ["scope:health"] # details also the components which are down
-        - "oauth_implicit": [] # only returns up/down
+      security: []
       responses:
         "200":
           description: The service is UP
@@ -28,8 +26,12 @@ paths:
           examples:
             application/json:
               {
-                "status": "up"
+                "status": "UP"
               }
+        "500":
+          description: The service cannot generate a health response.
+          schema:
+            $ref: "./../schemas/problem/v1/problem-v1.yaml#/definitions/Problem"
         "503":
           description: The service is down or outOfService
           schema:
@@ -37,19 +39,10 @@ paths:
           examples: {
             "application/json":
               {
-                "status": "down",
-                "details": {
-                  "datastore": {
-                    "status": "outOfService"
-                  }
-                }
+                "status": "DOWN"
               }
           }
-securityDefinitions:
-  oauth_implicit:
-    type: oauth2
-    authorizationUrl: https://example.com/api/oauth/authorize
-    flow: implicit
+
 definitions:
   HealthStatus:
     description: Response message for the API health
@@ -58,27 +51,5 @@ definitions:
       - status
     properties:
       status:
-        $ref: "#/definitions/HealthLevel"
-      details:
-        type: object
-        additionalProperties:
-          $ref: "#/definitions/ComponentStatus"
-  ComponentStatus:
-    description: Status of a service component
-    type: object
-    required:
-      - status
-    properties:
-      status:
-        $ref: "#/definitions/HealthLevel"
-      message:
-        description: Optional description clarifying the health status of the component
+        description: Level indicating the health status of the service, e.g. UP # is functioning as expected, DOWN # is suffering unexpected failures, degraded # is partly unavailable but service can be continued with reduced functionality
         type: string
-  HealthLevel:
-    description: Level indicating the health status of the service
-    type: string
-    enum:
-      - up # is functioning as expected
-      - degraded # is partly unavailable but service can be continued with reduced functionality
-      - down # is suffering unexpected failures
-      - outOfService # has been taken out of service and should not be used

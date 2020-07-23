@@ -7,7 +7,7 @@ When invoked without any access token, the resource simply returns its status. T
 .Sample service is up
 ```json
 {
-    "status": "up"
+    "status": "UP"
 }
 ```
 
@@ -16,15 +16,7 @@ When invoked with an access token containing a scope ```scope:health```, the res
 .Sample service is down
 ```json
 {
-    "status": "down",
-    "details": {
-        "dataStore": {
-            "status": "down"
-        },
-        "queues": {
-            "status": "up"
-        }
-    }
+    "status": "DOWN"
 }
 ```
 
@@ -44,27 +36,22 @@ a|
 [source,json]
 ----
 ​​​{
-   "status": "up"
+   "status": "UP"
 }
 
 {
-  "status": "down",
-  "details": {
-    "datastore": {
-      "status": "outOfService"
-    }
-  }
+  "status": "DOWN"
 }
 ----
 
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|When service is `up` or `degraded`
+|When service is `UP` or `DEGRADED`
 ​
 ​​|<<http-503,503>>
 |Service Unavailable
-|When service is `down` or `outOfService`
+|When service is `DOWN`
 
 |===
 
@@ -74,8 +61,7 @@ The health resource returns one of the following status levels indicating the co
 [cols="1,1,4", options="header"]
 |===
 |Status|Status Code|Description
-|up| 200|is functioning as expected.
-|degraded| 200|is partly unavailable but service can be continued with reduced functionality.
-|down| 503|is suffering unexpected failures
-|outOfService| 503|has been taken out of service and should not be used.
+|UP| 200 |is functioning as expected.
+|DEGRADED | 200 | is partly unavailable but service can be continued with reduced functionality.
+|DOWN| 503 |is suffering unexpected failures
 |===
