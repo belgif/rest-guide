@@ -32,6 +32,7 @@ Topics not covered in this guide:
 For brevity most URIs in examples are shortened, but in practice URIs should be in absolute notation.
 ====
 
+[[license]]
 *License*
 ```
 This work is licensed under the Apache License, Version 2.0 (the "License");

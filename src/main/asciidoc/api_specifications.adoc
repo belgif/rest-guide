@@ -296,6 +296,7 @@ When using a string data type, each code SHOULD have a unique representation, e.
 If possible, specify a `pattern` with a regular expression restricting the allowed representations.
 ====
 
+[[openapi-tools]]
 === Tools
 
 Following tools can be used to edit OpenAPI files
