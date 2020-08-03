@@ -1,8 +1,9 @@
 == Changelog
-* 2020-xx-xx
+* 2020-08-03
 ** allow OpenAPI 3.0 in <<api-specs>>
 ** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list in <<api-specs>>
 ** fix OpenAPI examples to be standard compliant: change status codes to string types in responses
+** set license of this guide to Apache License, Version 2.0 (<<Introduction>>)
 * 2020-03-24
 ** add links to GitHub, vocabularies and OAS schemas in the <<Introduction>>
 * 2020-01-10
