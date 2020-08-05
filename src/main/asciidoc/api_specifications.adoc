@@ -262,6 +262,7 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
 
+[[enum-rule, Enum values rule]]
 [.rule, caption="Rule {counter:rule-number}: "]
 .Enum values
 ====

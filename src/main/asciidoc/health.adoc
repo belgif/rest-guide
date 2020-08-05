@@ -1,55 +1,68 @@
+[[health]]
 == Health ==
 
-Each REST API exposes a health resource which simply returns the current status of the service.
+Each REST API SHOULD expose a health resource which returns the current availability status of the service.
 
-When invoked without any access token, the resource simply returns its status. The status code is either ```200 OK``` when the service is up or partialy available, or `503 Service Unavailable` when the service is down or out of service.
+When invoked without any access token, the resource simply returns its status.
+The status code is either ```200 OK``` when the service is up or partially available, or `503 Service Unavailable` when the service is down or out of service.
 
-.Sample service is up
+.Service is up
 ```json
 {
-    "status": "UP"
+  "status": "UP"
 }
 ```
 
-When invoked with an access token containing a scope ```scope:health```, the resource returns details of its subsystems or components.
+When invoked by a client with additional health-check permissions, the resource MAY return additional details on the status of its subsystems or components.
+This internal information should be hidden from external clients for security reasons.
 
-.Sample service is down
+.Service is down, with additional details
 ```json
 {
-    "status": "DOWN"
+  "status": "DOWN",
+  "details": {
+    "datastore": {
+      "status": "DOWN",
+      "errorMessage": "connection timeout"
+    }
+  }
 }
 ```
 
-The resource is formalized in the swagger file: https://www.gcloud.belgium.be/rest/swagger/health-swagger.yaml
+The health resource is specified in link:schemas/common/v1/common-v1.yaml[common-v1.yaml].
+Note that uppercase is used for the status values, which differs from the <<enum-rule>>, in order to align with existing health checks provided by frameworks like https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/htmlsingle/#production-ready-health[Spring Boot] and https://download.eclipse.org/microprofile/microprofile-health-2.2/microprofile-health-spec.html[MicroProfile Health].
+The format of additional component-level details is not specified.
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​<<get>>
+|<<get>>
 |/health
 |Check the health status of the API.
 
 3+|Response
 
 |body
-a|The status of the service. Details are shown when the client presents a valid access token with ```scope:health```.
+a|The status of the service. Component-level details may be shown when the client has additional permissions.
 a|
 [source,json]
 ----
-​​​{
+{
    "status": "UP"
 }
-
+----
+[source,json]
+----
 {
-  "status": "DOWN"
+   "status": "DOWN"
 }
 ----
 
 3+|Response codes
-​​|<<http-200,200>>
+|<<http-200,200>>
 |OK
 |When service is `UP` or `DEGRADED`
-​
-​​|<<http-503,503>>
+
+|<<http-503,503>>
 |Service Unavailable
 |When service is `DOWN`
 
@@ -65,3 +78,5 @@ The health resource returns one of the following status levels indicating the co
 |DEGRADED | 200 | is partly unavailable but service can be continued with reduced functionality.
 |DOWN| 503 |is suffering unexpected failures
 |===
+
+The status property also allows custom strings for other use cases.
