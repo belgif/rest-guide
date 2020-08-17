@@ -1,4 +1,6 @@
 == Changelog
+* 2020-xx-xx
+** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)
 ** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list (<<openapi-tools>>)
