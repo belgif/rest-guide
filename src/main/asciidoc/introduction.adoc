@@ -18,7 +18,7 @@ Topics not covered in this guide:
 
 * Securing REST APIs. Guidelines are under development by the REST Security Working Group, based on the OpenID Connect and https://tools.ietf.org/html/rfc6749[OAuth 2.0^] standards.
 * Semantics of common business data (e.g. social security number, address, ...). These are managed by the REST Functional Working Group in the https://github.com/belgif/fedvoc[belgif fedvoc repository].
-* OpenAPI specifications for common data types can be found https://github.com/belgif/rest-guide/tree/master/src/main/asciidoc/schemas[here].
+* OpenAPI specifications for common data types can be found in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories].
 
 .Links
 ****
