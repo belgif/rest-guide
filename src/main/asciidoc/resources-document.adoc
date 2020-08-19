@@ -272,7 +272,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 3+|Response
 
 |body
-|empty or a message indicating success
+|either empty or resource after update
 a|
 [source,json]
 ----
