@@ -1,0 +1,138 @@
+== HTTP Methods
+
+=== GET
+**GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>> OK|​The requested resource was found and the search request returns some content.
+|<<http-204,204>> No Content|The search request returns no result.
+|​​<<http-404,404>>  Not Found|The requested resource not found.
+|===
+
+=== HEAD
+**HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>> OK|​The requested resource was found and the search request returns some content.
+|<<http-204,204>> No Content|The search request returns no result.
+|​​<<http-404,404>> Not found |The requested resource was not found.
+|===
+
+=== PUT
+**PUT must be used to update a stored resource under a consumer supplied URI.** It could be used to insert a new resource in case the client application decides on the resource identifier.
+
+If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a new version to replace the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
+
+If the URI does not point to an existing resource, and that URI is capable of being defined as a new resource, the server can create the resource with that URI. The server MUST inform the client by sending a 201 (Created)​ response to indicate succesful creation.
+
+PUT operations may have side effects (i.e. modify state), but MUST be idempotent.
+
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>>  OK|The existing resource is updated and the update is returned.​
+|<<http-201,201>>  Created|A new resource is created and returned. 
+
+​​|<<http-204,204>>  No Content
+|The existing resource is updated but the update is not returned.​ 
+
+|<<http-400,400>>  Bad request
+|The input data is not valid according the data schema.
+
+|<<http-404,404>>  Not Found
+|The resource does not exist and thus cannot be updated.
+​
+​​|<<http-409,409>>  Conflict|A constraint on the resource is violated.
+|===
+
+=== POST
+*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
+
+The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
+
+The response should contain a Location HTTP header containing the newly created URI.
+
+POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-201,201>>  Created|A new resource is created.
+|<<http-409,409>>  Conflict|The resource already exists. 
+|<<http-303,303>>  See Other |
+The resource already exists.  The Location header refers to the resource.
+|===
+
+=== PATCH
+*PATCH must be used to update partially a representation of a resource.*
+
+The enclosed entity contains a set of instructions describing how a resource currently residing on the origin server should be modified to produce a new version.
+The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​
+PATCH operations are not required to be idempotent, however they will often be in pratice.
+
+See <<Partial update>> on how to specify the set of instructions describing how a resource on the server should be modified.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>>  OK|​The existing resource is updated and the update is returned.​
+​​|<<http-204,204>>  No Content
+|The existing resource is updated but the update is not returned.​ 
+|<<http-400,400>>  Bad request
+|The input data is not valid according the data schema.
+|​<<http-404,404>>  Not Found|The resource does not exist and thus cannot be updated.
+|​<<http-409,409>>  Conflict|A constraint on the resource is violated.​
+
+|===
+
+**Compatibility**
+
+The PATCH http method may not be supported in all components participating in the communication (e.g. HTTP client, intermediary proxy).
+If these can't be upgraded to add support, client and server may agree to work around this by implementing PATCH as POST operations with HTTP header 'X-HTTP-Method-Override: PATCH'.
+
+=== DELETE
+*DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.
+
+**​​Status codes**
+
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|<<http-200,200>> OK
+|Success code with the deleted resource returned. 
+
+|<<http-204,204>> No Content
+|Success code with the deleted resource not returned. 
+
+|<<http-400,400>> Bad request
+|Generic error on client side. For example, the syntax of the request is invalid. 
+
+|<<http-404,404>> Not Found
+|The resource does not exist and thus cannot be deleted.
+|===
+
+=== OPTIONS
+OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>> OK| Data is returned successfully and the response body returns some content. 
+|​<<http-204,204>> OK| Data is returned successfully with no response body. 
+|===
+
+

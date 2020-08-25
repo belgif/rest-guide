@@ -1,0 +1,439 @@
+== Collection
+
+A collection resource is a server-managed list of document resources.
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Collection name
+====
+A plural noun SHOULD be used for collection names, for example 'employers' or 'people'.
+====
+
+.Collection of employers
+====
+{API}/employers[^]
+====
+
+[[collections-consult, Consulting a collection]]
+=== Consult
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Representation of a collection
+====
+The representation of a collection MUST contain a list of links to child resources:
+
+* A query on a collection MUST contain an `items` property with an array of objects, each one representing an item in the collection.
+* In these objects, a `href` property MUST be present with a link to the resource.
+* The unique business identifier SHOULD be present for each item.
+* Each item object MAY be extended with some key business properties, needed for display in a master view.
+* In case the collection is empty, the `items` property MUST have an empty array as value.
+* The `title` attribute MAY be used to provide a human-readable description for an item, usable as display text for the link.
+* `total` is the reserved word for all the items in the collection result.
+====
+
+CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
+
+.Response codes
+
+|===
+
+| <<http-200,200>> | OK | Default response code, also when the collection is empty.
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
+|===
+
+.Query parameters
+
+[cols="3*"]
+|===
+
+| sort
+| Multi-value query param with list of properties to sort on.
+  Direction is ascending by default. To indicate descending, prefix property with -.
+|?sort=age&sort=-name
+|===
+
+.Consulting a collection
+====
+[subs=normal]
+```
+GET {API}/employers[^] HTTP/1.1​
+```
+[source,json,subs="normal"]
+.Response
+----
+{
+ "self": "{API}/employers",
+ "items":[
+   {
+     "href":"{API}/employers/93017373[/employers/93017373^]",
+     "title":"Belgacom",
+     "nssoNbr": 93017373,
+     "cbeNbr": 202239951
+   },
+   {
+     "href":"{API}/employers/20620259[/employers/20620259^]",
+     "title":"Partena VZW",
+     "nssoNbr": 20620259,
+     "cbeNbr": 409536968
+   }
+ ],
+ "total":2
+}
+----
+
+.JSON data types
+```YAML
+EmployersResponse:
+  allOf:
+  - $ref: common/v1/common-v1.yaml#/definitions/SelfLink
+  - type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: "#EmployerLink"
+      total:
+        type: integer
+EmployerLink:
+  allOf:
+  - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
+  - type: object
+    properties:
+      nssoNbr:
+        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/NssoNbr
+      cbeNbr:
+        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNbr
+```
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Getting full representations of collection items
+====
+When the collection items contain few data, you may want to retrieve them in full when getting the collection.
+In this case, the full representations MUST be included in an 'embedded' property as described in <<Embedding resources>>.
+====
+
+.Consulting a collection with embedded items
+====
+[subs=normal]
+```
+GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
+```
+
+.Response
+[subs=normal]
+```JSON
+​​​{
+ "self": "{API}/appendices/employerclasses?embed=items[/appendices/employerclasses?embed=items^]",
+ "items": [
+  {
+   "value": "0",
+   "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
+  }, {
+   "value": "2",
+   "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
+  }
+ ],
+ "total":2,
+ "embedded": {
+   "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
+     "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]",
+     "value": "2",
+     "description": {
+       "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
+       "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
+      }
+   },
+   "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
+     "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]",
+     "value": "0",
+     "description": {
+      "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
+      "fr": "Catégorie générale pour les employeurs, de type commercial ou non-commercial."
+     }
+   }
+ }
+}​
+```
+
+.JSON data types
+```YAML
+AppendixCodesResponse:
+  description: A collection of appendix codes
+  type: object
+  properties:
+    items:
+      type: array
+      items:
+        $ref: '#/definitions/AppendixCodeLink'
+    total:
+      type: integer
+    embedded:
+      type: object
+      additionalProperties:
+        $ref: 'appendixCode.yaml#/definitions/AppendixCode'
+AppendixCodeLink:
+  allOf:
+  - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
+  - type: object
+    properties:
+      value:
+        $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
+```
+====
+
+=== Filtering
+
+A collection can be filtered using query parameters.​ You can filter on a specific resource property by specifying the property name as query param.
+The query-param `q` is reserved to implement a full text search on all the resource's content.
+​
+[cols="1,2,3"]
+|===
+|<<get>>
+|/employers
+|get all the employers documents in the collection
+
+
+3+|​​​Parameters
+
+|name
+|query-param
+|Filter only employers that have a specific name.
+
+3+|Response
+
+|body
+a|
+a|
+[source,json, subs=normal]
+----
+{
+  "self": "{API}/companies?name=belg[/companies?name=belg^]",
+	"items": [{
+		"href": "{API}/companies/202239951[/companies/202239951^]",
+		"title": "Belgacom"
+	}, {
+		"href": "{API}/companies/448826918[/companies/448826918^]",
+		"title": "Carrefour Belgium SA"
+	}],
+	"total": 2
+}
+----
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default response code, also when the filtered collection is empty. 
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
+​
+|===
+
+[subs=normal]
+```
+GET {API}/companies?name=belg[^] HTTP/1.1​
+```
+
+=== Pagination
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Paging over a large collection​
+====
+Collection with too many items MUST support pagination.
+There are two pagination techniques:
+
+* offset-based pagination: numeric offset identifies a page
+* cursor-based (aka key-based or luke index): a unique key element identifies a page
+
+Cursor-based pagination has some advantages, especially for high volumes.
+Take into account the considerations http://zalando.github.io/restful-api-guidelines/#160[listed in the Zalando API guidelines] before choosing a pagination technique.
+====
+
+.Reserved JSON properties:
+
+|===
+
+|`next` | MANDATORY (except for the last page) | hyperlink to the next page
+|`prev` | OPTIONAL | hyperlink to the previous page
+|`pageSize` | RECOMMENDED | Maximum number of items per page. For the last page, its value should be independent of the number of actually returned items.
+| `page` |MANDATORY (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
+| `first` | OPTIONAL | hyperlink to the first page
+| `last` | OPTIONAL | hyperlink to the last page
+
+|===
+
+Note that the `total` collection property, if used, MUST always present the total number of items across all pages.
+The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
+
+.Reserved query parameters:
+
+|===
+
+| `pageSize` | OPTIONAL |  maximum number of items per page desired by client; must have a default value if absent.
+| `page` | MANDATORY with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
+
+|===
+
+.Offset-based pagination
+====
+[subs="normal"]
+```
+GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
+```
+
+[source,json, subs="normal"]
+----
+{
+  "self": "{API}/companies?page=2&pageSize=2[/companies?page=2&pageSize=2^]",
+  "items": [
+    {
+      "href": "{API}/companies/202239951[/companies/202239951^]",
+      "title": "Belgacom"
+    },
+    {
+      "href": "{API}/companies/212165526[/companies/212165526^]",
+      "title": "CPAS de Silly"
+    }
+  ],
+  "pageSize": 2,
+  "total": 7,
+  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
+  "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
+  "prev": "{API}/companies?page=1&pageSize=2[/companies?page=1&pageSize=2^]",
+  "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
+}
+----
+====
+
+.Cursor-based pagination
+====
+[subs="normal"]
+```
+GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
+```
+
+[source,json, subs="normal"]
+----
+{
+  "self": "{API}/companies?afterCompany=0244640631&pageSize=2[/companies?afterCompany=0244640631&pageSize=2^]",
+  "items": [
+    {
+      "href": "{API}/companies/202239951[/companies/202239951^]",
+      "title": "Belgacom"
+    },
+    {
+      "href": "{API}/companies/212165526[/companies/212165526^]",
+      "title": "CPAS de Silly"
+    }
+  ],
+  "pageSize": 2,
+  "total": 7,
+  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
+  "next": "{API}/companies?afterCompany=0212165526&pageSize=2[/companies?afterCompany=0212165526&pageSize=2^]"
+}
+----
+====
+
+[[create-resource]]
+=== Create a new resource​
+The collection resource can be used to create new document resources from the `POST` request body.
+Absent optional values are set to their default value if one is specified in the OpenAPI specification.
+
+[cols="1,2,3"]
+|===
+|​​​​​​​​​<<post>>
+|/employers
+|create a new employer in the collection
+
+
+3+|​​​Request
+|body
+|​The data of the resource to create.
+a|
+[source,json]
+----
+{
+  "name": "Belgacom",
+  "nssoNbr": 93017373,
+  "company": {
+    "cbeNbr": 202239951
+  }
+}
+----
+
+3+|Response headers
+
+|Location
+|http-header
+|The URI of the newly created resource e.g. /employers/93017373
+
+3+|Response
+
+|body
+|​
+|The response contains an empty body.
+
+3+|Response codes
+​​
+|<<http-201,201>>
+|Created
+|Default response code if the resource is created. 
+|<<http-409,409>>
+|Conflict
+|The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
+
+|<<http-303,303>>
+|See Other
+| The resource already exists.
+  May be returned instead of `409 Conflict` if it is considered a normal use case to perform the operation for an already existing resource.
+  The `Location` header refers to the resource.
+
+|===
+
+[source]
+----
+POST /employers HTTP/1.1
+
+HTTP/1.1 201 Created
+Location: /employers/93017373
+Content-Length: 0
+Date: Wed, 06 Jan 2016 15:37:16 GMT
+----
+
+=== Remove
+
+A collection can be removed using the DELETE method. By using query parameters, the collection resources to be removed can be filtered.  
+
+​
+[cols="1,2,3"]
+|===
+|<<delete>>
+|/employers
+|Delete all the employers documents in the collection.
+
+
+3+|​​​Parameters
+
+|name
+|query-param
+|Filter only employers that have a specific name.
+
+3+|Response
+
+|body
+|
+|Empty or a message incidating success. 
+
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default code if the (filtered) collection is successfully removed.  
+|<<http-204,204>>
+|No content
+| The (filtered) collection is successfully removed, but no additional content is included in the response payload body.
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The collection resource does not exist and thus cannot be deleted.
+
+
+

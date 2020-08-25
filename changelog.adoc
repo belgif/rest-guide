@@ -1,0 +1,74 @@
+== Changelog
+* 2020-09-10
+** added new section under <<Collection, Collection>> resources to  <<Remove, Remove collection>>
+** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>>
+** added an overview table under <<Resource Archetypes>> that shows the HTTP Method allowed per resource type and what to expect in request and response body. 
+* 2020-xx-xx
+** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
+* 2020-08-03
+** allow OpenAPI 3.0 (<<api-specs>>)
+** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list (<<openapi-tools>>)
+** change status codes to string types in example OpenAPI definitions to be compliant to the OpenAPI standard
+** set license of this guide to Apache License, Version 2.0 (<<license,Introduction>>)
+* 2020-03-24
+** add links to GitHub, vocabularies and OAS schemas in the <<Introduction>>
+* 2020-01-10
+** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
+** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
+** updated <<Resource URI>> notation rule: no trailing slashes in URIs
+** added rule: <<default values>> in OpenAPI specification
+** added <<Controller>> resource archetype and move all archetypes to <<Resources>> chapter
+* 2019-05-23
+** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see <<Standardized problem types>>
+** new rule: naming of identifiers in <<Document>>
+** add status code `303 See Other` to <<create-resource, Create a new resource >>
+** new rule: use tags in <<openapi,OpenAPI>>
+** new section: how to specify <<media-types-openapi, media types in OpenAPI>>
+** update rules: naming of <<JSON properties>> and naming of <<JSON data types>> to make names more meaningful
+** new rule: use `description` and avoid `title` to describe <<JSON data types>>
+** updated rule: String and integer types (<<JSON data types>>). String based codes should have a unique representation.
+* 2019-01-22
+** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
+** gCloud JSON Schemas refactored to this new file structure
+** updated list of Swagger editors and code generators in <<Tools>>
+** added guidelines about <<Tracing>> with standardized HTTP headers
+** add OpenAPI example of multi-valued query param to <<resources>>
+** added rule: place reference data resources in `/refData` (<<doc-resource>>)
+** add list of reserved resource names to <<Reserved words>>
+** document `select` reserved query param to filter resource representation (<<document-consult>>)
+* 2018-11-26
+** add SelfLink type in <<Hypermedia controls>>
+** recommend American English for <<JSON>> property names and <<JSON data types>>
+** add recommendations on typing of properties in <<JSON data types>> (integer/string, enums)
+* 2018-09-09
+** HttpLink type updated in <<Hypermedia controls>> to be read only instead of required
+** new rule in <<JSON data types>> for enum values
+* 2018-08-09
+** Standardized Problem response for several use cases in <<Error handling>> and updated Problem examples throughout the guide
+* 2018-08-08
+** added clarifications and example for use of `HttpLink` to <<Hypermedia controls>>
+** changed guideline for JSON Schemas to single root type per file and add rule on common BelGov schemas
+* 2018-06-29
+** added files with common data types containing types referenced throughout the guide
+** added MergePatch type to <<Partial update>>
+** added guidelines for <<Long running tasks>>
+* 2018-05-28
+** added <<Caching>> guidelines
+* 2018-04-25
+** added <<Internationalization (I18N)>> guidelines
+** updated <<Controller>>, allowing verb as child resource and GET method in some cases
+** update format of version number in <<API specifications>>
+** added contact email address in <<Introduction>>
+** prefix `BelGov-` added for custom <<reserved HTTP headers>>
+* 2018-04-19
+** guidelines about reusable JSON Schemas
+* 2018-04-18
+** added <<versioning>> guidelines
+** removed collector, added <<Non-CRUD operations>> under <<document>> section
+* 2018-03-14
+** added reserved HTTP headers and rule on custom http headers (<<reserved-HTTP-headers>>)
+** content negotiation and JSON subtypes added to <<Media Types>>
+** <<collections-consult>>: empty items array mandatory when collection is empty
+** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
+* 2018-03-07
+** <<Error handling>>: use of RFC 7807
