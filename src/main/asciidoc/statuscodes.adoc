@@ -1,4 +1,4 @@
-﻿== Status codes
+== Status codes
 
 The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
 
@@ -7,58 +7,52 @@ In order to conform to the REST uniform service contract, REST services should s
 http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
 
 === 1xx  Informational
-Request received, continuing process
+Request received, continuing process.
 
 === 2xx Success
-The action was successfully received, understood, and accepted
+The action was successfully received, understood, and accepted.
 
-[cols="2,4,1", options="header"]
+[cols="2,4", options="header"]
 |===
 |Code
 |Description
-|Operations
 
 |[[http-200]]200 OK
 |**200 (“OK”) should be used to indicate nonspecific success**
 
 In most cases, 200 is the code the client hopes to see. It indicates that the REST API successfully carried out whatever action the client requested, and that no more specific code in the 2xx series is appropriate. Unlike the 204 status code, a 200 response should include a response body.
-|<<get>>, <<put>>
 
 |[[http-201]]201 Created
 |**201 (“Created”) must be used to indicate successful resource creation**
 
 A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request.
 There may also be times when a new resource is created as a result of some custom POST action, in which case 201 would also be an appropriate response.
-|<<put>>
 
 |[[http-202]]202 Accepted
 |**202 (“Accepted”) must be used to indicate successful start of an asynchronous action**
 
 A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process.
 A POST method may send 202 responses, but other methods should not. (TODO - long-running tasks - issue #17)
-|
 
 |[[http-204]]204 No Content
 |**204 (“No Content”) should be used when the response body is intentionally empty**
 
-The 204 status code is usually sent out in response to a PUT, POST, or DELETE request, when the REST API declines to send back any status message or representation in the response message’s body. An API may also send 204 in conjunction with a GET request to indicate that the requested resource exists, but has no state representation to include in the body.
-|<<get>>, <<put>>, <<post>>, <<delete>>
+The 204 status code is usually sent out in response to a PUT, POST, PATCH or DELETE request, when the REST API declines to send back any status message or representation in the response message’s body. An API may also send 204 in conjunction with a GET request to indicate that the requested resource exists, but has no state representation to include in the body.
+
 |===
 
 === 3xx Redirection
 Further action must be taken in order to complete the request|
 
-[cols="2,4,1", options="header"]
+[cols="2,4", options="header"]
 |===
 |Code
 |Description
-|Operations
 
 |[[http-301]]301 Moved Permanently
 |**301 (“Moved Permanently”) should be used to relocate resources**
 
 The 301 status code indicates that the REST API’s resource model has been significantly redesigned and a new permanent URI has been assigned to the client’s requested resource. The REST API should specify the new URI in the response’s Location header.
-|
 
 |[[http-303]]303 See Other
 |**303 (“See Other”) should be used to refer the client to a different URI**
@@ -67,13 +61,11 @@ The 303 status code allows a REST API to send a reference to a resource without 
 
 It can be used when a long-running action has finished its work, but instead of sending a potentially unwanted response body, it sends the client the URI of a response resource. This can be the URI of a temporary status message, or the URI to some already existing, more permanent, resource.
 
-|
 
 |[[http-304]]304 Not Modified
 |**304 (“Not Modified”) should be used to preserve bandwidth**
 
 This status code is similar to 204 (“No Content”) in that the response body must be empty. The key distinction is that 204 is used when there is nothing to send in the body, whereas 304 is used when there is state information associated with a resource but the client already has the most recent version of the representation. This status code is used in conjunction with conditional HTTP requests
-|
 
 |[[http-307]]307 Temporary Redirect
 |**307 (“Temporary Redirect”) should be used to tell clients to resubmit the request to another URI**
@@ -81,39 +73,38 @@ This status code is similar to 204 (“No Content”) in that the response body 
 A 307 response indicates that the REST API is not going to process the client’s request. Instead, the client should resubmit the request to the URI specified by the response message’s Location header.
 
 A REST API can use this status code to assign a temporary URI to the client’s requested resource. For example, a `307` response can be used to shift a client request over to another host.
-|
 |===
 
 === 4xx Client Error
 The request contains bad syntax or cannot be fulfilled.
 
-[cols="2,4,1", options="header"]
+[cols="2,4", options="header"]
 |===
 |Code
 |Description
-|Operations
+
 |[[http-400]]400 Bad Request
 |**400 (“Bad Request”) may be used to indicate nonspecific failure**
 400 is the generic client-side error status, used when no other 4xx error code is appropriate.
-|
+
 
 |[[http-401]]401 Unauthorized
 |**401 (“Unauthorized”) must be used when there is a problem with the client’s credentials.**
 
 A 401 error response indicates that the client tried to operate on a protected resource without providing the proper authorization. It may have provided the wrong credentials or none at all.
-|
+
 
 |[[http-403]]403 Forbidden
 |**403 (“Forbidden”) should be used to forbid access regardless of authorization state.**
 
 A 403 error response indicates that the client’s request is formed correctly, but the REST API refuses to honor it. A 403 response is not a case of insufficient client credentials; that would be `401 (“Unauthorized”)`.
-|
+
 
 |[[http-404]]404 Not Found
 |**404 (“Not Found”) must be used when a client’s URI cannot be mapped to a resource.**
 
 The 404 error status code indicates that the REST API can’t map the client’s URI to a resource.
-|
+
 
 |[[http-405]]405 Method Not Allowed
 |**405 (“Method Not Allowed”) must be used when the HTTP method is not supported.**
@@ -122,19 +113,18 @@ The API responds with a 405 error to indicate that the client tried to use an HT
 For example, when a PUT or POST action is performed on a read-only resource supporting only GET and HEAD.
 
 A 405 response must include the Allow header, which lists the HTTP methods that the resource supports. For example: `Allow: GET, POST`
-|
+
 
 |[[http-406]]406 Not Acceptable
 |**406 (“Not Acceptable”) must be used when the requested media type cannot be served**
 
 The 406 error response indicates that the API is not able to generate any of the client’s preferred media types, as indicated by the `Accept` request header. For example, a client request for data formatted as `application/xml` will receive a 406 response if the API is only willing to format data as `application/json`.
-|
+
 
 |[[http-409]]409 Conflict
 |**409 (“Conflict”) should be used to indicate a violation of resource state**
 
 The 409 error response tells the client that they tried to PUT the REST API’s resources into an impossible or inconsistent state. For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
-|<<put>>,<<post>>,<<patch>>
 
 |[[http-412]]412 Precondition Failed|
 **412 (“Precondition Failed”) should be used to support conditional operations**
@@ -142,28 +132,28 @@ The 409 error response tells the client that they tried to PUT the REST API’s 
 The 412 error response indicates that the client specified one or more preconditions in its request headers, effectively telling the REST API to carry out its request only if certain conditions were met. A 412 response indicates that those conditions were not met, so instead of carrying out the request, the API sends this status code.
 
 **Only use for http://tools.ietf.org/html/rfc7232[conditional HTTP requests^], not constraints expressed in the HTTP payload. ** Use <<http-409,`409 Conflict`>> instead.
-|
+
 
 |[[http-413]]413 Payload Too Large|
 **413 (“Payload Too Large”) should be used when a request is refused because its payload  is too large**
 
 The 413 error response indicates that the request is larger than the server is willing or able to process.
-|
+
 
 |[[http-415]]415 Unsupported Media Type
 |**415 (“Unsupported Media Type”) must be used when the media type of a request’s payload cannot be processed**
 
 The 415 error response indicates that the API is not able to process the client’s supplied media type, as indicated by the `Content-Type` request header. For example, a client request including data formatted as `application/xml` will receive a 415 response if the API is only willing to process data formatted as application/json.
-|
+
 |===
 
 === 5xx Server Error
-The server failed to fulfill an apparently valid request
-[cols="2,4,1", options="header"]
+The server failed to fulfill an apparently valid request.
+[cols="2,4", options="header"]
 |===
 |Code
 |Description
-|Operations
+
 
 |[[http-500]]500 Internal Server Error
 |**500 (“Internal Server Error”) should be used to indicate API malfunction**
@@ -171,11 +161,11 @@ The server failed to fulfill an apparently valid request
 500 is the generic REST API error response. Most web frameworks automatically respond with this response status code whenever they execute some request handler code that raises an exception.
 
 A 500 error is never the client’s fault and therefore it is reasonable for the client to retry the exact same request that triggered this response, and hope to GET a different response.
-|
+
 
 |[[http-503]]503 Service Unavailable
 |**503 (“Service Unavailable”) indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay.**
 
 The server MAY send a Retry-After header field to suggest an appropriate amount of time for the client to wait before retrying the request.
-|
+
 |===

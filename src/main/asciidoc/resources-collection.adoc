@@ -36,7 +36,9 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 
 |===
 
-| <<http-200,200>> | OK | Default response code, also when the collection is empty
+| <<http-200,200>> | OK | Default response code, also when the collection is empty.
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 |===
 
 .Query parameters
@@ -221,7 +223,9 @@ a|
 3+|Response codes
 ​​|<<http-200,200>>
 |OK
-|Default response code, also when the filtered collection is empty
+|Default response code, also when the filtered collection is empty. 
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 ​
 |===
 
@@ -373,8 +377,7 @@ a|
 ​​
 |<<http-201,201>>
 |Created
-|Default response code if the query returned results
-
+|Default response code if the resource is created. 
 |<<http-409,409>>
 |Conflict
 |The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
@@ -396,3 +399,41 @@ Location: /employers/93017373
 Content-Length: 0
 Date: Wed, 06 Jan 2016 15:37:16 GMT
 ----
+
+=== Remove
+
+A collection can be removed using the DELETE method. By using query parameters, the collection resources to be removed can be filtered.  
+
+​
+[cols="1,2,3"]
+|===
+|<<delete>>
+|/employers
+|Delete all the employers documents in the collection.
+
+
+3+|​​​Parameters
+
+|name
+|query-param
+|Filter only employers that have a specific name.
+
+3+|Response
+
+|body
+|
+|Empty or a message incidating success. 
+
+
+3+|Response codes
+​​|<<http-200,200>>
+|OK
+|Default code if the (filtered) collection is successfully removed.  
+|<<http-204,204>>
+|No content
+| The (filtered) collection is successfully removed, but no additional content is included in the response payload body.
+| <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| <<http-404,404>> | Not found | The collection resource does not exist and thus cannot be deleted.
+
+
+

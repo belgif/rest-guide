@@ -8,9 +8,9 @@
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content
-|204 No Content|The search request returns no result
-|​​404 Not Found|The requested resource not found
+|​<<http-200,200>> OK|​The requested resource was found and the search request returns some content.
+|<<http-204,204>> No Content|The search request returns no result.
+|​​<<http-404,404>>  Not Found|The requested resource not found.
 |===
 
 === HEAD
@@ -21,13 +21,13 @@
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content
-|204 No Content|The search request returns no result
-|​​404 Not Found|The requested resource not found
+|​<<http-200,200>> OK|​The requested resource was found and the search request returns some content.
+|<<http-204,204>> No Content|The search request returns no result.
+|​​<<http-404,404>> Not found |The requested resource was not found.
 |===
 
 === PUT
-**PUT must be used to both insert and update a stored resource under a consumer supplied URI​.**
+**PUT must be used to update a stored resource under a consumer supplied URI.** It could be used to insert a new resource in case the client application decides on the resource identifier.
 
 If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a new version to replace the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
 
@@ -41,9 +41,19 @@ PUT operations may have side effects (i.e. modify state), but MUST be idempotent
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|The existing resource is updated ​
-|201 Created|A new resource is created
-​​|409 Conflict|A constraint on the resource is violated
+|​<<http-200,200>>  OK|The existing resource is updated and the update is returned.​
+|<<http-201,201>>  Created|A new resource is created and returned. 
+
+​​|<<http-204,204>>  No Content
+|The existing resource is updated but the update is not returned.​ 
+
+|<<http-400,400>>  Bad request
+|The input data is not valid according the data schema.
+
+|<<http-404,404>>  Not Found
+|The resource does not exist and thus cannot be updated.
+​
+​​|<<http-409,409>>  Conflict|A constraint on the resource is violated.
 |===
 
 === POST
@@ -60,8 +70,10 @@ POST operations may have side effects (i.e. modify state), and are not required 
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​201 Created|A new resource is created
-|409 Conflict|The resource already exists
+|​<<http-201,201>>  Created|A new resource is created.
+|<<http-409,409>>  Conflict|The resource already exists. 
+|<<http-303,303>>  See Other |
+The resource already exists.  The Location header refers to the resource.
 |===
 
 === PATCH
@@ -78,9 +90,14 @@ See <<Partial update>> on how to specify the set of instructions describing how 
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|​Specific resource was requested and found or a search request returns some content
-|​​404 Not Found|a specific resource was requested and not found
-|​​409 Conflict|A constraint on the resource is violated​
+|​<<http-200,200>>  OK|​The existing resource is updated and the update is returned.​
+​​|<<http-204,204>>  No Content
+|The existing resource is updated but the update is not returned.​ 
+|<<http-400,400>>  Bad request
+|The input data is not valid according the data schema.
+|​<<http-404,404>>  Not Found|The resource does not exist and thus cannot be updated.
+|​<<http-409,409>>  Conflict|A constraint on the resource is violated.​
+
 |===
 
 **Compatibility**
@@ -96,8 +113,26 @@ If these can't be upgraded to add support, client and server may agree to work a
 [cols="1,3", options="header"]
 |===
 |​Code|Description​
-|​200 OK|Specific resource was requested and found or a search request returns some content
+|<<http-200,200>> OK
+|Success code with the deleted resource returned. 
+
+|<<http-204,204>> No Content
+|Success code with the deleted resource not returned. 
+
+|<<http-400,400>> Bad request
+|Generic error on client side. For example, the syntax of the request is invalid. 
+
+|<<http-404,404>> Not Found
+|The resource does not exist and thus cannot be deleted.
 |===
 
 === OPTIONS
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
+[cols="1,3", options="header"]
+|===
+|​Code|Description​
+|​<<http-200,200>> OK| Data is returned successfully and the response body returns some content. 
+|​<<http-204,204>> OK| Data is returned successfully with no response body. 
+|===
+
+

@@ -1,4 +1,8 @@
 == Changelog
+* 2020-09-10
+** added new section under <<Collection, Collection>> resources to  <<Remove, Remove collection>>
+** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>>
+** added an overview table under <<Resource Archetypes>> that shows the HTTP Method allowed per resource type and what to expect in request and response body. 
 * 2020-xx-xx
 ** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
