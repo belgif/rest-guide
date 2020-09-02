@@ -102,68 +102,6 @@ There are three different resource archetypes:
 * <<Collection>>
 * <<Controller>>
 
-The table below gives an overview of the HTTP Method allowed per resource type and what to expect in request and response body. 
-
-[cols="1,2,3,4,5,6", options="header"]
-|===
-|HTTP Method
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|GET
-|Yes
-|Yes	
-|Yes	
-|Empty
-|Resource(s) 
-
-|HEAD
-|Yes
-|Yes	
-|Yes	
-|Empty
-|Empty
-
-|POST
-|Yes
-|No	
-|Yes	
-|Representation of the created resource  
-or controller info"
-|Optional
-
-|PUT
-|No
-|Yes	
-|No	
-|Representation of the updated resource  
-|Optional
-
-|PATCH
-|No
-|Yes	
-|No	
-|Fields of the resource to update  
-|Optional
-
-|DELETE
-|Yes
-|Yes	
-|No	
-|Empty  
-|Optional
-
-|OPTIONS
-|Yes
-|Yes	
-|Yes
-|Empty  
-|Optional
-
-|===
 
 include::resources-document.adoc[leveloffset=+1]
 

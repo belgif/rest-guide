@@ -27,7 +27,7 @@ A document may have _child resources_ that represent its specific subordinate co
 image::collection.png[]
 
 When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable. In that case *prefer associations and create <<document-links,links>>* to other APIs from the employer resource.
-
+WARNING
 *Identity key*
 
 The _identity key_ is preferably a _natural business identifier_, uniquely identifying the business resource. If such key does not exist, a _surrogate or technical key_ (like http://tools.ietf.org/html/rfc4122[UUID^]) can be used.
@@ -113,7 +113,7 @@ a|
 }
 ----
 
-3+|Response codes
+3+|Most used response codes 
 ​​|<<http-200,200>>
 |OK
 |Default success code if the document exists.
@@ -143,8 +143,11 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 ​|<<http-404,404>>
 |Not Found
 |The document resource does not exist.
-​
+
 |===
+WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
+
+
 ====
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -280,7 +283,7 @@ a|
 
 ----
 
-3+|Response codes
+3+|Most used response codes 
 ​​|<<http-200,200>>
 |OK
 |The update is successful and updated resource is returned. 
@@ -361,7 +364,7 @@ a|
 }
 ----
 
-3+|Response codes
+3+|Most used response codes
 |<<http-200,200>>
 |OK
 |Success code with resource after applying PATCH returned.
@@ -423,7 +426,7 @@ or
 }
 ----
 
-3+|Response codes
+3+|Most used response codes
 
 |<<http-200,200>>
 |OK

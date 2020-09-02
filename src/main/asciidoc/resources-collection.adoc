@@ -32,7 +32,7 @@ The representation of a collection MUST contain a list of links to child resourc
 
 CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
 
-.Response codes
+.Most used response codes
 
 |===
 
@@ -40,6 +40,8 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 | <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
 | <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 |===
+
+WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
 
 .Query parameters
 
@@ -220,7 +222,7 @@ a|
 }
 ----
 
-3+|Response codes
+3+|Most used response codes
 ​​|<<http-200,200>>
 |OK
 |Default response code, also when the filtered collection is empty. 
@@ -228,6 +230,9 @@ a|
 | <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 ​
 |===
+
+WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
+
 
 [subs=normal]
 ```
@@ -373,7 +378,7 @@ a|
 |​
 |The response contains an empty body.
 
-3+|Response codes
+3+|Most used response codes
 ​​
 |<<http-201,201>>
 |Created
@@ -390,6 +395,8 @@ a|
 
 |===
 
+WARNING: ​<<http-200,200 OK>>  should not be used with POST. 
+
 [source]
 ----
 POST /employers HTTP/1.1
@@ -402,7 +409,8 @@ Date: Wed, 06 Jan 2016 15:37:16 GMT
 
 === Remove
 
-A collection can be removed using the DELETE method. By using query parameters, the collection resources to be removed can be filtered.  
+Items can be removed from a collection using the DELETE method. In fact, the collection itself cannot be removed, but it can be emptied if all its items are removed. 
+By using query parameters, the items to be removed can be filtered.  
 
 ​
 [cols="1,2,3"]
@@ -416,7 +424,7 @@ A collection can be removed using the DELETE method. By using query parameters, 
 
 |name
 |query-param
-|Filter only employers that have a specific name.
+|Remove only employers that have a specific name.
 
 3+|Response
 
@@ -425,13 +433,13 @@ A collection can be removed using the DELETE method. By using query parameters, 
 |Empty or a message incidating success. 
 
 
-3+|Response codes
+3+|Most used response codes
 ​​|<<http-200,200>>
 |OK
-|Default code if the (filtered) collection is successfully removed.  
+|The items are successfully removed from the collection and returned.
 |<<http-204,204>>
 |No content
-| The (filtered) collection is successfully removed, but no additional content is included in the response payload body.
+| The items are successfully removed from the collection but no additional content is included in the response body.
 | <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
 | <<http-404,404>> | Not found | The collection resource does not exist and thus cannot be deleted.
 
