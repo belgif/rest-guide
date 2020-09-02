@@ -1,8 +1,9 @@
 == Changelog
 * 2020-09-10
-** added new section under <<Collection, Collection>> resources to  <<Remove, Remove collection>>
-** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>>
-** Added a table about how to use each method of <<HTTP Methods>>
+** add new section under <<Collection, Collection>> resources to  <<Remove, Remove items from collection>>
+** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>> 
+** add details about status code <<429 Too Many Requests, 429 Too Many Requests>> under section <<HTTP Methods, HTTP Methods>>
+** add a table about how to use each method of section <<HTTP Methods, HTTP Methods>>
 * 2020-xx-xx
 ** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
