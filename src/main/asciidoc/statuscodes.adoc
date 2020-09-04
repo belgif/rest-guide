@@ -24,8 +24,6 @@ The action was successfully received, understood, and accepted.
 In most cases, 200 is the code the client hopes to see. It indicates that the REST API successfully carried out whatever action the client requested, and that no more specific code in the 2xx series is appropriate. Unlike the 204 status code, a 200 response should include a response body.
 |<<GET,GET>>, <<HEAD,HEAD>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
 
-Not acceptable: ​<<POST,POST>>
-
 
 |[[http-201]]201 Created
 |**201 (“Created”) must be used to indicate successful resource creation**
@@ -46,15 +44,13 @@ A POST method may send 202 responses, but other methods should not. (TODO - long
 |[[http-204]]204 No Content
 |**204 (“No Content”) should be used when the response body is intentionally empty**
 
-The 204 status code is usually sent out in response to a PUT, POST, PATCH or DELETE request, when the REST API declines to send back any status message or representation in the response message’s body. An API may also send 204 in conjunction with a GET request to indicate that the requested resource exists, but has no state representation to include in the body.
+The 204 status code is usually sent out in response to a PUT, POST, PATCH or DELETE request, when the REST API declines to send back any status message or representation in the response message’s body. 
 |<<POST,POST>>, <<HEAD,HEAD>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
 
-
-Not acceptable: ​<<GET,GET>>
 |===
 
 === 3xx Redirection
-Further action must be taken in order to complete the request|
+Further action must be taken in order to complete the request.
 
 [cols="1,4,2", options="header"]
 |===

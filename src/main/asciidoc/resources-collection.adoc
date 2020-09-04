@@ -395,7 +395,7 @@ a|
 
 |===
 
-WARNING: ​<<http-200,200 OK>>  should not be used with POST. 
+WARNING: ​<<http-200,200 OK>>  should not be used with POST for creating resources. 
 
 [source]
 ----
