@@ -1,10 +1,9 @@
 == Changelog
-* 2020-09-10
-** add new section under <<Collection, Collection>> resources to  <<Remove, Remove items from collection>>
-** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>> 
-** add details about status code <<429 Too Many Requests, 429 Too Many Requests>> under section <<HTTP Methods, HTTP Methods>>
-** add a table about how to use each method of section <<HTTP Methods, HTTP Methods>>
 * 2020-xx-xx
+** added: <<remove-collection-items, removing a selection of items from a collection>> (<<Collection, Collection>>)
+** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<Status Codes>> 
+** added: status code <<http-429, 429 Too Many Requests>> (<<status-codes>>)
+** add a table about how to use each method of section <<HTTP Methods, HTTP Methods>>
 ** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)
@@ -17,7 +16,7 @@
 ** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
 ** updated <<Resource URI>> notation rule: no trailing slashes in URIs
-** added rule: <<default values>> in OpenAPI specification
+** added rule: <<default-values>> in OpenAPI specification
 ** added <<Controller>> resource archetype and move all archetypes to <<Resources>> chapter
 * 2019-05-23
 ** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see <<Standardized problem types>>

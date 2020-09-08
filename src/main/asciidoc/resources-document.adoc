@@ -388,6 +388,7 @@ a|
 |===
 ====
 
+[[remove-document]]
 === Remove
 
 Use `DELETE` when you like to delete a document resource.

@@ -407,12 +407,13 @@ Content-Length: 0
 Date: Wed, 06 Jan 2016 15:37:16 GMT
 ----
 
+[[remove-collection-items]]
 === Remove
 
-Items can be removed from a collection using the DELETE method. In fact, the collection itself cannot be removed, but it can be emptied if all its items are removed. 
-By using query parameters, the items to be removed can be filtered.  
+A selection of items can be removed from a collection using the DELETE method. In fact, the collection itself cannot be removed, but it can be emptied if all its items are removed.
+By using query parameters, the items to be removed can be filtered.
+In order to remove a single specific item from a collection, use <<remove-document, DELETE on the document resource>>.
 
-​
 [cols="1,2,3"]
 |===
 |<<delete>>
@@ -420,7 +421,7 @@ By using query parameters, the items to be removed can be filtered.
 |Delete all the employers documents in the collection.
 
 
-3+|​​​Parameters
+3+|Parameters
 
 |name
 |query-param
@@ -434,7 +435,7 @@ By using query parameters, the items to be removed can be filtered.
 
 
 3+|Most used response codes
-​​|<<http-200,200>>
+|<<http-200,200>>
 |OK
 |The items are successfully removed from the collection and returned.
 |<<http-204,204>>
@@ -442,6 +443,4 @@ By using query parameters, the items to be removed can be filtered.
 | The items are successfully removed from the collection but no additional content is included in the response body.
 | <<http-400,400>> | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
 | <<http-404,404>> | Not found | The collection resource does not exist and thus cannot be deleted.
-
-
-
+|===

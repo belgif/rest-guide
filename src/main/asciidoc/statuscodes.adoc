@@ -1,3 +1,4 @@
+[[status-codes]]
 == Status codes
 
 The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
