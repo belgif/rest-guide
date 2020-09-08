@@ -2,6 +2,19 @@
 
 When systems are in need of subscribe-notify capabilities, they tend to define their own custom event format.
 
-To improve interoperability, this styleguide promotes and adopts the initiative prepared by the Cloud Native Computing Foundation (CNCF): https://cloudevents.io/
+To improve interoperability, this styleguide promotes and adopts the CloudEvents specification prepared by the Cloud Native Computing Foundation (CNCF): https://cloudevents.io/.
+
 On October 24, 2019 they released a v1.0 version of this specification which thoroughly separates the core conceptual event model from any format and protocol details.
 Moreover, some SDKs are in development to support integration of CloudEvents in some popular programming languages.
+
+.CloudEvents documentation
+[options="header"]
+|===
+| Description | Link
+| CloudEvents overview | https://github.com/cloudevents/spec/blob/v1.0/README.md
+| Conceptual model | https://github.com/cloudevents/spec/blob/v1.0/spec.md
+| JSON Event Format | https://github.com/cloudevents/spec/blob/v1.0/json-format.md
+| HTTP Protocol Binding | https://github.com/cloudevents/spec/blob/v1.0/http-protocol-binding.md
+| Web Hooks for Event Delivery | https://github.com/cloudevents/spec/blob/v1.0/http-webhook.md
+| Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0/documented-extensions.md
+|===
