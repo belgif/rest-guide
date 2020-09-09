@@ -14,7 +14,7 @@ node("maven") {
   }
 
   stage("\u2461 Generate Website") {
-    sh "mvn site"
+    sh "mvn clean site"
     stash name:"site", includes:"target/site/doc/**"
     sh '''
       APPLICATION_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
