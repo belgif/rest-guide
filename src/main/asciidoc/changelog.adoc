@@ -1,4 +1,6 @@
 == Changelog
+* {update-date}
+** ...
 * 2020-09-09
 ** new: recommend use of CloudEvents specification (<<events>>)
 ** add guidelines on API health checks (<<health>>)
