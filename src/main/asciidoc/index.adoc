@@ -53,6 +53,8 @@ include::internationalization.adoc[]
 
 include::tracing.adoc[]
 
+include::events.adoc[]
+
 // include::oauth.adoc[]
 
 include::health.adoc[]
