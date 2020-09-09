@@ -1,5 +1,5 @@
 ﻿= REST Guidelines
-{docdate}
+{localdate}
 :doctype: book
 :docinfo:
 :toc: left

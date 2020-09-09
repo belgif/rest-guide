@@ -247,7 +247,7 @@ Pet:
 The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
 ====
 
-An example is the description a map of `embedded` resources, as described in <<Embedded resources>>.
+An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [.rule, caption="Rule {counter:rule-number}: "]

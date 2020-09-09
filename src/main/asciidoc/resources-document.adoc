@@ -4,7 +4,7 @@ A document resource is a _singular concept_ that is referring to a business enti
 
 .An employer document resource
 ====
-​​`GET {API}/employers/93017373[^]`
+`GET {API}/employers/93017373[^]`
 
 [subs="normal"]
 ```json
@@ -26,7 +26,8 @@ A document may have _child resources_ that represent its specific subordinate co
 
 image::collection.png[]
 
-When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable. In that case *prefer associations and create <<document-links,links>>* to other APIs from the employer resource.
+When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable.
+In that case *prefer associations and create <<links,links>>* to other APIs from the employer resource.
 
 *Identity key*
 
@@ -87,11 +88,11 @@ GET {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​<<get>>
+|<<get>>
 |/employers/{employerId}
 |Consult a single employer
 
-3+|​​​Parameters
+3+|Parameters
 
 |`employerId`|path-param|NSSO number uniquely identifying the employer.
 
@@ -230,7 +231,7 @@ JSON Merge Patch is limited however, e.g. it doesn't allow for an update of a si
 If this proves to be an issue, this might however indicate that the array elements might be beter modeled as seperate subresources.
 
 . use POST on a child resource instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
-  See <<non-CRUD operations>> for more information.
+  See <<Controller>> for more information.
 
 Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recommended, as it proves to be difficult to implement.
 

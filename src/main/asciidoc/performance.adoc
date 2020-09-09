@@ -1,5 +1,6 @@
 == Performance
 
+[[embedding]]
 === Embedding resources
 
 In order to reduce the number of requests, optional embedding of subresources may be used.
