@@ -1,3 +1,4 @@
+[[events]]
 == Events
 
 When systems are in need of subscribe-notify capabilities, they tend to define their own custom event format.
