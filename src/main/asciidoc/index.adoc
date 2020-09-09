@@ -1,5 +1,6 @@
-﻿= REST Guidelines
-{localdate}
+﻿:update-date: 2020-09-09
+= REST Guidelines
+{update-date}
 :doctype: book
 :docinfo:
 :toc: left
