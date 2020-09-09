@@ -1,5 +1,5 @@
 ﻿= REST Guidelines
-{localdate}
+{docdate}
 :doctype: book
 :docinfo:
 :toc: left
@@ -58,5 +58,3 @@ include::events.adoc[]
 // include::oauth.adoc[]
 
 include::health.adoc[]
-
-//include::caching.adoc[]
