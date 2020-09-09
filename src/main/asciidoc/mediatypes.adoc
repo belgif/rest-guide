@@ -98,6 +98,7 @@ The request and response body's media type are specified in an OpenAPI specifica
           $ref: "#/responses/InvalidSsinResponse"
         "404":
           $ref: "#/responses/UnknownSsinResponse"
+```
 ====
 
 NOTE: OpenAPI 2.0 doesn't support specifying a different media type per status code.

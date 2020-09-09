@@ -62,7 +62,7 @@
 ** guidelines about reusable JSON Schemas
 * 2018-04-18
 ** added <<versioning>> guidelines
-** removed collector, added <<Non-CRUD operations>> under <<document>> section
+** removed collector, added "Non-CRUD operations" under <<document>> section
 * 2018-03-14
 ** added reserved HTTP headers and rule on custom http headers (<<reserved-HTTP-headers>>)
 ** content negotiation and JSON subtypes added to <<Media Types>>
