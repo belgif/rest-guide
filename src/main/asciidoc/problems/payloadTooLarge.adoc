@@ -1,0 +1,17 @@
+= Payload Too Large
+:nofooter:
+
+*Status code* 413 Payload Too Large
+
+*Description* The request payload is larger than the server is willing or able to process.
+
+```
+HTTP/1.1 413 Payload Too Large
+Content-Type: application/problem+json
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/payloadTooLarge",
+   "status": 413,
+   "title": "Payload Too Large",
+   "detail": "The request payload must not be larger than 10MB"
+}
+```
