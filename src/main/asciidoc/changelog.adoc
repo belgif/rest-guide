@@ -1,5 +1,6 @@
 == Changelog
 * 2020-xx-xx
+** add guidelines on API health checks (<<health>>)
 ** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)

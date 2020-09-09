@@ -55,6 +55,6 @@ include::tracing.adoc[]
 
 // include::oauth.adoc[]
 
-//include::monitoring.adoc[]
+include::health.adoc[]
 
 //include::caching.adoc[]
