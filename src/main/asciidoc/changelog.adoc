@@ -1,10 +1,11 @@
 == Changelog
-* 2020-xx-xx
-** added: <<remove-collection-items, removing a selection of items from a collection>> (<<Collection, Collection>>)
-** cleanup of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>
-** added: status code <<http-429, 429 Too Many Requests>> (<<status-codes>>)
-** added tables when to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
-** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
+* 2020-09-18
+** add: <<remove-collection-items, Remove a selection of items from a collection>> (<<Collection, Collection>>)
+** improve of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>
+** add: status codes <<http-429, 429 Too Many Requests>> and  <<http-502, 502 Bad Gateway>>  (<<status-codes>>)
+** add overview table about how to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
+** add overview table about acceptable Status Codes for each method (<<HTTP Methods, HTTP Methods>>)
+
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)
 ** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list (<<openapi-tools>>)

@@ -216,7 +216,10 @@ The server failed to fulfill an apparently valid request.
 A 500 error is never the client’s fault and therefore it is reasonable for the client to retry the exact same request that triggered this response, and hope to GET a different response.
 |All: 
 <<GET,GET>>, <<HEAD,HEAD>>, <<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
-
+|502 Bad Gateway
+|** The 502 ("Bad Gateway") status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server it accessed while attempting to fulfill the request.**
+|All: 
+<<GET,GET>>, <<HEAD,HEAD>>, <<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
 
 |[[http-503]]503 Service Unavailable
 |**503 (“Service Unavailable”) indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay.**

@@ -3,66 +3,15 @@
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
-**​​How to use GET**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|Yes
-|Yes	
-|Yes	
-|Empty
-|Resource(s) 
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​<<http-200,200 OK>>|​The requested resource was found and the search request returns some content.
-|<<http-400,400 Bad request>> 
-|The input data is not valid according the data schema.
-|​​<<http-404,404 Not found>>  |The requested resource not found.
-
-|===
-
-WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
-
 === HEAD
 **HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
 
-**​​How to use HEAD**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
+=== POST
+*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
 
-|Yes
-|Yes	
-|Yes	
-|Empty
-|Empty
+The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection. The response should contain a Location HTTP header containing the newly created URI.
 
-
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​<<http-200,200 OK>>|​The requested resource was found and the search request returns some content.
-|<<http-204,204 No content>> |The search request returns no result.
-|​​<<http-404,404 Not found>> |The requested resource was not found.
-|===
+POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
 
 === PUT
 **PUT must be used to update a stored resource under a consumer supplied URI.** It could be used to insert a new resource in case the client application decides on the resource identifier.
@@ -72,83 +21,6 @@ If the URI refers to an already existing resource, the enclosed entity SHOULD be
 If the URI does not point to an existing resource, and that URI is capable of being defined as a new resource, the server can create the resource with that URI. The server MUST inform the client by sending a 201 (Created)​ response to indicate succesful creation.
 
 PUT operations may have side effects (i.e. modify state), but MUST be idempotent.
-
-**​​How to use PUT**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|No
-|Yes	
-|No	
-|Representation of the updated resource  
-|Optional
-
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​<<http-200,200 OK>> |The existing resource is updated and the update is returned.​
-|<<http-201,201 Created>> |A new resource is created and returned. 
-
-​​|<<http-204,204 No Content>> 
-|The existing resource is updated but the update is not returned.​ 
-
-|<<http-400,400 Bad request>>  
-|The input data is not valid according the data schema.
-
-|<<http-404,404 Not Found>>  
-|The resource does not exist and thus cannot be updated.
-​
-​​|<<http-409,409 Conflict>>  |A constraint on the resource is violated.
-|===
-
-=== POST
-*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
-
-The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
-
-The response should contain a Location HTTP header containing the newly created URI.
-
-POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
-
-**​​How to use POST**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|Yes
-|No	
-|Yes	
-|Representation of the created resource  
-or controller info
-|Optional
-
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​<<http-201,201>>  Created|A new resource is created.
-|<<http-409,409>>  Conflict|The resource already exists. 
-|<<http-303,303>>  See Other |
-The resource already exists.  The Location header refers to the resource.
-|===
-
-WARNING: <<http-200,200 OK>> should not be used with POST. 
 
 
 === PATCH
@@ -160,37 +32,6 @@ PATCH operations are not required to be idempotent, however they will often be i
 
 See <<Partial update>> on how to specify the set of instructions describing how a resource on the server should be modified.
 
-**​​How to use PATCH**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|No
-|Yes	
-|No	
-|Fields of the resource to update  
-|Optional
-
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​<<http-200,200 OK>> |​The existing resource is updated and the update is returned.​
-​​|<<http-204,204 No Content>>  
-|The existing resource is updated but the update is not returned.​ 
-|<<http-400,400  Bad request>> 
-|The input data is not valid according the data schema.
-|​<<http-404,404 Not Found>>  |The resource does not exist and thus cannot be updated.
-|​<<http-409,409 Conflict>>  |A constraint on the resource is violated.​
-
-|===
 
 **Compatibility**
 
@@ -200,53 +41,65 @@ If these can't be upgraded to add support, client and server may agree to work a
 === DELETE
 *DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.
 
-**​​How to use DELETE**
-[cols="1,2,3,4,5", options="header"]
-|===
-|Collection
-|Document
-|Controller
-|Request body
-|Response body
-
-|Yes
-|Yes	
-|No	
-|Empty  
-|Optional
-
-|===
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|<<http-200,200 OK>> 
-|Success code with the deleted resource returned. 
-
-|<<http-204,204 No Content>> 
-|Success code with the deleted resource not returned. 
-
-|<<http-400,400  Bad request>>
-|Generic error on client side. For example, the syntax of the request is invalid. 
-
-|<<http-404,404 Not Found>> 
-|The resource does not exist and thus cannot be deleted.
-|===
 
 === OPTIONS
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
 
-**​​How to use OPTIONS**
-[cols="1,2,3,4,5", options="header"]
+ 
+=== Overview table 1: How to use each method
+
+[cols="1,1,1,1,4,2", options="header"]
 |===
-|Collection
-|Document
+|Method
+|Collection|Document
 |Controller
 |Request body
 |Response body
 
+|GET
+|Yes
+|Yes	
+|Yes	
+|Empty
+|Resource(s) 
+
+|HEAD
+|Yes
+|Yes	
+|Yes	
+|Empty
+|Empty
+
+|POST
+|Yes
+|No	
+|Yes	
+|Representation of the created resource  
+or controller info
+|Optional
+
+|PUT
+|No
+|Yes	
+|No	
+|Representation of the updated resource  
+|Optional
+
+|PATCH
+|No
+|Yes	
+|No	
+|Fields of the resource to update  
+|Optional
+
+|DELETE
+|Yes
+|Yes	
+|No	
+|Empty  
+|Optional
+
+|OPTIONS
 |Yes
 |Yes	
 |No	
@@ -255,13 +108,48 @@ OPTIONS should be used to retrieve metadata that describes a resource’s availa
 
 |===
 
-**​​Status codes**
-
-[cols="1,3", options="header"]
+=== Overview table 2: Status Code for each method
+[cols="3,1,1,2,1,1,1,1", options="header"]
 |===
-|​Code|Description​
-|​<<http-200,200 OK>> | Data is returned successfully and the response body returns some content. 
-|​<<http-204,204 No content>> | Data is returned successfully with no response body. 
+|Code
+|GET
+|HEAD
+|PUT
+|POST
+|PATCH
+|DELETE
+|OPTIONS
+
+|<<http-200,200 OK>>
+|X
+|X
+|X
+|Only controller
+|X
+|X
+|X
+
+ |<<http-201,201 Created>>	|-	|-	|If creation	|X	|-	|-	|-
+ |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
+ |<<http-204,204 No Content>>	|No	|X	|X	|X	|X	|X	|-
+  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
+  |<<http-303,303 See Other>>	|-	|-	|-	|X	|-	|-	|-
+  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
+  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
+  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
+ |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
+  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
+  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
+
+
 |===
-
-
