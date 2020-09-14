@@ -1,4 +1,4 @@
-﻿:update-date: 2020-xx-xx
+﻿:update-date: 2020-09-14
 = REST Guidelines
 {update-date}
 :doctype: book
