@@ -3,8 +3,10 @@
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
+
 === HEAD
 **HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
+
 
 === POST
 *POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
@@ -46,7 +48,7 @@ If these can't be upgraded to add support, client and server may agree to work a
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
 
  
-=== Overview table 1: How to use each method
+=== How to use each method
 
 [cols="1,1,1,1,4,2", options="header"]
 |===
@@ -108,48 +110,4 @@ or controller info
 
 |===
 
-=== Overview table 2: Status Code for each method
-[cols="3,1,1,2,1,1,1,1", options="header"]
-|===
-|Code
-|GET
-|HEAD
-|PUT
-|POST
-|PATCH
-|DELETE
-|OPTIONS
 
-|<<http-200,200 OK>>
-|X
-|X
-|X
-|Only controller
-|X
-|X
-|X
-
- |<<http-201,201 Created>>	|-	|-	|If creation	|X	|-	|-	|-
- |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
- |<<http-204,204 No Content>>	|No	|X	|X	|X	|X	|X	|-
-  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
-  |<<http-303,303 See Other>>	|-	|-	|-	|X	|-	|-	|-
-  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
-  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
-  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
- |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
-  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
-  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
-
-
-|===

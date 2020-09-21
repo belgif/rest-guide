@@ -3,8 +3,8 @@
 ** add: <<remove-collection-items, Remove a selection of items from a collection>> (<<Collection, Collection>>)
 ** improve of status codes in various locations like <<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>
 ** add: status codes <<http-429, 429 Too Many Requests>> and  <<http-502, 502 Bad Gateway>>  (<<status-codes>>)
-** add overview table about how to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
-** add overview table about acceptable Status Codes for each method (<<HTTP Methods, HTTP Methods>>)
+** add table about how to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
+** add  table about acceptable Status Codes for each method (<<StatusCodes, Status Codes>>)
 
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)
