@@ -216,7 +216,7 @@ The server failed to fulfill an apparently valid request.
 A 500 error is never the client’s fault and therefore it is reasonable for the client to retry the exact same request that triggered this response, and hope to GET a different response.
 |All: 
 <<GET,GET>>, <<HEAD,HEAD>>, <<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
-|502 Bad Gateway
+|[[http-502]]502 Bad Gateway
 |** The 502 ("Bad Gateway") status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server it accessed while attempting to fulfill the request.**
 |All: 
 <<GET,GET>>, <<HEAD,HEAD>>, <<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
@@ -230,8 +230,8 @@ The server MAY send a Retry-After header field to suggest an appropriate amount 
 
 |===
 
-
-=== Status Code for each method
+[[status-codes-by-method]]
+=== Status codes for each method
 [cols="3,1,1,2,1,1,1,1", options="header"]
 |===
 |Code
@@ -247,14 +247,14 @@ The server MAY send a Retry-After header field to suggest an appropriate amount 
 |X
 |X
 |X
-|Only controller
+|X (controller only)
 |X
 |X
 |X
 
- |<<http-201,201 Created>>	|-	|-	|If creation	|X	|-	|-	|-
+ |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
  |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
- |<<http-204,204 No Content>>	|No	|X	|X	|X	|X	|X	|-
+ |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
   |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
   |<<http-303,303 See Other>>	|-	|-	|-	|X	|-	|-	|-
   |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
@@ -270,7 +270,7 @@ The server MAY send a Retry-After header field to suggest an appropriate amount 
   |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
   |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
   |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-500,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
   |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
   |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
 

@@ -27,7 +27,7 @@ A document may have _child resources_ that represent its specific subordinate co
 image::collection.png[]
 
 When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable. In that case *prefer associations and create <<document-links,links>>* to other APIs from the employer resource.
-WARNING
+
 *Identity key*
 
 The _identity key_ is preferably a _natural business identifier_, uniquely identifying the business resource. If such key does not exist, a _surrogate or technical key_ (like http://tools.ietf.org/html/rfc4122[UUID^]) can be used.
