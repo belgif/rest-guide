@@ -114,18 +114,15 @@ a|
 }
 ----
 
-3+|Response codes
+3+|Most used response codes 
 ​​|<<http-200,200>>
 |OK
-|Default success code if the document exists
+|Default success code if the document exists.
 
-​​|<<http-304,304>>
-|Not Modified
-|Used for consultations with <<Conditional requests,conditional requests>>.
 
 |<<http-400,400>>
 |Bad request
-a|The dynamic path segment containing the identity key has a wrong data format
+a|The dynamic path segment containing the identity key has a wrong data format:
 
 [source,json]
 ----
@@ -147,8 +144,11 @@ a|The dynamic path segment containing the identity key has a wrong data format
 ​|<<http-404,404>>
 |Not Found
 |The document resource does not exist.
-​
+
 |===
+WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
+
+
 ====
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -284,14 +284,14 @@ a|
 
 ----
 
-3+|Response codes
+3+|Most used response codes 
 ​​|<<http-200,200>>
 |OK
-|Success code with resource after update echoed
+|The update is successful and updated resource is returned. 
 
 ​​|<<http-204,204>>
 |No Content
-|Success code without returning the resource
+|The update is successful but updated resource is not returned. 
 
 |<<http-400,400>>
 |Bad request
@@ -365,14 +365,14 @@ a|
 }
 ----
 
-3+|Response codes
+3+|Most used response codes
 |<<http-200,200>>
 |OK
-|Success code with resource after applying PATCH returned
+|Success code with resource after applying PATCH returned.
 
 |<<http-204,204>>
 |No Content
-|Success code without returning the resource
+|Success code without returning the resource.
 
 |<<http-400,400>>
 |Bad request
@@ -389,6 +389,7 @@ a|
 |===
 ====
 
+[[remove-document]]
 === Remove
 
 Use `DELETE` when you like to delete a document resource.
@@ -423,26 +424,35 @@ or
 
 200 OK
 {
- "message": "Employer didn't exist"
+ "message": "Employer is deleted."
 }
 ----
 
-3+|Response codes
-|<<http-204,204>>
-|No Content
-|Default success code if the delete succeeded
+3+|Most used response codes
 
 |<<http-200,200>>
 |OK
-|Success code with additional message
+|Success code with the deleted resource returned. 
+
+|<<http-204,204>>
+|No Content
+|Success code with the deleted resource not returned. 
 
 |<<http-400,400>>
 |Bad request
-|The input data is not valid according the data schema.
+|Generic error on client side. For example, the syntax of the request is invalid. 
 
 |<<http-404,404>>
 |Not Found
-|The resource does not exist and thus cannot be updated.
+|The resource does not exist and thus cannot be deleted.
+
+|<<http-409,409>>
+|Conflict
+|A constraint on the resource is violated. 
+The resource could not be deleted because the request is in conflict with the current 
+state of the resource.
+
+For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 
 |===
 ====

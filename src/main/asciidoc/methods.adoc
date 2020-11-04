@@ -3,31 +3,20 @@
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content
-|204 No Content|The search request returns no result
-|​​404 Not Found|The requested resource not found
-|===
 
 === HEAD
 **HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
 
-**​​Status codes**
 
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​200 OK|​The requested resource was found or a search request returns some content
-|204 No Content|The search request returns no result
-|​​404 Not Found|The requested resource not found
-|===
+=== POST
+*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
+
+The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection. The response should contain a Location HTTP header containing the newly created URI.
+
+POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
 
 === PUT
-**PUT must be used to both insert and update a stored resource under a consumer supplied URI​.**
+**PUT must be used to update a stored resource under a consumer supplied URI.** It could be used to insert a new resource in case the client application decides on the resource identifier.
 
 If the URI refers to an already existing resource, the enclosed entity SHOULD be considered as a new version to replace the one residing on the server. If the target resource is successfully modified in accordance with the state of the enclosed representation, then a 200 (OK)​ response SHOULD be sent to indicate successful completion of the request.
 
@@ -35,34 +24,6 @@ If the URI does not point to an existing resource, and that URI is capable of be
 
 PUT operations may have side effects (i.e. modify state), but MUST be idempotent.
 
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​200 OK|The existing resource is updated ​
-|201 Created|A new resource is created
-​​|409 Conflict|A constraint on the resource is violated
-|===
-
-=== POST
-*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
-
-The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection.
-
-The response should contain a Location HTTP header containing the newly created URI.
-
-POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
-
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​201 Created|A new resource is created
-|409 Conflict|The resource already exists
-|===
 
 === PATCH
 *PATCH must be used to update partially a representation of a resource.*
@@ -73,15 +34,6 @@ PATCH operations are not required to be idempotent, however they will often be i
 
 See <<Partial update>> on how to specify the set of instructions describing how a resource on the server should be modified.
 
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​200 OK|​Specific resource was requested and found or a search request returns some content
-|​​404 Not Found|a specific resource was requested and not found
-|​​409 Conflict|A constraint on the resource is violated​
-|===
 
 **Compatibility**
 
@@ -91,13 +43,71 @@ If these can't be upgraded to add support, client and server may agree to work a
 === DELETE
 *DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.
 
-**​​Status codes**
-
-[cols="1,3", options="header"]
-|===
-|​Code|Description​
-|​200 OK|Specific resource was requested and found or a search request returns some content
-|===
 
 === OPTIONS
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
+
+ 
+=== How to use each method
+
+[cols="1,1,1,1,4,2", options="header"]
+|===
+|Method
+|Collection|Document
+|Controller
+|Request body
+|Response body
+
+|GET
+|Yes
+|Yes	
+|Yes	
+|Empty
+|Resource(s) 
+
+|HEAD
+|Yes
+|Yes	
+|Yes	
+|Empty
+|Empty
+
+|POST
+|Yes
+|No	
+|Yes	
+|Representation of the created resource  
+or controller info
+|Optional
+
+|PUT
+|No
+|Yes	
+|No	
+|Representation of the updated resource  
+|Optional
+
+|PATCH
+|No
+|Yes	
+|No	
+|Fields of the resource to update  
+|Optional
+
+|DELETE
+|Yes
+|Yes	
+|No	
+|Empty  
+|Optional
+
+|OPTIONS
+|Yes
+|Yes	
+|No	
+|Empty  
+|Optional
+
+|===
+
+
