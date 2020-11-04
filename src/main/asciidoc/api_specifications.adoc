@@ -247,7 +247,7 @@ Pet:
 The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
 ====
 
-An example is the description a map of `embedded` resources, as described in <<Embedded resources>>.
+An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -262,6 +262,7 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
 
+[[enum-rule, Enum values rule]]
 [.rule, caption="Rule {counter:rule-number}: "]
 .Enum values
 ====

@@ -1,5 +1,6 @@
-﻿= REST Guidelines
-{localdate}
+﻿:update-date: 2020-09-14
+= REST Guidelines
+{update-date}
 :doctype: book
 :docinfo:
 :toc: left
@@ -53,8 +54,8 @@ include::internationalization.adoc[]
 
 include::tracing.adoc[]
 
+include::events.adoc[]
+
 // include::oauth.adoc[]
 
-//include::monitoring.adoc[]
-
-//include::caching.adoc[]
+include::health.adoc[]

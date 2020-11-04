@@ -2,6 +2,7 @@
 
 Thanks to _hypermedia controls_ a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
 
+[[links]]
 === Links ===
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -16,7 +17,7 @@ CAUTION: For brevity, most URIs in the style guide examples are shortened, but i
 
 All `href` hyperlinks are derived from this minimal link type:
 
-.HttpLink JSON data type (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger-2.0/common/v1/common-v1.yaml[common-v1.yaml])
+.HttpLink JSON data type (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
 HttpLink:
   description: A base type of objects representing links to resources.
@@ -31,7 +32,7 @@ HttpLink:
 
 `self` hyperlinks are derived from the following type:
 
-.SelfLink JSON data type (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger-2.0/common/v1/common-v1.yaml[common-v1.yaml])
+.SelfLink JSON data type (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml])
 ```YAML
 SelfLink:
   description: A base type representing a link to the resource's own location within its representation

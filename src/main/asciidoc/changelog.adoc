@@ -1,10 +1,14 @@
 == Changelog
-* 2020-09-18
+* 2020-11-04
 ** added: <<remove-collection-items, Remove a selection of items from a collection>> (<<Collection, Collection>>)
 ** updated: status codes made consistent in various locations (<<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>)
 ** added: status codes <<http-429, 429 Too Many Requests>> and  <<http-502, 502 Bad Gateway>>  (<<status-codes>>)
 ** added: table about how to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
 ** added: table listing <<status-codes-by-method,acceptable status codes for each method>> (<<status-codes, Status Codes>>)
+* 2020-09-09
+** new: recommend use of CloudEvents specification (<<events>>)
+** add guidelines on API health checks (<<health>>)
+** move common OpenAPI schemas to separate GitHub repositories (<<belgif-openapi-types>>)
 * 2020-08-03
 ** allow OpenAPI 3.0 (<<api-specs>>)
 ** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list (<<openapi-tools>>)
@@ -64,7 +68,7 @@
 ** guidelines about reusable JSON Schemas
 * 2018-04-18
 ** added <<versioning>> guidelines
-** removed collector, added <<Non-CRUD operations>> under <<document>> section
+** removed collector, added "Non-CRUD operations" under <<document>> section
 * 2018-03-14
 ** added reserved HTTP headers and rule on custom http headers (<<reserved-HTTP-headers>>)
 ** content negotiation and JSON subtypes added to <<Media Types>>
