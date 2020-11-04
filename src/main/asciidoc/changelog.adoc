@@ -1,4 +1,10 @@
 == Changelog
+* 2020-11-04
+** added: <<remove-collection-items, Remove a selection of items from a collection>> (<<Collection, Collection>>)
+** updated: status codes made consistent in various locations (<<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>)
+** added: status codes <<http-429, 429 Too Many Requests>> and  <<http-502, 502 Bad Gateway>>  (<<status-codes>>)
+** added: table about how to use each HTTP method (<<HTTP Methods, HTTP Methods>>)
+** added: table listing <<status-codes-by-method,acceptable status codes for each method>> (<<status-codes, Status Codes>>)
 * 2020-09-09
 ** new: recommend use of CloudEvents specification (<<events>>)
 ** add guidelines on API health checks (<<health>>)
@@ -14,7 +20,7 @@
 ** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
 ** updated <<Resource URI>> notation rule: no trailing slashes in URIs
-** added rule: <<default values>> in OpenAPI specification
+** added rule: <<default-values>> in OpenAPI specification
 ** added <<Controller>> resource archetype and move all archetypes to <<Resources>> chapter
 * 2019-05-23
 ** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see <<Standardized problem types>>

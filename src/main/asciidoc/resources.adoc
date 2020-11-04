@@ -102,9 +102,11 @@ There are three different resource archetypes:
 * <<Collection>>
 * <<Controller>>
 
+
 include::resources-document.adoc[leveloffset=+1]
 
 include::resources-collection.adoc[leveloffset=+1]
 
 include::resources-controller.adoc[leveloffset=+1]
+
 
