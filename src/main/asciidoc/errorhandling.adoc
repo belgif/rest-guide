@@ -186,7 +186,9 @@ include::problems/expiredAccessToken.adoc[leveloffset=3]
 include::problems/missingScope.adoc[leveloffset=3]
 include::problems/missingPermission.adoc[leveloffset=3]
 include::problems/resourceNotFound.adoc[leveloffset=3]
+include::problems/payloadTooLarge.adoc[leveloffset=3]
 include::problems/tooManyRequests.adoc[leveloffset=3]
+include::problems/tooManyFailedRequests.adoc[leveloffset=3]
 
 
 === API specific problem types

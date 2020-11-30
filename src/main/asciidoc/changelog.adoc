@@ -1,4 +1,6 @@
 == Changelog
+* 202x-xx-xx
+** added two new problem types: <<payloadTooLargeProblem, payloadTooLarge>> and <<tooManyFailedRequestsProblem, tooManyFailedRequests>>
 * 2020-11-04
 ** added: <<remove-collection-items, Remove a selection of items from a collection>> (<<Collection, Collection>>)
 ** updated: status codes made consistent in various locations (<<Collection>>, <<Document>>, <<HTTP Methods>> and <<status-codes>>)
