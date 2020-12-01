@@ -1,0 +1,18 @@
+= Bad Gateway
+:nofooter:
+
+*Status code* 502 Bad Gateway
+
+*Description* The API, acting as a gateway or proxy to an API provided by a third party, received an invalid response from the upstream server.
+
+```
+HTTP/1.1 502 Bad Gateway
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/badGateway",
+   "status": 502,
+   "title": "Bad Gateway",
+   "detail": "Error in communication with upstream service"
+}
+```

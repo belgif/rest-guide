@@ -136,7 +136,7 @@ Content-Type: application/problem+json
   ]
 }
 ```
-
+[[standardized-problem-types]]
 === Standardized problem types
 
 A list of problem types is standardized for all G-Cloud REST APIs. The problem description has a type defined in `+https://www.gcloud.belgium.be/rest/problems+`.
@@ -186,8 +186,11 @@ include::problems/expiredAccessToken.adoc[leveloffset=3]
 include::problems/missingScope.adoc[leveloffset=3]
 include::problems/missingPermission.adoc[leveloffset=3]
 include::problems/resourceNotFound.adoc[leveloffset=3]
+include::problems/payloadTooLarge.adoc[leveloffset=3]
 include::problems/tooManyRequests.adoc[leveloffset=3]
-
+include::problems/tooManyFailedRequests.adoc[leveloffset=3]
+include::problems/internalServerError.adoc[leveloffset=3]
+include::problems/badGateway.adoc[leveloffset=3]
 
 === API specific problem types
 
