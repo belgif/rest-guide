@@ -1,0 +1,29 @@
+[[payloadTooLargeProblem]]
+= Payload Too Large
+:nofooter:
+
+*Status code* 413 Payload Too Large
+
+*Description* The consumer request was refused because its payload is too large.
+The property `limit` contains the maximum payload size expressed in bytes.
+
+```
+POST /attachments
+
+<very large binary attachment>
+```
+
+returns
+
+```
+HTTP/1.1 413 Payload Too Large
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/payloadTooLarge",
+   "status": 413,
+   "title": "Payload Too Large",
+   "detail": "Request message must not be larger than 10 MB",
+   "limit": 10485760
+}
+```

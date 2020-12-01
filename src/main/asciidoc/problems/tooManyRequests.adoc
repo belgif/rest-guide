@@ -3,7 +3,7 @@
 
 *Status code* 429 Too Many Requests
 
-*Description* The consumer quota was passed.
+*Description* The consumer quota was exceeded.
 The property `limit` contains the number of requests allowed.
 `retryAfter` indicates the time when the counters will be reset.
 `retryAfterSec` indicates how many seconds the consumer must wait before resubmitting the request.

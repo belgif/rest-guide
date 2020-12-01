@@ -1,0 +1,17 @@
+= Internal Server Error
+:nofooter:
+
+*Status code* 500 Internal Server Error
+
+*Description* The server has encountered a situation it doesn't know how to handle.
+
+```
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/problem+json
+
+{
+   "type": "https://www.gcloud.belgium.be/rest/problems/internalServerError",
+   "status": 500,
+   "title": "Internal Server Error"
+}
+```
