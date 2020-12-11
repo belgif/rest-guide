@@ -1,6 +1,24 @@
-This REST styleguide is established by the REST design working group, which includes various participating Belgian government institutions.
+The styleguide, built from these sources, is available on https://www.gcloud.belgium.be/rest/.
 
-The styleguide, built from these sources, is publicly available on https://www.gcloud.belgium.be/rest/.
+This REST styleguide is established by the REST design working group, which includes various participating Belgian government institutions.
+See the [wiki](https://github.com/belgif/rest-guide/wiki) for more information on the organization of the REST design working group and its meeting reports .
+
+Reusable OpenAPI 2.0 and 3.0 data types are maintained in the [belgif openapi-* GitHub repositories](https://github.com/belgif?q=openapi&type=&language=), organized per domain.
+Types in beta status are in the source code, but not part of the released artifacts.
+
+| domain | link |
+|--------|------|
+| common | [latest release](https://github.com/belgif/openapi-common/releases/latest) |
+| problem | [latest release](https://github.com/belgif/openapi-problem/releases/latest) |
+| time | [latest release](https://github.com/belgif/openapi-time/releases/latest) |
+| person | [latest release](https://github.com/belgif/openapi-person/releases/latest) |
+| person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) |
+| location | [latest release](https://github.com/belgif/openapi-location/releases/latest) |
+| organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) |
+| employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) |
+| money | [repository (not yet released)](https://github.com/belgif/openapi-money) |
+
+Apache Maven users can also [download](https://search.maven.org/search?q=g:io.github.belgif.openapi) them from Maven Central.
 
 # Guidelines to write the styleguide
 
