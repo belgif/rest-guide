@@ -78,7 +78,7 @@ PATCH {API}/companies/1
 
 The corresponding JSON data type includes the link types using `allOf`.
 As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.
-[subs="normal"]
+
 ```YAML
 definitions:
   Company:
@@ -87,7 +87,7 @@ definitions:
     - type: object
       properties:
         owner:
-          "$ref": "#definitions/PersonReference"
+          "$ref": "#/definitions/PersonReference"
         website:
           type: string
           format: uri
@@ -97,7 +97,7 @@ definitions:
       - type: object
         properties:
           ssin:
-            "$ref": "#definitions/Ssin"
+            "$ref": "#/definitions/Ssin"
 ```
 ====
 
