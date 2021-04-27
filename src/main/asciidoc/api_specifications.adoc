@@ -312,7 +312,7 @@ Following tools can be used to edit OpenAPI files
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Plugin for IntelliJ. Text-only Swagger editor
 |RepreZen | https://www.reprezen.com/ | Commercial editor based on KaiZen. Graphical and text view.
 |Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
-|Stoplight Studio | https://stoplight.io/studio/ | Open Source editor with graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
+|Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |===
 
 Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
