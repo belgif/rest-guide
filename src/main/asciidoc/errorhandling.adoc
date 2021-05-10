@@ -47,19 +47,21 @@ For any problem occurred during processing, whether it be caused by the client o
 [.rule, caption="Rule {counter:rule-number}: "]
 .Use of RFC 7807 Problem Details
 ====
-As per https://tools.ietf.org/html/rfc7807[Problem Details for HTTP APIs (RFC 7807) specification^]:
+Any information on a problem SHOULD be provided in the Problem Detail format, as specified in https://tools.ietf.org/html/rfc7807[Problem Details for HTTP APIs (RFC 7807)^]:
 
 * the media type for problems SHOULD be `application/problem+json`
-* `instance` contains a unique identifier of the problem instance that could be used to track the message for support purposes
-* `type` contains a unique identifier for the type of the problem that MUST remain stable over time. It can be used by API clients during problem handling.
-* `detail` can provide specific consumer-friendly information about the specific failing request
+* `status`: the HTTP status code
+* `type`: a unique identifier for the type of the problem that MUST remain stable over time. It can be used by API clients during problem handling.
+* `title`: a short summary of the problem type in English
+* `instance`: a unique identifier of the problem instance. It could be used to track the message for support purposes.
+* `detail`: consumer-friendly information about the specific failing request
 * additional properties may be added to provide more information on the problem
 
-<TODO: always problem ?>
+The Problem Details response body MAY be absent when the HTTP status code itself provides sufficient information (e.g. for 405 Method Not Allowed, 406 Not Acceptable or 415 Unsupported Media Type).
 
-Following additional restrictions are to be applied:
+This guide applies following additional restrictions on the Problem Details structure:
 
-* `type` and `instance` SHOULD be specified as absolute URIs in order to avoid issues when resolving relative URIs (TODO href rule)
+* `type` and `instance` SHOULD be specified as absolute URIs in order to avoid issues when resolving relative URIs (see <<links>>)
 * The `type` property, a stable identifier for the type of problem, is MANDATORY instead of optional
 * a new optional `href` property SHOULD be used to provide a URI to human-readable documentation on the problem type instead of dereferencing the `type` value
 ====
@@ -121,7 +123,6 @@ A description of API-specific problem types can be provided as a child resource 
    `/refData/problemTypes/{problemType}`
 If provided, it is RECOMMENDED to at least support HTML format.
 ====
-# TODO: validate problemTypes subresource
 
 Reverse FQDN notation for `<org>` is not recommended in order to keep the identifiers short and readable.
 
