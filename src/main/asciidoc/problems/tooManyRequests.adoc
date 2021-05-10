@@ -15,7 +15,8 @@ GET /enterprises/0206731645
 HTTP/1.1 429 Too many requests
 Content-Type: application/problem+json
 {
-   "type": "https://www.gcloud.belgium.be/rest/problems/tooManyRequests",
+   "type": "urn:problem-type:belgif:tooManyRequests",
+   "href": "https://www.gcloud.belgium.be/rest/problems/tooManyRequests.html",
    "status": 429,
    "title": "Too Many Requests",
    "detail": "No more requests accepted before 2018-08-09T06:56:00Z",
