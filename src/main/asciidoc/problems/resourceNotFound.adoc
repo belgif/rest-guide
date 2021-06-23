@@ -15,7 +15,8 @@ HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
 
 {
-  "type": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound"
+  "type": "urn:problem-type:belgif:resourceNotFound",
+  "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
   "status": 404,
   "title": "Resource Not Found",
   "detail": "No resource /enterprises found"
@@ -31,7 +32,8 @@ HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
 
 {
-  "type": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound"
+  "type": "urn:problem-type:belgif:resourceNotFound",
+  "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
   "status": 404,
   "title": "Enterprise not found",
   "detail": "No enterprise with CBE number 0206731645",

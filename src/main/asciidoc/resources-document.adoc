@@ -559,7 +559,7 @@ Content-Type: application/json;charset=UTF-8
       "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
       "title": "Bad Request",
       "status": 400,
-      "type": "http://example.org/errors/invalidImageFormat",
+      "type": "urn:problem-type:example:invalidImageFormat",
       "detail": "Invalid image format"
     }
   }

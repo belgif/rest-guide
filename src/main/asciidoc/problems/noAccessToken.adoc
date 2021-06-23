@@ -17,7 +17,8 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/problem+json
 
 {
-   "type": "https://www.gcloud.belgium.be/rest/problems/noAccessToken",
+   "type": "urn:problem-type:belgif:noAccessToken",
+   "href": "https://www.gcloud.belgium.be/rest/problems/noAccessToken.html",
    "status": 401,
    "title": "No Access Token",
    "detail": "No Bearer access token found in Authorization HTTP header"

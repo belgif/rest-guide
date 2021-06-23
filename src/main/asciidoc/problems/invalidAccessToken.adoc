@@ -15,7 +15,8 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/problem+json
 
 {
-   "type": "https://www.gcloud.belgium.be/rest/problems/invalidAccessToken",
+   "type": "urn:problem-type:belgif:invalidAccessToken",
+   "href": "https://www.gcloud.belgium.be/rest/problems/invalidAccessToken.html",
    "status": 401,
    "title": "Invalid Access Token",
    "detail": "The Bearer access token found in the Authorization HTTP header is invalid"
