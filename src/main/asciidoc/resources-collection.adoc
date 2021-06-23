@@ -93,7 +93,7 @@ EmployersResponse:
       items:
         type: array
         items:
-          $ref: "#EmployerLink"
+          $ref: "#/definitions/EmployerLink"
       total:
         type: integer
 EmployerLink:
@@ -102,9 +102,9 @@ EmployerLink:
   - type: object
     properties:
       nssoNbr:
-        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/NssoNbr
+        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/definitions/NssoNumber"
       cbeNbr:
-        $ref: organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNbr
+        $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNumber"
 ```
 ====
 
