@@ -9,6 +9,7 @@ One of following strategies may be chosen for internationalization:
 * Offer descriptions in all applicable languages, i.e. for APIs offered by the Belgian Government in French, Dutch, German and sometimes English as well. This approach is not scalable to high number of languages.
   The descriptions may be filtered by a `lang` query parameter.
 
+[[i18n-negotiation]]
 === Accept-Language
 
 As for <<Media Types>>, HTTP supports content negotiation for the language used in response content.

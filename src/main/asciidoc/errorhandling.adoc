@@ -54,7 +54,7 @@ Any information on a problem SHOULD be provided in the Problem Detail format, as
 * `type`: a unique identifier for the type of the problem that MUST remain stable over time. It can be used by API clients during problem handling.
 * `title`: a short summary of the problem type in English
 * `instance`: a unique identifier of the problem instance. It could be used to track the message for support purposes.
-* `detail`: consumer-friendly information about the specific failing request
+* `detail`: consumer-friendly information about the specific failing request. It MAY be localized using <<i18n-negotiation, language negotiation>>.
 * additional properties may be added to provide more information on the problem
 
 The Problem Details response body MAY be absent when the HTTP status code itself provides sufficient information (e.g. for 405 Method Not Allowed, 406 Not Acceptable or 415 Unsupported Media Type).
