@@ -32,21 +32,24 @@ Vary: Accept
 [discrete]
 === JSON
 
-The primary media type to support is *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
+The primary media type to support is *JSON* (Javascript Object Notation).
 The choice for JSON is particularly made for supporting JavaScript clients.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Representation of structured data
 ====
-Structured data MUST be made available in JSON format.
-Always stick to *UTF-8* encoding and specify the charset in the `Content-Type` HTTP header.
+Structured data MUST be made available in JSON format (https://tools.ietf.org/html/rfc8259[RFC 8259^]) with media type `application/json`.
+JSON text MUST be encoded using *UTF-8*.
 ====
+
+Some legacy clients erroneously decode JSON payloads using a non-UTF-8 encoding by default.
+To work around this, a charset parameter may be added to the `Content-Type` HTTP header, even though it has no meaning according to the JSON RFC.
 
 ```
 Content-Type: application/json;charset=UTF-8
 ```
 
-MIME types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
+Media types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
 
 * `application/merge-patch+json` for JSON Merge Patch payloads (see <<Partial update>>)
 * `application/problem+json` for Problem Detail for HTTP APIs (RFC 7807) payloads (see <<Error handling>>)
@@ -72,7 +75,14 @@ Automatic conversion between the two standards will almost never give a satisfyi
 [[media-types-openapi]]
 === Media types in OpenAPI
 
-The request and response body's media type are specified in an OpenAPI specification respectively by the `consumes` and `produces` keywords:
+Payload media types can be specified in an OpenAPI specification.
+
+For JSON, the media type specified in OpenAPI should not contain a `charset` parameter, because this is known to lead to problems in some server software when treating requests without the parameter in the `Accept` header.
+
+[discrete]
+==== OpenAPI 2.0
+
+The request and response body's media type are specified in an OpenAPI 2.0 specification respectively by the `consumes` and `produces` keywords:
 
 * at operation level
 * at root level, as default media types for the entire specification
@@ -88,7 +98,7 @@ The request and response body's media type are specified in an OpenAPI specifica
       - image/jpeg  # for photo
       - application/problem+json # for problems
       parameters:
-      - $ref: "person/identifier/v1beta/person-identifier-v1.yaml#/parameters/SsinQueryParameter"
+      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/parameters/SsinQueryParameter"
       responses:
         "200":
           description: successful operation
@@ -118,3 +128,40 @@ produces:
 ```
 ====
 
+[discrete]
+==== OpenAPI 3.0
+
+OpenAPI 3.0 allows to specify a different media type for each request or response format.
+Default media types cannot be specified.
+
+.Specifying OpenAPI 3.0 media types
+====
+```YAML
+  /persons/{ssin}/photo:
+    get:
+      summary: Get the photo of the person
+      operationId: getPhoto
+      parameters:
+      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/components/parameters/SsinQueryParameter"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: SSIN not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/responses/InvalidSsinResponse"
+        "404":
+          description: SSIN not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InvalidSsinProblem"
+```
+====
