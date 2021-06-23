@@ -23,7 +23,8 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 
 {
-   "type": "https://www.gcloud.belgium.be/rest/problems/badRequest",
+   "type": "urn:problem-type:belgif:badRequest",
+   "href": "https://www.gcloud.belgium.be/rest/problems/badRequest.html",
    "status": 400,
    "title": "Bad Request",
    "detail": "The input message is incorrect",

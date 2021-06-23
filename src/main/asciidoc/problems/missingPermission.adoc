@@ -17,7 +17,8 @@ HTTP/1.1 403 Forbidden
 Content-Type: application/problem+json
 
 {
-   "type": "https://www.gcloud.belgium.be/rest/problems/missingPermission",
+   "type": "urn:problem-type:belgif:missingPermission",
+   "href": "https://www.gcloud.belgium.be/rest/problems/missingPermission.html",
    "status": 403,
    "title": "Missing Permission",
    "detail": "Not permitted to update the details of this enterprise"
