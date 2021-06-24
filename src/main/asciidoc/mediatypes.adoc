@@ -1,3 +1,4 @@
+[[media-types]]
 == Media Types
 
 The HTTP protocol supports content negotiation for media types of the response.
@@ -129,6 +130,7 @@ produces:
 ====
 
 [discrete]
+[[media-type-openapi3]]
 ==== OpenAPI 3.0
 
 OpenAPI 3.0 allows to specify a different media type for each request or response format.
