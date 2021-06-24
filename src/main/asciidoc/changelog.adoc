@@ -1,4 +1,8 @@
 == Changelog
+* 2021-06-24
+** updated: use URNs as problem type and add href for problem documentation (<<Error handling>>)
+** updated: clarify use of charset in JSON media type (<<media-types>>)
+** added: how to specify media types in OpenAPI 3 (<<media-type-openapi3>>)
 * 2020-12-02
 ** new: standardized problem types internalServerError, badGateway, tooManyFailedRequests, payloadTooLarge (<<standardized-problem-types>>)
 * 2020-11-04
@@ -65,7 +69,7 @@
 ** updated <<Controller>>, allowing verb as child resource and GET method in some cases
 ** update format of version number in <<API specifications>>
 ** added contact email address in <<Introduction>>
-** prefix `BelGov-` added for custom <<reserved HTTP headers>>
+** prefix `BelGov-` added for custom <<reserved-HTTP-headers>>
 * 2018-04-19
 ** guidelines about reusable JSON Schemas
 * 2018-04-18
