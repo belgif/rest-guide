@@ -42,7 +42,7 @@ node () {
     unstash name:"site"
     sh "cp -rf target/site/doc/* docker/contrib/src"
     sh "oc start-build gcloud-rest-styleguide-website --follow=true --build-loglevel=9 --from-dir='./docker'"
-    openshiftVerifyBuild(bldCfg: "gcloud-rest-styleguide-website", waitTime: '240', waitUnit: 'sec', verbose: 'false')
+    // openshiftVerifyBuild(bldCfg: "gcloud-rest-styleguide-website", waitTime: '240', waitUnit: 'sec', verbose: 'false')
   }
 
   stage('\u2463 Deploy Website') {
