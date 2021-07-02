@@ -129,8 +129,12 @@ node ('docker') {
     // openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
     //             destStream: "gcloud-rest-styleguide", destTag: "tst",
     //             alias: 'true', verbose: 'false')
-    
-    openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:tst')
+
+    openshift.withCluster() {
+      openshift.withProject() {
+        openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:tst')
+      }
+    }
 
   }
 
@@ -151,8 +155,11 @@ node ('docker') {
       //              destStream: "gcloud-rest-styleguide", destTag: "prd",
       //              alias: 'true', verbose: 'false')
 
-      openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:prd')
-
+    openshift.withCluster() {
+      openshift.withProject() {
+        openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:prd')
+      }
+    }
     } else {
      echo "The deployment of this image is not approved in test.  Do not tag this image for Production deployment."
     }
