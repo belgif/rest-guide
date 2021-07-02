@@ -1,6 +1,4 @@
 ﻿:update-date: 2021-06-24
-= REST Guidelines
-{update-date}
 :doctype: book
 :docinfo:
 :toc: left
@@ -18,6 +16,11 @@
 :stylesheet: my-theme.css
 :checkedbox: pass:normal[&#10004;]
 :API: http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1
+
+https://www.gcloud.belgium.be/[<- G-Cloud Home]
+
+= REST Guidelines
+{update-date}
 
 :toc!:
 :caption!:
