@@ -46,10 +46,19 @@ node () {
   }
 
   stage('\u2463 Deploy Website') {
-    openshiftDeploy(depCfg: "gcloud-rest-styleguide-website", verbose: 'false', waitTime: '240', waitUnit: 'sec')
-    openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
+    //openshiftDeploy(depCfg: "gcloud-rest-styleguide-website", verbose: 'false', waitTime: '240', waitUnit: 'sec')
+    //openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
     //openshiftVerifyDeployment(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '240', waitUnit: 'sec')
     //openshiftVerifyService(svcName: "gcloud-rest-styleguide-website", verbose: 'false')
+    
+    openshift.withCluster() {
+      openshift.withProject() {
+      def dc = openshift.selector('dc', "gcloud-rest-styleguide-website")
+      // this will wait until the desired replicas are available
+      dc.rollout().status()
+      }
+    }
+
   }
 
 }
@@ -69,9 +78,9 @@ node ('docker') {
     // '''
   }
 
-  stage('\u2465 Undeploy Website') {
-    openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '0', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
-  }
+  // stage('\u2465 Undeploy Website') {
+  //   openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '0', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
+  // }
 
   stage ('\u2466 Auto Release Tag.') {
     echo "We use an Imagestream for Rest Styleguide deployment in Test environment (Openshift Project : ssb-test-community-tools)"
@@ -116,9 +125,12 @@ node ('docker') {
     echo "Refresh [tst] ImagestreamTag."
     echo "Sleep while Openshift masters refresh all imagestreams ..."
     sh 'sleep 120'
-    openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
-                 destStream: "gcloud-rest-styleguide", destTag: "tst",
-                 alias: 'true', verbose: 'false')
+
+    // openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
+    //             destStream: "gcloud-rest-styleguide", destTag: "tst",
+    //             alias: 'true', verbose: 'false')
+    
+    openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:tst')
 
   }
 
@@ -135,9 +147,11 @@ node ('docker') {
       echo "The deployment of this image is approved in test.  Refresh [prd] ImagestreamTag."
       echo "Refresh [prd] ImagestreamTag."
 
-      openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
-                   destStream: "gcloud-rest-styleguide", destTag: "prd",
-                   alias: 'true', verbose: 'false')
+      // openshiftTag(srcStream: "gcloud-rest-styleguide", srcTag: "${GCLOUD_DOCKER_TAG}",
+      //              destStream: "gcloud-rest-styleguide", destTag: "prd",
+      //              alias: 'true', verbose: 'false')
+
+      openshift.tag( 'gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}', 'gcloud-rest-styleguide:prd')
 
     } else {
      echo "The deployment of this image is not approved in test.  Do not tag this image for Production deployment."
