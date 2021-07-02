@@ -42,14 +42,14 @@ node () {
     unstash name:"site"
     sh "cp -rf target/site/doc/* docker/contrib/src"
     sh "oc start-build gcloud-rest-styleguide-website --follow=true --build-loglevel=9 --from-dir='./docker'"
-    openshiftVerifyBuild(bldCfg: "gcloud-rest-styleguide-website", waitTime: '240', waitUnit: 'sec', verbose: 'false')
+    //openshiftVerifyBuild(bldCfg: "gcloud-rest-styleguide-website", waitTime: '240', waitUnit: 'sec', verbose: 'false')
   }
 
   stage('\u2463 Deploy Website') {
     openshiftDeploy(depCfg: "gcloud-rest-styleguide-website", verbose: 'false', waitTime: '240', waitUnit: 'sec')
     openshiftScale(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '240', waitUnit: 'sec')
-    openshiftVerifyDeployment(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '240', waitUnit: 'sec')
-    openshiftVerifyService(svcName: "gcloud-rest-styleguide-website", verbose: 'false')
+    //openshiftVerifyDeployment(depCfg: "gcloud-rest-styleguide-website", replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '240', waitUnit: 'sec')
+    //openshiftVerifyService(svcName: "gcloud-rest-styleguide-website", verbose: 'false')
   }
 
 }
