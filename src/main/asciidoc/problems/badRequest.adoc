@@ -10,9 +10,9 @@
 POST /enterprises/abc
 
 {
-    "mandator": {
-        "enterpriseNumber": "123456"
-    }
+  "mandator": {
+    "enterpriseNumber": "123456"
+  }
 }
 ```
 
@@ -23,24 +23,24 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 
 {
-   "type": "urn:problem-type:belgif:badRequest",
-   "href": "https://www.gcloud.belgium.be/rest/problems/badRequest.html",
-   "status": 400,
-   "title": "Bad Request",
-   "detail": "The input message is incorrect",
-   "invalidParams": [
-       {
-          "in": "path",
-          "name": "enterpriseNumber",
-          "reason": "should be numeric",
-          "value": "abc"
-       },
-       {
-          "in": "body",
-          "name": "mandator.enterpriseNumber",
-          "reason": "should have 10 digits",
-          "value": "123456"
-       }
-   ]
+  "type": "urn:problem-type:belgif:badRequest",
+  "href": "https://www.gcloud.belgium.be/rest/problems/badRequest.html",
+  "status": 400,
+  "title": "Bad Request",
+  "detail": "The input message is incorrect",
+  "invalidParams": [
+    {
+      "in": "path",
+      "name": "enterpriseNumber",
+      "reason": "should be numeric",
+      "value": "abc"
+    },
+    {
+      "in": "body",
+      "name": "mandator.enterpriseNumber",
+      "reason": "should have 10 digits",
+      "value": "123456"
+    }
+ ]
 }
 ```
