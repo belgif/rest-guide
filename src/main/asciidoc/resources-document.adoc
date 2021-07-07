@@ -127,18 +127,20 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 [source,json]
 ----
 {
- "instance": "63b68bfa-bcdc-40f1",
- "title": "Bad Request",
- "code": 400,
- "detail": "The input message is incorrect",
- "invalidParams": [
-  {
-   "in": "path",
-   "name": "employerId",
-   "reason": "This value should be numeric",
-   "value": "abc"
-  }
- ]
+  "type": "urn:problem-type:belgif:badRequest",
+  "href": "https://www.gcloud.belgium.be/rest/problems/badRequest.html",
+  "status": 400,
+  "title": "Bad Request",
+  "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
+  "detail": "The input message is incorrect",
+  "invalidParams": [
+    {
+     "in": "path",
+     "name": "employerId",
+     "reason": "This value should be numeric",
+     "value": "abc"
+    }
+  ]
 }
 ----
 ​|<<http-404,404>>
@@ -556,10 +558,11 @@ Content-Type: application/json;charset=UTF-8
     "state": "failed",
     "completed":"2018-09-13T02:10:00Z",
     "problem": {
-      "instance": "d9e35127-e9b1-4201-a211-2b52e52508df",
+      "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
       "title": "Bad Request",
       "status": 400,
       "type": "urn:problem-type:example:invalidImageFormat",
+      "href": "https://example.org/example/v1/refData/problemTypes/urn:problem-type:example:invalidImageFormat",
       "detail": "Invalid image format"
     }
   }
