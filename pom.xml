@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <!-- Parent is the SmalS-MvM master pom -->
 
     <!-- General attributes -->
     <modelVersion>4.0.0</modelVersion>
@@ -18,34 +17,12 @@
     </properties>
     <developers>
         <developer>
-            <name>Willem Salembier</name>
-            <email>willem.salembier@smals.be</email>
-            <properties>
-                <RegistrationNumber>7130</RegistrationNumber>
-            </properties>
-            <id>wisa</id>
-            <roles>
-                <role>Solution Architect</role>
-                <role>Architect</role>
-            </roles>
+            <name>REST Guide working group</name>
+            <email>rest-styleguide@gcloud.belgium.be</email>
         </developer>
     </developers>
 
-    <distributionManagement>
-        <!-- The site deploy user is soadoc and interactive keyboard authentication
-          has been disabled for this particular user in /etc/ssh/sshd_config
-
-          Match user soadoc
-            PasswordAuthentication yes
-            KbdInteractiveAuthentication no
-        -->
-
-        <!--<site>
-            <id>doc.website</id>
-            <name>Documentation Website</name>
-            <url>scp://soa.cloud.smals.be/opt/apache-smals/www</url>
-        </site>-->
-    </distributionManagement>
+    <distributionManagement/>
 
     <build>
         <extensions>

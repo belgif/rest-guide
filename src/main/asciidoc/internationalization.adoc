@@ -13,7 +13,7 @@ One of following strategies may be chosen for internationalization:
 === Accept-Language
 
 As for <<Media Types>>, HTTP supports content negotiation for the language used in response content.
-````
+
 [.rule, caption="Rule {counter:rule-number}: "]
 .HTTP language headers
 ====
