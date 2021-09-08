@@ -313,6 +313,7 @@ Following tools can be used to edit OpenAPI files
 |RepreZen | https://www.reprezen.com/ | Commercial editor based on KaiZen. Graphical and text view.
 |Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
 |Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
+|42Crunch OpenAPI (Swagger) Editor|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
 |===
 
 Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
@@ -331,5 +332,6 @@ Following tools can be used to generate server stubs and API client libraries fr
 |Name|Link
 |OpenAPI 2.0 specification| http://spec.openapis.org/oas/v2.0.html
 |OpenAPI 3.0 specification| http://spec.openapis.org/oas/v3.0.3.html
+|OpenAPI 3.1 specification| https://spec.openapis.org/oas/v3.1.0.html
 |Swagger | https://swagger.io/docs/specification/2-0/basic-structure/
 |===
