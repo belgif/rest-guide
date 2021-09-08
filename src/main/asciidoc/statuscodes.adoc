@@ -38,8 +38,8 @@ There may also be times when a new resource is created as a result of some custo
 |[[http-202]]202 Accepted
 |**202 (“Accepted”) must be used to indicate successful start of an asynchronous action**
 
-A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process.
-A POST method may send 202 responses, but other methods should not. (TODO - long-running tasks - issue #17)
+A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process (see <<long-running-tasks>>).
+A POST method may send 202 responses, but other methods should not.
 |​<<POST,POST>> 
 
 |[[http-204]]204 No Content
