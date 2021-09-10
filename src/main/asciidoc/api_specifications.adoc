@@ -277,7 +277,7 @@ Enumerated string values SHOULD be declared in lowerCamelCase, just as property 
 .Enum declaration
 ====
 ```YAML
-state:
+State:
   type: string
   enum:
   - processing
