@@ -53,14 +53,15 @@ When designing a new identifier, various requirements may be of importance speci
 * easy to represent in URL parameter without escaping
 * sortable (for technical reasons e.g. pagination)
 
+[[new-identifiers]]
 [.rule, caption="Rule {counter:rule-number}: "]
 .Designing new identifiers
 ====
 For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
 
-Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identitical. This means that they are case-sensitive and whitespace or leading zeroes are significant.
+Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identitical. This means that capitalization, whitespace or leading zeroes are significant.
 
-In the OpenAPI data type for the identifier, a regular expression may be specified if helpful for input validation or hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format. 
+In the OpenAPI data type for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format. 
 
 No business meaning SHOULD be attributed to parts of the identifier. This should be captured in separate data fields. Parts with technical meaning like a checksum are allowed.
 ====
@@ -121,7 +122,7 @@ type: string
 pattern: "^[a-z0-9]{1-20}$"
 ```
 |
-short
+short,
 easy to encode
 |===
 ====
@@ -138,7 +139,6 @@ New code types SHOULD be represented as string values in lowerCamelCase.
 
 Depending on context, the OpenAPI data type may enumerate the list of allowed values (see <<enum-rule>>).
 ====
-
 
 .Code
 ====
@@ -162,6 +162,51 @@ PensionType:
   pattern: "^[A-Za-z0-9]+$"
   example: "retirementPension"
 ```
+====
+
+[.rule, caption="Rule {counter:rule-number}: "]
+.Representating existing numerical identifiers
+====
+When defining the type for a property representing an existing numerical code or identifier:
+
+* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erronous values (i.e. without leading zeros).
+* Otherwise, use an integer based type. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32` and using `minimum`/`maximum`).
+
+For new identifiers, it is not recommended to use a number type however as stated in <<new-identifiers>>
+====
+
+.Representing existing numerical identifiers
+====
+An employer ID may be of variable length. Leading zeroes are ignored and most of the time not displayed.
+```YAML
+EmployerId:
+  description: Definitive or provisional NSSO number, assigned to each registered employer or local or provincial administration.
+  type: integer
+  minimum: 0
+  maximum: 5999999999
+  example: 21197
+```
+
+If SSIN has a zero as first digit, it is always displayed.
+
+```YAML
+Ssin:
+  description: Social Security Identification Number issued by the National Register or CBSS
+  type: string
+  pattern: '^\d{11}$'
+```
+
+Country NIS code is a three digit code, the first digit cannot be a zero.
+
+```YAML
+CountryNisCode:
+  description: NIS code representing a country as defined by statbel.fgov.be
+  type: integer
+  minimum: 100
+  maximum: 999
+  example: 150 # represents Belgium
+```
+
 ====
 
 [.rule, caption="Rule {counter:rule-number}: "]
@@ -233,9 +278,9 @@ a|
 {
   "self": "{API}/employers/93017373[/employers/93017373^]",
   "name": "Belgacom",
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "company": {
-    "cbeNbr": 202239951,
+    "enterpriseNumber": "0202239951",
     "href": "{API}/companies/202239951[/companies/202239951^]"
   }
 }

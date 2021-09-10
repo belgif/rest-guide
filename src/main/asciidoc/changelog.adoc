@@ -1,6 +1,6 @@
 == Changelog
 * 2021-xx-xx
-** new: guidelines on <<Identifier,identifiers and codes>>
+** new: guidelines when designing new <<Identifier,identifiers and codes>> or using existing numerical ones
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (<<Error handling>>)
 ** updated: clarify use of charset in JSON media type (<<media-types>>)
