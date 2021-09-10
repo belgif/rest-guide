@@ -164,7 +164,7 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | <<Media Types>>
 |Content-Type	| Request/Response | The Media type of the body of the request. | <<Media Types>>
 |X-HTTP-Method-Override | Request | Override the method specified in the request. | <<PATCH>>
-|Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable | <<http-503>>
+|Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable or quota reached | <<Service Unavailable>>, <<Too Many Requests>>, <<Too Many Failed Requests>>
 |Allow        | Response | Valid methods for a specified resource. | <<http-405>>
 |ETag         | Request  | Identifier for returned response content |  <<Conditional requests>>
 |If-None-Match | Response | Return resource if ETag changed | <<Conditional requests>>
