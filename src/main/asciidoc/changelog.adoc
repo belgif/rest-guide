@@ -1,4 +1,7 @@
 == Changelog
+* 2021-xx-xx
+** new: <<Service Unavailable>> problem type (http 503)
+** added: use Retry-After HTTP header in <<Too Many Failed Requests>> and <<Too Many Requests>>
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (<<Error handling>>)
 ** updated: clarify use of charset in JSON media type (<<media-types>>)
