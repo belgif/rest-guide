@@ -106,6 +106,20 @@ basePath: /v2
 ```
 ====
 
+.API version in OpenAPI 3.0 and 3.1
+====
+[subs="normal"]
+```YAML
+openapi: 3.0.3 # or 3.1.0
+info:
+  title: petshop
+  description: API exposing my petshop's functionality
+  version: 2.1.2
+servers:
+  url: https://petstore.swagger.io/v2
+```
+====
+
 Similar guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements.
 
 [.rule, caption="Rule {counter:rule-number}: "]

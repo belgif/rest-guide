@@ -20,18 +20,18 @@ It is based on http://swagger.io/[Swagger^], which has been standardized as http
 [.rule, caption="Rule {counter:rule-number}: "]
 .OpenAPI
 ====
-Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md[*OpenAPI 3.0*].
-OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-4[*JSON Schema*], with some significant incompatibilities.
+Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
+OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 ====
 
-The OpenAPI 2.0 standard specifies how to define https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject[Schema Objects]
-and https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types[Data Types] and the differences with the JSON Schema standard.
-
 [NOTE]
-OpenAPI 3.0 fixes some shortcomings in OpenAPI 2.0.
-However, this guide has not been updated yet for OpenAPI 3.0 but most is still applicable.
+OpenAPI 3.1 fixes some shortcomings in OpenAPI 3.0. 
+The OpenAPI 3.1 Schema Object is a superset of JSON Schema, and thus fully compatible with it.
+However, at the time of writing this version is not yet widely supported by most tooling.
 
-You can visualize OpenAPI files using tools like https://swagger.io/swagger-ui/[Swagger UI^], https://github.com/moon0326/swagger-ui-watcher[Swagger UI Watcher^] or https://senya.io[Senya^].
+The OpenAPI standard also includes a list of supported primitive https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[data types].
+
+You can visualize OpenAPI files using some of the tools listed in <<openapi-tools>>.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Additional documentation
@@ -62,7 +62,7 @@ This will make the visual representation (SwaggerUI) more readable.
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 
 The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
-Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification].
+Root OpenAPI 3.0 or 3.1 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
 As reference data is typically static, consider supporting <<Caching>> headers for these resources.
@@ -105,6 +105,10 @@ Absent optional properties in a request are set by the API provider to their `de
 Add example response values to the OpenAPI specification under the `examples` property.
 ====
 
+.Examples in OpenAPI
+====
+
+OpenAPI 2.0
 ```YAML
   /enterprises/{enterpriseNumber}:
     get:
@@ -127,8 +131,35 @@ Add example response values to the OpenAPI specification under the `examples` pr
               }
 ```
 
+OpenAPI 3.0
+```YAML
+  /enterprises/{enterpriseNumber}:
+    get:
+      operationId: getEnterprise
+      parameters:
+      - in: path
+        name: enterpriseNumber
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Enterprise'
+              examples:
+                success:
+                  {
+                    "name": "Belgacom",
+                    "enterpriseNumber": "0202239951"
+                  }
+```
+====
+
 WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
-  Any additional examples should be put in external documentation.
+  Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
 [.rule, caption="Rule {counter:rule-number}: "]
 .Reusable OpenAPI definitions
@@ -150,7 +181,7 @@ Each file has its own lifecycle, with a major version number in it's directory a
 This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the swagger file as well.
 ====
 
-While it is not strictly necessary for external definitions to be put in a valid OpenAPI 2.0 file, doing so makes it possible to use standard OpenAPI/Swagger tooling on them.
+While it is not strictly necessary for external definitions to be put in a valid OpenAPI file, doing so makes it possible to use standard OpenAPI/Swagger tooling on them.
 
 .Reusable OpenAPI file
 ====
