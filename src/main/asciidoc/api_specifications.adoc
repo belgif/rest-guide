@@ -187,16 +187,18 @@ While it is not strictly necessary for external definitions to be put in a valid
 ====
 ./person/identifier/v1/person-identifier-v1.yaml
 ```YAML
-swagger: "2.0"
+openapi: "3.0.3"
 info:
-  title: data types for person identifiers
-  version: v1beta
+  title: person-identifier
+  description: data types for person identifiers
+  version: "1.1.2"
 paths: {} # empty paths property required to be a valid OpenAPI file
-definitions:
-  Ssin:
-    description: "Social Security Identification Number issued by the National Register or CBSS"
-    type: string
-    pattern: \d{11}
+components:
+  schemas:
+    Ssin:
+      description: "Social Security Identification Number issued by the National Register or CBSS"
+      type: string
+      pattern: \d{11}
 ```
 
 A type can be referenced from another OpenAPI file:
