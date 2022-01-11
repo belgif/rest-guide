@@ -188,6 +188,7 @@ WARNING: `href` links to descriptions of standardized problem types will change 
 include::problems/badRequest.adoc[leveloffset=3]
 
 .InvalidParamProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
+#TODO: replace by new definition#
 ```yaml
 InvalidParamProblem:
   description: Problem details for invalid input parameter(s)
