@@ -97,7 +97,7 @@ not easy to memorize or input by user,
 easy to generate,
 resistant to brute-force guessing
 
-| URN 
+| URI (URN)
 | "urn:problem-type:belgif:resourceNotFound"
 a| 
 ```YAML
@@ -108,7 +108,7 @@ pattern: "^urn:problem-type:.+$" # further restrictions may be possible
 | 
 can be human readable,
 long, not easy to input by user
-| URL
+| URI (http)
 | "https://www.waterwegen.be/id/rivier/schelde"
 a|
 ```YAML
@@ -149,10 +149,10 @@ Depending on context, the OpenAPI data type may enumerate the list of allowed va
 
 .Code
 ====
-
+// TODO: replace PensionType fabricated example with a real one
 `GET /refData/pensionTypes/{id}` with `id` of type `PensionType`
 
-As enumeration:
+As string with enumeration:
 ```YAML
 PensionType:
   type: string
