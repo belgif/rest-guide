@@ -69,14 +69,14 @@ GET {API}/employers[^] HTTP/1.1​
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
      "title":"Belgacom",
-     "nssoNbr": 93017373,
-     "cbeNbr": 202239951
+     "employerId": 93017373,
+     "enterpriseNumber": "0202239951"
    },
    {
      "href":"{API}/employers/20620259[/employers/20620259^]",
      "title":"Partena VZW",
-     "nssoNbr": 20620259,
-     "cbeNbr": 409536968
+     "employerId": 20620259,
+     "enterpriseNumber": "0409536968"
    }
  ],
  "total":2
@@ -101,10 +101,10 @@ EmployerLink:
   - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
   - type: object
     properties:
-      nssoNbr:
-        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/definitions/NssoNumber"
-      cbeNbr:
-        $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/definitions/CbeNumber"
+      employerId:
+        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/definitions/EmployerId"
+      enterpriseNumber:
+        $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/definitions/EnterpriseNumber"
 ```
 ====
 
@@ -359,9 +359,9 @@ a|
 ----
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "company": {
-    "cbeNbr": 202239951
+    "enterpriseNumber": 202239951
   }
 }
 ----

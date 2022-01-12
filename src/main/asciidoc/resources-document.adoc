@@ -10,10 +10,10 @@ A document resource is a _singular concept_ that is referring to a business enti
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "company": {
-    "cbeNbr": 202239951,
-    "href": "{API}/companies/202239951[^]"
+    "enterpriseNumber": "0202239951",
+    "href": "{API}/companies/0202239951[^]"
   },
   "self": "{API}/employers/93017373[^]"
 }
@@ -449,7 +449,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 
 3+|​​​Parameters
 
-|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
 
 3+|Response
 
@@ -530,7 +530,7 @@ a|
 
 3+|Parameters
 
-|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
 
 3+|Response
 
@@ -590,7 +590,7 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 
 3+|Parameters
 
-|`employerId`|path-param|CBE enterprise number uniquely identifying the employer.
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
 
 3+|Response
 

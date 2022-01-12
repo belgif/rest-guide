@@ -36,12 +36,12 @@ Content-Type: application/problem+json
   "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
   "status": 404,
   "title": "Enterprise not found",
-  "detail": "No enterprise with CBE number 0206731645",
+  "detail": "No enterprise with enterprise number 0206731645",
   "invalidParams": [
       {
         "in": "path",
-        "name": "cbeNumber",
-        "reason": "the CBE number is not assigned",
+        "name": "enterpriseNumber",
+        "reason": "the enterprise number is not assigned",
         "value": "0206731645"
       }
   ]
