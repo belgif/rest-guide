@@ -82,16 +82,32 @@ When a single query parameter can have multiple values, the parameter SHOULD be 
 GET {API}/employers/93017373?embed=employees&embed=mainAddress
 ```
 
-.OpenAPI definition
+.OpenAPI 2.0 definition
 ```YAML
 parameters:
 - name: embed
   in: query
-  type: string
   collectionFormat: multi
+  type: string
   enum:
   - employees
   - mainAddress
+```
+
+.OpenAPI 3.0 definition
+```YAML
+parameters:
+- name: embed
+  in: query
+  style: form
+  explode: true
+  schema:
+    type: array
+    items:
+      type: string
+      enum:
+      - employees
+      - mainAddress
 ```
 ====
 
