@@ -37,10 +37,13 @@ In that case *prefer associations and create <<links,links>>* to other APIs from
 The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN number or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.  
 ====
 
-New identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems, making it very hard to change its structure later on.
+New types of identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems even beyond the scope for which it was initially designed, making it very hard to change its structure later on.
+
+Designing identifiers in a URI structure, as specified in the https://github.com/belgif/thematic/blob/master/URI/iceg_uri_standard.md[ICEG URI standard], is useful as it makes the identifier context-independent and more self-descriptive. A REST API may choose to use a shorter API-local form of a URI identifier because of practical considerations.
 
 When designing an identifier, various requirements may be of importance specific to the use case:
 
+* the governance and lifecycle of identifiers and the entities they represent 
 * easy to memorize (e.g. textual identifier like problem types)
 * input by user (e.g. web form, over phone/mail)
 ** easy to type (ignore special separator chars, difference between lower/capital case), limited length
