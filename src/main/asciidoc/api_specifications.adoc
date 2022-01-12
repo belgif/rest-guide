@@ -270,14 +270,12 @@ A fixed list of possible values of a property can be specified using `enum`.
 However, this may make it harder to change the list of possible values, as client applications will often depend on the specified list e.g. by using code generation.
 
 `enum` SHOULD only be used when the list of values is unlikely to change or when changing it has a big impact on clients of the API.
-
-Enumerated string values SHOULD be declared in lowerCamelCase, just as property names.
 ====
 
 .Enum declaration
 ====
 ```YAML
-state:
+State:
   type: string
   enum:
   - processing
@@ -286,17 +284,7 @@ state:
 ```
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.String and integer types
-====
-When defining the type for a property representing a numerical code or identifier:
-
-* if the values constitute a list of sequentially generated codes (e.g. gender ISO code), `type: integer` SHOULD be used. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32`).
-* if the values are of fixed length or not sequentially generated, `type: string` SHOULD be used (e.g. Ssin, EnterpriseNumber). This avoids leading zeros to be hidden.
-
-When using a string data type, each code SHOULD have a unique representation, e.g. don't allow representations both with and without a leading zeros or spaces for a single code.
-If possible, specify a `pattern` with a regular expression restricting the allowed representations.
-====
+When defining a type for an identifier or code, like the above example, the guidelines under <<Identifier>> apply, even when not used as a URL path parameter of a document resource.
 
 [[openapi-tools]]
 === Tools

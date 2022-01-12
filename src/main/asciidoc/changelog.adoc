@@ -1,5 +1,6 @@
 == Changelog
-* 2021-xx-xx
+* 2022-xx-xx
+** new: guidelines when designing new <<Identifier,identifiers and codes>> or using existing numerical ones
 ** new: <<Service Unavailable>> problem type (http 503)
 ** added: use Retry-After HTTP header in <<Too Many Failed Requests>> and <<Too Many Requests>>
 * 2021-06-24
