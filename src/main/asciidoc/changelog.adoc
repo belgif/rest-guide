@@ -1,6 +1,7 @@
 == Changelog
-* 2022-xx-xx
-** new: guidelines when designing new <<Identifier,identifiers and codes>> or using existing numerical ones
+* 2022-01-22
+** new: designing new <<Identifier,identifiers and codes>> or using existing numerical ones
+** updates for OpenAPI 3.0 support throughout the entire guide
 ** new: <<Service Unavailable>> problem type (http 503)
 ** added: use Retry-After HTTP header in <<Too Many Failed Requests>> and <<Too Many Requests>>
 * 2021-06-24
