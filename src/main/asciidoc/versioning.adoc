@@ -73,8 +73,7 @@ Always communicate clearly about the deprecated fields and transition period to 
 Newer versions of the OpenAPI standard have improved support to indicate deprecation using `deprecated: true`:
 
 * OpenAPI 2.0 only allows specifying deprecation on operations
-* OpenAPI 3.0 add support for deprecating parameters and Schema Objects (data types)
-* OpenAPI 3.1 also allows to specify deprecation everywhere within Schema Objects e.g. on  properties
+* OpenAPI 3.0 adds support for deprecating parameters and Schema Objects (data types), though not yet everywhere like on object properties
 
 `deprecated: true` SHOULD be used if the OpenAPI version allows it, otherwise the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 ====
