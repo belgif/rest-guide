@@ -22,12 +22,10 @@ It is based on http://swagger.io/[Swagger^], which has been standardized as http
 ====
 Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
 OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
-====
 
-[NOTE]
-OpenAPI 3.1 fixes some shortcomings in OpenAPI 3.0. 
-The OpenAPI 3.1 Schema Object is a superset of JSON Schema, and thus fully compatible with it.
-However, at the time of writing this version is not yet widely supported by most tooling.
+	
+https://spec.openapis.org/oas/v3.1.0.html[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not yet widely supported by most tooling.
+====
 
 The OpenAPI standard also includes a list of supported primitive https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[data types].
 
@@ -62,7 +60,7 @@ This will make the visual representation (SwaggerUI) more readable.
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 
 The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
-Root OpenAPI 3.0 or 3.1 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#document-structure[OpenAPI 3.0 specification].
+Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#document-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
 As reference data is typically static, consider supporting <<Caching>> headers for these resources.
@@ -365,6 +363,5 @@ Following tools can be used to generate server stubs and API client libraries fr
 |Name|Link
 |OpenAPI 2.0 specification| http://spec.openapis.org/oas/v2.0.html
 |OpenAPI 3.0 specification| http://spec.openapis.org/oas/v3.0.3.html
-|OpenAPI 3.1 specification| https://spec.openapis.org/oas/v3.1.0.html
 |Swagger | https://swagger.io/docs/specification/2-0/basic-structure/
 |===
