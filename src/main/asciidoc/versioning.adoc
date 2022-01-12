@@ -96,13 +96,27 @@ Note that reusable OpenAPI files are to be versioned as well, as specified in <<
 ====
 [subs="normal"]
 ```YAML
-swagger: 2.0
+swagger: "2.0"
 info:
-  name: petshop
-  description: API exposing my petshop's functionality
-  version: 2.1.2
-host: petstore.swagger.io
-basePath: /v2
+  title: petShop
+  description: API exposing my pet shop's functionality
+  version: "2.1.2"
+host: example.org
+basePath: /petShop/v2
+```
+====
+
+.API version in OpenAPI 3.0
+====
+[subs="normal"]
+```YAML
+openapi: "3.0.3"
+info:
+  title: petShop
+  description: API exposing my pet shop's functionality
+  version: "2.1.2"
+servers:
+  url: https://example.org/petShop/v2
 ```
 ====
 
