@@ -92,7 +92,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
   "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
   "status": 404,
   "title": "Resource is not found",
-  "detail": "There is no enterprise with CBE number 0206731645",
+  "detail": "There is no enterprise in CBE with enterprise number 0206731645",
   "invalidParams": [
       {
         "in": "path",
