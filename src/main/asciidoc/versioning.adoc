@@ -66,13 +66,16 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 .Deprecation
 ====
 Deprecation MAY be used to indicate parts of an API are not recommended to be used anymore.
-
-OpenAPI 2.0 only allows specifying deprecation on methods and path elements.
-Their deprecation SHOULD be documented in OpenAPI by specifying `deprecated: true`.
-For other deprecations e.g. of a JSON property, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
-
+Their deprecation SHOULD be documented in OpenAPI .
 Deprecated elements MAY be completely removed them after a period in which clients can adapt.
 Always communicate clearly about the deprecated fields and transition period to clients.
+
+Newer versions of the OpenAPI standard have improved support to indicate deprecation using `deprecated: true`:
+
+* OpenAPI 2.0 only allows specifying deprecation on operations
+* OpenAPI 3.0 adds support for deprecating parameters and Schema Objects (data types), though not yet everywhere like on object properties
+
+`deprecated: true` SHOULD be used if the OpenAPI version allows it, otherwise the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 ====
 
 Use of deprecated elements in requests may be monitored by the server in order to evaluate the impact of their removal.
@@ -96,13 +99,27 @@ Note that reusable OpenAPI files are to be versioned as well, as specified in <<
 ====
 [subs="normal"]
 ```YAML
-swagger: 2.0
+swagger: "2.0"
 info:
-  name: petshop
-  description: API exposing my petshop's functionality
-  version: 2.1.2
-host: petstore.swagger.io
-basePath: /v2
+  title: petShop
+  description: API exposing my pet shop's functionality
+  version: "2.1.2"
+host: example.org
+basePath: /petShop/v2
+```
+====
+
+.API version in OpenAPI 3.0
+====
+[subs="normal"]
+```YAML
+openapi: "3.0.3"
+info:
+  title: petShop
+  description: API exposing my pet shop's functionality
+  version: "2.1.2"
+servers:
+  url: https://example.org/petShop/v2
 ```
 ====
 
