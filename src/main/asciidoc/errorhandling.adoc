@@ -93,11 +93,11 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
   "status": 404,
   "title": "Resource is not found",
   "detail": "There is no enterprise with CBE number 0206731645",
-  "invalidParams": [
+  "issues": [
       {
         "in": "path",
         "name": "enterpriseNumber",
-        "reason": "the enterprise number is not assigned",
+        "detail": "the enterprise number is not assigned",
         "value": "0206731645"
       }
   ]
@@ -187,47 +187,47 @@ WARNING: `href` links to descriptions of standardized problem types will change 
 
 include::problems/badRequest.adoc[leveloffset=3]
 
-.InvalidParamProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
-#TODO: replace by new definition#
+[[input-validation-schema]]
+.InputValidationProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ```yaml
-InvalidParamProblem:
-  description: Problem details for invalid input parameter(s)
-  allOf:
-    - $ref: '#/definitions/Problem'
-    - type: object
-      properties:
-        invalidParams:
-          type: array
-          description: An array of parameter OpenAPI violations
-          items:
-            $ref: '#/definitions/InvalidParam'
-InvalidParam:
+InputValidationProblem:
   type: object
+  allOf:
+  - $ref: "#/components/schemas/Problem"
+  properties:
+    issues:
+      type: array
+      items:
+        $ref: "#/components/schemas/InputValidationIssue"
+InputValidationIssue:
+  type: object
+  allOf:
+    - $ref: "#/components/schemas/Problem"
+    # status property of Problem is usually not used for input validation issues
   properties:
     in:
-      description: The location of the invalid parameter (cfr Swagger parameters)
       type: string
       enum:
         - body
+        - header
         - path
         - query
-        - header
     name:
-      description: The name of the invalid parameter
       type: string
-    reason:
-      description: A message explaining the violation
-      type: string
-    value:
-      description: The value of the erroneous parameter
-      # no type specified, allowing any type. This is valid OpenAPI 2.0 even though some editors may indicate an error (issue #25)
+    value: {} # any type allowed
 ```
+
+The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
+
 include::problems/noAccessToken.adoc[leveloffset=3]
 include::problems/invalidAccessToken.adoc[leveloffset=3]
 include::problems/expiredAccessToken.adoc[leveloffset=3]
 include::problems/missingScope.adoc[leveloffset=3]
 include::problems/missingPermission.adoc[leveloffset=3]
 include::problems/resourceNotFound.adoc[leveloffset=3]
+
+The <<input-validation-schema,InputValidationProblem Schema Object>> SHOULD be used to represent this type of problems.
+
 include::problems/payloadTooLarge.adoc[leveloffset=3]
 include::problems/tooManyRequests.adoc[leveloffset=3]
 include::problems/tooManyFailedRequests.adoc[leveloffset=3]

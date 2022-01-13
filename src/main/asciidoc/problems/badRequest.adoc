@@ -3,8 +3,7 @@
 
 *Status code* 400 Bad Request
 
-*Description* The input message is incorrect. Look for more details in the `issues` property.
-
+*Description* The input message is incorrect. Look for more details in the `issues` property. The issue type `urn:problem-type:belgif:input-validation:schemaViolation` indicates violations of the OpenAPI schema.
 
 ```
 POST /enterprises/abc

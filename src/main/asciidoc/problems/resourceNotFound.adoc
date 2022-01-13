@@ -6,7 +6,7 @@
 *Description* The requested resource cannot be found. The `detail` property reveals additional information about why the resource was not found.
 
 
-Either the resource path isn't specified in the API's `/doc/swagger.yaml` specification.
+Either the resource path isn't specified in the API's OpenAPI specification.
 
 ```
 GET /enterprises
@@ -23,7 +23,7 @@ Content-Type: application/problem+json
 }
 ```
 
-Either the path parameters don't resolve to an existing resource. Look for the more details in the `invalidParams` property.
+Either the path parameters don't resolve to an existing resource. Look for the more details in the `issues` property.
 
 ```
 GET /enterprises/0206731645
@@ -35,13 +35,13 @@ Content-Type: application/problem+json
   "type": "urn:problem-type:belgif:resourceNotFound",
   "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
   "status": 404,
-  "title": "Enterprise not found",
-  "detail": "No enterprise with CBE number 0206731645",
-  "invalidParams": [
+  "title": "Resource not found",
+  "detail": "No resource /enterprises/0206731645 found",
+  "issues": [
       {
         "in": "path",
-        "name": "cbeNumber",
-        "reason": "the CBE number is not assigned",
+        "name": "enterpriseNumber",
+        "detail": "the enterprise number 0206731645 is not assigned",
         "value": "0206731645"
       }
   ]
