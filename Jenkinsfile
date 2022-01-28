@@ -7,7 +7,7 @@ node("maven") {
               extensions: [],
               submoduleCfg: [],
               userRemoteConfigs: [[
-                url: 'git@github.com:belgif/rest-guide.git',
+                url: 'https://github.com/belgif/rest-guide.git',
                 credentialsId: 'git_technical_user'
               ]]
     ]);
