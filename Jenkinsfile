@@ -14,7 +14,7 @@ node("maven") {
   }
 
   stage("\u2461 Generate Website") {
-    sh "mvn clean site"
+    sh "mvn -Dhttp.proxyHost='proxyapp.services.gcloud.belgium.be' -Dhttp.proxyPort='8080' clean site"
     stash name:"site", includes:"target/site/doc/**"
     sh '''
       APPLICATION_VERSION=$(mvn -Dhttp.proxyHost='proxyapp.services.gcloud.belgium.be' -Dhttp.proxyPort='8080' -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
