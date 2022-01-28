@@ -14,14 +14,18 @@ node("maven") {
   }
 
   stage("\u2461 Generate Website") {
-    sh "mvn -Dhttp.proxyHost='proxyapp.services.gcloud.belgium.be' -Dhttp.proxyPort='8080' clean site"
-    stash name:"site", includes:"target/site/doc/**"
-    sh '''
-      APPLICATION_VERSION=$(mvn -Dhttp.proxyHost='proxyapp.services.gcloud.belgium.be' -Dhttp.proxyPort='8080' -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
-      echo ${APPLICATION_VERSION} > APPLICATION_VERSION
-    '''
-    env.APPLICATION_VERSION = readFile('APPLICATION_VERSION').trim()
-    echo "${APPLICATION_VERSION}"
+    withCredentials([string(credentialsId: 'git_technical_user_artifactory_token', variable: 'ARTIFACTORY_TOKEN')]) {
+      configFileProvider([configFile(fileId: 'rest-styleguide-custom-maven-settings-xml', variable: 'MAVEN_SETTINGS_XML')]) {
+        sh "mvn -s $MAVEN_SETTINGS_XML clean site"
+        stash name:"site", includes:"target/site/doc/**"
+        sh '''
+          APPLICATION_VERSION=$(mvn -s $MAVEN_SETTINGS_XML -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
+          echo ${APPLICATION_VERSION} > APPLICATION_VERSION
+        '''
+        env.APPLICATION_VERSION = readFile('APPLICATION_VERSION').trim()
+        echo "${APPLICATION_VERSION}"
+      }
+    }
   }
 
 }
