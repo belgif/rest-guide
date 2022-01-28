@@ -17,7 +17,7 @@ node("maven") {
     sh "mvn clean site"
     stash name:"site", includes:"target/site/doc/**"
     sh '''
-      APPLICATION_VERSION=$(mvn -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
+      APPLICATION_VERSION=$(mvn -Dhttp.proxyHost='proxyapp.services.gcloud.belgium.be' -Dhttp.proxyPort='8080' -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec -q)
       echo ${APPLICATION_VERSION} > APPLICATION_VERSION
     '''
     env.APPLICATION_VERSION = readFile('APPLICATION_VERSION').trim()
@@ -35,7 +35,7 @@ node () {
               extensions: [],
               submoduleCfg: [],
               userRemoteConfigs: [[
-                url: 'git@github.com:belgif/rest-guide.git',
+                url: 'https://github.com/belgif/rest-guide.git',
                 credentialsId: 'git_technical_user'
               ]]
     ]);
