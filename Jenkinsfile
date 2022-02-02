@@ -14,7 +14,7 @@ node("maven") {
   }
 
   stage("\u2461 Generate Website") {
-    withCredentials([string(credentialsId: 'git_technical_user_artifactory_token', variable: 'ARTIFACTORY_TOKEN')]) {
+    withCredentials([string(credentialsId: 'technical_gcloud_snapshot_ci', variable: 'ARTIFACTORY_TOKEN')]) {
       configFileProvider([configFile(fileId: 'rest-styleguide-custom-maven-settings-xml', variable: 'MAVEN_SETTINGS_XML')]) {
         sh "mvn -s $MAVEN_SETTINGS_XML clean site"
         stash name:"site", includes:"target/site/doc/**"
