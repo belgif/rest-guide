@@ -108,7 +108,7 @@ node ('docker') {
                                         --targetTag="${GCLOUD_DOCKER_TAG}" \
                                         --copy="true"
 
-        oc tag --scheduled=true --alias=false container-release.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}
+        oc tag --scheduled=true --alias=false gcloud-docker-release.repo.gcloud.belgium.be/gcloud-rest-styleguide-website:${GCLOUD_DOCKER_TAG} gcloud-rest-styleguide:${GCLOUD_DOCKER_TAG}
 
       '''
     }
