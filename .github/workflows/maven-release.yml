@@ -1,5 +1,5 @@
 # Release on GitHub releases when a version tag is created
-name: openapi-maven-release
+name: maven-release
 on:
   push:
     tags:
@@ -24,7 +24,7 @@ jobs:
         mvn -B package
         ARTIFACT_FILE=`ls ./target/rest-styleguide-*.zip`
         echo "ARTIFACT_FILE=$ARTIFACT_FILE" >> $GITHUB_ENV
-        echo "ARTIFACT_NAME=`basename $ARTIFACT_NAME`" >> $GITHUB_ENV
+        echo "ARTIFACT_NAME=`basename $ARTIFACT_FILE`" >> $GITHUB_ENV
     - name: Create GitHub release
       id: create-release
       uses: actions/create-release@v1
