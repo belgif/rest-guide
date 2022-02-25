@@ -50,6 +50,6 @@ Rules must follow the following format:
 
 The styleguide is built with [Apache Maven](https://maven.apache.org).
 
-With Maven installed, run `mvn site` in the root directory of the project. 
-The styleguide will be built in the `target/site/doc/` directory.
+With Maven installed, run `mvn` in the root directory of the project. 
+The styleguide will be built in `target/generated-docs/` and bundled as a zip in the `target` directory.
 

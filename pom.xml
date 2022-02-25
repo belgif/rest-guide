@@ -7,13 +7,13 @@
     <groupId>be.gcloud</groupId>
     <artifactId>rest-styleguide</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>REST Styleguide</name>
     <description>Documentation on the REST style guide for the Belgian federal government</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctorj.diagram.version>1.5.0</asciidoctorj.diagram.version>
-        <javaVersion>1.8</javaVersion>
     </properties>
     <developers>
         <developer>
@@ -38,7 +38,7 @@
             </extension>
         </extensions>
 
-        <defaultGoal>generate-resources</defaultGoal>
+        <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.asciidoctor</groupId>
@@ -59,8 +59,37 @@
                     </requires>
                 </configuration>
                 <executions>
-                    <execution>
+                     <execution>
                         <id>generate-styleguide</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDocumentName>index.adoc</sourceDocumentName>
+                            <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+                            <attributes>
+                                <stylesheet>my-theme.css</stylesheet>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-problems</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/asciidoc/problems</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-docs/problems</outputDirectory>
+                            <attributes>
+                                <stylesheet>../my-theme.css</stylesheet>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                    <!-- old build, for G-Cloud website -->
+                    <execution>
+                        <id>site-generate-styleguide</id>
                         <phase>site</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
@@ -74,7 +103,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>generate-problems</id>
+                        <id>site-generate-problems</id>
                         <phase>site</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
@@ -86,8 +115,28 @@
                                 <stylesheet>../my-theme.css</stylesheet>
                             </attributes>
                         </configuration>
-                    </execution>
+                    </execution>                   
                 </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>3.3.0</version>
+              <executions>
+                <execution>
+                  <id>create-distribution</id>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>single</goal>
+                  </goals>
+                  <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                      <descriptor>src/main/assembly/asciidoc-zip.xml</descriptor>
+                    </descriptors>
+                  </configuration>
+                </execution>
+              </executions>
             </plugin>
         </plugins>
 
