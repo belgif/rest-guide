@@ -186,8 +186,20 @@ AppendixCodeLink:
 
 === Filtering
 
-A collection can be filtered using query parameters.​ You can filter on a specific resource property by specifying the property name as query param.
-The query-param `q` is reserved to implement a full text search on all the resource's content.
+[.rule, caption="Rule {counter:rule-number}: "]
+.Filtering items in a collection
+====
+A collection may support <<query-parameters, query parameters>> to filter its items:
+
+* a query parameter with the name of a document property, filters items on the specified value
+* the query parameter `q` is reserved for a full text search on all the document's content
+* other filter parameters may be supported, e.g. to look up items within a search period
+
+Unless the API documentation explicitly states otherwise:
+
+* returned items should satisfy ALL filter query parameters,
+* items that match ANY of the values of a multi-valued filter query parameter are returned.
+====
 ​
 [cols="1,2,3"]
 |===
