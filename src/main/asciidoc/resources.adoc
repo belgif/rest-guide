@@ -56,6 +56,7 @@ The query part of a URI may be used to filter the resource output.
 
 The query component of a URI contains a set of parameters to be interpreted as a variation or derivative of the resource. The query component can provide clients with additional interaction capabilities such as ad hoc searching and filtering.
 
+[[query-parameters]]
 .Query parameters
 ====
 ​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
