@@ -1,4 +1,8 @@
 == Changelog
+* 2022-03-31
+** new: use string based types for decimals when precision is important (<<decimals>>)
+** updated: new type <<input-validation-schema,InputValidationProblem>> for problems of type `badRequest` and `resourceNotFound` (breaking change)
+** updated: clarify the use of multiple query parameters to filter a collection (<<filtering>>)
 * 2022-02-02
 ** new: designing new <<Identifier,identifiers and codes>> or using existing numerical ones
 ** updates for OpenAPI 3.0 support throughout the entire guide
