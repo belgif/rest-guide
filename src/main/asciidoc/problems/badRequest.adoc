@@ -3,8 +3,7 @@
 
 *Status code* 400 Bad Request
 
-*Description* The consumer request is not conform to the Swagger specification of the API. If the parameters are invalid, look for more details in the `invalidParams` property.
-
+*Description* The input message is incorrect. Look for more details in the `issues` property. The issue type `urn:problem-type:belgif:input-validation:schemaViolation` indicates violations of the OpenAPI schema.
 
 ```
 POST /enterprises/abc
@@ -28,18 +27,20 @@ Content-Type: application/problem+json
   "status": 400,
   "title": "Bad Request",
   "detail": "The input message is incorrect",
-  "invalidParams": [
+  "issues": [
     {
+      "type": "urn:problem-type:belgif:input-validation:schemaViolation",
       "in": "path",
       "name": "enterpriseNumber",
-      "reason": "should be numeric",
-      "value": "abc"
+      "value": "abc",
+      "detail": "value should be numeric"
     },
     {
+      "type": "urn:problem-type:belgif:input-validation:schemaViolation",
       "in": "body",
       "name": "mandator.enterpriseNumber",
-      "reason": "should have 10 digits",
-      "value": "123456"
+      "value": "123456",
+      "detail": "An enterprise number should be 10 digits long"
     }
  ]
 }
