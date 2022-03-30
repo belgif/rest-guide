@@ -317,6 +317,62 @@ State:
 
 When defining a type for an identifier or code, like the above example, the guidelines under <<Identifier>> apply, even when not used as a URL path parameter of a document resource.
 
+[[decimals, Decimals]]
+[.rule, caption="Rule {counter:rule-number}: "]
+.Decimals
+====
+Decimal numbers for which the fractional part's precision is important, like monetary amounts, SHOULD be represented by a `string`-based type, with `number` as format. Depending on the context, a regular expression can enforce further restrictions like the number of digits allowed before/after comma or on the presence of a `+`/`-` sign.
+
+When `number` would be used as type instead of `string`, some technologies will convert the values to floating point numbers, leading to a loss of precision and unintended calculation errors.
+
+This problem may also be avoided by using an equivalent integer representation, for example by expressing a monetary amount in Euro cent rather than Euro.
+====
+
+
+Some more background on why floating point numbers can lead to loss of precision, can be found in https://husobee.github.io/money/float/2016/09/23/never-use-floats-for-currency.html[this blog post].
+
+.Number types preserving precision
+====
+https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1beta/money-v1beta.yaml[Belgif openapi-money] defines a string-based type for monetary values:
+```YAML
+MonetaryValue:
+  type: string
+  format: number # number is a custom string format that is supported by some, but not all tooling
+  pattern: '^(\-|\+)?((\d+(\.\d*)?)|(\.\d+))$'  # Variable number of digits, with at least one digit required, before or after the decimal point. Allows both positive and negative values.
+  x-examples:
+  - "100.234567"
+  - "010"
+  - "-.05"
+  - "+1"
+  - "10"
+  - "100."
+MonetaryAmount:
+  description: A monetary amount
+  type: object
+  properties:
+    value:
+      "$ref": "#/components/schemas/MonetaryValue"
+    currency:
+      "$ref": "#/components/schemas/Currency"
+  required: [value, currency]
+  example:
+    value: "0.01"
+    currency: "EUR"
+```
+
+It also defines integer-based types specific for monetary amounts expressed in Euro cent:
+```YAML
+EuroCentPositiveAmount:
+  description: Money amount in Euro cents >= 0
+  type: integer # representation as Euro cent instead of Euro to avoid floating point rounding problems and need for custom 'number' format
+  minimum: 0
+
+EuroCentAmount:
+  description: 'Money amount in Euro cents, also allows negative amounts.'
+  type: integer # representation as Euro cent instead of Euro to avoid floating point rounding problems and need for custom 'number' format
+```
+====
+
 [[openapi-tools]]
 === Tools
 
