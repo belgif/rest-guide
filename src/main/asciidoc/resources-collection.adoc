@@ -195,12 +195,15 @@ A collection may support <<query-parameters, query parameters>> to filter its it
 * the query parameter `q` is reserved for a full text search on all the document's content
 * other filter parameters may be supported, e.g. to look up items within a search period
 
-Unless the API documentation explicitly states otherwise:
+Unless the API documentation explicitly states otherwise, returned collection items:
 
-* returned items should satisfy ALL filter query parameters,
-* items that match ANY of the values of a multi-valued filter query parameter are returned.
+* should satisfy ALL filter query parameters (AND-logic)
+* have to match ANY of the values of a multi-valued filter query parameter (OR-logic).
 ====
-​
+
+For example, the query 
+`GET /cars?doors=5&color=black&color=blue` should be intepreted by default as: "return all cars that have 5 doors AND have either the color blue OR black". 
+
 [cols="1,2,3"]
 |===
 |<<get>>
