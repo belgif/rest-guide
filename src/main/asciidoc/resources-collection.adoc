@@ -202,7 +202,7 @@ Unless the API documentation explicitly states otherwise, returned collection it
 ====
 
 For example, the query 
-`GET /cars?doors=5&color=black&color=blue` should be intepreted by default as: "return all cars that have 5 doors AND have either the color blue OR black". 
+`GET /cars?doors=5&color=black&color=blue` should be interpreted by default as: "search for all cars that have 5 doors AND are of color blue OR black". 
 
 [cols="1,2,3"]
 |===
