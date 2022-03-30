@@ -219,6 +219,8 @@ InputValidationIssue:
 
 The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
 
+`InputValidationProblem` replaces `InvalidParamProblem` previously used in this guide, which is now deprecated.
+
 include::problems/noAccessToken.adoc[leveloffset=3]
 include::problems/invalidAccessToken.adoc[leveloffset=3]
 include::problems/expiredAccessToken.adoc[leveloffset=3]
