@@ -333,7 +333,7 @@ Some more background on why floating point numbers can lead to loss of precision
 
 .Number types preserving precision
 ====
-https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1beta/money-v1beta.yaml[Belgif openapi-money] defines a string-based type for monetary values:
+https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml[belgif openapi-money] defines a string-based type for monetary values:
 ```YAML
 MonetaryValue:
   type: string
