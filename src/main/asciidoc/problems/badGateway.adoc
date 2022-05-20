@@ -11,7 +11,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:badGateway",
-  "href": "https://www.gcloud.belgium.be/rest/problems/badGateway.html",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badGateway.html",
   "status": 502,
   "title": "Bad Gateway",
   "detail": "Error in communication with upstream service"

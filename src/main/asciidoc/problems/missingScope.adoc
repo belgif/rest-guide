@@ -16,7 +16,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:missingScope",
-   "href": "https://www.gcloud.belgium.be/rest/problems/missingScope.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/missingScope.html",
    "status": 403,
    "title": "Missing Scope",
    "detail": "Forbidden to consult the enterprise resource",

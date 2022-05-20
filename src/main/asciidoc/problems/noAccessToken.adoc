@@ -18,7 +18,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:noAccessToken",
-   "href": "https://www.gcloud.belgium.be/rest/problems/noAccessToken.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/noAccessToken.html",
    "status": 401,
    "title": "No Access Token",
    "detail": "No Bearer access token found in Authorization HTTP header"
