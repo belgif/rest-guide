@@ -1,7 +1,7 @@
 == Introduction
 
-This style guide for RESTful services is a collaborative effort by several Belgian government institutions.
-It aims to improve compatibility between RESTful services offered by government institutions or any other organization adopting the guidelines.
+This style guide for RESTful services is a collaborative effort by several Belgian government institutions, originally under the https://www.gcloud.belgium.be/[G-Cloud] umbrella, before moving to https://www.belgif.be/[Belgif], the Belgian Interoperability Framework.
+Its goal is to improve compatibility between RESTful services offered by government institutions or any other organization adopting these guidelines.
 
 This guide is a living document, updated when new interoperability issues arise or when REST-related standards evolve.
 All changes are reviewed by the REST design workgroup, in which the Belgian government organizations are represented.
