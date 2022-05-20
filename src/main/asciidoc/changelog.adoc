@@ -1,4 +1,6 @@
 == Changelog
+* 2022-05-20
+** move REST guide to belgif.be, updating href problem links
 * 2022-03-31
 ** new: use string based types for decimals when precision is important (<<decimals>>)
 ** updated: new type <<input-validation-schema,InputValidationProblem>> for problems of type `badRequest` and `resourceNotFound` (breaking change)

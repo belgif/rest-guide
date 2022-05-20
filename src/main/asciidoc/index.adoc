@@ -17,7 +17,7 @@
 :checkedbox: pass:normal[&#10004;]
 :API: http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1
 
-https://www.gcloud.belgium.be/[<- G-Cloud Home]
+https://www.belgif.be[<- Belgif Home]
 
 = REST Guidelines
 {update-date}

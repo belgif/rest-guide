@@ -1,6 +1,6 @@
 # REST guide
 
-The REST styleguide, built from these sources, is available on https://www.gcloud.belgium.be/rest/.
+The REST styleguide, built from these sources, is available on https://www.belgif.be/specification/rest/api-guide/.
 
 This styleguide is established by the REST design working group, which includes various participating Belgian government institutions.
 See the [wiki](https://github.com/belgif/rest-guide/wiki) for more information on the organization of the REST design working group and its meeting reports .
