@@ -18,7 +18,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:missingPermission",
-   "href": "https://www.gcloud.belgium.be/rest/problems/missingPermission.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/missingPermission.html",
    "status": 403,
    "title": "Missing Permission",
    "detail": "Not permitted to update the details of this enterprise"

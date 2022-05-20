@@ -16,7 +16,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
   "status": 404,
   "title": "Resource Not Found",
   "detail": "No resource /enterprises found"
@@ -33,7 +33,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
   "status": 404,
   "title": "Resource not found",
   "detail": "No resource /enterprises/0206731645 found",

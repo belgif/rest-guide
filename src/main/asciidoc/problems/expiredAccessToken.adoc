@@ -16,7 +16,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:expiredAccessToken",
-   "href": "https://www.gcloud.belgium.be/rest/problems/expiredAccessToken.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/expiredAccessToken.html",
    "status": 401,
    "title": "Expired Access Token",
    "detail": "The Bearer access token found in the Authorization HTTP header has expired"

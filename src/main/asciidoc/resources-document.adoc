@@ -307,7 +307,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 ----
 {
   "type": "urn:problem-type:belgif:badRequest",
-  "href": "https://www.gcloud.belgium.be/rest/problems/badRequest.html",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
   "status": 400,
   "title": "Bad Request",
   "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",

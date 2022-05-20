@@ -21,7 +21,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:payloadTooLarge",
-   "href": "https://www.gcloud.belgium.be/rest/problems/payloadTooLarge.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/payloadTooLarge.html",
    "status": 413,
    "title": "Payload Too Large",
    "detail": "Request message must not be larger than 10 MB",

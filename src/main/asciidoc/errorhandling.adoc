@@ -88,7 +88,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```json
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.gcloud.belgium.be/rest/problems/resourceNotFound.html",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
   "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
   "status": 404,
   "title": "Resource is not found",
@@ -179,7 +179,7 @@ Content-Type: application/problem+json
 [[standardized-problem-types]]
 === Standardized problem types
 
-A list of problem types is standardized for all G-Cloud REST APIs.
+A list of problem types is standardized in this guide for reuse across all REST APIs.
 They are defined as URNs of format `+urn:problem-type:belgif:<type>+`.
 
 WARNING: `href` links to descriptions of standardized problem types will change in the future to recommended format containing full problem type identifier without HTML extension.

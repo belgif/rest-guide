@@ -11,7 +11,7 @@ Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:internalServerError",
-   "href": "https://www.gcloud.belgium.be/rest/problems/internalServerError.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/internalServerError.html",
    "status": 500,
    "title": "Internal Server Error"
 }

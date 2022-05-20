@@ -16,7 +16,7 @@ Retry-After: Thu, 05 Aug 2021 10:30:00 GMT
 
 {
    "type": "urn:problem-type:belgif:tooManyRequests",
-   "href": "https://www.gcloud.belgium.be/rest/problems/tooManyRequests.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/tooManyRequests.html",
    "status": 429,
    "title": "Too Many Requests",
    "detail": "No more requests accepted before 2021-08-05T10:30:00Z",
@@ -33,7 +33,7 @@ Retry-After: 60
 Content-Type: application/problem+json
 {
   "type": "urn:problem-type:belgif:tooManyRequests",
-   "href": "https://www.gcloud.belgium.be/rest/problems/tooManyRequests.html",
+   "href": "https://www.belgif.be/specification/rest/api-guide/problems/tooManyRequests.html",
    "status": 429,
    "title": "Too Many Requests",
    "detail": "No more requests accepted during next 60 seconds",
