@@ -9,9 +9,9 @@
 
 
 === POST
-*POST must be used to create a new resource in a collection or to execute a <<Controller,controller>> resource.*
+*POST must be used to <<create-resource,create a new resource>> in a collection or to execute a <<Controller,controller>> resource.*
 
-The POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection. The response should contain a Location HTTP header containing the newly created URI.
+When using for resource creation, the POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection. The response should contain a Location HTTP header containing the URI of the newly created resource, while the body contains either its (partial or full) representation or is empty.
 
 POST operations may have side effects (i.e. modify state), and are not required to be idempotent.
 
