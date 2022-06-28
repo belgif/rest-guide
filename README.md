@@ -20,7 +20,7 @@ Types in beta status are in the source code, but not part of the released artifa
 | location | [latest release](https://github.com/belgif/openapi-location/releases/latest) |
 | organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) |
 | employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) |
-| money | [repository (not yet released)](https://github.com/belgif/openapi-money) |
+| money | [latest release](https://github.com/belgif/openapi-money/releases/latest) |
 
 # Guidelines to write the styleguide
 
