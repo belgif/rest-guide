@@ -392,7 +392,11 @@ a|
 
 |body
 |​
-|The response contains an empty body.
+a|The API should specify for each creation operation, if it returns:
+
+* an empty body,
+* a partial resource representation (e.g. only a generated resource identifier),
+* or a full resource representation.
 
 3+|Most used response codes
 ​​

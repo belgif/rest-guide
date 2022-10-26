@@ -29,7 +29,7 @@ In most cases, 200 is the code the client hopes to see. It indicates that the RE
 |[[http-201]]201 Created
 |**201 (“Created”) must be used to indicate successful resource creation**
 
-A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request.
+A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request. The response body may be empty or contain a partial or full representation of the new resource.
 There may also be times when a new resource is created as a result of some custom POST action, in which case 201 would also be an appropriate response.
 |​<<POST,POST>> 
 
