@@ -377,7 +377,7 @@ a|
   "name": "Belgacom",
   "employerId": 93017373,
   "company": {
-    "enterpriseNumber": 202239951
+    "enterpriseNumber": "0202239951"
   }
 }
 ----
