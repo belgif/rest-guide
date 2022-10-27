@@ -1,5 +1,5 @@
 == Changelog
-* 2022-xx-xx
+* 2022-10-27
 ** updated: the response body when creating a resource may also contain partial or full resource (<<create-resource, Create a new resource>>)
 * 2022-05-20
 ** move REST guide to belgif.be, updating href problem links
