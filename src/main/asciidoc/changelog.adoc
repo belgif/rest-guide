@@ -1,4 +1,6 @@
 == Changelog
+* 2022-1x-xx
+** new: Representing <<default-problem-response, general problem types in OpenAPI>>
 * 2022-10-27
 ** updated: the response body when creating a resource may also contain partial or full resource (<<create-resource, Create a new resource>>)
 * 2022-05-20
