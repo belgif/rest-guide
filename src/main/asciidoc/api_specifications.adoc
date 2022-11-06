@@ -246,7 +246,7 @@ A data type name SHOULD refer to the business meaning rather than how it is defi
 .Data type description
 ====
 The `description` property MAY provide a textual description of a JSON data type.
-The `title` property MUST NOT be used because it is hides the actual data type name in visualization tools like Swagger UI.
+The `title` property MUST NOT be used because it hides the actual data type name in visualization tools like Swagger UI.
 ====
 
 |===
