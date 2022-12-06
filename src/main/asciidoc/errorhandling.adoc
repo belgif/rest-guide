@@ -188,7 +188,7 @@ Rather, a default Problem response SHOULD be added to each operation.
 Operation-specific problem types should still be documented.
 ====
 
-Specifying a default problem ensures compatibility with clients that perform strict OpenAPI validation on response messages.
+Specifying a default problem response ensures compatibility with clients that perform strict OpenAPI validation on response messages.
 
 .Default problem response (using `ProblemResponse` from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ====
