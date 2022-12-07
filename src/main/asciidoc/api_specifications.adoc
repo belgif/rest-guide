@@ -58,6 +58,7 @@ This will make the visual representation (SwaggerUI) more readable.
 .`doc` and `refData` resources
 ====
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
+Access to these documentation resources SHOULD be granted to any user or potential user of the API.
 
 The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
 Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#document-structure[OpenAPI 3.0 specification].
