@@ -53,6 +53,29 @@ When an API has many operations, use https://github.com/OAI/OpenAPI-Specificatio
 This will make the visual representation (SwaggerUI) more readable.
 ====
 
+[[general-http-headers]]
+[.rule, caption="Rule {counter:rule-number}: "]
+.General HTTP headers
+====
+HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explictly in the OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
+
+Operation-specific HTTP header parameters SHOULD be documented.
+====
+
+.General vs operation-specific HTTP headers
+====
+Following are examples of HTTP headers that shouldn't be documented explicitly for each operation:
+
+* `Accept-Language`
+* `BelGov-Trace-Id` and `BelGov-Related-Trace-Id` (documented in <<Tracing>>)
+* `Authorization`
+
+Examples of headers that should be specified on operations that support them:
+
+* `ETag`
+* `If-Modified-Since`
+====
+
 [[doc-resource,doc resource]]
 [.rule, caption="Rule {counter:rule-number}: "]
 .`doc` and `refData` resources
