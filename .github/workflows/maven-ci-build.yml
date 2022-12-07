@@ -16,4 +16,4 @@ jobs:
         distribution: adopt
         java-version: '11'
     - name: Build with Maven
-      run: mvn -B site
+      run: mvn -B package
