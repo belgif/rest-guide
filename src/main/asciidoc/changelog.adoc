@@ -15,6 +15,10 @@
 ** updates for OpenAPI 3.0 support throughout the entire guide
 ** new: <<Service Unavailable>> problem type (http 503)
 ** added: use Retry-After HTTP header in <<Too Many Failed Requests>> and <<Too Many Requests>>
+
+.Older changes
+[%collapsible]
+====
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (<<Error handling>>)
 ** updated: clarify use of charset in JSON media type (<<media-types>>)
@@ -98,3 +102,4 @@
 ** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
 * 2018-03-07
 ** <<Error handling>>: use of RFC 7807
+====
