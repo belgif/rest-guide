@@ -1,5 +1,7 @@
 == Error handling
 
+=== Problem Details
+
 https://tools.ietf.org/html/rfc7807[Problem Details for HTTP APIs (RFC 7807)^] defines a simple JSON format to convey additional information about an error to an API consumer. This information complements the HTTP status codes [https://tools.ietf.org/html/rfc7231#section-6[RFC7231]].
 
 For any problem occurred during processing, whether it be caused by the client or the server, the API provider supplies
@@ -175,6 +177,41 @@ Content-Type: application/problem+json
   ]
 }
 ```
+
+[[default-problem-response]]
+[.rule, caption="Rule {counter:rule-number}: "]
+.Default problem response in OpenAPI
+====
+Problem types that may occur on all or most operations of an API (e.g. a missing permission, an internal server error, request violates schema, ...) SHOULD NOT each be documented explicitly in its OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date.
+
+Rather, a default Problem response SHOULD be added to each operation.
+Operation-specific problem types should still be documented.
+====
+
+Specifying a default problem response ensures compatibility with clients that perform strict OpenAPI validation on response messages.
+
+.Default problem response (using `ProblemResponse` from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
+====
+```YAML
+/orders/{orderId}/archive:
+  post:
+    summary: archive the order
+    operationId: archiveOrder
+    parameters:
+    - "$ref": "#/components/schemas/OrderId"
+    responses:
+      "200":
+        "$ref": "#/components/responses/OrderArchivedResponse"
+      "409":
+        description: Order can not be archived when it's not completed
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/InvalidStateProblem"
+      default:
+        "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
+```
+====
 
 [[standardized-problem-types]]
 === Standardized problem types

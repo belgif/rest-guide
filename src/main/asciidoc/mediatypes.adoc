@@ -154,16 +154,18 @@ Default media types cannot be specified.
                 type: string
                 format: binary
         "400":
-          description: SSIN not found
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/responses/InvalidSsinResponse"
-        "404":
-          description: SSIN not found
+          description: SSIN has invalid structure
           content:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/InvalidSsinProblem"
+        "404":
+          description: SSIN was not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/UnknownSsinProblem"
+        default:
+          "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
 ```
 ====
