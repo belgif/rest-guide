@@ -64,7 +64,7 @@ When designing an identifier, various requirements may be of importance specific
 [[new-identifiers]]
 For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
 
-Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identitical. This means that capitalization, whitespace or leading zeroes are significant.
+Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identical. This means that capitalization, whitespace or leading zeroes are significant.
 
 In the OpenAPI data type for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format. 
 
@@ -176,7 +176,7 @@ PensionTypeCode:
 ====
 When defining the type for a property representing an existing numerical code or identifier:
 
-* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erronous values (i.e. without leading zeros).
+* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erroneous values (i.e. without leading zeros).
 * Otherwise, use an integer based type. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32` and using `minimum`/`maximum`).
 
 For new identifiers, it is not recommended to use a number type however as stated in <<new-identifiers>>
@@ -219,7 +219,7 @@ CountryNisCode:
 [rule, id-name]
 .Identifier name
 ====
-The identifier should be named `id` unless there already exists another standardized name for the business identifier.
+An identifier that's not a code should be named `id` unless there already exists another standardized name for the business identifier.
 
 In a JSON representation, it SHOULD NOT be prefixed unless the identifier is not of the resource on which the operation applies and there's ambiguity.
 
@@ -252,6 +252,147 @@ GET /enterprises/{enterpriseNumber}
 {
    "enterpriseNumber":  "0202239951"
 }
+```
+====
+
+.Code name
+====
+A code SHOULD be named by the concept it represents.
+If multiple coding schemes may be used within a context, a suffix can be added to the name to disambiguate.
+If a code is represented together with its description, an object can be used with properties `code` and `description`.
+====
+
+====
+// TODO refer to belgif types
+
+GET /municipalities/{municipality} //or code?
+
+```JSON
+{
+  "code": 10000,
+  "description": "Brussels"
+}
+```
+
+Context in which only Country NIS coding scheme is being used, the data type is clear from the OpenAPI definition
+```YAML
+
+"address": {
+  # ...
+  "municipality": 12345,
+  "country": 150,
+}
+
+Address:
+  type: object
+  properties:
+    # ...
+    municipality:
+      $ref: Municipality
+    country:
+      $ref: CountryNis
+```
+
+GET /addresses/{addressId}
+
+```YAML
+{
+  "municipality": {
+    "code": 10000,
+    "description": "Brussels"
+  },
+  "country": {
+    "nisCode": 150,
+    "isoCode": "BE",
+    "description": {
+      "nl": "België",
+      "fr": "Belgique"
+    }
+  }
+}
+```
+
+```YAML
+Address:
+  type: object
+  properties:
+    # ...
+    municipality:
+      $ref: #/components/schemas/MunicipalityWithDescription
+    country:
+      $ref: #/components/schemas/CountryWithDescription
+
+MunicipalityWithDescription:
+  type: object
+  properties:
+    code:
+      $ref: #/components/schemas/Municipality
+    description:
+      type: string
+
+CountryWithDescription:
+  type: object
+  properties:
+    nisCode:
+      $ref: #/components/schemas/CountryNis
+    isoCode:
+      $ref: #/components/schemas/CountryIso
+    description:
+      type: #/components/schemas/LocalizedString
+```
+
+*Impacted types*
+
+```YAML
+Municipality:
+  description: Numeric code to identify a Belgian municipality
+  #municipality codes are the same in BeSt address and NIS code list
+  type: integer
+  minimum: 10000
+  maximum: 99999
+BelgianRegion:
+  description: Belgian Region represented by an ISO 3166-2:BE code
+  type: string
+  enum:
+    - BE-BRU
+    - BE-WAL
+    - BE-VLG
+CountryNis:
+  description: NIS code representing a country as defined by statbel.fgov.be
+  type: integer
+  minimum: 100
+  maximum: 999
+CountryIso:
+  description: Country represented by an ISO 3166-1 alpha-2 code
+  type: string
+  pattern: "^[A-Z]{2}$"
+CountryWithHistoricIso:
+  description: Country represented by an ISO 3166-1 alpha-2 (current country) or ISO 3166-3 alpha-4 (former country) code
+  type: string
+  pattern: "^[A-Z]{2}([A-Z]{2})?$"
+StreetRrn:
+  description: Street code assigned by National Registry #not part of BeST address
+  type: integer
+  minimum: 1
+  maximum: 9999
+
+Gender: #back to original v1
+  description: 'Gender of a person, following the ISO 5218 standard: 0 = Unknown, 1 = male, 2 = female'
+  type: integer
+  enum:
+    - 0
+    - 1
+    - 2
+HouseholdRelationType: #beta
+  description: The type of relation of a household member to the household reference person, represented by a code assigned by the National Register
+  type: integer
+  minimum: 1
+  maximum: 99
+CivilState: #beta
+  description: The civil state of a person, represented by a code assigned by the National Register
+  type: integer
+  minimum: 1
+  maximum: 99
 ```
 ====
 
@@ -294,7 +435,7 @@ a|
 ----
 
 3+|Most used response codes 
-​​|<<http-200,200>>
+|<<http-200,200>>
 |OK
 |Default success code if the document exists.
 
