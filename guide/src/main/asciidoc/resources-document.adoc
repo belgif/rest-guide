@@ -259,20 +259,13 @@ GET /enterprises/{enterpriseNumber}
 ====
 A code SHOULD be named by the concept it represents.
 If multiple coding schemes may be used within a context, a suffix can be added to the name to disambiguate.
-If a code is represented together with its description, an object can be used with properties `code` and `description`.
+If a concept is represented both by its code and its description(s), an object can be used.
 ====
 
 ====
 // TODO refer to belgif types
 
-GET /municipalities/{municipality} //or code?
 
-```JSON
-{
-  "code": 10000,
-  "description": "Brussels"
-}
-```
 
 Context in which only Country NIS coding scheme is being used, the data type is clear from the OpenAPI definition
 ```YAML
@@ -293,18 +286,39 @@ Address:
       $ref: CountryNis
 ```
 
+GET /refData/economicalActivities/{economicalActivity}
+
+```JSON
+{
+  "code": "A",
+  "description": {
+    "nl": "Landbouw, bosbouw en visserij",
+    "fr": "Agriculture, sylviculture et pêche"
+  }
+}
+```
+
+GET /municipalities/{municipality}
+
+```JSON
+{
+  "code": 10000,
+  "name": "Brussels"
+}
+```
+
 GET /addresses/{addressId}
 
 ```YAML
 {
   "municipality": {
     "code": 10000,
-    "description": "Brussels"
+    "name": "Brussels"
   },
   "country": {
     "nisCode": 150,
     "isoCode": "BE",
-    "description": {
+    "name": {
       "nl": "België",
       "fr": "Belgique"
     }
@@ -330,14 +344,14 @@ MunicipalityWithDescription:
     description:
       type: string
 
-CountryWithDescription:
+CountryWithName:
   type: object
   properties:
     nisCode:
       $ref: #/components/schemas/CountryNis
     isoCode:
       $ref: #/components/schemas/CountryIso
-    description:
+    name:
       type: #/components/schemas/LocalizedString
 ```
 
