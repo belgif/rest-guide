@@ -21,7 +21,7 @@ Following guidelines SHOULD be respected when determining a name for a JSON prop
 * use American English
 * do not use underscores (_), hyphens (-) or dots (.) in a property name, nor use a digit as first letter
 * don't use overly generic terms like `info(rmation)` and `data` as property name or as part of it
-* the name should refer to the business meaning of its value rather than how it is defined
+* the name should refer to the business meaning of its value in relation to the object in which it is specified, rather than how it is defined
 * omit parts of the name that are already clear from the context
 
 Properties used from other standards, like OpenID Connect and OAuth2, are allowed to deviate from this rule.
@@ -31,9 +31,9 @@ Properties used from other standards, like OpenID Connect and OAuth2, are allowe
 |KO|OK
 
 |SSIN | ssin
-|partnerSSIN | partnerSsin
+|street_RRN_Code | streetRrnCode
 |customerInformation | customer
-|descriptionString | description
+|descriptionStringLength140 | description
 a|
 ```JSON
 "country": {
@@ -59,8 +59,9 @@ This is because `enterpriseNumber` is a fixed denomination (declared in  Crossro
 {
   "name": "Belgacom",
   "employerId": 93017373,
-  "enterprise": {
+  "organization": {
     "enterpriseNumber": "0202239951"
+    "href": "/organizations/0202239951"
   }
 }
 ```
