@@ -34,7 +34,7 @@ In that case *prefer associations and create <<links,links>>* to other APIs from
 [rule, id-choice]
 .Choice of identifier
 ====
-The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN number or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.  
+The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.
 ====
 
 New types of identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems even beyond the scope for which it was initially designed, making it very hard to change its structure later on.
@@ -235,8 +235,8 @@ If multiple identifiers or coding schemes may be used within a context, a suffix
 //rationale:
 // keep it as short as possible, without causing confusion
 // the OpenAPI specification provides sufficient documentation which exact values are expected
-// JSON property names can be aligned with semantic web standards
-// in path params, code resources usually doesn't have subresources
+// JSON property names can be better aligned with semantic web standards (relation to containing resource, no suffix with identifier type)
+// in path params, code resources usually doesn't have sub-resources (they're part of refData). Consistently repeating the resource type from the collection is verbose.
 
 .Identifier name
 ====
@@ -282,7 +282,7 @@ DeliveryMethod:
 
 
 GET /persons/{ssin}
-```JSON
+```YAML
 {
   "ssin": "12345678901",
   "partner": "2345678902", # value is of type Ssin
@@ -689,7 +689,7 @@ a|
 
 Use `PATCH` when you like to do a partial update of a document resource.
 
-The `PATCH` message MUST be conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
+The `PATCH` message MUST conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
 
 * JSON properties in the request overwrite the ones in the previous resource state
 * properties with value `null` in the request are removed from the resource
@@ -835,14 +835,14 @@ For example, a REST API may return this response code when a client tries to DEL
 ====
 
 [[long-running-tasks]]
-=== Long running tasks
+=== Long-running tasks
 
 Some operations need to be performed asynchronously, as they take too long to complete.
 
 [rule, lng-task]
-.Long running tasks
+.Long-running tasks
 ====
-Long running tasks MUST be represented as a resource.
+Long-running tasks MUST be represented as a resource.
 The task resource is created using a POST action returning a `202 Accepted` response containing the URL of the task in the `Location` HTTP header.
 It can then be fetched by the client to get the processing status of the task.
 
@@ -856,7 +856,7 @@ When GETting the task resource, the response can be:
 Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
 The schema https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
 
-.Long running task
+.Long-running task
 ====
 *Submitting the task*
 
@@ -913,7 +913,7 @@ Content-Type: application/json;charset=UTF-8
   "self": "/images/tasks/1",
   "status": {
     "state": "done",
-    "completed":"2018-09-13T02:10:00Z",
+    "completed":"2018-09-13T02:10:00Z"
   }
 }
 ```
