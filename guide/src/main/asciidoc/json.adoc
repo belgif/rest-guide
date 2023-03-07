@@ -31,7 +31,7 @@ Properties used from other standards, like OpenID Connect and OAuth2, are allowe
 |KO|OK
 
 |SSIN | ssin
-|street_RRN_Code | streetRrnCode
+|street_RRN | streetRrn
 |customerInformation | customer
 |descriptionStringLength140 | description
 a|
