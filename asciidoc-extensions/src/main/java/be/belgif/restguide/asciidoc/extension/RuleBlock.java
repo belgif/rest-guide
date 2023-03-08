@@ -40,7 +40,7 @@ public class RuleBlock extends BlockProcessor {
         attributes.put("id", ruleAnchor);
         attributes.put("reftext", "[" + ruleId + "]");
         String title = (String) attributes.getOrDefault("title", "");
-        attributes.put("title", "Rule : " + title +  " <<" + ruleAnchor + ">>");
+        attributes.put("title", "Rule: " + title +  " <<" + ruleAnchor + ">>");
 
         // creating block as 'example' type caused parsing errors for bullet lists, so using open block with exampleblock style instead
         attributes.put("role", "exampleblock rule");
