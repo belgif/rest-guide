@@ -31,7 +31,7 @@ In that case *prefer associations and create <<links,links>>* to other APIs from
 
 === Identifier
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, id-chc]
 .Choice of identifier
 ====
 The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN number or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.  
@@ -58,10 +58,10 @@ When designing an identifier, various requirements may be of importance specific
 * easy to represent in URL parameter without escaping
 * sortable (for technical reasons e.g. pagination)
 
-[[new-identifiers]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, id-dsn]
 .Designing new identifiers
 ====
+[[new-identifiers]]
 For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
 
 Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identitical. This means that capitalization, whitespace or leading zeroes are significant.
@@ -139,7 +139,7 @@ A _code_ is a special type of identifier:
 * it has an exhaustive list of possible values that doesn't change frequently over time
 * each value identifies a concept (examples: a country, a gender, ...).
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, cod-dsn]
 .Designing new codes
 ====
 New code types SHOULD be represented as string values in lowerCamelCase.
@@ -171,8 +171,8 @@ PensionType:
 ```
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.Representating existing numerical identifiers
+[rule, id-num]
+.Representing existing numerical identifiers
 ====
 When defining the type for a property representing an existing numerical code or identifier:
 
@@ -216,7 +216,7 @@ CountryNisCode:
 
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, id-name]
 .Identifier name
 ====
 The identifier should be named `id` unless there already exists another standardized name for the business identifier.
@@ -333,7 +333,7 @@ WARNING: ​<<http-204,204 No content>>  should not be used with GET.
 
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, res-prt]
 .Retrieve partial resource representation
 ====
 The `select` query parameter is reserved to return a resource representation with only the specified properties.
@@ -644,7 +644,7 @@ For example, a REST API may return this response code when a client tries to DEL
 
 Some operations need to be performed asynchronously, as they take too long to complete.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, lng-tsk]
 .Long running tasks
 ====
 Long running tasks MUST be represented as a resource.

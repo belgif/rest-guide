@@ -14,7 +14,7 @@ NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]​ +
 
 URI must be intuitively structured.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, uri-not]
 .URI notation
 ==========================
 The **URI notation MUST use _lowerCamelCase_ ** to enhance readability and to separate compound names.
@@ -30,7 +30,7 @@ Trailing slashes MUST NOT be used.
 ​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331/#
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, uri-ext]
 .URI extensions
 ====
 The URI **SHOULD NOT contain a file extension**.
@@ -48,7 +48,7 @@ Instead, look at how to express <<Media Types>> using HTTP headers.
 
 
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, qry-flt]
 .Query parameters
 ====
 The query part of a URI may be used to filter the resource output.
@@ -69,7 +69,7 @@ Filter the resource properties to the ones specified in the `select` query param
 Only return translatable properties in dutch.
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, qry-mlt]
 .Multiple values for the same query parameter
 ====
 When a single query parameter can have multiple values, the parameter SHOULD be repeated for each value.
