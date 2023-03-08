@@ -2,17 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <!-- General attributes -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>be.gcloud</groupId>
-    <artifactId>rest-styleguide</artifactId>
+    <groupId>io.github.belgif.restguide</groupId>
+    <artifactId>restguide-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>REST Styleguide</name>
-    <description>Documentation on the REST style guide for the Belgian federal government</description>
+    <description>REST style guide for Belgian government institutions</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <asciidoctorj.version>2.5.7</asciidoctorj.version>
+		<maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <developers>
         <developer>
@@ -20,95 +22,10 @@
             <email>rest-styleguide@gcloud.belgium.be</email>
         </developer>
     </developers>
+	
+	<modules>
+		<module>guide</module>
+		<module>asciidoc-extensions</module>
+	</modules>
 
-    <distributionManagement/>
-
-    <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>3.5.2</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
-                <version>3.5.2</version>
-            </extension>
-        </extensions>
-
-        <defaultGoal>package</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>2.2.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-diagram</artifactId>
-                        <version>2.2.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <attributes>
-                        <source-highlighter>coderay</source-highlighter>
-                    </attributes>
-                    <requires>
-                        <require>asciidoctor-diagram</require>
-                    </requires>
-                </configuration>
-                <executions>
-                     <execution>
-                        <id>generate-styleguide</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDocumentName>index.adoc</sourceDocumentName>
-                            <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
-                            <attributes>
-                                <stylesheet>my-theme.css</stylesheet>
-                            </attributes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-problems</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>${basedir}/src/main/asciidoc/problems</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-docs/problems</outputDirectory>
-                            <attributes>
-                                <stylesheet>../my-theme.css</stylesheet>
-                            </attributes>
-                        </configuration>
-                    </execution>               
-                </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-assembly-plugin</artifactId>
-              <version>3.4.2</version>
-              <executions>
-                <execution>
-                  <id>create-distribution</id>
-                  <phase>package</phase>
-                  <goals>
-                    <goal>single</goal>
-                  </goals>
-                  <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptors>
-                      <descriptor>src/main/assembly/asciidoc-zip.xml</descriptor>
-                    </descriptors>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
