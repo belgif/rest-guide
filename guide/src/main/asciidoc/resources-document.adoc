@@ -220,12 +220,13 @@ CountryNis:
 [rule, id-name]
 .Identifier name
 ====
-Following naming guidelines should be applied when designating an identifier of code within a REST API:
+Following naming guidelines should be applied when using an identifier or code within a REST API:
 
-* as JSON property in an object that represents the entire or part of a resource: use: `id` or `code`
-* as JSON property value to reference the resource within another one's representation: property name designates the relation between the resources (see <<json-property-naming, JSON property naming>>); no need to suffix with `id` or `code`.
-* path parameter: `id`, `code`. May be prefixed with <resourceType> to disambiguate if there are multiple identifiers as path parameters.
-* query search parameter: same name as the document property (see <<filtering>>)
+* as JSON property
+** within an object that represents the entire or part of a resource: `id` or `code`
+** used to reference a resource within another one's representation: property name should designate the relation between the resources (see <<json-property-naming, JSON property naming>>); no need to suffix with `id` or `code`
+* path parameter: `id`, `code`. MAY be prefixed with the resource type to disambiguate if there are multiple identifiers as path parameters
+* query search parameter: use same name as the document property (see <<filtering>>)
 
 As an exception, when a standardized name for the business identifier already exists, its use is always preferred over `id` or `code`.
 
@@ -352,7 +353,7 @@ Address:
       $ref: CountryNis
 ```
 
-GET /refData/economicalActivities/{economicalActivity}
+GET /refData/economicalActivities/{code}
 
 ```JSON
 {
