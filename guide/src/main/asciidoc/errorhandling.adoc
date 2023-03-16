@@ -46,7 +46,7 @@ For any problem occurred during processing, whether it be caused by the client o
           description: An absolute URI that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
 ```
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, err-problem]
 .Use of RFC 7807 Problem Details
 ====
 Any information on a problem SHOULD be provided in the Problem Detail format, as specified in https://tools.ietf.org/html/rfc7807[Problem Details for HTTP APIs (RFC 7807)^]:
@@ -107,7 +107,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```
 ====
 
-[.rule, caption="Rule {counter:rule-number}: ", subs="none"]
+[rule, prb-type, subs="none"]
 .Problem type
 ====
 Problem `type` SHOULD be specified as a URN in one of following formats:
@@ -141,7 +141,7 @@ Reverse FQDN notation for `<org>` is not recommended in order to keep the identi
 ```
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, err-sanit]
 .Error sanitization
 ====
 A problem MUST NOT leak sensitive implementation and infrastructure details.
@@ -179,7 +179,7 @@ Content-Type: application/problem+json
 ```
 
 [[default-problem-response]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, prb-defaul]
 .Default problem response in OpenAPI
 ====
 Problem types that may occur on all or most operations of an API (e.g. a missing permission, an internal server error, request violates schema, ...) SHOULD NOT each be documented explicitly in its OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date.

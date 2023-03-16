@@ -13,16 +13,16 @@ The REST uniform interface is based on three fundamental elements:
 
 === API
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.API
-==========================
+[rule, api-scope]
+.API scope
+====
 An API bundles a set of resources which are _functionally related_ and form an autonomous _unit of business logic_.
-==========================
+====
 
 Compare an API to the concept of https://patterns.arcitura.com/soa-patterns/basics/serviceorientation/services[_Services_ in service-orientation^] or the concept of https://martinfowler.com/bliki/BoundedContext.html[_Bounded Contexts_ in Domain-Driven Development^].
 
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, uri-format]
 .API format
 ====
 *URI =* `https://`[green]#_host_#`/`[green]#_pathPrefix_#`/`[green]#_apiName_#`/v`[green]#_majorVersion_#`/`[green]#_resources_#
@@ -47,7 +47,7 @@ In order to be compliant to the _uniform interface_ as described by Roy Fielding
 . *<<Hypermedia controls>>* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
 
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, api-matur]
 .Maturity level
 ====
 All REST services *MUST at least respect level 2* and desirably achieve level 3.

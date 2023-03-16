@@ -24,7 +24,7 @@ Types in beta status are in the source code, but not part of the released artifa
 
 # Guidelines to write the styleguide
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the REST styleguide are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the REST styleguide are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 They are used in the rules defined throughout the REST styleguide wherever possible.
 
 Examples must follow the following format:
@@ -39,17 +39,19 @@ Examples must follow the following format:
 Rules must follow the following format:
 
 ```
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, <rule-id>]
 .rule title
 ====
 <the rule, using RFC 2119 key words>
 ====
 ```
+`<rule-id>` should be a shorthand textual identifier for the rule of max 10 characters long. Dashes can be used as word separator.
+An anchor of format `#rule-<rule-id>` to each rule is made. When changing a <rule-id>, an inline asciidoc anchor `[[rule-<rule-id>]]` should be placed at the start of the rule text so the old anchor still works.
 
 # Building the styleguide
 
 The styleguide is built with [Apache Maven](https://maven.apache.org).
 
 With Maven installed, run `mvn` in the root directory of the project. 
-The styleguide will be built in `target/generated-docs/` and bundled as a zip in the `target` directory.
+The styleguide will be built in `guide/target/generated-docs/` and bundled as a zip in the `target` directory.
 

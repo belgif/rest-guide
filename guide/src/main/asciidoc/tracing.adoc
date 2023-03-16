@@ -9,7 +9,7 @@ The trace ID could be used for example:
 * for audit logging, in order to be able to trace the origin of each request.
   It may be a legal requirement to have such audit logging when sensitive data is exchanged.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, trc-header]
 .HTTP headers for tracing
 ====
 APIs SHOULD support the tracing HTTP header `BelGov-Trace-Id` on both requests and responses.

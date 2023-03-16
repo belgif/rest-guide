@@ -3,8 +3,8 @@
 
 The HTTP protocol supports content negotiation for media types of the response.
 
-[.rule, caption="Rule {counter:rule-number}: "]
-.Content negotation
+[rule, cnt-negot]
+.Content negotiation
 ====
 REST clients SHOULD specify the media type(s) that is(/are) acceptable for the response in the `Accept` HTTP header.
 
@@ -36,7 +36,7 @@ Vary: Accept
 The primary media type to support is *JSON* (Javascript Object Notation).
 The choice for JSON is particularly made for supporting JavaScript clients.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, rep-struct]
 .Representation of structured data
 ====
 Structured data MUST be made available in JSON format (https://tools.ietf.org/html/rfc8259[RFC 8259^]) with media type `application/json`.
@@ -114,7 +114,7 @@ The request and response body's media type are specified in an OpenAPI 2.0 speci
 
 NOTE: OpenAPI 2.0 doesn't support specifying a different media type per status code.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, med-types]
 .Default media types
 ====
 OpenAPI 2.0 specifications SHOULD specify following default media types:

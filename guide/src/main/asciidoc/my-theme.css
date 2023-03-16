@@ -431,3 +431,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
   border-color: #b71818;
   border-width: 2px;
 }
+
+.rule.exampleblock>.title{
+  color: black;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 110%;
+}
