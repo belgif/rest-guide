@@ -39,12 +39,14 @@ Examples must follow the following format:
 Rules must follow the following format:
 
 ```
-[rule, <rule-shorthand>]
+[rule, <rule-id>]
 .rule title
 ====
 <the rule, using RFC 2119 key words>
 ====
 ```
+`<rule-id>` should be a shorthand textual identifier for the rule of max 10 characters long. Dashes can be used as word separator.
+An anchor of format `#rule-<rule-id>` to each rule is made. When changing a <rule-id>, an inline asciidoc anchor `[[rule-<rule-id>]]` should be placed at the start of the rule text so the old anchor still works.
 
 # Building the styleguide
 

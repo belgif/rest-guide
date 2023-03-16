@@ -11,7 +11,7 @@ Service consumers should be aware that JSON objects can always be extended with 
 
 === JSON properties
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, jsn-naming]
 .Naming of JSON properties
 ====
 All JSON property names are in American English and are written in _lowerCamelCase_ notation.
@@ -46,15 +46,15 @@ Properties used from other standards, like OpenID Connect and OAuth2, are allowe
 }
 ```
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, jsn-null]
 .Null values
-==========================
+====
 Properties with a `null` value SHOULD be stripped from the JSON message.
 
 A notable exception to this rule are JSON Merge Patch requests, in which a `null` value indicates the removal of a JSON property.
 
 Note that this rule doesn't apply to empty values (e.g. empty strings `""` or empty arrays `[]`) as they are considered different from a `null` value.
-==========================
+====
 
 |===
 |*NOK*|*OK*

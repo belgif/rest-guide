@@ -5,7 +5,7 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 [[links]]
 === Links
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, hyp-links]
 .Links to self and other resources
 ====
 When referencing another resource, a link SHOULD be added using the `href` attribute.

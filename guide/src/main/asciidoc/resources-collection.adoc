@@ -2,7 +2,7 @@
 
 A collection resource is a server-managed list of document resources.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, col-name]
 .Collection name
 ====
 A plural noun SHOULD be used for collection names, for example 'employers' or 'people'.
@@ -16,7 +16,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'p
 [[collections-consult, Consulting a collection]]
 === Consult
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, col-repres]
 .Representation of a collection
 ====
 The representation of a collection MUST contain a list of links to child resources:
@@ -108,7 +108,7 @@ EmployerLink:
 ```
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule,col-embed]
 .Getting full representations of collection items
 ====
 When the collection items contain few data, you may want to retrieve them in full when getting the collection.
@@ -187,7 +187,7 @@ AppendixCodeLink:
 [[filtering]]
 === Filtering
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, col-filter]
 .Filtering items in a collection
 ====
 A collection may support <<query-parameters, query parameters>> to filter its items:
@@ -257,7 +257,7 @@ GET {API}/companies?name=belg[^] HTTP/1.1​
 
 === Pagination
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, col-paging]
 .Paging over a large collection​
 ====
 Collection with too many items MUST support pagination.

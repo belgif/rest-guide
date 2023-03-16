@@ -144,7 +144,7 @@ a|
 
 https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all standardized and common non-standard HTTP headers.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, cst-header]
 .Custom HTTP headers
 ====
 Custom HTTP headers SHOULD be prefixed with the organization's name.
