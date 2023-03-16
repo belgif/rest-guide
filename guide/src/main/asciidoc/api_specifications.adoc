@@ -1,7 +1,7 @@
 [[api-specs]]
 == API specifications
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, ctr-first]
 .API contract-first approach
 ====
 The contract-first principle SHOULD be followed when developing an API.
@@ -17,7 +17,7 @@ In this case, special attention should be given that the API specifications rema
 OpenAPI is the dominating standard for API documentation, having gained wide industry support.
 It is based on http://swagger.io/[Swagger^], which has been standardized as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI 2.0].
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-contra]
 .OpenAPI
 ====
 Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
@@ -31,13 +31,13 @@ The OpenAPI standard also includes a list of supported primitive https://github.
 
 You can visualize OpenAPI files using some of the tools listed in <<openapi-tools>>.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, ext-docs]
 .Additional documentation
 ====
 Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-yaml]
 .Use YAML format for OpenAPI
 ====
 OpenAPI files SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
@@ -46,7 +46,7 @@ YAML is a superset of JSON which allows a simpler notation, and also allows comm
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-tags]
 .Use tags to group operations
 ====
 When an API has many operations, use https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#tagObject[tags] to group them together.
@@ -54,7 +54,7 @@ This will make the visual representation (SwaggerUI) more readable.
 ====
 
 [[general-http-headers]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, gen-header]
 .General HTTP headers
 ====
 HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explictly in the OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
@@ -77,7 +77,7 @@ Examples of headers that should be specified on operations that support them:
 ====
 
 [[doc-resource,doc resource]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, doc-refdata]
 .`doc` and `refData` resources
 ====
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
@@ -115,13 +115,13 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ====
 
 [[default-values,default values]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-defaul]
 .`default` values
 ====
 Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI specification.
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-exampl]
 .Add examples in OpenAPI
 ====
 Add example response values to the OpenAPI specification under the `examples` property.
@@ -183,7 +183,7 @@ OpenAPI 3.0
 WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
   Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-reuse]
 .Reusable OpenAPI definitions
 ====
 Instead of specifying everything directly in the `swagger.yaml` file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
@@ -230,7 +230,7 @@ A type can be referenced from another OpenAPI file:
 ====
 
 [[belgif-openapi-types, Common OpenAPI definitions]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-comdef]
 .Common definitions for Belgian government institutions
 ====
 Common definitions for use by Belgian government institutions are available in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories], organized per domain.
@@ -245,7 +245,7 @@ In addition, they will also be made available on https URLs both in YAML and JSO
 
 === JSON data types
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-types]
 .Naming of data types
 ====
 Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
@@ -266,7 +266,7 @@ A data type name SHOULD refer to the business meaning rather than how it is defi
 |LanguageEnumeration | Language
 |===
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-descr]
 .Data type description
 ====
 The `description` property MAY provide a textual description of a JSON data type.
@@ -295,7 +295,7 @@ Pet:
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, addi-prop]
 .additionalProperties
 ====
 `additionalProperties` SHOULD be used exclusively to describe an object representing a map of key-value pairs.
@@ -305,7 +305,7 @@ The keys of such maps don't need to respect the naming rules for JSON properties
 An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-rdonly]
 .readOnly properties
 ====
 Properties SHOULD  be declared readOnly when appropriate.
@@ -317,10 +317,10 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
 
-[[enum-rule, Enum values rule]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, oas-enum]
 .Enum values
 ====
+[[enum-rule, Enum values rule]]
 A fixed list of possible values of a property can be specified using `enum`.
 However, this may make it harder to change the list of possible values, as client applications will often depend on the specified list e.g. by using code generation.
 
@@ -341,10 +341,10 @@ State:
 
 When defining a type for an identifier or code, like the above example, the guidelines under <<Identifier>> apply, even when not used as a URL path parameter of a document resource.
 
-[[decimals, Decimals]]
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, dec-type]
 .Decimals
 ====
+[[decimals, Decimals]]
 Decimal numbers for which the fractional part's precision is important, like monetary amounts, SHOULD be represented by a `string`-based type, with `number` as format. Depending on the context, a regular expression can enforce further restrictions like the number of digits allowed before/after comma or on the presence of a `+`/`-` sign.
 
 When `number` would be used as type instead of `string`, some technologies will convert the values to floating point numbers, leading to a loss of precision and unintended calculation errors.

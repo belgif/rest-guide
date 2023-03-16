@@ -22,7 +22,7 @@ jobs:
     - name: Build with Maven
       run: |
         mvn -B package
-        ARTIFACT_FILE=`ls ./target/rest-styleguide-*.zip`
+        ARTIFACT_FILE=`ls ./guide/target/rest-styleguide-*.zip`
         echo "ARTIFACT_FILE=$ARTIFACT_FILE" >> $GITHUB_ENV
         echo "ARTIFACT_NAME=`basename $ARTIFACT_FILE`" >> $GITHUB_ENV
     - name: Create GitHub release

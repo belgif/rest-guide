@@ -23,7 +23,7 @@ Backwards-incompatible changes, requiring a big bang release, are only feasible 
 
 In this case, the major version number could be kept the same as only a single version of the API is active at a given time and it can be easier to keep the base URL of the API unchanged.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, api-evol]
 .Prefer API evolution
 ====
 We strongly encourage using API evolution when possible and discourage versioning:
@@ -36,7 +36,7 @@ NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn'
 
 === API evolution
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, evo-object]
 .JSON object as top level structure
 ====
 In a response body, you MUST always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility.
@@ -47,7 +47,7 @@ This allows you to easily extend your response and e.g. add pagination later, wi
 
 With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, evo-compat]
 .Compatible extensions
 ====
 Apply the following rules to evolve RESTful APIs in a backward-compatible way:
@@ -62,7 +62,7 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * a new resource variant (with another name) can be created in addition to the old resource variant
 ====
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, evo-deprec]
 .Deprecation
 ====
 Deprecation MAY be used to indicate parts of an API are not recommended to be used anymore.
@@ -83,7 +83,7 @@ However, this isn't possible for response elements, so there is always remains s
 
 === API versioning
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, api-version]
 .Version numbering
 ====
 The version string of an API SHOULD contain a major, minor and optionally a patch number.
@@ -125,7 +125,7 @@ servers:
 
 Similar guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, ver-del]
 .Removing an old version
 ====
 Before removing an old API version:

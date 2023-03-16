@@ -14,7 +14,7 @@ One of following strategies may be chosen for internationalization:
 
 As for <<Media Types>>, HTTP supports content negotiation for the language used in response content.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, int-negot]
 .HTTP language headers
 ====
 Users can inform the server that a specific language is requested by adding the `Accept-Language` HTTP header to each request (http://tools.ietf.org/html/rfc7231#section-5.3.5[RFC 7231]).
@@ -47,7 +47,7 @@ Content-Language: nl
 
 It may be decided to include all supported translations for descriptions in a resource's representation.
 
-[.rule, caption="Rule {counter:rule-number}: "]
+[rule, multi-lang]
 .Multi-language descriptions
 ====
 A multi-language description SHOULD be represented by a JSON object with {iso639-1}[ISO 639-1] language codes as property names and the corresponding textual description as values.
