@@ -34,7 +34,7 @@ In that case *prefer associations and create <<links,links>>* to other APIs from
 [rule, id-choice]
 .Choice of identifier
 ====
-The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN number or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.  
+The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.
 ====
 
 New types of identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems even beyond the scope for which it was initially designed, making it very hard to change its structure later on.
@@ -64,7 +64,7 @@ When designing an identifier, various requirements may be of importance specific
 [[new-identifiers]]
 For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
 
-Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identitical. This means that capitalization, whitespace or leading zeroes are significant.
+Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identical. This means that capitalization, whitespace or leading zeroes are significant.
 
 In the OpenAPI data type for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format. 
 
@@ -149,25 +149,25 @@ Depending on context, the OpenAPI data type may enumerate the list of allowed va
 
 .Code
 ====
-// TODO: replace PensionType fabricated example with a real one
-`GET /refData/pensionTypes/{code}` with `code` of type `PensionTypeCode`
+`GET /refData/paymentMethods/{code}` with `code` of type `PaymentMethodCode`
 
 As string with enumeration:
 ```YAML
-PensionTypeCode:
+PaymentMethodCode:
   type: string
   enum:
-  - retirementPension
-  - survivalPension
-  - guaranteedIncomeElderly
+  - cash
+  - wireTransfer
+  - creditCard
+  - debitCard
 ```
 
 As string with regular expression: 
 ```YAML
-PensionTypeCode:
+PaymentMethodCode:
   type: string
   pattern: "^[A-Za-z0-9]+$"
-  example: "retirementPension"
+  example: "debitCard"
 ```
 ====
 
@@ -176,7 +176,7 @@ PensionTypeCode:
 ====
 When defining the type for a property representing an existing numerical code or identifier:
 
-* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erronous values (i.e. without leading zeros).
+* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erroneous values (i.e. without leading zeros).
 * Otherwise, use an integer based type. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32` and using `minimum`/`maximum`).
 
 For new identifiers, it is not recommended to use a number type however as stated in <<new-identifiers>>
@@ -189,6 +189,7 @@ An employer ID may be of variable length. Leading zeroes are ignored and most of
 EmployerId:
   description: Definitive or provisional NSSO number, assigned to each registered employer or local or provincial administration.
   type: integer
+  format: int64
   minimum: 0
   maximum: 5999999999
   example: 21197
@@ -203,7 +204,7 @@ Ssin:
   pattern: '^\d{11}$'
 ```
 
-Country NIS code is a three digit code, the first digit cannot be a zero.
+Country NIS code is a three-digit code, the first digit cannot be a zero.
 
 ```YAML
 CountryNisCode:
@@ -219,11 +220,17 @@ CountryNisCode:
 [rule, id-name]
 .Identifier name
 ====
-The identifier should be named `id` unless there already exists another standardized name for the business identifier.
+Following naming guidelines should be applied when using an identifier or code in a REST API:
 
-In a JSON representation, it SHOULD NOT be prefixed unless the identifier is not of the resource on which the operation applies and there's ambiguity.
+* JSON property:
+** within an object that represents the entire or part of a resource: use `id` or `code`
+** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<json-property-naming, JSON property naming>>); no need to suffix with `id` or `code`
+* path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
+* query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
 
-If the identifier is used as path parameter, it should be prefixed by the resource type.
+As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
+
+If multiple identifiers or coding schemes may be used within the same context, a suffix can be added to the name to disambiguate.
 ====
 
 .Identifier name
@@ -231,28 +238,83 @@ If the identifier is used as path parameter, it should be prefixed by the resour
 
 ```
 GET /stores/{storeId}/orders/{orderId} <1>
-
+```
+```YAML
 {
-  "id": 123,  <2>
-  "clientId": 456, <3>
+  "id": 123,  #<2>
+  "customer": 456, #<3>
   "store": {
-     "id": 789, <4>
+     "id": 789, #<4>
      "href": "/stores/789"
+  },
+  "paymentMethod": "creditCard",
+  "deliveryMethod": {
+     "code": "deliveredAtHome", #<5>
+     "href": "/refData/deliveryMethods/deliveredAtHome"
   }
 }
 ```
-<1> path parameter: prefixed with resource type
-<2> use id as JSON property name for the resource being consulted
-<3> identifier doesn't refer to the consulted resource. It would be ambiguous with the order's id.
-<4> Clearly refers to the store's id, so no prefix required.
 
-`enterpriseNumber` is a standard business name for the CBE enterprise identifier, so it should be used instead of `id`:
+<1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
+<2> `id` as property of the consulted resource
+<3> identifier used to reference another resource. JSON property name designates relation to the other resource.
+<4> `id` as property in a partial representation of a `store` resource
+<5> `code` as property in a partial representation of a `deliveryMethod` resource
+
 ```
-GET /enterprises/{enterpriseNumber}
+GET /refData/deliveryMethods/{code} <1>
+```
+```YAML
 {
-   "enterpriseNumber":  "0202239951"
+  "code": "deliveredAtHome",
+  "description": {
+     "nl": "Geleverd aan huis",
+     "en": "Delivered at home",
+     "fr": "Livré à domicile"
+  }
 }
 ```
+<1> Since there are no child resources with other path parameters, simply `code` suffices
+====
+
+.Standardized business identifiers
+====
+```
+GET /persons/{ssin} <1>
+```
+```YAML
+{
+  "ssin": "12345678901", <1>
+  "partner": "2345678902", <2>
+  "civilStatus": 1
+}
+```
+<1> Standardized business identifier name `Ssin` is preferred over `id`.
+<2> JSON property name designates relation to the other resource. The OpenAPI specification declares the expected value to be of type `Ssin`.
+====
+
+.Multiple types of identifiers
+====
+```
+GET /addresses/{addressId}
+```
+```YAML
+{
+  "municipality": {
+    "code": 10000,
+    "name": "Brussels"
+  },
+  "country": {
+    "nisCode": 150, <1>
+    "isoCode": "BE", <1>
+    "name": {
+      "nl": "België",
+      "fr": "Belgique"
+    }
+  }
+}
+```
+<1> Prefixes `nis` and `iso` disambiguate between two types of country identifiers used in a single context
 ====
 
 [[document-consult,Consult (Document)]]
@@ -294,7 +356,7 @@ a|
 ----
 
 3+|Most used response codes 
-​​|<<http-200,200>>
+|<<http-200,200>>
 |OK
 |Default success code if the document exists.
 
@@ -494,7 +556,7 @@ a|
 
 Use `PATCH` when you like to do a partial update of a document resource.
 
-The `PATCH` message MUST be conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
+The `PATCH` message MUST conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
 
 * JSON properties in the request overwrite the ones in the previous resource state
 * properties with value `null` in the request are removed from the resource
@@ -640,14 +702,14 @@ For example, a REST API may return this response code when a client tries to DEL
 ====
 
 [[long-running-tasks]]
-=== Long running tasks
+=== Long-running tasks
 
 Some operations need to be performed asynchronously, as they take too long to complete.
 
 [rule, lng-task]
-.Long running tasks
+.Long-running tasks
 ====
-Long running tasks MUST be represented as a resource.
+Long-running tasks MUST be represented as a resource.
 The task resource is created using a POST action returning a `202 Accepted` response containing the URL of the task in the `Location` HTTP header.
 It can then be fetched by the client to get the processing status of the task.
 
@@ -661,7 +723,7 @@ When GETting the task resource, the response can be:
 Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
 The schema https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
 
-.Long running task
+.Long-running task
 ====
 *Submitting the task*
 
@@ -718,7 +780,7 @@ Content-Type: application/json;charset=UTF-8
   "self": "/images/tasks/1",
   "status": {
     "state": "done",
-    "completed":"2018-09-13T02:10:00Z",
+    "completed":"2018-09-13T02:10:00Z"
   }
 }
 ```
