@@ -53,11 +53,11 @@ When an API has many operations, use https://github.com/OAI/OpenAPI-Specificatio
 This will make the visual representation (SwaggerUI) more readable.
 ====
 
-[[general-http-headers]]
 [rule, gen-header]
 .General HTTP headers
 ====
-HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explictly in the OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
+[[general-http-headers]]
+HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explicitly in the OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
 
 Operation-specific HTTP header parameters SHOULD be documented.
 ====
@@ -76,10 +76,10 @@ Examples of headers that should be specified on operations that support them:
 * `If-Modified-Since`
 ====
 
-[[doc-resource,doc resource]]
 [rule, doc-refdata]
 .`doc` and `refData` resources
 ====
+[[doc-resource,doc resource]]
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 Access to these documentation resources SHOULD be granted to any user or potential user of the API.
 
@@ -114,10 +114,10 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ```
 ====
 
-[[default-values,default values]]
 [rule, oas-defaul]
 .`default` values
 ====
+[[default-values,default values]]
 Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI specification.
 ====
 
@@ -229,10 +229,10 @@ A type can be referenced from another OpenAPI file:
 ```
 ====
 
-[[belgif-openapi-types, Common OpenAPI definitions]]
 [rule, oas-comdef]
 .Common definitions for Belgian government institutions
 ====
+[[belgif-openapi-types, Common OpenAPI definitions]]
 Common definitions for use by Belgian government institutions are available in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories], organized per domain.
 Types in these schemas SHOULD be used instead of defining your own variants.
 

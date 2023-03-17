@@ -178,10 +178,10 @@ Content-Type: application/problem+json
 }
 ```
 
-[[default-problem-response]]
 [rule, prb-defaul]
 .Default problem response in OpenAPI
 ====
+[[default-problem-response]]
 Problem types that may occur on all or most operations of an API (e.g. a missing permission, an internal server error, request violates schema, ...) SHOULD NOT each be documented explicitly in its OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date.
 
 Rather, a default Problem response SHOULD be added to each operation.
