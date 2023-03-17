@@ -59,7 +59,7 @@ This is because `enterpriseNumber` is a fixed denomination (declared in  Crossro
 {
   "name": "Belgacom",
   "employerId": 93017373,
-  "organization": {
+  "enterprise": {
     "enterpriseNumber": "0202239951"
     "href": "/organizations/0202239951"
   }

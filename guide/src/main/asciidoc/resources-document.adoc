@@ -207,7 +207,7 @@ Ssin:
 Country NIS code is a three-digit code, the first digit cannot be a zero.
 
 ```YAML
-CountryNis:
+CountryNisCode:
   description: NIS code representing a country as defined by statbel.fgov.be
   type: integer
   minimum: 100
@@ -220,47 +220,51 @@ CountryNis:
 [rule, id-name]
 .Identifier name
 ====
-Following naming guidelines should be applied when using an identifier or code within a REST API:
+Following naming guidelines should be applied when using an identifier or code in a REST API:
 
-* as JSON property
-** within an object that represents the entire or part of a resource: `id` or `code`
-** used to reference a resource within another one's representation: property name should designate the relation between the resources (see <<json-property-naming, JSON property naming>>); no need to suffix with `id` or `code`
-* path parameter: `id`, `code`. MAY be prefixed with the resource type to disambiguate if there are multiple identifiers as path parameters
-* query search parameter: use same name as the document property (see <<filtering>>)
+* JSON property:
+** within an object that represents the entire or part of a resource: use `id` or `code`
+** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<json-property-naming, JSON property naming>>); no need to suffix with `id` or `code`
+* path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
+* query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
 
-As an exception, when a standardized name for the business identifier already exists, its use is always preferred over `id` or `code`.
+As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
 
-If multiple identifiers or coding schemes may be used within a context, a suffix can be added to the name to disambiguate.
+If multiple identifiers or coding schemes may be used within the same context, a suffix can be added to the name to disambiguate.
 ====
-
-//rationale:
-// keep it as short as possible, without causing confusion
-// the OpenAPI specification provides sufficient documentation which exact values are expected
-// JSON property names can be better aligned with semantic web standards (relation to containing resource, no suffix with identifier type)
-// in path params, code resources usually doesn't have sub-resources (they're part of refData). Consistently repeating the resource type from the collection is verbose.
 
 .Identifier name
 ====
 
 ```
 GET /stores/{storeId}/orders/{orderId} <1>
-
+```
+```YAML
 {
-  "id": 123,  <2>
-  "customer": 456, <3>
+  "id": 123,  #<2>
+  "customer": 456, #<3>
   "store": {
-     "id": 789, <4>
+     "id": 789, #<4>
      "href": "/stores/789"
   },
   "paymentMethod": "creditCard",
   "deliveryMethod": {
-     "code": "deliveredAtHome", <2>
+     "code": "deliveredAtHome", #<5>
      "href": "/refData/deliveryMethods/deliveredAtHome"
   }
 }
+```
 
-GET /refData/deliveryMethods/{code}
+<1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
+<2> `id` as property of the consulted resource
+<3> identifier used to reference another resource. JSON property name designates relation to the other resource.
+<4> `id` as property in a partial representation of a `store` resource
+<5> `code` as property in a partial representation of a `deliveryMethod` resource
 
+```
+GET /refData/deliveryMethods/{code} <1>
+```
+```YAML
 {
   "code": "deliveredAtHome",
   "description": {
@@ -269,39 +273,31 @@ GET /refData/deliveryMethods/{code}
      "fr": "Livré à domicile"
   }
 }
-
-DeliveryMethod:
-  type: string
-  enum:
-  - deliveryAtHome
-  - pickUpAtStore
 ```
-<1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
-<2> `id` as property name within the resource
-<3> identifier used to reference another resource. JSON property name designates relation with the other resource.
-<4> `id` as property name of a partial representation of a `store` resource
+<1> Since there are no child resources with other path parameters, simply `code` suffices
+====
 
-
-GET /persons/{ssin}
+.Standardized business identifiers
+====
+```
+GET /persons/{ssin} <1>
+```
 ```YAML
 {
-  "ssin": "12345678901",
-  "partner": "2345678902", # value is of type Ssin
-  "civilState": 1
+  "ssin": "12345678901", <1>
+  "partner": "2345678902", <2>
+  "civilStatus": 1
 }
 ```
+<1> Standardized business identifier name `Ssin` is preferred over `id`.
+<2> JSON property name designates relation to the other resource. The OpenAPI specification declares the expected value to be of type `Ssin`.
+====
 
-GET /municipalities/{code}
-
-```JSON
-{
-  "code": 10000,
-  "name": "Brussels"
-}
+.Multiple types of identifiers
+====
 ```
-
 GET /addresses/{addressId}
-
+```
 ```YAML
 {
   "municipality": {
@@ -309,8 +305,8 @@ GET /addresses/{addressId}
     "name": "Brussels"
   },
   "country": {
-    "nisCode": 150,
-    "isoCode": "BE",
+    "nisCode": 150, <1>
+    "isoCode": "BE", <1>
     "name": {
       "nl": "België",
       "fr": "Belgique"
@@ -318,137 +314,7 @@ GET /addresses/{addressId}
   }
 }
 ```
-
-
-`enterpriseNumber` is a standard business name for the CBE enterprise identifier, so it should be used instead of `id`:
-```
-GET /enterprises/{enterpriseNumber}
-{
-   "enterpriseNumber": "0202239951"
-}
-```
-====
-
-====
-// TODO refer to belgif types, consolidate the examples
-
-
-
-Context in which only Country NIS coding scheme is being used, the data type is clear from the OpenAPI definition
-```YAML
-
-"address": {
-  # ...
-  "municipality": 12345,
-  "country": 150,
-}
-
-Address:
-  type: object
-  properties:
-    # ...
-    municipality:
-      $ref: Municipality
-    country:
-      $ref: CountryNis
-```
-
-GET /refData/economicalActivities/{code}
-
-```JSON
-{
-  "code": "A",
-  "description": {
-    "nl": "Landbouw, bosbouw en visserij",
-    "fr": "Agriculture, sylviculture et pêche"
-  }
-}
-```
-
-
-
-```YAML
-Address:
-  type: object
-  properties:
-    # ...
-    municipality:
-      $ref: #/components/schemas/MunicipalityWithDescription
-    country:
-      $ref: #/components/schemas/CountryWithDescription
-
-MunicipalityWithDescription:
-  type: object
-  properties:
-    code:
-      $ref: #/components/schemas/Municipality
-    description:
-      type: string
-
-CountryWithName:
-  type: object
-  properties:
-    nisCode:
-      $ref: #/components/schemas/CountryNis
-    isoCode:
-      $ref: #/components/schemas/CountryIso
-    name:
-      type: #/components/schemas/LocalizedString
-```
-
-*Impacted types*
-
-```YAML
-Municipality:
-  description: Numeric code to identify a Belgian municipality
-  #municipality codes are the same in BeSt address and NIS code list
-  type: integer
-  minimum: 10000
-  maximum: 99999
-BelgianRegion:
-  description: Belgian Region represented by an ISO 3166-2:BE code
-  type: string
-  enum:
-    - BE-BRU
-    - BE-WAL
-    - BE-VLG
-CountryNis:
-  description: NIS code representing a country as defined by statbel.fgov.be
-  type: integer
-  minimum: 100
-  maximum: 999
-CountryIso: # or CountryIsoAlpha2?
-  description: Country represented by an ISO 3166-1 alpha-2 code
-  type: string
-  pattern: "^[A-Z]{2}$"
-CountryWithHistoricIso:
-  description: Country represented by an ISO 3166-1 alpha-2 (current country) or ISO 3166-3 alpha-4 (former country) code
-  type: string
-  pattern: "^[A-Z]{2}([A-Z]{2})?$"
-StreetRrn:
-  description: Street code assigned by National Registry #not part of BeST address
-  type: integer
-  minimum: 1
-  maximum: 9999
-
-Gender: #back to original v1
-  description: 'Gender of a person, following the ISO 5218 standard: 0 = Unknown, 1 = male, 2 = female'
-  type: integer
-  enum:
-    - 0
-    - 1
-    - 2
-HouseholdRelationType: #beta
-  description: The type of relation of a household member to the household reference person, represented by a code assigned by the National Register
-  type: integer
-  minimum: 1
-  maximum: 99
-CivilState: #beta
-  description: The civil state of a person, represented by a code assigned by the National Register
-  type: integer
-  minimum: 1
-  maximum: 99
-```
+<1> Prefixes `nis` and `iso` disambiguate between two types of country identifiers used in a single context
 ====
 
 [[document-consult,Consult (Document)]]
