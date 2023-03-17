@@ -14,14 +14,15 @@ Service consumers should be aware that JSON objects can always be extended with 
 [rule, jsn-naming]
 .Naming of JSON properties
 ====
-All JSON property names are in American English and are written in _lowerCamelCase_ notation.
-This also applies to abbreviations part of a property name : all letters after the first one should always be lowercase.
+Following guidelines SHOULD be respected when determining a name for a JSON property:
 
-Do not use underscores (_), hyphens (-) or dots (.) in a property name, nor use a digit as first letter.
-
-Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as property name or as part of it.
-
-A JSON property SHOULD refer to the business meaning of its value rather than how it is defined.
+* use  _lowerCamelCase_ notation
+** also for abbreviations: all letters after the first should be lowercase
+* use American English
+* do not use underscores (_), hyphens (-) or dots (.) in a property name, nor use a digit as first letter
+* don't use overly generic terms like `info(rmation)` and `data` as property name or as part of it
+* the name should refer to the business meaning of its value in relation to the object in which it is specified, rather than how it is defined
+* omit parts of the name that are already clear from the context
 
 Properties used from other standards, like OpenID Connect and OAuth2, are allowed to deviate from this rule.
 ====
@@ -30,18 +31,37 @@ Properties used from other standards, like OpenID Connect and OAuth2, are allowe
 |KO|OK
 
 |SSIN | ssin
-|partnerSSIN | partnerSsin
+|street_RRN | streetRrn
 |customerInformation | customer
-|descriptionString | description
+|descriptionStringLength140 | description
+a|
+```JSON
+"country": {
+  "countryNisCode": 150,
+  "countryIsoCode": "BE",
+  "countryName": "Belgium"
+}
+```
+a|
+```JSON
+"country": {
+  "nisCode": 150,
+  "isoCode": "BE",
+  "name": "Belgium"
+}
+```
 |===
 
+In below example, `enterpriseNumber` should be used even though the `enterprise` prefix is clear by its context.
+This is because `enterpriseNumber` is a fixed denomination (declared in  Crossroads Bank for Enterprises) and using just `number` would rather cause confusion to type of identifier being used.
 [subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951"
+    "href": "/organizations/0202239951"
   }
 }
 ```
@@ -62,7 +82,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "enterprise": null
 }
 ```
@@ -71,7 +91,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373
+  "employerId": 93017373
 }
 ```
 |===
@@ -84,7 +104,7 @@ a|[subs="normal"]
 ```json
 {
   "name": "Belgacom",
-  "nssoNbr": 93017373
+  "employerId": 93017373
 }
 ```
 
@@ -92,7 +112,7 @@ a|[subs="normal"]
 a|[subs="normal"]
 ```json
 {
-  "nssoNbr": 93017373,
+  "employerId": 93017373,
   "name": "Belgacom"
 }
 ```
