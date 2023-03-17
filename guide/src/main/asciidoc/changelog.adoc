@@ -81,7 +81,7 @@
 * 2018-06-29
 ** added files with common data types containing types referenced throughout the guide
 ** added MergePatch type to <<Partial update>>
-** added guidelines for <<Long running tasks>>
+** added guidelines for <<Long-running tasks>>
 * 2018-05-28
 ** added <<Caching>> guidelines
 * 2018-04-25
