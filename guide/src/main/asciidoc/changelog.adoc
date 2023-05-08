@@ -1,4 +1,6 @@
 == Changelog
+* 2023-xx-xx
+** updated <<rule-id-name>>: naming convention for OpenAPI types for identifiers and codes
 * 2023-03-17
 ** Rule identifier with anchor added for each rule in the guide
 ** Updated <<rule-jsn-naming>>: naming of JSON properties
