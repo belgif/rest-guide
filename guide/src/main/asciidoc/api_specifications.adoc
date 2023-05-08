@@ -405,14 +405,12 @@ Following tools can be used to edit OpenAPI files
 [options="header"]
 |===
 |Name|Link| Description
-|KaiZen OpenAPI editor | https://github.com/RepreZen/KaiZen-OpenAPI-Editor | Open Source Eclipse plugin. Text only editor.
 |Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of Swagger files. Does not support references to external files.
-|Swagger UI watcher | https://github.com/moon0326/swagger-ui-watcher | Swagger UI with multi-file support. Only supports viewing. View is refreshed on each file change.
-|Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Plugin for IntelliJ. Text-only Swagger editor
-|RepreZen | https://www.reprezen.com/ | Commercial editor based on KaiZen. Graphical and text view.
-|Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
+|Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
 |Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
-|42Crunch OpenAPI (Swagger) Editor|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
+|42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
+|42Crunch OpenAPI (Swagger) Editor for IntelliJ|https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor|Plugin for IntelliJ. Text editor with multi-file support.
+|IntelliJ OpenAPI Specifications |https://www.jetbrains.com/help/idea/openapi.html|Plugin bundled with IntelliJ Ultimate (commercial). Text editor with SwaggerUI preview and multi-file support.
 |===
 
 Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
