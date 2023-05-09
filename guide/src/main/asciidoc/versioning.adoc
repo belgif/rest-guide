@@ -39,7 +39,7 @@ NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn'
 [rule, evo-object]
 .JSON object as top level structure
 ====
-In a response body, you MUST always return a JSON objects (and not e.g. an array) as a top level data structure to support future extensibility.
+In a request or response body, if any, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
 
 JSON objects support compatible extension by additional attributes.
 This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
@@ -61,6 +61,8 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * Support redirection in case an URL has to change (301 Moved Permanently)
 * a new resource variant (with another name) can be created in addition to the old resource variant
 ====
+
+Note that while clients must ignore unknown response fields, APIs may refuse requests containing unknown fields (<<rule-req-valid>>).
 
 [rule, evo-deprec]
 .Deprecation
