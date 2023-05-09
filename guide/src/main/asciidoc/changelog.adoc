@@ -1,4 +1,6 @@
 == Changelog
+* 2023-xx-xx
+** Updated <<rule-hyp-links>>: avoid cross-API links, make self links optional
 * 2023-03-17
 ** Rule identifier with anchor added for each rule in the guide
 ** Updated <<rule-jsn-naming>>: naming of JSON properties
