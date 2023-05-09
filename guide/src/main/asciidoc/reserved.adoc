@@ -187,7 +187,12 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |===
 | path | Description        | Reference
 
-| /doc, /doc/swagger.yaml, /doc/swagger.json | API documentation (swagger file and other)  | <<doc-resource>>
+|
+/doc +
+/doc/swagger.yaml +
+/doc/swagger.json +
+/doc/openapi.yaml +
+/doc/openapi.json | API documentation (swagger file and other)  | <<doc-resource>>
 | /refData | resources representing reference data used in the API (i.e. code lists) | <<doc-resource>>
 | /health | API health status | <<health>>
 |===
