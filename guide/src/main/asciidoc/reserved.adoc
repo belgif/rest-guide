@@ -59,7 +59,7 @@ Default sorting direction is ascending. To indicate descending direction, the pr
 | Ref
 
 |[[rel-next]]next
-|The next-reference contains the absolute URL of the next page in a paged collection.
+|The next-reference contains the absolute URL of the next page in a paged collection result.
 a|
 [source,json, subs=normal]
 ----
@@ -68,7 +68,7 @@ a|
 | <<Links>>
 
 |[[rel-previous]]prev
-|The previous-reference contains the absolute URL of the previous page in a paged collection.
+|The previous-reference contains the absolute URL of the previous page in a paged collection result.
 a|
 [source,json, subs=normal]
 ----
@@ -95,7 +95,7 @@ a|
 | <<Links>>
 
 |[[rel-first]]first
-|A reference (absolute URL) to the first page in a paged collection.
+|A reference (absolute URL) to the first page in a paged collection result.
 a|
 [source,json, subs=normal]
 ----
@@ -104,7 +104,7 @@ a|
 | <<Pagination>>
 
 |[[rel-last]]last
-|A reference (absolute URL) to the last page in a paged collection.
+|A reference (absolute URL) to the last page in a paged collection result.
 a|
 [source,json, subs=normal]
 ----
@@ -113,22 +113,22 @@ a|
 | <<Pagination>>
 
 | items
-| an array with the items of a collection resource
+| an array with the items of a collection result.
 |
 | <<Collection>>
 
 | total
-| the total number of items in a collection resource
+| the total number of items in a collection result, after filtering.
 |
 | <<Collection>>
 
 | page
-| the index of a page in a paged collection
+| the index of a page in a paged collection result
 |
 | <<Pagination>>
 
 | pageSize
-| the maximum number of items in a page of a paged collection
+| the maximum number of items in a page of a paged collection result.
 |
 | <<Pagination>>
 

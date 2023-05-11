@@ -3,7 +3,16 @@
 
 *Status code* 400 Bad Request
 
-*Description* The input message is incorrect. Look for more details in the `issues` property. The issue type `urn:problem-type:belgif:input-validation:schemaViolation` indicates violations of the OpenAPI schema.
+*Description* The input message is incorrect. Look for more details in the `issues` property.
+
+The following issue types may be returned by any API:
+
+|===
+| Issue type | description
+
+|`urn:problem-type:belgif:input-validation:schemaViolation`| violation of the OpenAPI schema
+|`urn:problem-type:belgif:input-validation:unknownParameter` | Request contains an unknown parameter (see <<rule-req-valid>>)
+|===
 
 ```
 POST /enterprises/abc

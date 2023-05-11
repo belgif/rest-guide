@@ -8,8 +8,12 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 [rule, hyp-links]
 .Links to self and other resources
 ====
-When referencing another resource, a link SHOULD be added using the `href` attribute.
-Each resource SHOULD also contain its own location in a `self` attribute at root level of the JSON document.
+When referencing another resource within the same API, a link SHOULD be added using the `href` attribute.
+
+It is NOT RECOMMENDED to link to resources in other APIs to avoid a tight coupling between the APIs, unless the link target is guaranteed to remain very stable (like the `href` links to standard problem types <<rule-err-problem>>).
+
+Each resource MAY also contain its own location in a `self` attribute at root level of the JSON document.
+
 URIs SHOULD always be absolute.
 ====
 
