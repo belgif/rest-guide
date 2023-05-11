@@ -227,6 +227,7 @@ Following naming guidelines should be applied when using an identifier or code i
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<rule-jsn-naming>>); no need to suffix with `id` or `code`
 * path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
 * query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
+* OpenAPI type: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
 As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
 
@@ -236,9 +237,11 @@ If multiple identifiers or coding schemes may be used within the same context, a
 .Identifier name
 ====
 
+Request:
 ```
 GET /stores/{storeId}/orders/{orderId} <1>
 ```
+Response:
 ```YAML
 {
   "id": 123,  #<2>
@@ -255,11 +258,49 @@ GET /stores/{storeId}/orders/{orderId} <1>
 }
 ```
 
+OpenAPI types (not all are listed for brevity):
+```YAML
+Order: #<6>
+  type: object
+  properties:
+    id:
+      $ref: "#/components/schemas/OrderId" #<7>
+    customer:
+      $ref: "#/components/schemas/CustomerId" #<7>
+    store:
+      $ref: "#/components/schemas/StoreReference" #<8>
+    paymentMethod:
+      $ref: "#/components/schemas/PaymentMethodCode" #<7>
+    deliveryMethod:
+      $ref: "#/components/schemas/DeliveryMethodReference" #<8>
+
+OrderId: #<7>
+  type: integer
+  format: int32
+  minimum: 1
+
+StoreReference: #<8>
+  allOf:
+  - $ref: "./common/v1/common-v1.yaml#/definitions/HttpLink"
+  type: object
+  properties:
+    id:
+      $ref: "#/components/schemas/StoreId" #<7>
+
+StoreId: #<7>
+  type: integer
+  format: int32
+  minimum: 1
+```
+
 <1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
 <2> `id` as property of the consulted resource
 <3> identifier used to reference another resource. JSON property name designates relation to the other resource.
 <4> `id` as property in a partial representation of a `store` resource
 <5> `code` as property in a partial representation of a `deliveryMethod` resource
+<6> The type of the full resource representation doesn't have a suffix
+<7> Types of the identifiers have the suffix `Id` or `Code`
+<8> Partial resource representations, which may link to the full resource
 
 ```
 GET /refData/deliveryMethods/{code} <1>
