@@ -308,8 +308,8 @@ Other uses of `additionalProperties` than for maps are to be avoided, in order t
 [rule, req-valid]
 .Unknown request parameters
 ====
-An API SHOULD refuse unknown body (JSON), path or query request parameter request parameters with a problem response.
-If an operation does accept request parameters that are not defined in OpenAPI, its description should explicitly indicate this.
+An API SHOULD refuse unknown body (JSON), path or query request parameters with a problem response.
+If an operation does process request parameters that are not defined in OpenAPI, its description should explicitly indicate this.
 
 In specific situations, where a (known) input parameter is not needed anymore and can be safely ignored:
 
@@ -320,8 +320,6 @@ Unknown HTTP header parameters MUST be accepted.
 ====
 
 When accepting unknown parameters, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
-
-Refusing unknown body parameters (i.e. JSON bo)
 
 Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
 
