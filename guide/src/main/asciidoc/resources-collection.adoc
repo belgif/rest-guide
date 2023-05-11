@@ -26,8 +26,8 @@ The representation of a collection MUST contain a list of links to child resourc
 * The unique business identifier SHOULD be present for each item.
 * Each item object MAY be extended with some key business properties, needed for display in a master view.
 * In case the collection is empty, the `items` property MUST have an empty array as value.
-* The `title` attribute MAY be used to provide a human-readable description for an item, usable as display text for the link.
-* `total` is the reserved word for the number of items in the collection result set. It is optional, but if used in combination with pagination, this parameter must correspond to the number of items regardless pagination, not the page size.
+* The `title` property  MAY be used to provide a human-readable description for an item, usable as display text for the link.
+* The number of items in the collection result set MAY be included in the response using the `total` property. If the response is paginated, its value MUST correspond to the number of items regardless of pagination, rather than only the number of items in the current page.
 ====
 
 CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
