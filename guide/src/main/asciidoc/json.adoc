@@ -2,14 +2,8 @@
 
 All RESTful services must support *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
 
-
-=== JSON object
-
-For extensibility, the payload of a RESTful request or response should always be a JSON object (instead of an array, string , number, etc). This way the request or response can always be extended with new properties.
-
-Service consumers should be aware that JSON objects can always be extended with additional JSON properties. This shouldn't break the client code. The unknown properties must be _ignored_.
-
-=== JSON properties
+For extensibility, the payload (if any) of a RESTful request or response should always be a JSON object instead of an array, string, number, etc (<<rule-evo-object>>).
+This way the request or response can always be extended with new properties ( <<rule-evo-compat>>).
 
 [rule, jsn-naming]
 .Naming of JSON properties

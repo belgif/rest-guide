@@ -305,6 +305,25 @@ The keys of such maps don't need to respect the naming rules for JSON properties
 An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
+[rule, req-valid]
+.Unknown request parameters
+====
+An API SHOULD refuse requests containing unknown body (JSON), path or query request parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownParameter`.
+
+If an operation does allow and process request parameters that are not defined in OpenAPI, its description should explicitly indicate this.
+
+In specific situations, where a (known) input parameter is not needed anymore and can be safely ignored:
+
+* either it can stay in the API definition with  a deprecation flag and a "not used anymore" description
+* or it can be removed from the API definition as long as the server ignores this specific parameter.
+
+Unknown HTTP header parameters MUST be accepted.
+====
+
+When accepting unknown parameters, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
+
+Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
+
 [rule, oas-rdonly]
 .readOnly properties
 ====
