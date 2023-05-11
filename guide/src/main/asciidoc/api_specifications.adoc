@@ -96,8 +96,8 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ====
 ```
  /doc
-     /swagger.json
-     /swagger.yaml
+     /openapi.json
+     /openapi.yaml
      /<optional other documentation>
  /refData
      /<list1OfCodes>
