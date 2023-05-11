@@ -58,7 +58,7 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * Never change input validation logic to be more restrictive
 * Enum ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too.
 * Enum values can be reduced when used as output parameters, but not extended as clients might not be ready to handle them.
-* Support redirection in case an URL has to change (301 Moved Permanently)
+* Support redirection in case a URL has to change (301 Moved Permanently)
 * a new resource variant (with another name) can be created in addition to the old resource variant
 ====
 
