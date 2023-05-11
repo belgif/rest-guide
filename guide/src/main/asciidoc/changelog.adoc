@@ -1,5 +1,6 @@
 == Changelog
 * 2023-xx-xx
+** add /doc/openapi.[json,yaml] to list of reserved resources <<Resource names>>
 ** updated <<rule-id-name>>: naming convention for OpenAPI types for identifiers and codes
 ** updated <<rule-hyp-links>>: avoid cross-API links, make self links optional
 ** updated openapi doc resources to reserved resources <<Resource names>>
