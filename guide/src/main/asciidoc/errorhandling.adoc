@@ -219,7 +219,7 @@ Specifying a default problem response ensures compatibility with clients that pe
 A list of problem types is standardized in this guide for reuse across all REST APIs.
 They are defined as URNs of format `+urn:problem-type:belgif:<type>+`.
 
-WARNING: `href` links to descriptions of standardized problem types will change in the future to recommended format containing full problem type identifier without HTML extension.
+WARNING: `href` links to descriptions of standardized problem types will change in the future to recommended format containing full problem type identifier without HTML extension. Current URLs will redirect.
 
 
 include::problems/badRequest.adoc[leveloffset=3]

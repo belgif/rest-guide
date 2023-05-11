@@ -305,6 +305,25 @@ The keys of such maps don't need to respect the naming rules for JSON properties
 An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
+[rule, req-valid]
+.Unknown request parameters
+====
+An API SHOULD refuse requests containing unknown body (JSON), path or query request parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownParameter`.
+
+If an operation does allow and process request parameters that are not defined in OpenAPI, its description should explicitly indicate this.
+
+In specific situations, where a (known) input parameter is not needed anymore and can be safely ignored:
+
+* either it can stay in the API definition with  a deprecation flag and a "not used anymore" description
+* or it can be removed from the API definition as long as the server ignores this specific parameter.
+
+Unknown HTTP header parameters MUST be accepted.
+====
+
+When accepting unknown parameters, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
+
+Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
+
 [rule, oas-rdonly]
 .readOnly properties
 ====
@@ -405,14 +424,12 @@ Following tools can be used to edit OpenAPI files
 [options="header"]
 |===
 |Name|Link| Description
-|KaiZen OpenAPI editor | https://github.com/RepreZen/KaiZen-OpenAPI-Editor | Open Source Eclipse plugin. Text only editor.
 |Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of Swagger files. Does not support references to external files.
-|Swagger UI watcher | https://github.com/moon0326/swagger-ui-watcher | Swagger UI with multi-file support. Only supports viewing. View is refreshed on each file change.
-|Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Plugin for IntelliJ. Text-only Swagger editor
-|RepreZen | https://www.reprezen.com/ | Commercial editor based on KaiZen. Graphical and text view.
-|Senya Editor | https://senya.io | Commercial IntelliJ IDEA plugin. Graphical and text view.
+|Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
 |Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
-|42Crunch OpenAPI (Swagger) Editor|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
+|42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
+|42Crunch OpenAPI (Swagger) Editor for IntelliJ|https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor|Plugin for IntelliJ. Text editor with multi-file support.
+|IntelliJ OpenAPI Specifications |https://www.jetbrains.com/help/idea/openapi.html|Plugin bundled with IntelliJ Ultimate (commercial). Text editor with SwaggerUI preview and multi-file support.
 |===
 
 Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
