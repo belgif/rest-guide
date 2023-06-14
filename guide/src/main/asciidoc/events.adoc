@@ -12,10 +12,10 @@ Moreover, some SDKs are in development to support integration of CloudEvents in 
 [options="header"]
 |===
 | Description | Link
-| CloudEvents overview | https://github.com/cloudevents/spec/blob/v1.0/README.md
-| Conceptual model | https://github.com/cloudevents/spec/blob/v1.0/spec.md
-| JSON Event Format | https://github.com/cloudevents/spec/blob/v1.0/json-format.md
-| HTTP Protocol Binding | https://github.com/cloudevents/spec/blob/v1.0/http-protocol-binding.md
-| Web Hooks for Event Delivery | https://github.com/cloudevents/spec/blob/v1.0/http-webhook.md
-| Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0/documented-extensions.md
+| CloudEvents overview | https://github.com/cloudevents/spec/blob/main/README.md
+| Conceptual model | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md
+| JSON Event Format | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/formats/json-format.md
+| HTTP Protocol Binding | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md
+| Web Hooks for Event Delivery | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/http-webhook.md
+| Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/documented-extensions.md
 |===
