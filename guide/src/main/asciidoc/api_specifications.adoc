@@ -186,10 +186,10 @@ WARNING: OpenAPI 2.0 only allows a single example per media type under `examples
 [rule, oas-reuse]
 .Reusable OpenAPI definitions
 ====
-Instead of specifying everything directly in the `swagger.yaml` file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
+Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
 These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type definitions, but also parameter, path items and response objects.
 
-To work around limitations of certain tools, a conversion step to inline the definitions into the `swagger.yaml` file may be necessary.
+To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
 
 Duplication of types in multiple APIs SHOULD be avoided. Rather, put the type in a reusable OpenAPI file.
 Files reusable from multiple APIs SHOULD be organized in this structure:
@@ -199,7 +199,7 @@ Files reusable from multiple APIs SHOULD be organized in this structure:
 ```
 
 Definitions SHOULD be grouped per (sub)domain in a file.
-Each file has its own lifecycle, with a major version number in it's directory and file name, that is increased when backwards compatibility is broken.
+Each file has its own lifecycle, with a major version number in its directory and file name, that is increased when backwards compatibility is broken.
 This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the swagger file as well.
 ====
 
