@@ -20,8 +20,7 @@ This way of embedding resources limits the changes required when a clients start
 It also works well when there are multiple occurrences of the same subresource, and when embedding resources more than one level deep.
 
 In JSON Schema, `additionalProperties` can be used to specify the data types allowed in `embedded`.
-Note that it not possible to specify more than one data type this way in OpenAPI 2.0, so the only restriction that can be specified is  `type: object` when there are multiple embedded data types.
-In OpenAPI 3.0, `oneOf` can be used to list all possible data types.
+Note that it not possible to specify more than one data type this way in OpenAPI, so the only restriction that can be specified is  `type: object` when there are multiple embedded data types.
 
 .Embedding subresources
 ====
@@ -40,7 +39,7 @@ In OpenAPI 3.0, `oneOf` can be used to list all possible data types.
       "href": "http://myrestapi/people/98765432101"
     }]
   },
-  ​"embedded": {
+  "embedded": {
     "http://myrestapi/people/12345678901": {
       "self": "http://myrestapi/people/12345678901",
       "ssin": "12345678901",
