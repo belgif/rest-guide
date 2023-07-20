@@ -84,7 +84,7 @@ The table below lists some examples of identifiers, though it does not list all 
 |UUID 
 | "d9e35127-e9b1-4201-a211-2b52e52508df"
 a| 
-Type defined in https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml]
+Type defined in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml]
 ```YAML
 Uuid:
   description: Universally Unique Identifier, as standardized in RFC 4122 and ISO/IEC 9834-8
@@ -604,7 +604,7 @@ The `PATCH` message MUST conform to the JSON Merge Patch (https://tools.ietf.org
 * properties not present in the request are preserved
 
 APIs should support both the MIME type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON mime type.
-As JSON Merge Patch requests can not be fully specified as an OpenAPI data type, a MergePatch marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml].
+As JSON Merge Patch requests can not be fully specified as an OpenAPI data type, a MergePatch marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml].
 
 .JSON merge patch
 ====
@@ -762,7 +762,7 @@ When GETting the task resource, the response can be:
 ====
 
 Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
-The schema https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
+The schema https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
 
 .Long-running task
 ====
