@@ -1,3 +1,4 @@
+[[controller]]
 == Controller
 
 A controller resource models a procedural concept. Controller resources are like executable functions, with parameters and return values; inputs and outputs.

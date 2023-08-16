@@ -3,11 +3,6 @@
 === GET
 **GET must be used to retrieve a representation of a resource.** It is a strict read-only method, which should never modify the state of the resource.
 
-
-=== HEAD
-**HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
-
-
 === POST
 *POST must be used to <<create-resource,create a new resource>> in a collection or to execute a <<Controller,controller>> resource.*
 
@@ -43,6 +38,8 @@ If these can't be upgraded to add support, client and server may agree to work a
 === DELETE
 *DELETE must be used to remove a resource from its parent.* Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a 404 (“Not Found”)​ status returned by the API.
 
+=== HEAD
+**HEAD should be used to only retrieve the HTTP response headers​.** HEAD returns the same response as GET, except that the API returns an empty body. It is strictly read-only.
 
 === OPTIONS
 OPTIONS should be used to retrieve metadata that describes a resource’s available interactions.
@@ -50,61 +47,72 @@ OPTIONS should be used to retrieve metadata that describes a resource’s availa
  
 === How to use each method
 
+[rule, meth-http]
+.Use appropriate HTTP method
+====
+The HTTP methods code SHOULD be used that are appropriate for the type of action performed on the resource.
+
+Below table lists the usages of HTTPs methods for each resource archetype. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
+
+====
+
+
 [cols="1,1,1,1,4,2", options="header"]
 |===
 |Method
-|Collection|Document
+|Document
+|Collection
 |Controller
 |Request body
 |Response body
 
-|GET
-|Yes
-|Yes	
-|Yes	
+|<<GET>>
+|<<document-consult, consult>>
+|<<collections-consult, consult>>
+|<<controller, idempotent actions without side effects>>
 |Empty
 |Resource(s) 
 
-|HEAD
-|Yes
-|Yes	
-|Yes	
-|Empty
-|Empty
-
-|POST
-|Yes
-|No	
-|Yes	
+|<<POST>>
+|-
+|<<create-resource, create document>>
+|<<controller, action with side effects or requiring request body>>
 |Representation of the created resource  
 or controller info
 |Optional
 
-|PUT
-|No
-|Yes	
-|No	
+|<<PUT>>
+|<<document-full-update, full update>>
+|-
+|-
 |Representation of the updated resource  
 |Optional
 
-|PATCH
-|No
-|Yes	
-|No	
+|<<PATCH>>
+|<<document-partial-update, partial update>>
+|-
+|-
 |Fields of the resource to update  
 |Optional
 
-|DELETE
-|Yes
-|Yes	
-|No	
+|<<DELETE>>
+|<<remove-document, remove>>
+|<<remove-collection-items,remove selection of items>>
+|-
 |Empty  
 |Optional
 
-|OPTIONS
-|Yes
-|Yes	
-|No	
+|<<HEAD>>
+|X
+|X
+|X
+|Empty
+|Empty
+
+|<<OPTIONS>>
+|X
+|X
+|X
 |Empty  
 |Optional
 
