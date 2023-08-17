@@ -50,9 +50,9 @@ OPTIONS should be used to retrieve metadata that describes a resource’s availa
 [rule, meth-http]
 .Use appropriate HTTP method
 ====
-The HTTP methods code SHOULD be used that are appropriate for the type of action performed on the resource.
+The HTTP methods SHOULD be used that are appropriate for the type of action performed on the resource.
 
-Below table lists the usages of HTTPs methods for each resource archetype. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
+The table below lists the usages of HTTP methods for each resource archetype. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
 
 ====
 
