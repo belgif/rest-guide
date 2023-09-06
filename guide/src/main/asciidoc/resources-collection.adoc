@@ -96,6 +96,9 @@ EmployersResponse:
           $ref: "#/definitions/EmployerLink"
       total:
         type: integer
+    required:
+      - items
+      - total
 EmployerLink:
   allOf:
   - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
@@ -174,6 +177,9 @@ AppendixCodesResponse:
       type: object
       additionalProperties:
         $ref: 'appendixCode.yaml#/definitions/AppendixCode'
+  required:
+    - items
+    - total
 AppendixCodeLink:
   allOf:
   - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
