@@ -19,7 +19,7 @@ The REST uniform interface is based on three fundamental elements:
 An API bundles a set of resources which are _functionally related_ and form an autonomous _unit of business logic_.
 ====
 
-Compare an API to the concept of https://patterns.arcitura.com/soa-patterns/basics/serviceorientation/services[_Services_ in service-orientation^] or the concept of https://martinfowler.com/bliki/BoundedContext.html[_Bounded Contexts_ in Domain-Driven Development^].
+Compare an API to the concept of https://www.informit.com/articles/article.aspx?p=2755721[_Services_ in service-orientation^] or the concept of https://martinfowler.com/bliki/BoundedContext.html[_Bounded Contexts_ in Domain-Driven Development^].
 
 
 [rule, uri-format]
