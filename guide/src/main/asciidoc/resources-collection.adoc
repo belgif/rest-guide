@@ -21,7 +21,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'p
 ====
 The representation of a collection MUST contain a list of links to child resources:
 
-* A query on a collection MUST contain an `items` property with an array of objects, each one representing an item in the collection.
+* A collection result MUST contain an `items` property with an array of objects, each one representing an item in the collection.
 * In these objects, a `href` property MUST be present with a link to the resource.
 * The unique business identifier SHOULD be present for each item.
 * Each item object MAY be extended with some key business properties, needed for display in a master view.
@@ -30,7 +30,7 @@ The representation of a collection MUST contain a list of links to child resourc
 * The number of items in the collection result set MAY be included in the response using the `total` property. If the response is paginated, its value MUST correspond to the number of items regardless of pagination, rather than only the number of items in the current page.
 ====
 
-CAUTION: A collection resource SHOULD always return a JSON object as top-level data structure to support extensibility. Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc, your API will break.
+CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (<<evo-object>>). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
 .Most used response codes
 
@@ -41,24 +41,33 @@ CAUTION: A collection resource SHOULD always return a JSON object as top-level d
 | <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 |===
 
-WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
+WARNING: <<http-204,204 No content>>  should not be used with GET.
 
-.Query parameters
+[rule, col-repres]
+.Sorting a collection
+====
+A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
+Descending sorting order can be indicated by prefixing the property name with `-`.
+
+The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
+====
+
+.Sort query parameter
 
 [cols="3*"]
 |===
 
 | sort
 | Multi-value query param with list of properties to sort on.
-  Direction is ascending by default. To indicate descending, prefix property with -.
-|?sort=age&sort=-name
+  Direction is ascending by default. To indicate descending, prefix property with `-`.
+|`?sort=age&sort=-name`
 |===
 
 .Consulting a collection
 ====
 [subs=normal]
 ```
-GET {API}/employers[^] HTTP/1.1​
+GET {API}/employers[^] HTTP/1.1
 ```
 [source,json,subs="normal"]
 .Response
