@@ -10,7 +10,7 @@ For any problem occurred during processing, whether it be caused by the client o
 2.  a RFC 7807 problem detail message
 
 
-.Problem Details JSON schema (from link:https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
+.Problem Details JSON schema (from link:https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ```yaml
     Problem:
       description: A Problem Details object (RFC 7807)
@@ -190,7 +190,7 @@ Operation-specific problem types should still be documented.
 
 Specifying a default problem response ensures compatibility with clients that perform strict OpenAPI validation on response messages.
 
-.Default problem response (using `ProblemResponse` from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
+.Default problem response (using `ProblemResponse` from https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ====
 ```YAML
 /orders/{orderId}/archive:
@@ -225,7 +225,7 @@ WARNING: `href` links to descriptions of standardized problem types will change 
 include::problems/badRequest.adoc[leveloffset=3]
 
 [[input-validation-schema]]
-.InputValidationProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/swagger/problem/v1/problem-v1.yaml[problem-v1.yaml])
+.InputValidationProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
 ```yaml
 InputValidationProblem:
   type: object
