@@ -144,6 +144,14 @@ a|
 
 https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all standardized and common non-standard HTTP headers.
 
+[rule, hdr-case]
+.HTTP header names
+====
+Applications MUST treat HTTP header names as case-insensitive as per the https://www.rfc-editor.org/rfc/rfc7230#section-3.2[HTTP specification].
+
+However, by convention, Kebab-Case with uppercase SHOULD be used for readability and consistency.
+====
+
 [rule, cst-header]
 .Custom HTTP headers
 ====
