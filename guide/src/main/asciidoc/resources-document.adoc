@@ -520,6 +520,7 @@ If this proves to be an issue, this might however indicate that the array elemen
 
 Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recommended, as it proves to be difficult to implement.
 
+[[document-full-update]]
 ==== Full update
 
 Use `PUT` when you like to do a complete update of a document resource.
@@ -593,6 +594,7 @@ a|
 |===
 ====
 
+[[document-partial-update]]
 ==== Partial update
 
 Use `PATCH` when you like to do a partial update of a document resource.
