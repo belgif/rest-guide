@@ -53,7 +53,7 @@ Content-Type: application/json;charset=UTF-8
 Media types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
 
 * `application/merge-patch+json` for JSON Merge Patch payloads (see <<Partial update>>)
-* `application/problem+json` for Problem Detail for HTTP APIs (RFC 7807) payloads (see <<Error handling>>)
+* `application/problem+json` for Problem Detail for HTTP APIs (RFC 9457) payloads (see <<Error handling>>)
 
 [discrete]
 
