@@ -1,16 +1,73 @@
 [[status-codes]]
 == Status codes
 
-The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
 
-In order to conform to the REST uniform service contract, REST services should stick to this reduced list of status codes.
+[[status-codes-by-method]]
+=== Overview
+
+[rule, stat-codes]
+.Use appropriate HTTP status codes
+====
+The HTTP response status code SHOULD be returned that best describes the outcome of the treatment of the request.
+
+The table below list most common combinations of a status code for each HTTP method, though may not be exhaustive. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
+====
+
+The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
 
 http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
 
-=== 1xx  Informational
+[cols="3,1,1,2,1,1,1,1", options="header"]
+|===
+|Code
+|GET
+|HEAD
+|PUT
+|POST
+|PATCH
+|DELETE
+|OPTIONS
+
+|<<http-200,200 OK>>
+|X
+|X
+|X
+|X (controller only)
+|X
+|X
+|X
+
+ |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
+ |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
+ |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
+  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
+  |<<http-303,303 See Other>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
+  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
+  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
+ |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
+  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
+  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-500,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
+
+
+|===
+
+=== List of status codes
+
+==== 1xx  Informational
 Request received, continuing process.
 
-=== 2xx Success
+==== 2xx Success
 The action was successfully received, understood, and accepted.
 
 [cols="1,4,2", options="header"]
@@ -50,7 +107,7 @@ The 204 status code is usually sent out in response to a PUT, POST, PATCH or DEL
 
 |===
 
-=== 3xx Redirection
+==== 3xx Redirection
 Further action must be taken in order to complete the request.
 
 [cols="1,4,2", options="header"]
@@ -96,7 +153,7 @@ A REST API can use this status code to assign a temporary URI to the client’s 
 
 |===
 
-=== 4xx Client Error
+==== 4xx Client Error
 The request contains bad syntax or cannot be fulfilled.
 
 [cols="1,4,2", options="header"]
@@ -200,7 +257,7 @@ Responses with the 429 status code MUST NOT be stored by a cache.
 
 |===
 
-=== 5xx Server Error
+==== 5xx Server Error
 The server failed to fulfill an apparently valid request.
 [cols="1,4,1", options="header"]
 |===
@@ -229,51 +286,3 @@ The server MAY send a Retry-After header field to suggest an appropriate amount 
 <<GET,GET>>, <<HEAD,HEAD>>, <<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>, <<OPTIONS,OPTIONS>>
 
 |===
-
-[[status-codes-by-method]]
-=== Status codes for each method
-[cols="3,1,1,2,1,1,1,1", options="header"]
-|===
-|Code
-|GET
-|HEAD
-|PUT
-|POST
-|PATCH
-|DELETE
-|OPTIONS
-
-|<<http-200,200 OK>>
-|X
-|X
-|X
-|X (controller only)
-|X
-|X
-|X
-
- |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
- |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
- |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
-  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
-  |<<http-303,303 See Other>>	|-	|-	|-	|X	|-	|-	|-
-  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
-  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
-  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
- |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
-  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
-  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-500,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
-
-
-|===
-
