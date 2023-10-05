@@ -306,13 +306,13 @@ An example is the description a map of `embedded` resources, as described in <<e
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [rule, req-valid]
-.Unknown request parameters
+.Unknown input
 ====
-An API SHOULD refuse requests containing unknown body (JSON), path or query request parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownParameter`.
+An API SHOULD refuse requests containing unknown JSON properties in the payload or unknown query parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownInput`.
 
-If an operation does allow and process request parameters that are not defined in OpenAPI, its description should explicitly indicate this.
+If an operation does allow and process request fields that are not defined in OpenAPI, its description should explicitly indicate this.
 
-In specific situations, where a (known) input parameter is not needed anymore and can be safely ignored:
+In specific situations, where a (known) input field is not needed anymore and can be safely ignored:
 
 * either it can stay in the API definition with  a deprecation flag and a "not used anymore" description
 * or it can be removed from the API definition as long as the server ignores this specific parameter.
@@ -320,7 +320,7 @@ In specific situations, where a (known) input parameter is not needed anymore an
 Unknown HTTP header parameters MUST be accepted.
 ====
 
-When accepting unknown parameters, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
+If unknown request fields would be accepted, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
 
 Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
 
