@@ -1,4 +1,12 @@
 == Changelog
+* 2023-10-05
+** update: <<rule-req-valid>> issue type for unknown input is renamed
+** new: rule <<rule-hdr-case>> on case-insensitivity of HTTP headers
+** update: explicit rules for guidelines: <<rule-meth-http>> and <<rule-stat-codes>> (use of appropriate HTTP methods and status codes), <<rule-col-sort>> (sorting a collection)
+** update: improved overview table for the use of HTTP methods <<rule-meth-http>>
+** update: corrected use of status 303: allowed on all methods in overview table <<rule-stat-codes>>
+** update: links to the releases of common OpenAPI definitions are added to <<rule-oas-comdef>>
+** update: Problem Details for HTTP APIs is updated to RFC 9457 which obsoletes RFC 7807 throughout the guide
 * 2023-06-14
 ** add /doc/openapi.[json,yaml] to list of reserved resources <<Resource names>>
 ** updated <<rule-id-name>>: naming convention for OpenAPI types for identifiers and codes
