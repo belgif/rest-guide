@@ -43,7 +43,7 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 
 WARNING: <<http-204,204 No content>>  should not be used with GET.
 
-[rule, col-repres]
+[rule, col-sort]
 .Sorting a collection
 ====
 A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
