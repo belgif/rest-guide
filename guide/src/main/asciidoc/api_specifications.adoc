@@ -233,15 +233,12 @@ A type can be referenced from another OpenAPI file:
 .Common definitions for Belgian government institutions
 ====
 [[belgif-openapi-types, Common OpenAPI definitions]]
-Common definitions for use by Belgian government institutions are available in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories], organized per domain.
+Common definitions for use by Belgian government institutions are maintained in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories], released as https://github.com/belgif/rest-guide#reusable-openapi-schemas[zip archives, organized per domain] and also available in https://search.maven.org/search?q=g:io.github.belgif.openapi[Maven Central].
 Types in these schemas SHOULD be used instead of defining your own variants.
 
 The technical types referenced in this style guide are available in the https://github.com/belgif/openapi-common[openapi-common] and https://github.com/belgif/openapi-problem[openapi-problem] repositories.
 Other types for business concepts commonly used by Belgian government institutions are available in other repositories.
 ====
-
-The OpenAPI files will in the future (WIP) be released in zip archives and via a Maven repository.
-In addition, they will also be made available on https URLs both in YAML and JSON format through content negotiation (see <<Media Types>>), with YAML being the default format.
 
 === JSON data types
 
