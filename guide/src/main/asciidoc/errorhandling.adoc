@@ -2,7 +2,7 @@
 
 === Problem Details
 
-Problem Details for HTTP APIs (https://www.rfc-editor.org/rfc/rfc9457)[RFC 9457], obsoletes https://www.rfc-editor.org/rfc/rfc7807[RFC7807]) defines a simple JSON format to convey additional information about an error to an API consumer. This information complements the HTTP status codes [https://tools.ietf.org/html/rfc7231#section-6[RFC7231]].
+Problem Details for HTTP APIs (https://www.rfc-editor.org/rfc/rfc9457[RFC 9457], obsoletes https://www.rfc-editor.org/rfc/rfc7807[RFC7807]) defines a simple JSON format to convey additional information about an error to an API consumer. This information complements the HTTP status codes [https://tools.ietf.org/html/rfc7231#section-6[RFC7231]].
 
 For any problem occurred during processing, whether it be caused by the client or the server, the API provider supplies
 
