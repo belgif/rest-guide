@@ -17,6 +17,10 @@
 ** Rule identifier with anchor added for each rule in the guide
 ** Updated <<rule-jsn-naming>>: naming of JSON properties
 ** Updated <<rule-id-name>> with new naming conventions for identifiers and codes
+
+.Older changes
+[%collapsible]
+====
 * 2022-12-07
 ** new: Representing <<default-problem-response, general problem types in OpenAPI>>
 ** new: Representing <<general-http-headers,general and operation-specific HTTP headers in OpenAPI>>
@@ -33,10 +37,6 @@
 ** updates for OpenAPI 3.0 support throughout the entire guide
 ** new: <<Service Unavailable>> problem type (http 503)
 ** added: use Retry-After HTTP header in <<Too Many Failed Requests>> and <<Too Many Requests>>
-
-.Older changes
-[%collapsible]
-====
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (<<Error handling>>)
 ** updated: clarify use of charset in JSON media type (<<media-types>>)
