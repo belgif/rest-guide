@@ -305,7 +305,7 @@ Other uses of `additionalProperties` than for maps are to be avoided, in order t
 [rule, req-valid]
 .Unknown input
 ====
-An API SHOULD refuse unknown input, i.e. unknown body (JSON), path properties in the payload or unknown query request parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownInput`.
+An API SHOULD refuse unknown input, i.e. unknown body (JSON) properties in the payload or unknown query request parameters. A <<Bad Request, Bad Request>> problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownInput`.
 
 If an operation does allow and process input that is not defined in OpenAPI, its description should explicitly indicate this.
 
