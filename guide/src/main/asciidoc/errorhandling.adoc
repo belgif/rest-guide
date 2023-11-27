@@ -252,6 +252,7 @@ InputValidationIssue:
     name:
       type: string
     value: {} # any type allowed
+    # additional properties specific to the issue type may be present
 ```
 
 The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
