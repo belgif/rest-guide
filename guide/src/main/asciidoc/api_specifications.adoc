@@ -317,14 +317,14 @@ In specific situations, where a (known) input is not needed anymore and can be s
 Unknown HTTP header parameters MUST be accepted.
 ====
 
-If unknown request fields would be accepted, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
+If unknown request fields would be accepted, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client's actual intent will not be met.
 
 Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
 
 [rule, oas-rdonly]
 .readOnly properties
 ====
-Properties SHOULD  be declared readOnly when appropriate.
+Properties SHOULD be declared readOnly when appropriate.
 
 Properties can be declared `readOnly: true`.
 This means that it MAY be sent as part of a response but MUST NOT be sent as part of the request.
@@ -332,6 +332,8 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
+
+While version 3.0 of OpenAPI specifies that `readOnly` has precedence over `required` for requests, version 3.1 removes this again in order to achieve full compatibility with the JSON Schema specification. Hence, in order to be forward-compatible, OpenAPI specifications should not depend on the 3.0 behavior.
 
 [rule, oas-enum]
 .Enum values
