@@ -513,7 +513,7 @@ In this case, use of PUT isn't advised.
 . Use PATCH with partial objects to only update parts of a resource, whenever possible, using the JSON Merge Patch standard.
 +
 JSON Merge Patch is limited however, e.g. it doesn't allow for an update of a single element of an array.
-If this proves to be an issue, this might however indicate that the array elements might be beter modeled as seperate subresources.
+If this proves to be an issue, this might however indicate that the array elements might be better modeled as separate sub-resources.
 
 . use POST on a child resource instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
   See <<Controller>> for more information.
@@ -542,7 +542,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​<<put>>
+|<<put>>
 |/employers/{employerId}
 |Replace the entire employer resource with the client data. This implies a full update of the resource. Via `PUT` the client submits new values for all the data.
 
@@ -552,7 +552,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 |Full representation of the resource to persist.
 |
 
-3+|​​​Parameters
+3+|Parameters
 
 |`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
 
@@ -571,11 +571,11 @@ a|
 ----
 
 3+|Most used response codes 
-​​|<<http-200,200>>
+|<<http-200,200>>
 |OK
 |The update is successful and updated resource is returned. 
 
-​​|<<http-204,204>>
+|<<http-204,204>>
 |No Content
 |The update is successful but updated resource is not returned. 
 
@@ -586,11 +586,9 @@ a|
 |<<http-404,404>>
 |Not Found
 |The resource does not exist and thus cannot be updated.
-​
 |<<http-409,409>>
 |Conflict
 |The client data is in conflict with the data on the server e.g. optimistic locking issues.
-​
 |===
 ====
 
