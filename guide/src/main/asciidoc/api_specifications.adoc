@@ -121,6 +121,30 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI specification.
 ====
 
+[rule, path-param]
+.Naming of path parameters
+====
+Path parameters SHOULD use *lowerCamelCase* notation.
+====
+
+|===
+|KO|OK
+
+a|
+```YAML
+paths:
+  /employers/{EmployerId}:
+    # ....
+```
+
+a|
+```YAML
+paths:
+  /employers/{employerId}:
+    # ....
+```
+|===
+
 [rule, oas-exampl]
 .Add examples in OpenAPI
 ====
@@ -240,6 +264,7 @@ The technical types referenced in this style guide are available in the https://
 Other types for business concepts commonly used by Belgian government institutions are available in other repositories.
 ====
 
+
 === JSON data types
 
 [rule, oas-types]
@@ -286,9 +311,7 @@ Pet:
   description: a pet in the pet store
   type: object
 ```
-
 |===
-
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
 

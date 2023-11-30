@@ -6,28 +6,40 @@ A REST APIs exposes a set of _resources_. Resources model the _data and function
 
 === Resource URI
 
-Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rfc3986}[RFC 3986​]).
+Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rfc3986}[RFC 3986]).
 
 
-NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ]​ +
-​example:   \https://api.socialsecurity.be/employers/406798006​?lang=nl
+NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ] +
+example:   \https://api.socialsecurity.be/employers/406798006?lang=nl
 
-URI must be intuitively structured.
+URIs must be intuitively structured.
+
+URI fragments point to a part of a resource's representation, and are never sent to the API, but handled locally by clients. They are thereby not specified in a REST API's specifications (OpenAPI).
 
 [rule, uri-notat]
 .URI notation
 ==========================
-The **URI notation MUST use _lowerCamelCase_ ** to enhance readability and to separate compound names.
+**Path segments and query parameters** within an API SHOULD use **lowerCamelCase** notation to enhance readability and to separate compound names.
+
 As lowerCamelCase is used for JSON property names as well, the casing is consistent throughout the API.
 Trailing slashes MUST NOT be used.
 ==========================
 
 .URI notation
 ====
-​[green]#GOOD:  \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331# +
- [red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/Social_Secretariats/331# +
-​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/social-secretariats/331# +
-​[red]#BAD:   \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331/#
+|===
+|GOOD|BAD
+
+|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331# +
+| [red]#\https://api.socialsecurity.be/REST/demo/v1/Social_Secretariats/331# +
+[red]#\https://api.socialsecurity.be/REST/demo/v1/social-secretariats/331# +
+
+|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331#
+|[red]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331/#
+
+|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats?country=BE# +
+|[red]#\https://api.socialsecurity.be/REST/demo/v1/Social_Secretariats?Country=BE#
+|===
 ====
 
 [rule, uri-extens]
