@@ -2,29 +2,48 @@
 
 A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and <<links,_links_>> to other related resources.
 
-.An employer document resource
-====
-`GET {API}/employers/93017373[^]`
+Most document resources are contained in a _parent <<Collection,collection resource>>_ to which a *variable path segment with identity key* is added.
 
+image::collection.png[]
+
+Documents may also be _singletons_, of which only a single instance exists within the context of its parent, if any. A singleton document's URI ends with a *fixed path segment that is a singular noun*.
+
+.Document resources
+====
+|===
+|Location|Document URI| Resource representation| Path template
+
+|part of collection|`/persons/01234567890`
+a|
 [subs="normal"]
 ```json
 {
-  "name": "Belgacom",
-  "employerId": 93017373,
-  "company": {
-    "enterpriseNumber": "0202239951",
-    "href": "{API}/companies/0202239951[^]"
-  },
-  "self": "{API}/employers/93017373[^]"
+  "ssin": "01234567890",
+  "givenName": "John",
+  "familyName": "Doe"
 }
 ```
+|`/persons/{ssin}`
+
+|singleton with document as parent | `/persons/01234567890/profilePicture` |
+
+_image file (binary)_
+
+| `/persons/{ssin}/profilePicture`
+
+|singleton without a parent
+| `/endUserLicenseAgreement`
+a|
+```JSON
+{ "license": "Any information obtained from this API may not be made public, nor ..."}
+```
+| `/endUserLicenseAgreement`
+
 ====
 
 *Child resources*
 
-A document may have _child resources_ that represent its specific subordinate concepts. Most document resources are contained in a _parent <<Collection,collection resource>>_ and define a *variable path segment with identity key*.
-
-image::collection.png[]
+A document may have _child resources_ of any type (document, collection or controller) that represent its specific subordinate concepts.
 
 When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable.
 In that case *prefer associations and create <<links,links>>* to other APIs from the employer resource.
