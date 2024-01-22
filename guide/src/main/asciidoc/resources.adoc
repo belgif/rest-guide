@@ -101,7 +101,7 @@ parameters:
 parameters:
 - name: color
   in: query
-  # default values are OK (style: form, explode: true)
+  # defaults for style and explode properties are OK (style: form, explode: true)
   schema:
     type: array
     items:
