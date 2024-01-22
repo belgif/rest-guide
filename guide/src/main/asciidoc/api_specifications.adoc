@@ -333,7 +333,7 @@ Properties marked as readOnly being true SHOULD NOT be in the required list of t
 Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
 ====
 
-While version 3.0 of OpenAPI specifies that `readOnly` has precedence over `required` for requests, version 3.1 removes this again in order to achieve full compatibility with the JSON Schema specification. Hence, in order to be forward-compatible, OpenAPI specifications should not depend on the 3.0 behavior.
+While version 3.0 of OpenAPI specifies that `readOnly` has precedence over `required` for requests, version 3.1 removes this in order to achieve full compatibility with the JSON Schema specification. Hence, in order to be forward-compatible, OpenAPI specifications should not depend on the 3.0 behavior.
 
 [rule, oas-enum]
 .Enum values
