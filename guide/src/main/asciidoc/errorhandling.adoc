@@ -238,12 +238,18 @@ InputValidationProblem:
         $ref: "#/components/schemas/InputValidationIssue"
 InputValidationIssue:
   type: object
+  description: |
+    An issue detected during input validation.
+
+    `status` is usually not present.
+    `href`, if present, refers to documentation of the issue type.
+    Additional properties specific to the issue type may be present.
   allOf:
     - $ref: "#/components/schemas/Problem"
-    # status property of Problem is usually not used for input validation issues
   properties:
     in:
       type: string
+      description: The location of the invalid input
       enum:
         - body
         - header
@@ -251,7 +257,10 @@ InputValidationIssue:
         - query
     name:
       type: string
-    value: {} # any type allowed
+      description: The name of the invalid input
+    value:
+      description: The value of the erroneous input
+      # no type specified, allowing any type. This is valid in OpenAPI even though some editors may indicate an error
 ```
 
 The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
