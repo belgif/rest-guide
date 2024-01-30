@@ -73,6 +73,8 @@ Only return translatable properties in dutch.
 .Multiple values for the same query parameter
 ====
 When a single query parameter can have multiple values, the parameter SHOULD be repeated for each value.
+
+If the parameter's name is a noun, it SHOULD be singular.
 ====
 
 .Multi-valued parameter
@@ -80,36 +82,30 @@ When a single query parameter can have multiple values, the parameter SHOULD be 
 [subs=normal]
 .Request
 ```
-GET {API}/employers/93017373?embed=employees&embed=mainAddress
+GET /cars?color=black&color=blue
 ```
 
 .OpenAPI 2.0 definition
 ```YAML
 parameters:
-- name: embed
+- name: color
   in: query
   collectionFormat: multi
   type: array
   items:
     type: string
-    enum:
-    - employees
-    - mainAddress
 ```
 
 .OpenAPI 3.0 definition
 ```YAML
 parameters:
-- name: embed
+- name: color
   in: query
-  explode: true
+  # defaults for style and explode properties are OK (style: form, explode: true)
   schema:
     type: array
     items:
       type: string
-      enum:
-      - employees
-      - mainAddress
 ```
 ====
 
