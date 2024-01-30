@@ -27,7 +27,7 @@ Compare an API to the concept of https://www.informit.com/articles/article.aspx?
 ====
 *URI =* `https://`[green]#_host_#`/`[green]#_pathPrefix_#`/`[green]#_apiName_#`/v`[green]#_majorVersion_#`/`[green]#_resources_#
 
-[gray]#_example:_ \https://services.socialsecurity.be/REST/employerProfile/v1/profiles#
+[gray]#_example:_ \https://api.socialsecurity.be/REST/employerProfile/v1/profiles#
 
 `https://`:: Services are at least secured on transport level using a one-way TLS connection. The implicit port is 443.
 host:: Hostname is determined by the environment where the service is deployed

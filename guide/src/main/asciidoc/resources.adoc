@@ -10,7 +10,7 @@ Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rf
 
 
 NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ] +
-example:   \https://api.socialsecurity.be/employers/406798006?lang=nl
+example:   \https://api.socialsecurity.be/demo/v1/employers/406798006?lang=nl
 
 URIs must be intuitively structured.
 
@@ -30,15 +30,15 @@ Trailing slashes MUST NOT be used.
 |===
 |GOOD|BAD
 
-|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331# +
-| [red]#\https://api.socialsecurity.be/REST/demo/v1/Social_Secretariats/331# +
-[red]#\https://api.socialsecurity.be/REST/demo/v1/social-secretariats/331# +
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331# +
+| [red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats/331# +
+[red]#\https://api.socialsecurity.be/demo/v1/social-secretariats/331# +
 
-|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331#
-|[red]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats/331/#
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331#
+|[red]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331/#
 
-|[green]#\https://api.socialsecurity.be/REST/demo/v1/socialSecretariats?country=BE# +
-|[red]#\https://api.socialsecurity.be/REST/demo/v1/Social_Secretariats?Country=BE#
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats?country=BE# +
+|[red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats?Country=BE#
 |===
 ====
 
@@ -54,8 +54,8 @@ Instead, look at how to express <<Media Types>> using HTTP headers.
 
 .URI extensions
 ====
-​[green]#GOOD: \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331# +
-[red]#​BAD: \http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​/331.json#
+[green]#GOOD: \http://rest-reference.test.paas.socialsecurity.be/demo/v1/socialSecretariats/331# +
+[red]#BAD: \http://rest-reference.test.paas.socialsecurity.be/demo/v1/socialSecretariats/331.json#
 ====
 
 
@@ -71,14 +71,14 @@ The query component of a URI contains a set of parameters to be interpreted as a
 [[query-parameters]]
 .Query parameters
 ====
-​[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats​*?q=sdworx*# +
+[green]#\http://rest-reference.test.paas.socialsecurity.be/demo/v1/socialSecretariats*?q=sdworx*# +
 Filter the resource collection using a search string.
 
-[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?select=(name,address)*# +
+[green]#\http://rest-reference.test.paas.socialsecurity.be/demo/v1/socialSecretariats/331*?select=(name,address)*# +
 Filter the resource properties to the ones specified in the `select` query parameter.
 
-[green]#\http://rest-reference.test.paas.socialsecurity.be/REST/demo/v1/socialSecretariats/331​*?lang=nl*# +
-Only return translatable properties in dutch.
+[green]#\http://rest-reference.test.paas.socialsecurity.be/demo/v1/socialSecretariats/331*?lang=nl*# +
+Only return translatable properties in Dutch.
 ====
 
 [rule, qry-multi]
