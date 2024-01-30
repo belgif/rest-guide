@@ -1,22 +1,49 @@
 [[health]]
 == Health ==
 
-Each REST API SHOULD expose a health resource which returns the current availability status of the service.
+[rule, hlth-res]
+====
+Each REST API SHOULD expose a `GET /health` operation which returns the current availability status of the service.
 
-When invoked without any access token, the resource simply returns its status.
-The status code is either ```200 OK``` when the service is up or partially available, or `503 Service Unavailable` when the service is down or out of service.
+Access to this resource SHOULD be granted to any client of the API.
 
-.Service is up
+The payload SHOULD be a JSON object with a property `status` of type `string`, that has one of the standardized values below, or a custom value for other API-specific use cases.
+It SHOULD NOT contain any implementation or infrastructure details for security reasons, unless called by a trusted privileged client.
+
+The HTTP response status SHOULD be either `200 OK` when the service is up or partially available, or `503 Service Unavailable` when the service is down or out of service.
+
+Clients SHOULD interpret any other HTTP 5xx status, or lack of HTTP response, as the API being unreachable.
+
+[cols="1,1,4", options="header"]
+|===
+|Status|Status Code|Description
+|UP| 200 |The API is functioning as expected.
+|DEGRADED | 200 | The API is partly unavailable but service can be continued with reduced functionality.
+|DOWN| 503 |The API is suffering unexpected failures.
+|===
+====
+
+If the health checks triggered by calling `GET /health` are resource-intensive, API implementations should consider caching the result. This may also protect against denial-of-service (DoS) attacks if the operation can be called from untrusted sources.
+
+.Service is available
+====
 ```json
 {
   "status": "UP"
 }
 ```
+====
 
-When invoked by a client with additional health-check permissions, the resource MAY return additional details on the status of its subsystems or components.
-This internal information should be hidden from external clients for security reasons.
+.Service is down
+====
 
-.Service is down, with additional details
+```json
+{
+  "status": "DOWN"
+}
+```
+
+When called by a trusted privileged client, the response may contain additional properties with detailed information.
 ```json
 {
   "status": "DOWN",
@@ -28,55 +55,8 @@ This internal information should be hidden from external clients for security re
   }
 }
 ```
+====
 
 The health resource is specified in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml].
 Note that uppercase is used for the status values, which differs from the <<enum-rule>>, in order to align with existing health checks provided by frameworks like https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/htmlsingle/#production-ready-health[Spring Boot] and https://download.eclipse.org/microprofile/microprofile-health-2.2/microprofile-health-spec.html[MicroProfile Health].
 The format of additional component-level details is not specified.
-
-[cols="1,2,3"]
-|===
-|<<get>>
-|/health
-|Check the health status of the API.
-
-3+|Response
-
-|body
-a|The status of the service. Component-level details may be shown when the client has additional permissions.
-a|
-[source,json]
-----
-{
-   "status": "UP"
-}
-----
-[source,json]
-----
-{
-   "status": "DOWN"
-}
-----
-
-3+|Response codes
-|<<http-200,200>>
-|OK
-|When service is `UP` or `DEGRADED`
-
-|<<http-503,503>>
-|Service Unavailable
-|When service is `DOWN`
-
-|===
-
-=== Status levels ===
-The health resource returns one of the following status levels indicating the component or system:
-
-[cols="1,1,4", options="header"]
-|===
-|Status|Status Code|Description
-|UP| 200 |is functioning as expected.
-|DEGRADED | 200 | is partly unavailable but service can be continued with reduced functionality.
-|DOWN| 503 |is suffering unexpected failures
-|===
-
-The status property also allows custom strings for other use cases.
