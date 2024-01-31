@@ -194,7 +194,7 @@ OpenAPI 3.0
           content:
             application/json:
               schema:
-                $ref: '#/definitions/Enterprise'
+                $ref: '#/components/schemas/Enterprise'
               examples:
                 success:
                   {
@@ -249,7 +249,7 @@ components:
 
 A type can be referenced from another OpenAPI file:
 ```YAML
-"$ref": "./person/identifier/v1/person-identifier-v1.yaml#/definitions/Ssin"
+"$ref": "./person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
 ```
 ====
 

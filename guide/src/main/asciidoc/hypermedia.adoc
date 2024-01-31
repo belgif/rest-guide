@@ -84,24 +84,25 @@ The corresponding JSON data type includes the link types using `allOf`.
 As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.
 
 ```YAML
-definitions:
-  Company:
-    allOf:
-    - "$ref": "./common/v1/common-v1.yaml#/definitions/SelfLink"
-    - type: object
-      properties:
-        owner:
-          "$ref": "#/definitions/PersonReference"
-        website:
-          type: string
-          format: uri
-  PersonReference:
-    allOf:
-      - "$ref": "./common/v1/common-v1.yaml#/definitions/HttpLink"
+components:
+  schemas:
+    Company:
+      allOf:
+      - "$ref": "./common/v1/common-v1.yaml#/components/schemas/SelfLink"
       - type: object
         properties:
-          ssin:
-            "$ref": "#/definitions/Ssin"
+          owner:
+            "$ref": "#/components/schemas/PersonReference"
+          website:
+            type: string
+            format: uri
+    PersonReference:
+      allOf:
+        - "$ref": "./common/v1/common-v1.yaml#/components/schemas/HttpLink"
+        - type: object
+          properties:
+            ssin:
+              "$ref": "./person-identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
 ```
 ====
 
