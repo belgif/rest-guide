@@ -2,6 +2,7 @@
 == Health ==
 
 [rule, hlth-res]
+.Health check operation
 ====
 Each REST API SHOULD expose a `GET /health` operation which returns the current availability status of the service.
 
