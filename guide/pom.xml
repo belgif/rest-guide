@@ -19,12 +19,12 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>3.5.2</version>
+                <version>3.5.3</version>
             </extension>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh-external</artifactId>
-                <version>3.5.2</version>
+                <version>3.5.3</version>
             </extension>
         </extensions>
 
@@ -33,12 +33,12 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>2.2.2</version>
+                <version>2.2.5</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctorj-diagram</artifactId>
-                        <version>2.2.4</version>
+                        <version>2.2.14</version>
                     </dependency>
                     <dependency>
                         <groupId>io.github.belgif.restguide</groupId>
@@ -88,7 +88,7 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-assembly-plugin</artifactId>
-              <version>3.4.2</version>
+              <version>3.6.0</version>
               <executions>
                 <execution>
                   <id>create-distribution</id>
