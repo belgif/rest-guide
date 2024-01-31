@@ -253,6 +253,17 @@ A type can be referenced from another OpenAPI file:
 ```
 ====
 
+[rule, oas-comp]
+.Component definitions
+====
+Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided. Rather, define them once under `components`, from which they can be referenced (`$ref`).
+
+All component names SHOULD be defined in American English and use _UpperCamelCase_ notation.
+For abbreviations as well, all letters except the first one should be lowercased.
+
+Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
+====
+
 [rule, oas-comdef]
 .Common definitions for Belgian government institutions
 ====
@@ -268,14 +279,12 @@ Other types for business concepts commonly used by Belgian government institutio
 === JSON data types
 
 [rule, oas-types]
-.Naming of data types
+.Naming of data types (schemas)
 ====
-Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
-For abbreviations as well, all letters except the first one should be lowercased.
 
-Do not use underscores (_), hyphens (-) or dots (.) in a data type name, nor use a digit as first letter.
+As stated in <<rule-oas-comp>>, data type (schema) names should use UpperCamelCase and American English.
 
-Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as data type name or part of it.
+In addition, data type names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
 
 A data type name SHOULD refer to the business meaning rather than how it is defined.
 ====
