@@ -2,13 +2,13 @@
 
 A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and <<links,_links_>> to other related resources.
 
+*Documents in a collection*
+
 Most document resources are contained in a _parent <<Collection,collection resource>>_ to which a *variable path segment with identity key* is added.
 
 image::collection.png[]
 
-Documents may also be _singletons_, of which only a single instance exists within the context of its parent, if any. A singleton document's URI ends with a *fixed path segment that is a singular noun*.
-
-.Document resources
+.Document resource part of a collection
 ====
 |===
 |Location|Document URI| Resource representation| Path template
@@ -24,6 +24,16 @@ a|
 }
 ```
 |`/persons/{ssin}`
+====
+
+*Singleton documents*
+
+Documents may also be _singletons_, of which only a single instance exists within the context of its parent, if any. A singleton document's URI ends with a *fixed path segment that is a singular noun*.
+
+.Singleton document resources
+====
+|===
+|Location|Document URI| Resource representation| Path template
 
 |singleton with document as parent | `/persons/01234567890/profilePicture` |
 
@@ -41,7 +51,7 @@ a|
 
 ====
 
-*Child resources*
+*Child resources of a document*
 
 A document may have _child resources_ of any type (document, collection or controller) that represent its specific subordinate concepts.
 
