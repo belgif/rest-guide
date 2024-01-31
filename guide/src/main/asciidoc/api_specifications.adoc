@@ -207,11 +207,23 @@ OpenAPI 3.0
 WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
   Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
-[rule, oas-reuse]
-.Reusable OpenAPI definitions
+[rule, oas-comp]
+.Component definitions
 ====
-Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
-These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type definitions, but also parameter, path items and response objects.
+Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided.
+Rather, define them once under `components`, from which they can be referenced (using `$ref`).
+
+All component names SHOULD be defined in American English and use _UpperCamelCase_ notation.
+For abbreviations as well, all letters except the first one should be lowercased.
+
+Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
+====
+
+[rule, oas-reuse]
+.Reusable OpenAPI files
+====
+Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
+These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
 
 To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
 
@@ -251,17 +263,6 @@ A type can be referenced from another OpenAPI file:
 ```YAML
 "$ref": "./person/identifier/v1/person-identifier-v1.yaml#/definitions/Ssin"
 ```
-====
-
-[rule, oas-comp]
-.Component definitions
-====
-Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided. Rather, define them once under `components`, from which they can be referenced (`$ref`).
-
-All component names SHOULD be defined in American English and use _UpperCamelCase_ notation.
-For abbreviations as well, all letters except the first one should be lowercased.
-
-Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
 ====
 
 [rule, oas-comdef]
