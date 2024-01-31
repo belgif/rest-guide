@@ -1,5 +1,7 @@
 # Releasing
 
+When preparing a release, first make sure that the changelog (changelog.adoc) and the update-date (in index.adoc) are updated.
+
 Each push to GitHub triggers a new GitHub Actions build using the maven-ci workflow.
 
 To release, simply create a tag:
