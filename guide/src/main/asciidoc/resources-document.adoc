@@ -311,7 +311,7 @@ OrderId: #<7>
 
 StoreReference: #<8>
   allOf:
-  - $ref: "./common/v1/common-v1.yaml#/definitions/HttpLink"
+  - $ref: "./common/v1/common-v1.yaml#/components/schemas/HttpLink"
   type: object
   properties:
     id:

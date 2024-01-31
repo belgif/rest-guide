@@ -94,15 +94,15 @@ GET {API}/employers[^] HTTP/1.1
 
 .JSON data types
 ```YAML
-EmployersResponse:
+EmployersCollection:
   allOf:
-  - $ref: common/v1/common-v1.yaml#/definitions/SelfLink
+  - $ref: common/v1/common-v1.yaml#/components/schemas/SelfLink
   - type: object
     properties:
       items:
         type: array
         items:
-          $ref: "#/definitions/EmployerLink"
+          $ref: "#/components/schemas/EmployerLink"
       total:
         type: integer
     required:
@@ -110,13 +110,13 @@ EmployersResponse:
       - total
 EmployerLink:
   allOf:
-  - $ref: common/v1/common-v1.yaml#/definitions/HttpLink
+  - $ref: common/v1/common-v1.yaml#/components/schemas/HttpLink
   - type: object
     properties:
       employerId:
-        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/definitions/EmployerId"
+        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/components/schemas/EmployerId"
       enterpriseNumber:
-        $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/definitions/EnterpriseNumber"
+        $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
 ```
 ====
 
@@ -167,35 +167,35 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
      }
    }
  }
-}​
+}
 ```
 
 .JSON data types
 ```YAML
-AppendixCodesResponse:
+AppendixCodesCollection:
   description: A collection of appendix codes
   type: object
   properties:
     items:
       type: array
       items:
-        $ref: '#/definitions/AppendixCodeLink'
+        $ref: '#/components/schemas/AppendixCodeLink'
     total:
       type: integer
     embedded:
       type: object
       additionalProperties:
-        $ref: 'appendixCode.yaml#/definitions/AppendixCode'
+        $ref: 'appendixCode.yaml#/components/schemas/AppendixCode'
   required:
     - items
     - total
 AppendixCodeLink:
   allOf:
-  - $ref: 'common/v1/common-v1.yaml#/definitions/HttpLink'
+  - $ref: 'common/v1/common-v1.yaml#/components/schemas/HttpLink'
   - type: object
     properties:
       value:
-        $ref: 'appendixCode.yaml#/definitions/AppendixCodeValue'
+        $ref: 'appendixCode.yaml#/components/schemas/AppendixCodeValue'
 ```
 ====
 
