@@ -26,6 +26,7 @@ a|
 |`/persons/{ssin}`
 ====
 
+[[document-singleton, Singleton documents]]
 *Singleton documents*
 
 Documents may also be _singletons_, of which only a single instance exists within the context of its parent, if any. A singleton document's URI ends with a *fixed path segment that is a singular noun*.
