@@ -1,4 +1,11 @@
 == Changelog
+* 2024-01-31
+** new: a document may also be a singleton that's not part of a collection (<<document-singleton>>)
+** new: path parameter names should use lowerCamelCase <<rule-path-param>>
+** update: clarify that query parameters should use lowerCamelCase <<rule-uri-notat>>
+** update: the name of a multi-value query parameter should be singular if it's a noun <<rule-qry-multi>>
+** new: explicit rule and clearer guidelines on `GET /health` resource <<rule-hlth-res>>
+
 * 2023-10-05
 ** update: <<rule-req-valid>> issue type for unknown input is renamed
 ** new: rule <<rule-hdr-case>> on case-insensitivity of HTTP headers
