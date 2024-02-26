@@ -207,11 +207,23 @@ OpenAPI 3.0
 WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
   Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
-[rule, oas-reuse]
-.Reusable OpenAPI definitions
+[rule, oas-comp]
+.Component definitions
 ====
-Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types and other definitions from other reusable files.
-These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type definitions, but also parameter, path items and response objects.
+Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided.
+Rather, define them once under `components`, from which they can be referenced (using `$ref`).
+
+All component names SHOULD be defined in American English and use _UpperCamelCase_ notation.
+For abbreviations as well, all letters except the first one should be lowercased.
+
+Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
+====
+
+[rule, oas-reuse]
+.Reusable OpenAPI files
+====
+Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
+These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
 
 To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
 
@@ -268,14 +280,12 @@ Other types for business concepts commonly used by Belgian government institutio
 === JSON data types
 
 [rule, oas-types]
-.Naming of data types
+.Naming of data types (schemas)
 ====
-Data type names SHOULD be defined in American English and use _UpperCamelCase_ notation.
-For abbreviations as well, all letters except the first one should be lowercased.
 
-Do not use underscores (_), hyphens (-) or dots (.) in a data type name, nor use a digit as first letter.
+As stated in <<rule-oas-comp>>, data type (schema) names should use UpperCamelCase and American English.
 
-Overly generic terms like `info(rmation)` and `data` SHOULD NOT be used as data type name or part of it.
+In addition, data type names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
 
 A data type name SHOULD refer to the business meaning rather than how it is defined.
 ====
