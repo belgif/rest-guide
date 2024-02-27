@@ -49,8 +49,51 @@ According to usage, a conversion step to JSON might be necessary considering lim
 [rule, oas-tags]
 .Use tags to group operations
 ====
-When an API has many operations, use https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#tagObject[tags] to group them together.
-This will make the visual representation (SwaggerUI) more readable.
+When an API has many operations, https://spec.openapis.org/oas/v3.0.3#tag-object[tags] SHOULD be used to group them together.
+
+An operation SHOULD NOT have more than one tag.
+
+Each tag used on an operation SHOULD also be declared in the top level `tags` list of the OpenAPI document, with an optional description.
+
+The name of a tag SHOULD be stylized like a title, i.e. a word or space-separated word group starting with a capital letter.
+====
+
+Using tags will make the visual representation (e.g. SwaggerUI) more readable.
+Multiple tags on an operation duplicates the operation in SwaggerUI, which may cause confusion.
+
+Declaring each tag allows linting tooling to detect inconsistencies in tag names.
+
+.Using tags
+====
+```YAML
+tags:
+  - name: Employers
+    description: Managing employers
+  - name: Reference data
+paths:
+  /employers/{employerId}:
+    get:
+      summary: Get an employer by its identifier
+      tags:
+        - Employers
+      # ...
+  /employers:
+    get:
+      summary: Find employers matching given search parameters
+      tags:
+        - Employers
+-     # ...
+    post:
+      summary: Add a new employer
+      tags:
+        - Employers
+  /refData/employerClasses:
+    get:
+      summary: Find enterprises matching given search parameters
+      tags:
+        - referenceData # BAD: doesn't match declared tag name, words aren't separated by space, doesn't start with capital letter
+      # ...
+```
 ====
 
 [rule, gen-header]
