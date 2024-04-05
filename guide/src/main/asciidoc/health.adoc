@@ -4,7 +4,7 @@
 [rule, hlth-res]
 .Health check operation
 ====
-Each REST API SHOULD expose a `GET /health` operation which returns the current availability status of the service.
+Each REST API SHOULD expose a `GET /health` operation which returns the availability of the API's functionality for its clients.
 
 Access to this resource SHOULD be granted to any client of the API.
 
@@ -24,7 +24,10 @@ Clients SHOULD interpret any other HTTP 5xx status, or lack of HTTP response, as
 |===
 ====
 
-If the health checks triggered by calling `GET /health` are resource-intensive, API implementations should consider caching the result. This may also protect against denial-of-service (DoS) attacks if the operation can be called from untrusted sources.
+IMPORTANT: The health status typically depends on the availability of multiple components used to provide the API's functionality (e.g. application container, database, external web service dependency, ...).
+It differs from a container liveness status, which only reflects the availability of a single component.
+
+WARNING: If the health checks triggered by calling `GET /health` are resource-intensive, API implementations should consider caching the result. This may also protect against denial-of-service (DoS) attacks if the operation can be called from untrusted sources.
 
 .Service is available
 ====
