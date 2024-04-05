@@ -393,21 +393,27 @@ In specific situations, where a (known) input is not needed anymore and can be s
 Unknown HTTP header parameters MUST be accepted.
 ====
 
-If unknown request fields would be accepted, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client’s actual intent will not be met.
+If unknown request fields would be accepted, certain client errors cannot be recognized by servers, e.g. parameter name typing errors will be ignored and the client's actual intent will not be met.
 
 Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
 
 [rule, oas-rdonly]
 .readOnly properties
 ====
-Properties SHOULD  be declared readOnly when appropriate.
+Properties SHOULD be declared as `readOnly: true` when appropriate.
 
-Properties can be declared `readOnly: true`.
-This means that it MAY be sent as part of a response but MUST NOT be sent as part of the request.
-Properties marked as readOnly being true SHOULD NOT be in the required list of the defined schema.
+This means that the value of the property is managed exclusively by the owning authority,
+and attempts by a client to modify the value of this property
+are expected to be ignored or rejected.
 
-Examples are properties that are computed from other properties, or that represent a volatile state of a resource.
+Examples are an immutable identifier of a document, properties that are computed from other properties, or that represent a volatile state of a resource.
+
+Properties marked as `readOnly` being `true` SHOULD NOT be in the `required` list of the defined schema.
 ====
+
+Above guideline is compliant with the https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00#section-9.4[definition of `readOnly`] used by the OpenAPI 3.1 Specification.
+
+The OpenAPI 3.0 Specification has a different definition, that allows to omit properties from requests that are both `readOnly` and `required`. This has been changed in OpenAPI 3.1 to achieve full compatibility with the JSON Schema Specification. Hence, to be forward-compatible, OpenAPI documents should not depend on this 3.0 behavior.
 
 [rule, oas-enum]
 .Enum values
