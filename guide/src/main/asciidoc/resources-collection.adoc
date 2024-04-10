@@ -332,6 +332,7 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
     }
   ],
   "pageSize": 2,
+  "page": 2,
   "total": 7,
   "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
   "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
