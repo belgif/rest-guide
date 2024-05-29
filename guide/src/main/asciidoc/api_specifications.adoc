@@ -378,6 +378,40 @@ The keys of such maps don't need to respect the naming rules for JSON properties
 An example is the description a map of `embedded` resources, as described in <<embedding>>.
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
+[rule, prop-req]
+.Required properties
+====
+You can declare properties of a JSON object as mandatory by adding them to the `required` list.
+
+Any properties listed in `required` MUST also be declared in the object's `properties`, either inline or in a referenced subschema.
+====
+
+While undeclared `required` properties are permitted by the JSON Schema standard, they are most often the result of an error in the OpenAPI document (typo, oversight when renaming a property, ...). This rule allows linting tools to mark such errors.
+
+.Required properties
+====
+|===
+| *GOOD* | *BAD*
+
+a|
+```YAML
+type: object
+properties:
+  givenName:
+    type: string
+required: [givenName]
+```
+a|
+```YAML
+type: object
+properties:
+  givenName:
+    type: string
+required: [firstName] # firstName isn't explicitly declared as a property
+```
+|===
+====
+
 [rule, req-valid]
 .Unknown input
 ====
