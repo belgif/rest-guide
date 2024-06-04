@@ -10,17 +10,17 @@ See the [wiki](https://github.com/belgif/rest-guide/wiki) for more information o
 Reusable OpenAPI 2.0 and 3.0 data types are maintained in the [belgif openapi-* GitHub repositories](https://github.com/belgif?q=openapi&type=&language=), organized per domain.
 Types in beta status are in the source code, but not part of the released artifacts. Apache Maven users can also [download them from Maven Central](https://search.maven.org/search?q=g:io.github.belgif.openapi).
 
-| domain | link |
-|--------|------|
-| common | [latest release](https://github.com/belgif/openapi-common/releases/latest) |
-| problem | [latest release](https://github.com/belgif/openapi-problem/releases/latest) |
-| time | [latest release](https://github.com/belgif/openapi-time/releases/latest) |
-| person | [latest release](https://github.com/belgif/openapi-person/releases/latest) |
-| person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) |
-| location | [latest release](https://github.com/belgif/openapi-location/releases/latest) |
-| organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) |
-| employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) |
-| money | [latest release](https://github.com/belgif/openapi-money/releases/latest) |
+| domain | release | OpenAPI | 
+|--------|---------|---------|
+| common | [latest release](https://github.com/belgif/openapi-common/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml)|
+| problem | [latest release](https://github.com/belgif/openapi-problem/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml)|
+| time | [latest release](https://github.com/belgif/openapi-time/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-time/blob/master/src/main/openapi/time/v1/time-v1.yaml)|
+| person | [latest release](https://github.com/belgif/openapi-person/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person/blob/master/src/main/openapi/person/v1/person-v1.yaml)|
+| person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person-identifier/blob/master/src/main/openapi/person/identifier/v1/person-identifier-v1.yaml)|
+| location | [latest release](https://github.com/belgif/openapi-location/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-location/blob/master/src/main/openapi/location/v1/location-v1.yaml)|
+| organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization-identifier/blob/master/src/main/openapi/organization/identifier/v1/organization-identifier-v1.yaml)|
+| employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-employment-identifier/blob/master/src/main/openapi/employment/identifier/v1/employment-identifier-v1.yaml)|
+| money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml)|
 
 # Guidelines to write the styleguide
 
