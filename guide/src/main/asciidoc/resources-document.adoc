@@ -461,7 +461,6 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 |The document resource does not exist.
 
 |===
-WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
 
 
 ====

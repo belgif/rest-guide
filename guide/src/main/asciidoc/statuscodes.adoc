@@ -39,7 +39,7 @@ http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status 
 
  |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
  |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
- |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
+ |<<http-204,204 No Content>>	|X	|X	|X	|X	|X	|X	|-
   |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
   |<<http-303,303 See Other>>	|X	|X	|X	|X	|X	|X	|X
   |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-

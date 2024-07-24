@@ -41,8 +41,6 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 | <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 |===
 
-WARNING: <<http-204,204 No content>>  should not be used with GET.
-
 [rule, col-sort]
 .Sorting a collection
 ====
@@ -261,8 +259,6 @@ a|
 | <<http-404,404>> | Not found | The URI provided cannot be mapped to a resource. 
 ​
 |===
-
-WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
 
 
 [subs=normal]
