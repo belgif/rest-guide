@@ -11,9 +11,12 @@ For any problem occurred during processing, whether it be caused by the client o
 
 
 .Problem Details JSON schema (from link:https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
-```yaml
+```YAML
     Problem:
-      description: A Problem Details object (RFC 9457)
+      description: |
+        A Problem Details object (RFC 9457).
+
+        Additional properties specific to the problem type may be present.
       type: object
       properties:
         type:
@@ -27,7 +30,7 @@ For any problem occurred during processing, whether it be caused by the client o
           description: An absolute URI that, when dereferenced, provides human-readable documentation for the problem type (e.g. using HTML).
         title:
           type: string
-          description: A short, summary of the problem type. Written in English and readable for engineers (usually not suited for non technical stakeholders and not localized).
+          description: A short summary of the problem type. Written in English and readable for engineers (usually not suited for non technical stakeholders and not localized).
           example: Service Unavailable
         status:
           type: integer
