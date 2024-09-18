@@ -13,7 +13,7 @@ The HTTP response status code SHOULD be returned that best describes the outcome
 The table below list most common combinations of a status code for each HTTP method, though may not be exhaustive. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
 ====
 
-The full list of HTTP status codes is documented http://www.ietf.org/assignments/http-status-codes/http-status-codes.xml[here^].
+The full list of HTTP status codes is documented https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[here^].
 
 http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
 
