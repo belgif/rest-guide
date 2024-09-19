@@ -225,7 +225,7 @@ They are defined as URNs of format `+urn:problem-type:belgif:<type>+`.
 
 WARNING: `href` links to descriptions of standardized problem types will change in the future to recommended format containing full problem type identifier without HTML extension. Current URLs will redirect.
 
-The library https://github.com/belgif/rest-problem-java[`rest-problem-java`] provides implementation support for these problem types when developing Java applications.
+The library https://github.com/belgif/rest-problem-java[`belgif-rest-problem-java`] provides implementation support for these problem types when developing Java applications.
 
 include::problems/badRequest.adoc[leveloffset=3]
 
