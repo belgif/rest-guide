@@ -22,6 +22,7 @@ Types in beta status are in the source code, but not part of the released artifa
 | organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization-identifier/blob/master/src/main/openapi/organization/identifier/v1/organization-identifier-v1.yaml)|
 | employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-employment-identifier/blob/master/src/main/openapi/employment/identifier/v1/employment-identifier-v1.yaml)|
 | money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml)|
+| healthcare | [latest release](https://github.com/belgif/openapi-healthcare/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-healthcare/blob/master/src/main/openapi/healthcare/v1/healthcare-v1.yaml)|
 
 # Guidelines to write the styleguide
 
