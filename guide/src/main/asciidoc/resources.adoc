@@ -97,19 +97,9 @@ If the parameter's name is a noun, it SHOULD be singular.
 GET /cars?color=black&color=blue
 ```
 
-.OpenAPI 2.0 definition
-```YAML
-parameters:
-- name: color
-  in: query
-  collectionFormat: multi
-  type: array
-  items:
-    type: string
-```
-
-.OpenAPI 3.0 definition
-```YAML
+[source,yaml,role="primary",subs="normal"]
+.OpenAPI 3.0
+----
 parameters:
 - name: color
   in: query
@@ -118,7 +108,19 @@ parameters:
     type: array
     items:
       type: string
-```
+----
+
+[source,yaml,role="secondary",subs="normal"]
+.OpenAPI 2.0
+----
+parameters:
+- name: color
+  in: query
+  collectionFormat: multi
+  type: array
+  items:
+    type: string
+----
 ====
 
 === Resource Archetypes

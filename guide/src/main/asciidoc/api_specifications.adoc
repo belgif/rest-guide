@@ -197,54 +197,56 @@ Add example response values to the OpenAPI specification under the `examples` pr
 .Examples in OpenAPI
 ====
 
-OpenAPI 2.0
-```YAML
-  /enterprises/{enterpriseNumber}:
-    get:
-      operationId: getEnterprise
-      parameters:
-      - in: path
-        name: enterpriseNumber
-        required: true
+[source,yaml,role="primary",subs="attributes+"]
+.OpenAPI 3.0
+----
+/enterprises/{enterpriseNumber}:
+  get:
+    operationId: getEnterprise
+    parameters:
+    - in: path
+      name: enterpriseNumber
+      required: true
+      schema:
         type: string
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Enterprise'
-          examples:
-            application/json:
-              {
-                "name": "Belgacom",
-                "enterpriseNumber": "0202239951"
-              }
-```
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enterprise'
+            examples:
+              success:
+                {
+                  "name": "Belgacom",
+                  "enterpriseNumber": "0202239951"
+                }
+----
 
-OpenAPI 3.0
-```YAML
-  /enterprises/{enterpriseNumber}:
-    get:
-      operationId: getEnterprise
-      parameters:
-      - in: path
-        name: enterpriseNumber
-        required: true
+[source,yaml,role="secondary",subs="attributes+"]
+.OpenAPI 2.0
+----
+/enterprises/{enterpriseNumber}:
+  get:
+    operationId: getEnterprise
+    parameters:
+    - in: path
+      name: enterpriseNumber
+      required: true
+      type: string
+    responses:
+      "200":
+        description: successful operation
         schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprise'
-              examples:
-                success:
-                  {
-                    "name": "Belgacom",
-                    "enterpriseNumber": "0202239951"
-                  }
-```
+          $ref: '#/definitions/Enterprise'
+        examples:
+          application/json:
+            {
+              "name": "Belgacom",
+              "enterpriseNumber": "0202239951"
+            }
+----
 ====
 
 WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.

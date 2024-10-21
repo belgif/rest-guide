@@ -24,6 +24,7 @@ a|
 }
 ```
 |`/persons/{ssin}`
+|===
 ====
 
 [[document-singleton, Singleton documents]]
@@ -49,7 +50,7 @@ a|
 { "license": "Any information obtained from this API may not be made public, nor ..."}
 ```
 | `/endUserLicenseAgreement`
-
+|===
 ====
 
 *Child resources of a document*

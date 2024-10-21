@@ -72,6 +72,7 @@ CAUTION: It is not recommended to implement both JSON / XML in each REST service
 It would require to define and implement two representations of the same data.
 Automatic conversion between the two standards will almost never give a satisfying result.
 
+
 [discrete]
 [[media-types-openapi]]
 === Media types in OpenAPI
@@ -79,6 +80,47 @@ Automatic conversion between the two standards will almost never give a satisfyi
 Payload media types can be specified in an OpenAPI specification.
 
 For JSON, the media type specified in OpenAPI should not contain a `charset` parameter, because this is known to lead to problems in some server software when treating requests without the parameter in the `Accept` header.
+
+[discrete]
+[[media-type-openapi3]]
+==== OpenAPI 3.0
+
+OpenAPI 3.0 allows to specify a different media type for each request or response format.
+Default media types cannot be specified.
+
+.Specifying OpenAPI 3.0 media types
+====
+```YAML
+  /persons/{ssin}/photo:
+    get:
+      summary: Get the photo of the person
+      operationId: getPhoto
+      parameters:
+      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/components/parameters/SsinQueryParameter"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: SSIN has invalid structure
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InvalidSsinProblem"
+        "404":
+          description: SSIN was not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/UnknownSsinProblem"
+        default:
+          "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
+```
+====
 
 [discrete]
 ==== OpenAPI 2.0
@@ -126,46 +168,5 @@ consumes:
 produces:
 - application/json
 - application/problem+json
-```
-====
-
-[discrete]
-[[media-type-openapi3]]
-==== OpenAPI 3.0
-
-OpenAPI 3.0 allows to specify a different media type for each request or response format.
-Default media types cannot be specified.
-
-.Specifying OpenAPI 3.0 media types
-====
-```YAML
-  /persons/{ssin}/photo:
-    get:
-      summary: Get the photo of the person
-      operationId: getPhoto
-      parameters:
-      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/components/parameters/SsinQueryParameter"
-      responses:
-        "200":
-          description: successful operation
-          content:
-            image/jpeg:
-              schema:
-                type: string
-                format: binary
-        "400":
-          description: SSIN has invalid structure
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/InvalidSsinProblem"
-        "404":
-          description: SSIN was not found
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/UnknownSsinProblem"
-        default:
-          "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
 ```
 ====
