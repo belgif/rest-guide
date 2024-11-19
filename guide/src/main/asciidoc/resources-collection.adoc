@@ -5,12 +5,14 @@ A collection resource is a server-managed list of document resources.
 [rule, col-name]
 .Collection name
 ====
-A plural noun SHOULD be used for collection names, for example 'employers' or 'people'.
+A plural noun SHOULD be used for collection names, for example 'employers' or 'children'.
 ====
 
-.Collection of employers
+.Collection name
 ====
-{API}/employers[^]
+{API}/employers[^] - a collection of employers
+
+{API}/persons/{ssin}/children[^] - a collection of children as a child resource of a person
 ====
 
 [[collections-consult, Consulting a collection]]
