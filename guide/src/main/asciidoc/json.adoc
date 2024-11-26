@@ -51,7 +51,7 @@ This is because `enterpriseNumber` is a fixed denomination (declared in  Crossro
 [subs="normal"]
 ```json
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951"
@@ -63,7 +63,10 @@ This is because `enterpriseNumber` is a fixed denomination (declared in  Crossro
 [rule, jsn-null]
 .Null values
 ====
-Properties with a `null` value SHOULD be stripped from the JSON message.
+
+Properties without a value SHOULD be stripped from the JSON message, instead of having a `null` value.
+
+For properties or parameters with a specified type, OpenAPI disallows `null` values by default, unless `nullable: true` is specified.
 
 A notable exception to this rule are JSON Merge Patch requests, in which a `null` value indicates the removal of a JSON property.
 
@@ -75,7 +78,7 @@ Note that this rule doesn't apply to empty values (e.g. empty strings `""` or em
 a|[subs="normal"]
 ```json
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373,
   "enterprise": null
 }
@@ -84,7 +87,7 @@ a|[subs="normal"]
 a|[subs="normal"]
 ```json
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373
 }
 ```
@@ -97,7 +100,7 @@ a|[subs="normal"]
 a|[subs="normal"]
 ```json
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373
 }
 ```
@@ -107,7 +110,7 @@ a|[subs="normal"]
 ```json
 {
   "employerId": 93017373,
-  "name": "Belgacom"
+  "name": "Proximus"
 }
 ```
 |===
