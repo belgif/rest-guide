@@ -641,7 +641,7 @@ APIs should support both the media type of JSON merge patch `application/merge-p
 Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to <<rule-jsn-null>>.
 Swagger 2.0 does not allow to document the use of `null` values. Instead, a `MergePatch` marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml].
 
-JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because otherwise `required` properties may be absent and `null` values may be allowed.
+JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because in a JSON Merge Patch request, required properties may be absent or optional properties may be removed using a `null` value.
 ====
 
 .JSON merge patch
