@@ -76,13 +76,11 @@ paths:
       summary: Get an employer by its identifier
       tags:
         - Employers
-      # ...
   /employers:
     get:
       summary: Find employers matching given search parameters
       tags:
         - Employers
--     # ...
     post:
       summary: Add a new employer
       tags:
@@ -92,7 +90,27 @@ paths:
       summary: Find enterprises matching given search parameters
       tags:
         - referenceData # BAD: doesn't match declared tag name, words aren't separated by space, doesn't start with capital letter
-      # ...
+        - Employers # BAD: don't set multiple tags on an operation
+```
+====
+
+[rule, openapi-opid]
+.operationId
+====
+A unique `operationId` MUST be specified on each operation.
+It SHOULD have a lowerCamelCase value following common programming naming conventions for method (function) names.
+====
+
+Tools and libraries often use the `operationId` to uniquely identify an operation.
+Code generators use it to generate method names and generally take care of transforming it to the language-specific naming conventions (e.g. UpperCamelCase or snake_case).
+
+.operationId
+====
+```YAML
+/health:
+  get:
+    summary: Check health of the service
+    operationId: checkHealth   # Bad values: health, CheckHealth, healthCheck
 ```
 ====
 
