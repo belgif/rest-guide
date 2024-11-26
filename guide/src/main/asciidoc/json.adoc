@@ -127,7 +127,7 @@ See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#dat
 
 See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-7.3.1[JSON Schema Validation 7.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
 The fraction part `.SSS` for sub-second precision is optional and may be of any length.
-The time offset relative to UTC (`XXX`) is mandatory and may be `Z` (zero) or of format `("+" / "-") time-hour ":" time-minute`.
+The time offset relative to UTC (`XXX`) is mandatory and may be `Z` (Zulu = offset 00:00) or of format `("+" / "-") time-hour ":" time-minute`.
 
 .Example UTC
 ```json
