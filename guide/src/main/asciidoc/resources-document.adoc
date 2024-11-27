@@ -625,16 +625,24 @@ a|
 [[document-partial-update]]
 ==== Partial update
 
+[rule, doc-patch]
+.JSON Merge patch
+====
 Use `PATCH` when you like to do a partial update of a document resource.
 
-The `PATCH` message MUST conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
+The `PATCH` message SHOULD conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
 
 * JSON properties in the request overwrite the ones in the previous resource state
 * properties with value `null` in the request are removed from the resource
 * properties not present in the request are preserved
 
 APIs should support both the media type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON media type.
-As JSON Merge Patch requests can not be fully specified as an OpenAPI data type, a MergePatch marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml].
+
+Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to <<rule-jsn-null>>.
+JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because in a JSON Merge Patch request, required properties may be absent or optional properties may be removed using a `null` value.
+
+OpenAPI 2.0 does not allow to document the use of `null` values. Instead, a `MergePatch` marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml].
+====
 
 .JSON merge patch
 ====
@@ -646,13 +654,13 @@ PATCH {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |<<patch>>
-|/employers/{employerId}
+|`/employers/{employerId}`
 |Performs a partial update of an existing employer.
 
 3+|Request
 
 |body
-|JSON Merge Patch
+|`application/merge-patch+json` or  `application/json`
 a|
 [source,json]
 ----
@@ -660,6 +668,33 @@ a|
   "bankrupt": false,
   "bankruptDate": null
 }
+----
+
+| schema
+|
+a|
+OpenAPI 3.0:
+[source,yaml]
+----
+EmployerPatch:
+  type: object
+  properties:
+    bankrupt:
+      type: boolean  # mandatory property, shouldn't be nullable
+    bankruptDate:
+      type: string
+      format: date
+      nullable: true # optional property, use null to remove it
+----
+OpenAPI 2.0 (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml]):
+
+[source,yaml]
+----
+  MergePatch:
+    description: JSON Merge Patch (RFC 7386) request body
+    type: object
+    additionalProperties: true
+    # Marker type as JSON Merge Patch requests can not be fully specified as a JSON Schema type in OpenAPI 2.0
 ----
 
 3+|Parameters
