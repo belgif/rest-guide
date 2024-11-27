@@ -24,6 +24,13 @@ Types in beta status are in the source code, but not part of the released artifa
 | money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml)|
 | healthcare | [latest release](https://github.com/belgif/openapi-healthcare/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-healthcare/blob/master/src/main/openapi/healthcare/v1/healthcare-v1.yaml)|
 
+# Related tools
+
+The [https://github.com/belgif/rest-guide-validator](belgif-rest-guide-validator) validates compliance of OpenAPI documents to the REST guide. 
+
+The [https://github.com/belgif/rest-problem-java](belgif-rest-problem-java) library can be used to implement error handling in Java REST clients and server implementations, using standardized Problem messages as listed in the REST guide.
+
+
 # Guidelines to write the styleguide
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the REST styleguide are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).

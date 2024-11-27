@@ -564,7 +564,7 @@ Following tools can be used to edit OpenAPI files
 |Name|Link| Description
 |Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of Swagger files. Does not support references to external files.
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
-|Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
+|Stoplight Studio | https://github.com/stoplightio/studio/releases | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
 |42Crunch OpenAPI (Swagger) Editor for IntelliJ|https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor|Plugin for IntelliJ. Text editor with multi-file support.
 |IntelliJ OpenAPI Specifications |https://www.jetbrains.com/help/idea/openapi.html|Plugin bundled with IntelliJ Ultimate (commercial). Text editor with SwaggerUI preview and multi-file support.
@@ -579,6 +579,18 @@ Following tools can be used to generate server stubs and API client libraries fr
 |swagger-codegen| https://github.com/swagger-api/swagger-codegen|
 |===
 
+Following tools allow to verify REST styleguide rules for an OpenAPI document:
+
+|===
+|Name | Link | Comments
+
+|belgif-rest-guide-validator | https://github.com/belgif/rest-guide-validator | Open Source Maven Plugin to validate OpenAPI document against rules in this guide
+
+|Spectral a| https://stoplight.io/open-source/spectral | Open Source tool (javascript-based) to enforce REST styleguide rules.
+
+_Note:_ There currently is no implementation of this REST guide for Spectral.
+
+|===
 === References
 
 [options="header"]
