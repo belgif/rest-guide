@@ -209,8 +209,15 @@ paths:
 [rule, oas-exampl]
 .Add examples in OpenAPI
 ====
-Add example response values to the OpenAPI specification under the `examples` property.
+Add examples to an OpenAPI document.
+
+Examples SHOULD be provided under the `example` or `examples` OpenAPI properties rather than in a description. `examples` allows specifying multiple examples, but can't be used within schema definitions.
+
+Example values MUST be schema-valid.
 ====
+
+WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
+Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
 .Examples in OpenAPI
 ====
@@ -258,15 +265,13 @@ OpenAPI 3.0
                 $ref: '#/components/schemas/Enterprise'
               examples:
                 success:
-                  {
+                  description: Successful response with enterprise data
+                  value: {
                     "name": "Belgacom",
                     "enterpriseNumber": "0202239951"
                   }
 ```
 ====
-
-WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
-  Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
 [rule, oas-comp]
 .Component definitions
