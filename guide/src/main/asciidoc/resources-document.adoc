@@ -55,11 +55,11 @@ a|
 
 *Child resources of a document*
 
-A document may have _child resources_ of any type (document, collection or controller) that represent its specific subordinate concepts.
+A document may have _child resources_ of any type (document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
+Occasionally complex resources have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer resource could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
+In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see <<rule-hyp-links>>) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation. 
 
-When defining child resources, stick to concepts _within the same API_. An employer resource could contain child concepts as employees, debts, taxes, mandates, declarations, risks, but putting all these different concepts below a single document resource becomes unmanageable.
-In that case *prefer associations and create <<links,links>>* to other APIs from the employer resource.
-
+[[section-identifier]]
 === Identifier
 
 [rule, id-choice]

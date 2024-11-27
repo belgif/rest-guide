@@ -76,13 +76,11 @@ paths:
       summary: Get an employer by its identifier
       tags:
         - Employers
-      # ...
   /employers:
     get:
       summary: Find employers matching given search parameters
       tags:
         - Employers
--     # ...
     post:
       summary: Add a new employer
       tags:
@@ -92,7 +90,27 @@ paths:
       summary: Find enterprises matching given search parameters
       tags:
         - referenceData # BAD: doesn't match declared tag name, words aren't separated by space, doesn't start with capital letter
-      # ...
+        - Employers # BAD: don't set multiple tags on an operation
+```
+====
+
+[rule, openapi-opid]
+.operationId
+====
+A unique `operationId` MUST be specified on each operation.
+It SHOULD have a lowerCamelCase value following common programming naming conventions for method (function) names.
+====
+
+Tools and libraries often use the `operationId` to uniquely identify an operation.
+Code generators use it to generate method names and generally take care of transforming it to the language-specific naming conventions (e.g. UpperCamelCase or snake_case).
+
+.operationId
+====
+```YAML
+/health:
+  get:
+    summary: Check health of the service
+    operationId: checkHealth   # Bad values: health, CheckHealth, healthCheck
 ```
 ====
 
@@ -191,8 +209,15 @@ paths:
 [rule, oas-exampl]
 .Add examples in OpenAPI
 ====
-Add example response values to the OpenAPI specification under the `examples` property.
+Add examples to an OpenAPI document.
+
+Examples SHOULD be provided under the `example` or `examples` OpenAPI properties rather than in a description. `examples` allows specifying multiple examples, but can't be used within schema definitions.
+
+Example values MUST be schema-valid.
 ====
+
+WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
+Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
 .Examples in OpenAPI
 ====
@@ -218,8 +243,9 @@ Add example response values to the OpenAPI specification under the `examples` pr
               $ref: '#/components/schemas/Enterprise'
             examples:
               success:
-                {
-                  "name": "Belgacom",
+                description: Successful response with enterprise data
+                value: {
+                  "name": "Proximus",
                   "enterpriseNumber": "0202239951"
                 }
 ----
@@ -243,14 +269,11 @@ Add example response values to the OpenAPI specification under the `examples` pr
         examples:
           application/json:
             {
-              "name": "Belgacom",
+              "name": "Proximus",
               "enterpriseNumber": "0202239951"
             }
 ----
 ====
-
-WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
-  Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
 
 [rule, oas-comp]
 .Component definitions
@@ -459,6 +482,8 @@ A fixed list of possible values of a property can be specified using `enum`.
 However, this may make it harder to change the list of possible values, as client applications will often depend on the specified list e.g. by using code generation.
 
 `enum` SHOULD only be used when the list of values is unlikely to change or when changing it has a big impact on clients of the API.
+
+`enum` values SHOULD be valid to the schema in which they are defined.
 ====
 
 .Enum declaration
@@ -541,7 +566,7 @@ Following tools can be used to edit OpenAPI files
 |Name|Link| Description
 |Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of Swagger files. Does not support references to external files.
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
-|Stoplight Studio | https://stoplight.io/studio/ | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
+|Stoplight Studio | https://github.com/stoplightio/studio/releases | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
 |42Crunch OpenAPI (Swagger) Editor for IntelliJ|https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor|Plugin for IntelliJ. Text editor with multi-file support.
 |IntelliJ OpenAPI Specifications |https://www.jetbrains.com/help/idea/openapi.html|Plugin bundled with IntelliJ Ultimate (commercial). Text editor with SwaggerUI preview and multi-file support.
@@ -556,6 +581,18 @@ Following tools can be used to generate server stubs and API client libraries fr
 |swagger-codegen| https://github.com/swagger-api/swagger-codegen|
 |===
 
+Following tools allow to verify REST styleguide rules for an OpenAPI document:
+
+|===
+|Name | Link | Comments
+
+|belgif-rest-guide-validator | https://github.com/belgif/rest-guide-validator | Open Source Maven Plugin to validate OpenAPI document against rules in this guide
+
+|Spectral a| https://stoplight.io/open-source/spectral | Open Source tool (javascript-based) to enforce REST styleguide rules.
+
+_Note:_ There currently is no implementation of this REST guide for Spectral.
+
+|===
 === References
 
 [options="header"]

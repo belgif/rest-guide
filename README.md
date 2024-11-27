@@ -18,9 +18,18 @@ Types in beta status are in the source code, but not part of the released artifa
 | person | [latest release](https://github.com/belgif/openapi-person/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person/blob/master/src/main/openapi/person/v2/person-v2.yaml)|
 | person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person-identifier/blob/master/src/main/openapi/person/identifier/v1/person-identifier-v1.yaml)|
 | location | [latest release](https://github.com/belgif/openapi-location/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-location/blob/master/src/main/openapi/location/v1/location-v1.yaml)|
+| organization | [latest release](https://github.com/belgif/openapi-organization/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization/blob/master/src/main/openapi/organization/v1/organization-v1.yaml)|
 | organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization-identifier/blob/master/src/main/openapi/organization/identifier/v1/organization-identifier-v1.yaml)|
 | employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-employment-identifier/blob/master/src/main/openapi/employment/identifier/v1/employment-identifier-v1.yaml)|
 | money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml)|
+| healthcare | [latest release](https://github.com/belgif/openapi-healthcare/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-healthcare/blob/master/src/main/openapi/healthcare/v1/healthcare-v1.yaml)|
+
+# Related tools
+
+The [https://github.com/belgif/rest-guide-validator](belgif-rest-guide-validator) validates compliance of OpenAPI documents to the REST guide. 
+
+The [https://github.com/belgif/rest-problem-java](belgif-rest-problem-java) library can be used to implement error handling in Java REST clients and server implementations, using standardized Problem messages as listed in the REST guide.
+
 
 # Guidelines to write the styleguide
 
