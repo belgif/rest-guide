@@ -670,19 +670,31 @@ a|
 }
 ----
 
-|schema
-|`EmployerPatch`
+| schema
+|
 a|
+OpenAPI 3.0:
 [source,yaml]
 ----
-type: object
-properties:
-  bankrupt:
-    type: boolean  # mandatory property, shouldn't be nullable
-  bankruptDate:
-    type: string
-    format: date
-    nullable: true # optional property, use null to remove it
+EmployerPatch:
+  type: object
+  properties:
+    bankrupt:
+      type: boolean  # mandatory property, shouldn't be nullable
+    bankruptDate:
+      type: string
+      format: date
+      nullable: true # optional property, use null to remove it
+----
+OpenAPI 2.0 (from https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml]):
+
+[source,yaml]
+----
+  MergePatch:
+    description: JSON Merge Patch (RFC 7386) request body
+    type: object
+    additionalProperties: true
+    # Marker type as JSON Merge Patch requests can not be fully specified as a JSON Schema type in OpenAPI 2.0
 ----
 
 3+|Parameters
