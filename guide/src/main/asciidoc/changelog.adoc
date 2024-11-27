@@ -1,4 +1,7 @@
 == Changelog
+* 2024-xx-xx
+** clarify use of `null` in <<rule-jsn-null>>
+** add rule <<rule-doc-patch>> for JSON Merge Patch and illustrate use of nullable properties
 * 2024-04-05
 ** update <<rule-oas-tags>>: add new guidelines on tags (declared, style, no more than one tag on an operation)
 ** new: rule <<rule-oas-comp>> applies naming guidelines on all types of components (previously in <<rule-oas-types>> only for schemas)
