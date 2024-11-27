@@ -222,55 +222,57 @@ Any additional examples should be put in external documentation or specified usi
 .Examples in OpenAPI
 ====
 
-OpenAPI 2.0
-```YAML
-  /enterprises/{enterpriseNumber}:
-    get:
-      operationId: getEnterprise
-      parameters:
-      - in: path
-        name: enterpriseNumber
-        required: true
+[source,yaml,role="primary",subs="attributes+"]
+.OpenAPI 3.0
+----
+/enterprises/{enterpriseNumber}:
+  get:
+    operationId: getEnterprise
+    parameters:
+    - in: path
+      name: enterpriseNumber
+      required: true
+      schema:
         type: string
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Enterprise'
-          examples:
-            application/json:
-              {
-                "name": "Belgacom",
-                "enterpriseNumber": "0202239951"
-              }
-```
+    responses:
+      "200":
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enterprise'
+            examples:
+              success:
+                description: Successful response with enterprise data
+                value: {
+                  "name": "Proximus",
+                  "enterpriseNumber": "0202239951"
+                }
+----
 
-OpenAPI 3.0
-```YAML
-  /enterprises/{enterpriseNumber}:
-    get:
-      operationId: getEnterprise
-      parameters:
-      - in: path
-        name: enterpriseNumber
-        required: true
+[source,yaml,role="secondary",subs="attributes+"]
+.OpenAPI 2.0
+----
+/enterprises/{enterpriseNumber}:
+  get:
+    operationId: getEnterprise
+    parameters:
+    - in: path
+      name: enterpriseNumber
+      required: true
+      type: string
+    responses:
+      "200":
+        description: successful operation
         schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprise'
-              examples:
-                success:
-                  description: Successful response with enterprise data
-                  value: {
-                    "name": "Belgacom",
-                    "enterpriseNumber": "0202239951"
-                  }
-```
+          $ref: '#/definitions/Enterprise'
+        examples:
+          application/json:
+            {
+              "name": "Proximus",
+              "enterpriseNumber": "0202239951"
+            }
+----
 ====
 
 [rule, oas-comp]

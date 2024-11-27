@@ -32,7 +32,7 @@ The representation of a collection MUST contain a list of links to child resourc
 * The number of items in the collection result set MAY be included in the response using the `total` property. If the response is paginated, its value MUST correspond to the number of items regardless of pagination, rather than only the number of items in the current page.
 ====
 
-CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (<<evo-object>>). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
+CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (<<rule-evo-object>>). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
 .Most used response codes
 
