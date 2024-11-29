@@ -16,7 +16,7 @@ The main benefit for choosing RESTful services is to increase flexibility and to
 * WS-* specifications added to SOAP are often overly complex and redundant to the possibilities over the underlying communication protocol (e.g. HTTP).
 * REST has become the industry standard for developing APIs on the web (https://developers.google.com/apis-explorer[Google^], https://developers.facebook.com/docs/graph-api/reference[Facebook^], https://developer.amazon.com/public/apis[Amazon^], https://dev.twitter.com/rest/public[Twitter^], etc).
 
-
+[[related-belgif, Related Belgif initiatives]]
 *Related Belgif initiatives*
 
 These Belgif resources may also be useful when developing RESTful webservices:
