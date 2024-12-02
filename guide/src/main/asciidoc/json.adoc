@@ -126,6 +126,16 @@ See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#dat
 }
 ```
 
+.Schema with date
+```YAML
+type: object
+properties:
+  birthDay:
+    type: string
+    format: date
+```
+
+[[json-date-time]]
 **Date/time are written in ISO 8601 date-time format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX**
 
 See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-7.3.1[JSON Schema Validation 7.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
@@ -144,4 +154,13 @@ The time offset relative to UTC (`XXX`) is mandatory and may be `Z` (Zulu = offs
 {
   "lastModification": "2016-04-24T11:26:00+02:00"
 }
+```
+
+.Schema with date-time
+```YAML
+type: object
+properties:
+  lastModification:
+    type: string
+    format: date-time
 ```

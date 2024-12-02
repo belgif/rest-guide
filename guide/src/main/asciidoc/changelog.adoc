@@ -1,7 +1,14 @@
 == Changelog
 * 2024-xx-xx
-** clarify use of `null` in <<rule-jsn-null>>
-** add rule <<rule-doc-patch>> for JSON Merge Patch and illustrate use of nullable properties
+** add a list of <<related-belgif>>
+** new rule <<rule-prop-req>> on declaring properties as `required`
+** new rule <<rule-openapi-opid>>: recommend the use of `operationId`
+** update rule <<rule-jsn-null>>: clarify use of `null`
+** new rule <<rule-doc-patch>> on JSON Merge Patch, illustrating the use of nullable properties
+** update rule <<rule-err-problem>>: provide structured data in additional properties and recommend against parsing `title` or `description`
+** clarify that time offsets are mandatory for `date-time` values in <<json-date-time,JSON>>
+** update rule: <<rule-oas-exampl>> recommending to add examples, and clarify  specifics of OpenAPI 2.0 and 3.0
+
 * 2024-04-05
 ** update <<rule-oas-tags>>: add new guidelines on tags (declared, style, no more than one tag on an operation)
 ** new: rule <<rule-oas-comp>> applies naming guidelines on all types of components (previously in <<rule-oas-types>> only for schemas)
