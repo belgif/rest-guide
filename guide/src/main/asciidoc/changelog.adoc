@@ -1,5 +1,5 @@
 == Changelog
-* 2024-xx-xx
+* 2024-12-02
 ** add a list of <<related-belgif>>
 ** new rule <<rule-prop-req>> on declaring properties as `required`
 ** new rule <<rule-openapi-opid>>: recommend the use of `operationId`
