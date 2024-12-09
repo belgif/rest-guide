@@ -23,9 +23,11 @@ Content-Type: application/problem+json
 }
 ```
 
-Either a path parameter or an optional child resource path don't resolve to an existing resource. Look for the more details in the `issues` property.
+Either a path parameter or an optional child resource path doesn't resolve to an existing resource. Look for more details in the `issues` property.
 
-```
+[source,role="primary",subs="attributes+"]
+.Parent resource not found
+----
 GET /enterprises/0206731645/employees/12345678901
 
 HTTP/1.1 404 Not Found
@@ -46,10 +48,59 @@ Content-Type: application/problem+json
       }
   ]
 }
-```
+----
+
+[source,role="secondary",subs="attributes+"]
+.Child resource not found
+----
+GET /enterprises/0206731645/employees/12345678901
+
+HTTP/1.1 404 Not Found
+Content-Type: application/problem+json
+
+{
+  "type": "urn:problem-type:belgif:resourceNotFound",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "status": 404,
+  "title": "Resource not found",
+  "detail": "No resource /enterprises/0206731645/employees/12345678901 found",
+  "issues": [
+      {
+        "in": "path",
+        "name": "employeeSsin",
+        "detail": "Employee with SSIN 12345678901 of enterprise 0206731645 does not exist",
+        "value": "12345678901"
+      }
+  ]
+}
+----
+
+[source,role="secondary",subs="attributes+"]
+.Optional child singleton resource not found
+----
+GET /enterprises/0206731645/employees/12345678901/profilePicture
+
+HTTP/1.1 404 Not Found
+Content-Type: application/problem+json
+
+{
+  "type": "urn:problem-type:belgif:resourceNotFound",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "status": 404,
+  "title": "Resource not found",
+  "detail": "No resource /enterprises/0206731645/employees/12345678901/profilePicture found",
+  "issues": [
+      {
+        "in": "path",
+        "name": "profilePicture",
+        "detail": "Employee 12345678901 of enterpise 0206731645 does not have a profile picture"
+      }
+  ]
+}
+----
 
 ifdef::full-guide[]
-Note that this problem type is only used when the resource path cannot be resolved. For resources referenced otherwise (i.e. request body, header or query parameter), <<bad-request>> is returned with a `urn:problem-type:belgif:input-validation:referencedResourceNotFound` issue type.
-
 The <<input-validation-schema,InputValidationProblem Schema Object>> SHOULD be used to represent this type of problem.
+
+Note that this problem type is only used when the resource path cannot be resolved. For resources referenced otherwise (i.e. request body, header or query parameter), <<bad-request>> is returned with a `urn:problem-type:belgif:input-validation:referencedResourceNotFound` issue type.
 endif::[]

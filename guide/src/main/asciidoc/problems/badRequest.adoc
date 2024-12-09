@@ -28,7 +28,7 @@ Other issue types may be defined as a URN in one of following formats:
 * `urn:problem-type:<org>:input-validation:<type>`
 * `urn:problem-type:<org>:input-validation:<api>:<type>`
 
-Issue types follow the same structure as a Problem, but without a `status` code.
+Issue types follow the same structure as a Problem, but don't use the `status` or `instance` properties.
 
 ```
 POST /enterprises/abc
@@ -88,8 +88,8 @@ Content-Type: application/problem+json
     },
     {
       "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
-      "title": "Referenced resource was not found.",
-      "detail": "A person with SSIN 98765432109 was not found",
+      "title": "Referenced resource not found",
+      "detail": "Referenced resource boardMembers[1].ssin = '98765432109' does not exist",
       "in": "body",
       "name": "boardMembers[1].ssin",
       "value": "98765432109"
