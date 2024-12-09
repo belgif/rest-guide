@@ -23,7 +23,7 @@ Content-Type: application/problem+json
 }
 ```
 
-Either the path parameters don't resolve to an existing resource. Look for the more details in the `issues` property.
+Either a path parameter or an optional child resource path don't resolve to an existing resource. Look for the more details in the `issues` property.
 
 ```
 GET /enterprises/0206731645
