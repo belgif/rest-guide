@@ -26,7 +26,7 @@ Content-Type: application/problem+json
 Either a path parameter or an optional child resource path don't resolve to an existing resource. Look for the more details in the `issues` property.
 
 ```
-GET /enterprises/0206731645
+GET /enterprises/0206731645/employees/12345678901
 
 HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
@@ -41,7 +41,7 @@ Content-Type: application/problem+json
       {
         "in": "path",
         "name": "enterpriseNumber",
-        "detail": "the enterprise number 0206731645 is not assigned",
+        "detail": "The enterprise number 0206731645 is not assigned",
         "value": "0206731645"
       }
   ]
