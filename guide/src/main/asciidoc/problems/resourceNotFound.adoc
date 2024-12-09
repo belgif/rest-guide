@@ -1,10 +1,10 @@
+[[resource-not-found]]
 = Resource Not Found
 :nofooter:
 
 *Status code* 404 Not Found
 
 *Description* The requested resource cannot be found. The `detail` property reveals additional information about why the resource was not found.
-
 
 Either the resource path isn't specified in the API's OpenAPI specification.
 
@@ -47,3 +47,9 @@ Content-Type: application/problem+json
   ]
 }
 ```
+
+ifdef::full-guide[]
+Note that this problem type is only used when the resource path cannot be resolved. For resources referenced otherwise (i.e. request body, header or query parameter), <<bad-request>> is returned with a `urn:problem-type:belgif:input-validation:referencedResourceNotFound` issue type.
+
+The <<input-validation-schema,InputValidationProblem Schema Object>> SHOULD be used to represent this type of problem.
+endif::[]
