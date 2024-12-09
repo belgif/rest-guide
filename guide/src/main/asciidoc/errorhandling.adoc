@@ -230,59 +230,12 @@ WARNING: `href` links to descriptions of standardized problem types will change 
 The library https://github.com/belgif/rest-problem-java[`belgif-rest-problem-java`] provides implementation support for these problem types when developing Java applications.
 
 include::problems/badRequest.adoc[leveloffset=3]
-
-[[input-validation-schema]]
-.InputValidationProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
-```yaml
-InputValidationProblem:
-  type: object
-  allOf:
-  - $ref: "#/components/schemas/Problem"
-  properties:
-    issues:
-      type: array
-      items:
-        $ref: "#/components/schemas/InputValidationIssue"
-InputValidationIssue:
-  type: object
-  description: |
-    An issue detected during input validation.
-
-    `status` is usually not present.
-    `href`, if present, refers to documentation of the issue type.
-    Additional properties specific to the issue type may be present.
-  allOf:
-    - $ref: "#/components/schemas/Problem"
-  properties:
-    in:
-      type: string
-      description: The location of the invalid input
-      enum:
-        - body
-        - header
-        - path
-        - query
-    name:
-      type: string
-      description: The name of the invalid input
-    value:
-      description: The value of the erroneous input
-      # no type specified, allowing any type. This is valid in OpenAPI even though some editors may indicate an error
-```
-
-The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
-
-`InputValidationProblem` replaces `InvalidParamProblem` previously used in this guide, which is now deprecated.
-
 include::problems/noAccessToken.adoc[leveloffset=3]
 include::problems/invalidAccessToken.adoc[leveloffset=3]
 include::problems/expiredAccessToken.adoc[leveloffset=3]
 include::problems/missingScope.adoc[leveloffset=3]
 include::problems/missingPermission.adoc[leveloffset=3]
 include::problems/resourceNotFound.adoc[leveloffset=3]
-
-The <<input-validation-schema,InputValidationProblem Schema Object>> SHOULD be used to represent this type of problems.
-
 include::problems/payloadTooLarge.adoc[leveloffset=3]
 include::problems/tooManyRequests.adoc[leveloffset=3]
 include::problems/tooManyFailedRequests.adoc[leveloffset=3]

@@ -1,3 +1,4 @@
+[[bad-request]]
 = Bad Request
 :nofooter:
 
@@ -11,8 +12,23 @@ The following issue types may be returned by any API:
 | Issue type | description
 
 |`urn:problem-type:belgif:input-validation:schemaViolation`| violation of the OpenAPI schema
-|`urn:problem-type:belgif:input-validation:unknownInput` | Request contains an unknown input field (see <<rule-req-valid>>)
+|`urn:problem-type:belgif:input-validation:unknownInput` a| Request contains an unknown input field
+ifdef::full-guide[]
+(see <<rule-req-valid>>)
+endif::[]
+|`urn:problem-type:belgif:input-validation:referencedResourceNotFound`| A resource referenced in the request by its identifier can't be found.
+
+ifdef::full-guide[]
+This issue type is only used for resource identifiers in header or query parameters or in the request body. For resource identifiers in the request path, a <<resource-not-found>> Problem is returned instead, with a `404` status code.
+endif::[]
 |===
+
+Other issue types may be defined as a URN in one of following formats:
+
+* `urn:problem-type:<org>:input-validation:<type>`
+* `urn:problem-type:<org>:input-validation:<api>:<type>`
+
+Issue types follow the same structure as a Problem, but don't use the `status` or `instance` properties.
 
 ```
 POST /enterprises/abc
@@ -25,6 +41,13 @@ POST /enterprises/abc
       "period": {
          "startDate": "2020-12-31",
          "endDate": "2020-01-01"
+      }
+    },
+    {
+      "ssin": "98765432109",
+      "period": {
+         "startDate": "2023-01-01",
+         "endDate": "2024-01-01"
       }
     }
   ]
@@ -64,6 +87,14 @@ Content-Type: application/problem+json
       "replacedBy": "23456789012"
     },
     {
+      "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
+      "title": "Referenced resource not found",
+      "detail": "Referenced resource boardMembers[1].ssin = '98765432109' does not exist",
+      "in": "body",
+      "name": "boardMembers[1].ssin",
+      "value": "98765432109"
+    },
+    {
       "type": "urn:problem-type:cbss:input-validation:invalidPeriod",
       "title": "Period is invalid",
       "detail": "endDate should be after startDate",
@@ -77,3 +108,48 @@ Content-Type: application/problem+json
   ]
 }
 ```
+
+ifdef::full-guide[]
+[[input-validation-schema]]
+.InputValidationProblem schema definition (from https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml[problem-v1.yaml])
+```yaml
+InputValidationProblem:
+  type: object
+  allOf:
+  - $ref: "#/components/schemas/Problem"
+  properties:
+    issues:
+      type: array
+      items:
+        $ref: "#/components/schemas/InputValidationIssue"
+InputValidationIssue:
+  type: object
+  description: |
+    An issue detected during input validation.
+
+    `status` is usually not present.
+    `href`, if present, refers to documentation of the issue type.
+    Additional properties specific to the issue type may be present.
+  allOf:
+    - $ref: "#/components/schemas/Problem"
+  properties:
+    in:
+      type: string
+      description: The location of the invalid input
+      enum:
+        - body
+        - header
+        - path
+        - query
+    name:
+      type: string
+      description: The name of the invalid input
+    value:
+      description: The value of the erroneous input
+      # no type specified, allowing any type. This is valid in OpenAPI even though some editors may indicate an error
+```
+
+The possible `type` values used within `issues` should be documented for each API. They follow the same URN structure as problem types. It is RECOMMENDED to use `input-validation` as infix to distinguish them.
+
+`InputValidationProblem` replaces `InvalidParamProblem` previously used in this guide, which is now deprecated.
+endif::[]
