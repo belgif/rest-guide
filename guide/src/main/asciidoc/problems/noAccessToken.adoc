@@ -5,16 +5,18 @@
 
 *Description* The consumer must pass a valid access token in the `Authorization` HTTP header for each request to a secure resource.
 
+The `WWW-Authenticate` HTTP response header also provides error information compliant with the https://datatracker.ietf.org/doc/html/rfc6750#section-3[OAuth2 specification].
+
 ```
 POST /enterprises
-Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
 ```
 
-If no access token was found, the service returns:
+If no access token was provided in the request's `Authorization` HTTP header, the service returns:
 
 ```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/problem+json
+WWW-Authenticate: Bearer realm="example", error="invalid_token", error_description="The access token is missing."
 
 {
    "type": "urn:problem-type:belgif:noAccessToken",
