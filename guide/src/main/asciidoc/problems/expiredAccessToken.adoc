@@ -15,7 +15,7 @@ Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
 ```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/problem+json
-WWW-Authenticate: Bearer realm="example", error="invalid_token", error_description="The access token is expired."
+WWW-Authenticate: Bearer realm="example", error="invalid_token", error_description="The access token expired"
 
 {
    "type": "urn:problem-type:belgif:expiredAccessToken",
