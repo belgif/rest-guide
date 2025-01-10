@@ -1,4 +1,4 @@
-[[chapter-error-handling]]
+[[error-handling]]
 == Error handling
 
 === Problem Details
