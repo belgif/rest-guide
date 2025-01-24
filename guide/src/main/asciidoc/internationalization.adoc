@@ -26,7 +26,8 @@ A wildcard `*` matches any language.
 
 The `Content-Language` response header MUST be used to indicate the language used in the response for internationalized content.
 
-In case the server could not honor any of the requested languages, it SHOULD return a <<http-406, 406 Not Acceptable>> error.
+In case the server could not honor any of the requested languages, it SHOULD return the resource in a default language.
+
 If the resource supports caching, the `Vary: Accept-Language` MUST be included in the response.
 ====
 
