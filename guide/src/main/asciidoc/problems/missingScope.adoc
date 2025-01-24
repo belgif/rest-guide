@@ -15,7 +15,7 @@ Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
 ```
 HTTP/1.1 403 Forbidden
 Content-Type: application/problem+json
-WWW-Authenticate: Bearer realm="example", error="insufficient_scope",error_description="Missing scope to perform request",scope="enterprise-read"
+WWW-Authenticate: Bearer realm="example", error="insufficient_scope", error_description="Missing scope to perform request", scope="enterprise-read"
 {
    "type": "urn:problem-type:belgif:missingScope",
    "href": "https://www.belgif.be/specification/rest/api-guide/problems/missingScope.html",
