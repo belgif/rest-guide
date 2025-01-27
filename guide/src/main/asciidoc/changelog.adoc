@@ -1,4 +1,7 @@
 == Changelog
+* 2025-xx-yy
+** Recommend OpenAPI 3.0 and remove OpenAPI 2.0-specifics throughout the guide
+
 * 2024-12-02
 ** add a list of <<related-belgif>>
 ** new rule <<rule-prop-req>> on declaring properties as `required`
@@ -7,7 +10,7 @@
 ** new rule <<rule-doc-patch>> on JSON Merge Patch, illustrating the use of nullable properties
 ** update rule <<rule-err-problem>>: provide structured data in additional properties and recommend against parsing `title` or `description`
 ** clarify that time offsets are mandatory for `date-time` values in <<json-date-time,JSON>>
-** update rule: <<rule-oas-exampl>> recommending to add examples, and clarify  specifics of OpenAPI 2.0 and 3.0
+** update rule: <<rule-oas-exampl>> recommending to add examples, and clarify specifics of OpenAPI 2.0 and 3.0
 
 * 2024-04-05
 ** update <<rule-oas-tags>>: add new guidelines on tags (declared, style, no more than one tag on an operation)

@@ -14,17 +14,17 @@ In this case, special attention should be given that the API specifications rema
 [[openapi]]
 === OpenAPI (Swagger)
 
-OpenAPI is the dominating standard for API documentation, having gained wide industry support.
+OpenAPI is the dominating standard for REST API documentation, having gained wide industry support.
 It is based on http://swagger.io/[Swagger^], which has been standardized as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI 2.0].
 
 [rule, oas-contra]
 .OpenAPI
 ====
-Specifications of the API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[*OpenAPI 2.0*] (aka Swagger) or https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
+Specifications of a new REST API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
 OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 
 	
-https://spec.openapis.org/oas/v3.1.0.html[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not yet widely supported by most tooling.
+https://spec.openapis.org/oas/v3.1.0.html[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not sufficiently supported yet by tooling.
 ====
 
 The OpenAPI standard also includes a list of supported primitive https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[data types].
@@ -144,7 +144,6 @@ Examples of headers that should be specified on operations that support them:
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 Access to these documentation resources SHOULD be granted to any user or potential user of the API.
 
-The swagger specification file is, https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#file-structure[by convention], named `swagger.json` or `swagger.yaml`.
 Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#document-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
@@ -216,14 +215,10 @@ Examples SHOULD be provided under the `example` or `examples` OpenAPI properties
 Example values MUST be schema-valid.
 ====
 
-WARNING: OpenAPI 2.0 only allows a single example per media type under `examples`.
-Any additional examples should be put in external documentation or specified using a `x-examples` custom extension following the OpenAPI 3.0 format.
-
 .Examples in OpenAPI
 ====
 
-[source,yaml,role="primary",subs="attributes+"]
-.OpenAPI 3.0
+[source,yaml,subs="attributes+"]
 ----
 /enterprises/{enterpriseNumber}:
   get:
@@ -249,30 +244,6 @@ Any additional examples should be put in external documentation or specified usi
                   "enterpriseNumber": "0202239951"
                 }
 ----
-
-[source,yaml,role="secondary",subs="attributes+"]
-.OpenAPI 2.0
-----
-/enterprises/{enterpriseNumber}:
-  get:
-    operationId: getEnterprise
-    parameters:
-    - in: path
-      name: enterpriseNumber
-      required: true
-      type: string
-    responses:
-      "200":
-        description: successful operation
-        schema:
-          $ref: '#/definitions/Enterprise'
-        examples:
-          application/json:
-            {
-              "name": "Proximus",
-              "enterpriseNumber": "0202239951"
-            }
-----
 ====
 
 [rule, oas-comp]
@@ -290,8 +261,8 @@ Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use
 [rule, oas-reuse]
 .Reusable OpenAPI files
 ====
-Instead of specifying everything directly in the `openapi.yaml` (or `swagger.yaml`) file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
-These files SHOULD follow the Swagger/OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
+Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
+These files SHOULD follow the OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
 
 To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
 
@@ -304,10 +275,10 @@ Files reusable from multiple APIs SHOULD be organized in this structure:
 
 Definitions SHOULD be grouped per (sub)domain in a file.
 Each file has its own lifecycle, with a major version number in its directory and file name, that is increased when backwards compatibility is broken.
-This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the swagger file as well.
+This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the OpenAPI document as well.
 ====
 
-While it is not strictly necessary for external definitions to be put in a valid OpenAPI file, doing so makes it possible to use standard OpenAPI/Swagger tooling on them.
+While it is not strictly necessary for external definitions to be put in a valid OpenAPI file, doing so makes it possible to use standard OpenAPI tooling on them.
 
 .Reusable OpenAPI file
 ====
@@ -564,7 +535,7 @@ Following tools can be used to edit OpenAPI files
 [options="header"]
 |===
 |Name|Link| Description
-|Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of Swagger files. Does not support references to external files.
+|Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of OpenAPI files. Does not support references to external files.
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
 |Stoplight Studio | https://github.com/stoplightio/studio/releases | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
@@ -598,7 +569,6 @@ _Note:_ There currently is no implementation of this REST guide for Spectral.
 [options="header"]
 |===
 |Name|Link
-|OpenAPI 2.0 specification| http://spec.openapis.org/oas/v2.0.html
 |OpenAPI 3.0 specification| http://spec.openapis.org/oas/v3.0.3.html
-|Swagger | https://swagger.io/docs/specification/2-0/basic-structure/
+|Swagger's OpenAPI Guide | https://swagger.io/docs/specification/v3_0/about/
 |===
