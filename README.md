@@ -7,8 +7,8 @@ See the [wiki](https://github.com/belgif/rest-guide/wiki) for more information o
 
 # Reusable OpenAPI schemas
 
-Reusable OpenAPI 2.0 and 3.0 data types are maintained in the [belgif openapi-* GitHub repositories](https://github.com/belgif?q=openapi&type=&language=), organized per domain.
-Types in beta status are in the source code, but not part of the released artifacts. Apache Maven users can also [download them from Maven Central](https://search.maven.org/search?q=g:io.github.belgif.openapi).
+Reusable OpenAPI 3.0 data types are maintained in the [belgif openapi-* GitHub repositories](https://github.com/belgif?q=openapi&type=&language=), organized per domain. Apache Maven users can also [download them from Maven Central](https://search.maven.org/search?q=g:io.github.belgif.openapi).
+As of January 2025, new releases no longer include OpenAPI 2.0 variants.
 
 | domain | release | OpenAPI | 
 |--------|---------|---------|
