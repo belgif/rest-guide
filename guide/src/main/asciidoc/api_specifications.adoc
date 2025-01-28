@@ -12,22 +12,22 @@ In this case, special attention should be given that the API specifications rema
 ====
 
 [[openapi]]
-=== OpenAPI (Swagger)
+=== OpenAPI
 
 OpenAPI is the dominating standard for REST API documentation, having gained wide industry support.
-It is based on http://swagger.io/[Swagger^], which has been standardized as https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md[OpenAPI 2.0].
+It is based on http://swagger.io/[Swagger^], which was standardized as OpenAPI.
 
 [rule, oas-contra]
 .OpenAPI
 ====
-Specifications of a new REST API SHOULD be provided using https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md[*OpenAPI 3.0*].
-OpenAPI uses the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#schemaObject[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
+Specifications of a new REST API SHOULD be provided using https://spec.openapis.org/oas/v3.0[*OpenAPI 3.0*].
+OpenAPI uses the https://spec.openapis.org/oas/v3.0#schema-object[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 
-	
-https://spec.openapis.org/oas/v3.1.0.html[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not sufficiently supported yet by tooling.
+
+https://spec.openapis.org/oas/v3.1[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not sufficiently supported yet by tooling.
 ====
 
-The OpenAPI standard also includes a list of supported primitive https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[data types].
+The OpenAPI standard also includes a list of supported primitive https://spec.openapis.org/oas/v3.0#data-types[data types].
 
 You can visualize OpenAPI files using some of the tools listed in <<openapi-tools>>.
 
@@ -49,7 +49,7 @@ According to usage, a conversion step to JSON might be necessary considering lim
 [rule, oas-tags]
 .Use tags to group operations
 ====
-When an API has many operations, https://spec.openapis.org/oas/v3.0.3#tag-object[tags] SHOULD be used to group them together.
+When an API has many operations, https://spec.openapis.org/oas/v3.0#tag-object[tags] SHOULD be used to group them together.
 
 An operation SHOULD NOT have more than one tag.
 
@@ -144,7 +144,7 @@ Examples of headers that should be specified on operations that support them:
 The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 Access to these documentation resources SHOULD be granted to any user or potential user of the API.
 
-Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md#document-structure[OpenAPI 3.0 specification].
+Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://spec.openapis.org/oas/v3.0#openapi-description-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
 As reference data is typically static, consider supporting <<Caching>> headers for these resources.
