@@ -1,0 +1,8 @@
+name: dependabot-auto-merge
+on:
+  pull_request:
+    types: [opened]
+jobs:
+  dependabot:
+    uses: belgif/workflows/.github/workflows/dependabot-auto-merge-workflow.yml@main
+    secrets: inherit
