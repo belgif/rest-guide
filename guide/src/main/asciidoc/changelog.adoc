@@ -2,6 +2,11 @@
 * 2025-xx-yy
 ** Recommend OpenAPI 3.0 and remove OpenAPI 2.0-specifics throughout the guide
 
+* 2025-01-28
+** new in <<bad-request, Bad Request Problem>>: standardized `referencedResourceNotFound` issue type
+** update of <<standardized-problem-types>>: add `WWW-Authenticate` header for access token or scope problems
+** update rule <<rule-int-negot>>: a default fallback language should be used when `Accept-Language` header can't be respected
+
 * 2024-12-02
 ** add a list of <<related-belgif>>
 ** new rule <<rule-prop-req>> on declaring properties as `required`
@@ -25,6 +30,9 @@
 ** update: the name of a multi-value query parameter should be singular if it's a noun <<rule-qry-multi>>
 ** new: explicit rule and clearer guidelines on `GET /health` resource <<rule-hlth-res>>
 
+.Older changes
+[%collapsible]
+====
 * 2023-10-05
 ** update: <<rule-req-valid>> issue type for unknown input is renamed
 ** new: rule <<rule-hdr-case>> on case-insensitivity of HTTP headers
@@ -43,10 +51,6 @@
 ** Rule identifier with anchor added for each rule in the guide
 ** Updated <<rule-jsn-naming>>: naming of JSON properties
 ** Updated <<rule-id-name>> with new naming conventions for identifiers and codes
-
-.Older changes
-[%collapsible]
-====
 * 2022-12-07
 ** new: Representing <<default-problem-response, general problem types in OpenAPI>>
 ** new: Representing <<general-http-headers,general and operation-specific HTTP headers in OpenAPI>>
