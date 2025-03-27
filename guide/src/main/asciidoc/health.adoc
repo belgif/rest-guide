@@ -62,5 +62,5 @@ When called by a trusted privileged client, the response may contain additional 
 ====
 
 The health resource is specified in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml].
-Note that uppercase is used for the status values, which deviates from <<rule-cod-design>>, in order to align with existing health checks provided by frameworks like https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/htmlsingle/#production-ready-health[Spring Boot] and https://download.eclipse.org/microprofile/microprofile-health-2.2/microprofile-health-spec.html[MicroProfile Health].
+Note that uppercase is used for the status values, which deviates from <<rule-cod-design>>, in order to align with existing health checks provided by frameworks like https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.health[Spring Boot] and https://download.eclipse.org/microprofile/microprofile-health-4.0.1/microprofile-health-spec-4.0.1.html[MicroProfile Health].
 The format of additional component-level details is not specified.
