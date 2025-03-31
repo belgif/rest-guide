@@ -40,6 +40,27 @@ These Belgif resources may also be useful when developing RESTful webservices:
 For brevity most URLs in JSON examples are shortened, but in practice they should be in absolute notation.
 ====
 
+*Organizations that adopt the Belgif REST guidelines*
+
+[cols="5*^.^a",frame=none,grid=none]
+|===
+| [link=https://smals.be]
+image::logos/smals.png[Smals]
+| [link=https://www.ksz-bcss.fgov.be]
+image::logos/cbss.png[Crossroads Bank of Social Security,width=150]
+| [link=https://www.ehealth.fgov.be]
+image::logos/ehealth.png[eHealth]
+| [link=https://bosa.belgium.be]
+image::logos/bosa.png[BOSA FPS Policy and Support,width=180]
+| [link=https://www.vlaanderen.be/digitaal-vlaanderen]
+image::logos/vdi.png[Agentschap Digitaal Vlaanderen]
+|===
+
+[TIP]
+====
+Contact mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be] if you would like to see your organization listed here.
+====
+
 [[license]]
 *License*
 ```
