@@ -87,6 +87,7 @@ When designing an identifier, various requirements may be of importance specific
 * hide any business information (e.g. no sequential number that indicates number of resources created)
 * not easy to guess a valid identifier, especially for unsecured resources (e.g. no sequentially generated identifier)
 * easy to represent in URL parameter without escaping
+** default configurations of Apache HTTPD, Apache Tomcat (used by Spring Boot) and Spring Security are known to block requests with an escaped slash in a path parameter value
 * sortable (for technical reasons e.g. pagination)
 
 [rule, id-design]
@@ -149,7 +150,7 @@ format: uri
 |
 can be human-readable,
 long, not easy to input by user, 
-requires character escaping when used as URL parameter
+requires support for escaping of slash character when used as URL parameter,
 can be generated collision-free by multiple sources (different domain name)
 
 | custom format
