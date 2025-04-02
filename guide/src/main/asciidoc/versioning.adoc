@@ -72,12 +72,8 @@ Their deprecation SHOULD be documented in OpenAPI .
 Deprecated elements MAY be completely removed them after a period in which clients can adapt.
 Always communicate clearly about the deprecated fields and transition period to clients.
 
-Newer versions of the OpenAPI standard have improved support to indicate deprecation using `deprecated: true`:
+`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters and Schema Objects (data types). Otherwise, like on object properties, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 
-* OpenAPI 2.0 only allows specifying deprecation on operations
-* OpenAPI 3.0 adds support for deprecating parameters and Schema Objects (data types), though not yet everywhere like on object properties
-
-`deprecated: true` SHOULD be used if the OpenAPI version allows it, otherwise the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 ====
 
 Use of deprecated elements in requests may be monitored by the server in order to evaluate the impact of their removal.
@@ -90,17 +86,16 @@ However, this isn't possible for response elements, so there is always remains s
 ====
 The version string of an API SHOULD contain a major, minor and optionally a patch number.
 
-Only the major version of the API is part of the base URL (`basePath` in Swagger) of the API.
+Only the major version of the API is part of the base URL of the API.
 Thereby, for a major version only a single minor and patch version can be available in production at a time.
 The version of the API MUST be included in the `info` section of the OpenAPI definition.
 ====
 
 Note that reusable OpenAPI files are to be versioned as well, as specified in <<openapi>>.
 
-.API version
+.API version in OpenAPI
 ====
-[source,yaml,role="primary",subs="normal"]
-.OpenAPI 3.0
+[source,yaml,subs="normal"]
 ----
 openapi: "3.0.3"
 info:
@@ -109,18 +104,6 @@ info:
   version: "2.1.2"
 servers:
   url: https://example.org/petShop/v2
-----
-
-[source,yaml,role="secondary",subs="normal"]
-.OpenAPI 2.0
-----
-swagger: "2.0"
-info:
-  title: petShop
-  description: API exposing my pet shop's functionality
-  version: "2.1.2"
-host: example.org
-basePath: /petShop/v2
 ----
 ====
 
