@@ -256,7 +256,7 @@ Following naming guidelines should be applied when using an identifier or code i
 * JSON property:
 ** within an object that represents the entire or part of a resource: use `id` or `code`
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<rule-jsn-naming>>); no need to suffix with `id` or `code`
-* path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
+* path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
 * query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
 * OpenAPI type: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
