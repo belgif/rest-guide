@@ -27,7 +27,8 @@ This issue type is only used for resource identifiers in header or query paramet
 endif::[]
 |===
 
-Other issue types may be defined as a URN in one of following formats:
+APIs can provide their own types for other input validation issues that require specific handling by client applications.
+Additional issue types SHOULD be defined as URNs in one of following formats:
 
 * `urn:problem-type:<org>:input-validation:<type>`
 * `urn:problem-type:<org>:input-validation:<api>:<type>`
