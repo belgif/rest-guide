@@ -11,7 +11,11 @@ The following issue types may be returned by any API:
 |===
 | Issue type | description
 
-|`urn:problem-type:belgif:input-validation:schemaViolation`| violation of the OpenAPI schema
+|`urn:problem-type:belgif:input-validation:schemaViolation`| violation of the OpenAPI description of the API
+|`urn:problem-type:belgif:input-validation:invalidInput` a| Request contains invalid input
+
+This issue type is used when the input is invalid against validations that aren't formally expressed in the OpenAPI description.
+
 |`urn:problem-type:belgif:input-validation:unknownInput` a| Request contains an unknown input field
 ifdef::full-guide[]
 (see <<rule-req-valid>>)
@@ -23,12 +27,13 @@ This issue type is only used for resource identifiers in header or query paramet
 endif::[]
 |===
 
-Other issue types may be defined as a URN in one of following formats:
+APIs can provide their own types for other input validation issues that require specific handling by client applications.
+Additional issue types SHOULD be defined as URNs in one of following formats:
 
 * `urn:problem-type:<org>:input-validation:<type>`
 * `urn:problem-type:<org>:input-validation:<api>:<type>`
 
-Issue types follow the same structure as a Problem, but don't use the `status` or `instance` properties.
+Issues follow the same structure as a Problem, but don't use the `status` or `instance` properties. As for problems, API clients can use the `type` to determine how the handle an issue. They should not parse the `title` or `detail` properties to extract information; additional properties are a more suitable and less error-prone way to obtain such information.
 
 ```
 POST /enterprises/abc
@@ -95,9 +100,9 @@ Content-Type: application/problem+json
       "value": "98765432109"
     },
     {
-      "type": "urn:problem-type:cbss:input-validation:invalidPeriod",
-      "title": "Period is invalid",
-      "detail": "endDate should be after startDate",
+      "type": "urn:problem-type:belgif:input-validation:invalidInput",
+      "title": "Invalid input",
+      "detail": "endDate of a period should be after its startDate",
       "in": "body",
       "name": "boardMembers[0].period",
       "value": {
