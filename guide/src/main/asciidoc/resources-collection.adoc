@@ -423,7 +423,7 @@ a|The API should specify for each creation operation, if it returns:
 |Default response code if the resource is created. 
 |<<http-409,409>>
 |Conflict
-|The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
+|The resource could not be created because the request is in conflict with the current state of data on the server. E.g. the resource already exists (duplicate key violation).
 
 |<<http-303,303>>
 |See Other
