@@ -26,6 +26,40 @@ The semantics, formats and bindings of the https://github.com/cloudevents/spec[C
 | Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/documented-extensions.md
 |===
 
+JSON CloudEvent representation of an address change of an employer
+====
+The context attributes `specversion`, `id`, `source` and `type` are mandatory according to the CloudEvents specification. If `datacontenttype` is absent, it is to be considered as `application/json`.
+`data_base64` is to be used instead of `data` in case of a binary payload.
+
+https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md[JSON Event Format for CloudEvents] provides the full specification on how CloudEvents are represented in JSON.
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "source": "urn:api:be.nsso.employer",
+  "type": "be.nsso.employer.address.updated",
+  "datacontenttype": "application/json",
+  "subject": "123456",
+  "time": "2025-06-12T10:05:01.288Z",
+  "dataschema": "https://example.com/schemas/employer/v1#/components/schemas/AddressUpdatedEvent",
+  "data":{
+    "employerId": "123456",
+    "oldAddress": {
+      "addressLine1": "Old Example Street 123",
+      "addressLine2": "1234 Example Town"
+    },
+    "newAddress": {
+      "addressLine1": "New Example Street 789",
+      "addressLine2": "1234 Example Town"
+    }
+  }
+}
+----
+====
+
+
 .Specifying events
 [rule, event-contract]
 ====
