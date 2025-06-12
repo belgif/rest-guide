@@ -3,10 +3,16 @@
 
 When systems are in need of subscribe-notify capabilities, they tend to define their own custom event format.
 
-To improve interoperability, this styleguide promotes and adopts the CloudEvents specification prepared by the Cloud Native Computing Foundation (CNCF): https://cloudevents.io/.
+To improve interoperability, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had a v1.0 release in 2019.
 
-On October 24, 2019 they released a v1.0 version of this specification which thoroughly separates the core conceptual event model from any format and protocol details.
-Moreover, some SDKs are in development to support integration of CloudEvents in some popular programming languages.
+The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details.
+Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
+
+.CloudEvents specification
+[rule, event-cespec]
+====
+The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent events in APIs.
+====
 
 .CloudEvents documentation
 [options="header"]
@@ -19,3 +25,72 @@ Moreover, some SDKs are in development to support integration of CloudEvents in 
 | Web Hooks for Event Delivery | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/http-webhook.md
 | Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/documented-extensions.md
 |===
+
+.Specifying events
+[rule, event-contract]
+====
+Related event exchanges SHOULD be documented within an OpenAPI 3.0 or https://www.asyncapi.com/docs/reference/specification/v3.0.0[AsyncAPI 3.0] specification.
+OpenAPI can be used when events are transferred over HTTP(S), while AsyncAPI also allows for other exchange protocols.
+
+When using AsyncAPI, schemas of the events SHOULD be put in (a) separate OpenAPI document(s) and referenced from the AsyncAPI document. This allows the use of OpenAPI tooling for the event schemas like code generation and editing.
+The same guidelines as for REST APIs apply, like naming conventions and the reuse of components.
+
+Reusable schemas in OpenAPI format are provided in the https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents repository] for the structured JSON CloudEvent format.
+You can extend the `CloudEventBase` schema using `allOf` to define schemas for specific event types.
+
+When providing a generic endpoint for exchange of events used for multiple business domains, you can use the generic `CloudEvent` schema. The specific event types should still be specified in other AsyncAPI or OpenAPI documents.
+====
+
+.Event schema
+[source,yaml]
+----
+schemas:
+  AddressEvent:
+    type: object
+    allOf:
+      - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/CloudEventBase"
+    properties:
+      type:
+        type: string
+        minLength: 1
+        enum:
+          - "be.nsso.employer.address.updated"
+          - "be.nsso.employer.address.added"
+          - "be.nsso.employer.address.removed"
+        x-ignore-rules:
+          "cod-design": "event types use reverse DNS dot-notation"
+    required: [type]
+    discriminator:
+      propertyName: type
+      mapping:
+        "be.nsso.employer.address.updated": AddressUpdatedEvent
+        "be.nsso.employer.address.added": AddressAddedEvent
+        "be.nsso.employer.address.removed": AddressRemovedEvent
+  AddressUpdatedEvent:
+    type: object
+    allOf:
+      - $ref: "#/components/schemas/AddressEvent"
+    properties:
+      data:
+        description: The event payload in JSON format
+        type: object
+        properties:
+          employerId:
+            $ref: "./belgif/employment/identifier/employment-identifier-v1.yaml#/components/schemas/EmployerId"
+          oldAddress:
+            $ref: "#/components/schemas/Address"
+          newAddress:
+            $ref: "#/components/schemas/Address"
+        required: [employerId, oldAddress, newAddress]
+      required: [ data ]
+    AddressAddedEvent:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AddressEvent"
+      # ...
+    AddressRemovedEvent:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/AddressEvent"
+      # ...
+----
