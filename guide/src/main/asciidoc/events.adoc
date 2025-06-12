@@ -41,7 +41,8 @@ You can extend the `CloudEventBase` schema using `allOf` to define schemas for s
 When providing a generic endpoint for exchange of events used for multiple business domains, you can use the generic `CloudEvent` schema. The specific event types should still be specified in other AsyncAPI or OpenAPI documents.
 ====
 
-.Event schema
+.Schema of an event
+====
 [source,yaml]
 ----
 schemas:
@@ -94,3 +95,4 @@ schemas:
         - $ref: "#/components/schemas/AddressEvent"
       # ...
 ----
+====
