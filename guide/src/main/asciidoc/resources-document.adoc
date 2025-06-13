@@ -181,7 +181,7 @@ Depending on context, the OpenAPI data type may enumerate the list of allowed va
 
 .Code
 ====
-`GET /refData/paymentMethods/{code}` with `code` of type `PaymentMethodCode`
+`GET /refData/paymentMethods/{paymentMethodCode}` with `paymentMethodCode` of type `PaymentMethodCode`
 
 As string with enumeration:
 ```YAML
@@ -257,7 +257,7 @@ Following naming guidelines should be applied when using an identifier or code i
 * JSON property:
 ** within an object that represents the entire or part of a resource: use `id` or `code`
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<rule-jsn-naming>>); no need to suffix with `id` or `code`
-* path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
+* path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
 * query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
 * OpenAPI type: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
@@ -325,7 +325,7 @@ StoreId: #<7>
   minimum: 1
 ```
 
-<1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
+<1> `id` as path parameter always prefixed with resource type to be able to distinguish multiple path parameters
 <2> `id` as property of the consulted resource
 <3> identifier used to reference another resource. JSON property name designates relation to the other resource.
 <4> `id` as property in a partial representation of a `store` resource
@@ -335,7 +335,7 @@ StoreId: #<7>
 <8> Partial resource representations, which may link to the full resource
 
 ```
-GET /refData/deliveryMethods/{code} <1>
+GET /refData/deliveryMethods/{deliveryMethodCode} <1>
 ```
 ```YAML
 {
@@ -347,7 +347,7 @@ GET /refData/deliveryMethods/{code} <1>
   }
 }
 ```
-<1> Since there are no child resources with other path parameters, simply `code` suffices
+<1> `code` as path parameter always prefixed by resource type
 ====
 
 .Standardized business identifiers
