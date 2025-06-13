@@ -618,9 +618,11 @@ a|
 |<<http-404,404>>
 |Not Found
 |The resource does not exist and thus cannot be updated.
+
 |<<http-409,409>>
 |Conflict
-|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+|The update is in conflict with the data on the server.
+
 |===
 ====
 
@@ -724,7 +726,7 @@ a|
 
 |<<http-409,409>>
 |Conflict
-|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+||The update is in conflict with the data on the server.
 
 |===
 ====
@@ -788,9 +790,8 @@ or
 
 |<<http-409,409>>
 |Conflict
-|A constraint on the resource is violated. 
-The resource could not be deleted because the request is in conflict with the current 
-state of the resource.
+|
+The resource could not be deleted because the request is in conflict with data on the server.
 
 For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 
