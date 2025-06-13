@@ -324,7 +324,7 @@ StoreId: #<7>
   minimum: 1
 ```
 
-<1> `id` as path parameter always prefixed with resource type to be able to distinguish between multiple path parameters
+<1> `id` as path parameter always prefixed with resource type to be able to distinguish multiple path parameters
 <2> `id` as property of the consulted resource
 <3> identifier used to reference another resource. JSON property name designates relation to the other resource.
 <4> `id` as property in a partial representation of a `store` resource
