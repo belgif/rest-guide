@@ -1,12 +1,19 @@
 == Changelog
-* 2025-xx-yy
-** Recommend OpenAPI 3.0 and remove OpenAPI 2.0-specifics throughout the guide
+* 2025-06-16
+** recommend OpenAPI 3.0 and remove OpenAPI 2.0 throughout the guide
+** new in <<bad-request, Bad Request Problem>>: standardized `invalidInput` issue type
+** update section <<section-identifier>>: describe potential compatibility problems with escaped slash values in path params
+** update rule <<rule-id-name>>: always prefix `id` and `code` path param names with their resource type
+** update description <<http-409,`409 Conflict`>> status: conflict with "data on the server" instead of "current state of the target resource". Remove optimistic locking issue (usually `412`)
 
 * 2025-01-28
 ** new in <<bad-request, Bad Request Problem>>: standardized `referencedResourceNotFound` issue type
 ** update of <<standardized-problem-types>>: add `WWW-Authenticate` header for access token or scope problems
 ** update rule <<rule-int-negot>>: a default fallback language should be used when `Accept-Language` header can't be respected
 
+.Older changes
+[%collapsible]
+====
 * 2024-12-02
 ** add a list of <<related-belgif>>
 ** new rule <<rule-prop-req>> on declaring properties as `required`
@@ -16,23 +23,17 @@
 ** update rule <<rule-err-problem>>: provide structured data in additional properties and recommend against parsing `title` or `description`
 ** clarify that time offsets are mandatory for `date-time` values in <<json-date-time,JSON>>
 ** update rule: <<rule-oas-exampl>> recommending to add examples, and clarify specifics of OpenAPI 2.0 and 3.0
-
 * 2024-04-05
 ** update <<rule-oas-tags>>: add new guidelines on tags (declared, style, no more than one tag on an operation)
 ** new: rule <<rule-oas-comp>> applies naming guidelines on all types of components (previously in <<rule-oas-types>> only for schemas)
 ** added motivation for <<rule-oas-rdonly>> why required properties shouldn't be readOnly
 ** clarify that health status should be from client point-of-view in <<health>>
-
 * 2024-01-31
 ** new: a document may also be a singleton that's not part of a collection (<<document-singleton>>)
 ** new: path parameter names should use lowerCamelCase <<rule-path-param>>
 ** update: clarify that query parameters should use lowerCamelCase <<rule-uri-notat>>
 ** update: the name of a multi-value query parameter should be singular if it's a noun <<rule-qry-multi>>
 ** new: explicit rule and clearer guidelines on `GET /health` resource <<rule-hlth-res>>
-
-.Older changes
-[%collapsible]
-====
 * 2023-10-05
 ** update: <<rule-req-valid>> issue type for unknown input is renamed
 ** new: rule <<rule-hdr-case>> on case-insensitivity of HTTP headers

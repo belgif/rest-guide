@@ -726,7 +726,7 @@ a|
 
 |<<http-409,409>>
 |Conflict
-||The update is in conflict with the data on the server.
+|The update is in conflict with the data on the server.
 
 |===
 ====
