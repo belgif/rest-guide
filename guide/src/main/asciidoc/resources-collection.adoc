@@ -376,7 +376,7 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 [[create-resource]]
 === Create a new resource​
 The collection resource can be used to create new document resources from the `POST` request body.
-Absent optional values are set to their default value if one is specified in the OpenAPI specification.
+Absent optional values are set to their default value if one is specified in the OpenAPI description.
 
 [cols="1,2,3"]
 |===

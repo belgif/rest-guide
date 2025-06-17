@@ -363,7 +363,7 @@ GET /persons/{ssin} <1>
 }
 ```
 <1> Standardized business identifier name `Ssin` is preferred over `id`.
-<2> JSON property name designates relation to the other resource. The OpenAPI specification declares the expected value to be of type `Ssin`.
+<2> JSON property name designates relation to the other resource. The OpenAPI description declares the expected value to be of type `Ssin`.
 ====
 
 .Multiple types of identifiers
@@ -557,7 +557,7 @@ Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recom
 
 Use `PUT` when you like to do a complete update of a document resource.
 All values are replaced by the values submitted by the client.
-Absent optional values in the request are set to their default value if one is specified in the OpenAPI specification.
+Absent optional values in the request are set to their default value if one is specified in the OpenAPI description.
 
 .PUT on a document resource
 ====
