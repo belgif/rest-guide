@@ -6,7 +6,7 @@
 
 *Description* The requested resource cannot be found. The `detail` property reveals additional information about why the resource was not found.
 
-Either the resource path isn't specified in the API's OpenAPI specification.
+Either the resource path isn't specified in the API's OpenAPI description.
 
 ```
 GET /enterprises
