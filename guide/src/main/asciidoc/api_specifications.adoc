@@ -261,8 +261,8 @@ Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use
 [rule, oas-reuse]
 .Reusable OpenAPI files
 ====
-Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
-These files SHOULD follow the OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
+Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference schemas (data types) and other components from other files.
+These files SHOULD follow the OpenAPI file format as well and may include data schema definitions, but also other component types like parameters, path items, request bodies and responses.
 
 To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
 
@@ -315,18 +315,18 @@ The technical types referenced in this style guide are available in the https://
 Other types for business concepts commonly used by Belgian government institutions are available in other repositories.
 ====
 
-
-=== JSON data types
+[[schemas]]
+=== Schemas
 
 [rule, oas-types]
-.Naming of data types (schemas)
+.Naming of schemas (data types)
 ====
 
-As stated in <<rule-oas-comp>>, data type (schema) names should use UpperCamelCase and American English.
+As stated in <<rule-oas-comp>>, schema (data type) names should use UpperCamelCase and American English.
 
-In addition, data type names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
+In addition, schema names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
 
-A data type name SHOULD refer to the business meaning rather than how it is defined.
+A schema name SHOULD refer to the business meaning rather than how it is defined.
 ====
 
 |===
@@ -338,10 +338,10 @@ A data type name SHOULD refer to the business meaning rather than how it is defi
 |===
 
 [rule, oas-descr]
-.Data type description
+.Schema description
 ====
-The `description` property MAY provide a textual description of a JSON data type.
-The `title` property MUST NOT be used because it hides the actual data type name in visualization tools like Swagger UI.
+The `description` property MAY provide a textual description of a schema.
+The `title` property MUST NOT be used because it hides the actual schema name in visualization tools like Swagger UI.
 ====
 
 |===
