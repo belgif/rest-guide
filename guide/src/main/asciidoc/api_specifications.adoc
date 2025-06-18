@@ -527,6 +527,116 @@ EuroCentAmount:
 ```
 ====
 
+
+
+.allOf
+[rule, allOf]
+====
+Defined in the JSON Schema specification, the `allOf` keyword expresses that a value is considered valid if it is valid against *all* of a list of subschemas.
+
+This can be used to model an inheritance relationship between schemas. For code generation, the first referenced schema (with `$ref`) within `allOf` is considered the parent class.
+
+To model polymorphism, the `discriminator` keyword can be used to designate a property that determines the child schema of a value.
+Values that are valid against child schemas that were added in a new version of an OpenAPI description, will be rejected during validation against the older version of the OpenAPI.
+
+It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
+====
+
+[NOTE]
+Version 3.0.4 of the OpenAPI Specification added that "a `discriminator` MUST NOT change the validation outcome of the schema". However, most existing tooling currently do reject values that are not valid against their corresponding child schema or cannot be mapped to one.
+At time of writing, it is not possible to define schemas that comply with this change in the OpenAPI Specification, while still allowing polymorphism using common tooling.
+Therefore, it is currently recommended to consider the discriminator having an effect on validation.
+
+
+TODO: add examples
+
+.allowed uses of `oneOf`
+[rule, oneOf]
+====
+The `oneOf` keyword expresses that a value is considered valid if it is valid against *exactly* one of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
+
+Some use of `oneOf` may result in incompatibility problems with code generation tooling however; `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
+====
+
+.oneOf
+====
+
+Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
+
+
+These examples *do not work* as expected:
+
+|===
+| oneOf example | generates
+
+a|
+```YAML
+oneOf:
+- type: string
+- type: integer
+```
+| empty class
+
+a|
+```YAML
+oneOf:
+- type: string
+- type: string
+```
+| empty class
+a|```YAML
+StringOneOfPattern:
+type: string
+oneOf:
+- pattern: "^\\d{12}$"
+- pattern: "^\\d{5}$"
+```
+| empty class
+|===
+
+These examples do generate correct code:
+
+
+|===
+| oneOf example | generates
+
+a|
+```YAML
+oneOf:
+- type: object
+  properties:
+    propertyA:
+      type: string
+- type: object
+  properties:
+    propertyB:
+      type: string
+|  a class with all properties combined
+   as well as classes for subschemas, but without an inheritance (`extends`) relation
+
+Use option `useOneOfInterfaces: false` (=default). If set to `true`, an empty parent interface is generated that can't be used for deserialization (no `@JsonSubTypes`)
+
+a|
+```YAML
+type: object
+description: Exactly one of `propertyA` or `propertyB` properties should be set.
+properties:
+  propertyA:
+    type: string
+  propertyB:
+    type: string
+oneOf:
+- required: [unstructured]
+- required: [structured]
+```
+| a class with all properties combined
+|===
+
+
+|===
+
+====
+
 [[openapi-tools]]
 === Tools
 
