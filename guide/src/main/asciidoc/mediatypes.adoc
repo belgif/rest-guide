@@ -81,14 +81,11 @@ Payload media types can be specified in an OpenAPI specification.
 
 For JSON, the media type specified in OpenAPI should not contain a `charset` parameter, because this is known to lead to problems in some server software when treating requests without the parameter in the `Accept` header.
 
-[discrete]
-[[media-type-openapi3]]
-==== OpenAPI 3.0
-
 OpenAPI 3.0 allows to specify a different media type for each request or response format.
-Default media types cannot be specified.
+Default media types across all operations cannot be specified.
 
-.Specifying OpenAPI 3.0 media types
+[[media-type-openapi3]]
+.Specifying media types in OpenAPI
 ====
 ```YAML
   /persons/{ssin}/photo:
@@ -119,54 +116,5 @@ Default media types cannot be specified.
                 $ref: "#/components/schemas/UnknownSsinProblem"
         default:
           "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
-```
-====
-
-[discrete]
-==== OpenAPI 2.0
-
-The request and response body's media type are specified in an OpenAPI 2.0 specification respectively by the `consumes` and `produces` keywords:
-
-* at operation level
-* at root level, as default media types for the entire specification
-
-.Specifying media types at operation level
-====
-```YAML
-  /persons/{ssin}/photo:
-    get:
-      summary: Get the photo of the person
-      operationId: getPhoto
-      produces:
-      - image/jpeg  # for photo
-      - application/problem+json # for problems
-      parameters:
-      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/parameters/SsinQueryParameter"
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: file
-        "400":
-          $ref: "#/responses/InvalidSsinResponse"
-        "404":
-          $ref: "#/responses/UnknownSsinResponse"
-```
-====
-
-NOTE: OpenAPI 2.0 doesn't support specifying a different media type per status code.
-
-[rule, med-types]
-.Default media types
-====
-OpenAPI 2.0 specifications SHOULD specify following default media types:
-
-```YAML
-consumes:
-- application/json
-
-produces:
-- application/json
-- application/problem+json
 ```
 ====

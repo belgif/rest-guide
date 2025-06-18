@@ -87,6 +87,7 @@ When designing an identifier, various requirements may be of importance specific
 * hide any business information (e.g. no sequential number that indicates number of resources created)
 * not easy to guess a valid identifier, especially for unsecured resources (e.g. no sequentially generated identifier)
 * easy to represent in URL parameter without escaping
+** default configurations of Apache HTTPD, Apache Tomcat (used by Spring Boot) and Spring Security are known to block requests with an escaped slash in a path parameter value
 * sortable (for technical reasons e.g. pagination)
 
 [rule, id-design]
@@ -149,7 +150,7 @@ format: uri
 |
 can be human-readable,
 long, not easy to input by user, 
-requires character escaping when used as URL parameter
+requires support for escaping of slash character when used as URL parameter,
 can be generated collision-free by multiple sources (different domain name)
 
 | custom format
@@ -180,7 +181,7 @@ Depending on context, the OpenAPI data type may enumerate the list of allowed va
 
 .Code
 ====
-`GET /refData/paymentMethods/{code}` with `code` of type `PaymentMethodCode`
+`GET /refData/paymentMethods/{paymentMethodCode}` with `paymentMethodCode` of type `PaymentMethodCode`
 
 As string with enumeration:
 ```YAML
@@ -256,7 +257,7 @@ Following naming guidelines should be applied when using an identifier or code i
 * JSON property:
 ** within an object that represents the entire or part of a resource: use `id` or `code`
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<rule-jsn-naming>>); no need to suffix with `id` or `code`
-* path parameter: use `id` or `code`, OPTIONALLY prefixed with the resource type to disambiguate when there are multiple identifiers as path parameters
+* path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
 * query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
 * OpenAPI type: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
@@ -324,7 +325,7 @@ StoreId: #<7>
   minimum: 1
 ```
 
-<1> path parameter: `id` prefixed with resource type to be able to distinguish both parameters
+<1> `id` as path parameter always prefixed with resource type to be able to distinguish multiple path parameters
 <2> `id` as property of the consulted resource
 <3> identifier used to reference another resource. JSON property name designates relation to the other resource.
 <4> `id` as property in a partial representation of a `store` resource
@@ -334,7 +335,7 @@ StoreId: #<7>
 <8> Partial resource representations, which may link to the full resource
 
 ```
-GET /refData/deliveryMethods/{code} <1>
+GET /refData/deliveryMethods/{deliveryMethodCode} <1>
 ```
 ```YAML
 {
@@ -346,7 +347,7 @@ GET /refData/deliveryMethods/{code} <1>
   }
 }
 ```
-<1> Since there are no child resources with other path parameters, simply `code` suffices
+<1> `code` as path parameter always prefixed by resource type
 ====
 
 .Standardized business identifiers
@@ -617,9 +618,11 @@ a|
 |<<http-404,404>>
 |Not Found
 |The resource does not exist and thus cannot be updated.
+
 |<<http-409,409>>
 |Conflict
-|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+|The update is in conflict with the data on the server.
+
 |===
 ====
 
@@ -642,7 +645,6 @@ APIs should support both the media type of JSON merge patch `application/merge-p
 Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to <<rule-jsn-null>>.
 JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because in a JSON Merge Patch request, required properties may be absent or optional properties may be removed using a `null` value.
 
-OpenAPI 2.0 does not allow to document the use of `null` values. Instead, a `MergePatch` marker type should be used, defined in https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml[common-v1.yaml].
 ====
 
 .JSON merge patch
@@ -674,8 +676,7 @@ a|
 | schema
 |
 a|
-[source,yaml,role="primary",subs="attributes+"]
-.OpenAPI 3.0
+[source,yaml,subs="attributes+"]
 ----
 EmployerPatch:
   type: object
@@ -686,18 +687,6 @@ EmployerPatch:
       type: string
       format: date
       nullable: true # optional property, use null to remove it
-----
-
-[source,yaml,role="secondary",subs="attributes+"]
-.OpenAPI 2.0
-[source,yaml]
-----
-# Schema from https://github.com/belgif/openapi-common/blob/master/src/main/swagger/common/v1/common-v1.yaml
-MergePatch:
-  description: JSON Merge Patch (RFC 7386) request body
-  type: object
-  additionalProperties: true
-  # Marker type as JSON Merge Patch requests can not be fully specified as a JSON Schema type in OpenAPI 2.0
 ----
 
 3+|Parameters
@@ -737,7 +726,7 @@ a|
 
 |<<http-409,409>>
 |Conflict
-|The client data is in conflict with the data on the server e.g. optimistic locking issues.
+|The update is in conflict with the data on the server.
 
 |===
 ====
@@ -801,9 +790,8 @@ or
 
 |<<http-409,409>>
 |Conflict
-|A constraint on the resource is violated. 
-The resource could not be deleted because the request is in conflict with the current 
-state of the resource.
+|
+The resource could not be deleted because the request is in conflict with data on the server.
 
 For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 

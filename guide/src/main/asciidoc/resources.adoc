@@ -47,7 +47,7 @@ Trailing slashes MUST NOT be used.
 ====
 The URI **SHOULD NOT contain a file extension**.
 
-A notable exception to this rule is the swagger/OpenAPI file (see <<doc-resource>>).
+A notable exception to this rule is the OpenAPI file (see <<doc-resource>>).
 ====
 
 Instead, look at how to express <<Media Types>> using HTTP headers.
@@ -97,8 +97,8 @@ If the parameter's name is a noun, it SHOULD be singular.
 GET /cars?color=black&color=blue
 ```
 
-[source,yaml,role="primary",subs="normal"]
-.OpenAPI 3.0
+[source,yaml,subs="normal"]
+.OpenAPI
 ----
 parameters:
 - name: color
@@ -108,18 +108,6 @@ parameters:
     type: array
     items:
       type: string
-----
-
-[source,yaml,role="secondary",subs="normal"]
-.OpenAPI 2.0
-----
-parameters:
-- name: color
-  in: query
-  collectionFormat: multi
-  type: array
-  items:
-    type: string
 ----
 ====
 
