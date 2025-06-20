@@ -35,27 +35,18 @@ For brevity most URLs in JSON examples are shortened, but in practice they shoul
 
 [cols="5*^.^a",frame=none,grid=none]
 |===
-| [link=https://smals.be,window=_blank]
-image::logos/smals.png[Smals]
-| [link=https://www.ksz-bcss.fgov.be,window=_blank]
-image::logos/cbss.png[Crossroads Bank of Social Security,width=150]
-| [link=https://www.ehealth.fgov.be,window=_blank]
-image::logos/ehealth.png[eHealth]
-| [link=https://bosa.belgium.be,window=_blank]
-image::logos/bosa.png[BOSA FPS Policy and Support,width=180]
-| [link=https://www.vlaanderen.be/digitaal-vlaanderen,window=_blank]
-image::logos/vdi.png[Agentschap Digitaal Vlaanderen]
 
-| [link=https://labced.be,window=_blank]
-image::logos/bced.png[Banque Carrefour d'Échange de Données]
-| [link=https://be.brussels/en/about-region/structure-and-organisations/administrations-and-institutions-region/paradigm,window=_blank]
-image::logos/paradigm.png[Paradigm Brussels]
-| [link=https://finance.belgium.be,window=_blank]
-image::logos/fps-finance.png[Federal Public Service Finance]
-| [link=https://www.sfpd.fgov.be,window=_blank]
-image::logos/fps-pensions.png[Federal Public Service Pensions, width=80]
-| [link=https://www.stib-mivb.be,window=_blank]
-image::logos/stib-mivb.png[Société des Transports Intercommunaux de Bruxelles - Maatschappij voor Intercommunaal Vervoer te Brussel, width=75]
+| link:https://smals.be[image:logos/smals.png[Smals,title=Smals],window=_blank]
+| link:https://www.ksz-bcss.fgov.be[image:logos/cbss.png[Crossroads Bank of Social Security,title=Crossroads Bank of Social Security,width=150],window=_blank]
+| link:https://www.ehealth.fgov.be[image:logos/ehealth.png[eHealth,title=eHealth],window=_blank]
+| link:https://bosa.belgium.be[image:logos/bosa.png[BOSA FPS Policy and Support,title=BOSA FPS Policy and Support,width=180],window=_blank]
+| link:https://www.vlaanderen.be/digitaal-vlaanderen[image:logos/vdi.png[Agentschap Digitaal Vlaanderen,title=Agentschap Digitaal Vlaanderen],window=_blank]
+
+| link:https://labced.be[image:logos/bced.png[Banque Carrefour d'Échange de Données,title=Banque Carrefour d'Échange de Données],window=_blank]
+| link:https://be.brussels/en/about-region/structure-and-organisations/administrations-and-institutions-region/paradigm[image:logos/paradigm.png[Paradigm Brussels,title=Paradigm Brussels],window=_blank]
+| link:https://finance.belgium.be[image:logos/fps-finance.png[Federal Public Service Finance,title=Federal Public Service Finance],window=_blank]
+| link:https://www.sfpd.fgov.be[image:logos/fps-pensions.png[Federal Public Service Pensions,title=Federal Public Service Pensions,width=80],window=_blank]
+| link:https://www.stib-mivb.be[image:logos/stib-mivb.png[Société des Transports Intercommunaux de Bruxelles - Maatschappij voor Intercommunaal Vervoer te Brussel,title=Société des Transports Intercommunaux de Bruxelles - Maatschappij voor Intercommunaal Vervoer te Brussel,width=75],window=_blank]
 
 |===
 
