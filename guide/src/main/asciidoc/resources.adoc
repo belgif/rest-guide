@@ -47,7 +47,7 @@ Trailing slashes MUST NOT be used.
 ====
 The URI **SHOULD NOT contain a file extension**.
 
-A notable exception to this rule is the OpenAPI file (see <<doc-resource>>).
+A notable exception to this rule is the OpenAPI description (see <<doc-resource>>).
 ====
 
 Instead, look at how to express <<Media Types>> using HTTP headers.

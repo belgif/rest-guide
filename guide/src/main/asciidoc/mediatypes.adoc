@@ -77,7 +77,7 @@ Automatic conversion between the two standards will almost never give a satisfyi
 [[media-types-openapi]]
 === Media types in OpenAPI
 
-Payload media types can be specified in an OpenAPI specification.
+Payload media types can be specified in an OpenAPI description.
 
 For JSON, the media type specified in OpenAPI should not contain a `charset` parameter, because this is known to lead to problems in some server software when treating requests without the parameter in the `Accept` header.
 
