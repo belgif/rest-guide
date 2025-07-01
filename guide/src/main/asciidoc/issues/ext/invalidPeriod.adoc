@@ -1,0 +1,33 @@
+= Invalid Period
+:nofooter:
+
+Type::
+`urn:problem-type:belgif-ext:input-validation:invalidPeriod`
+Title::
+Period is invalid
+Description::
+The period is invalid (startDate after endDate).
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif-ext:input-validation:invalidPeriod",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/invalidPeriod.html",
+  "title": "Period is invalid",
+  "detail": "2025-12-31 should not precede 2025-01-01",
+  "inputs": [ <1>
+    {
+      "in": "query",
+      "name": "startDate",
+      "value": "2025-12-31"
+    },
+    {
+      "in": "query",
+      "name": "endDate",
+      "value": "2025-01-01"
+    }
+  ]
+}
+----
+
+<1> Optionally, the array of referenced start- and endDate inputs

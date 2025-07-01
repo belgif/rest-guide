@@ -1,0 +1,24 @@
+= Rejected Input
+:nofooter:
+
+Type::
+`urn:problem-type:belgif-ext:input-validation:rejectedInput`
+Title::
+Input is not allowed in this context
+Description::
+This input validation issue type indicates that an input has been rejected because it is not allowed in this context.
++
+A typical use case for this issue type is when a single permissive schema is reused in read and write context. Depending on the context, the input could be allowed or not.
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif-ext:input-validation:rejectedInput",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/rejectedInput.html",
+  "title": "Input is not allowed in this context",
+  "detail": "Input creationTimestamp is not allowed in this context",
+  "in": "body",
+  "name": "creationTimestamp",
+  "value": "2025-04-24T11:26:00+02:00"
+}
+----
