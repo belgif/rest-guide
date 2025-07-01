@@ -450,6 +450,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
       "in": "path",
       "name": "employerId",
       "value": "abc",
