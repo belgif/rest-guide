@@ -1,0 +1,23 @@
+= Required Input
+:nofooter:
+
+Type::
+`urn:problem-type:belgif-ext:input-validation:requiredInput`
+Title::
+Input is required in this context
+Description::
+This input validation issue type indicates that an input (that has been defined as optional in the schema) is required in this context.
++
+A typical use case for this issue type is when a single permissive schema is reused in read and write context. Depending on the context, the input could be required or not.
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif-ext:input-validation:requiredInput",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/requiredInput.html",
+  "title": "Input is required in this context",
+  "detail": "Input xyz is required in this context",
+  "in": "body",
+  "name": "xyz"
+}
+----

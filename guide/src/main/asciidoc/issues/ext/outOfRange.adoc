@@ -1,0 +1,26 @@
+= Out Of Range
+:nofooter:
+
+Type::
+`urn:problem-type:belgif-ext:input-validation:outOfRange`
+Title::
+Input value is out of range
+Description::
+An input value falls outside the permitted range. This should only be used when minimum / maximum are dynamically determined and cannot be hardcoded in the OpenAPI description.
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif-ext:input-validation:outOfRange",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/outOfRange.html",
+  "title": "Input value is out of range",
+  "detail": "Input value year = 2014 is out of range [2015, 2025]",
+  "in": "query",
+  "name": "year",
+  "value": 2014,
+  "minimum": 2015, <1>
+  "maximum": 2025  <1>
+}
+----
+
+<1> Allowed range can be added to the issue with "minimum" and "maximum" properties

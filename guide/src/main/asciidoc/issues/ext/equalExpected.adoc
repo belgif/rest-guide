@@ -1,0 +1,35 @@
+= Equal Expected
+:nofooter:
+
+Type::
+`urn:problem-type:belgif-ext:input-validation:equalExpected`
+Title::
+These inputs must be equal
+Description::
+This cross-parameter input validation issue type indicates that a set of inputs must be equal.
++
+A typical use case for this issue type is when the id in the body should match the id in the path when updating a document resource (PUT).
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif-ext:input-validation:equalExpected",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/equalExpected.html",
+  "title": "These inputs must be equal",
+  "detail": "These inputs must be equal: companyId, id",
+  "inputs": [ <1>
+    {
+      "in": "path",
+      "name": "companyId",
+      "value": "12345"
+    },
+    {
+      "in": "body",
+      "name": "id",
+      "value": "54321"
+    }
+  ]
+}
+----
+
+<1> Optionally, the array of referenced inputs
