@@ -532,14 +532,14 @@ EuroCentAmount:
 .allOf
 [rule, allOf]
 ====
-Defined in the JSON Schema specification, the `allOf` keyword expresses that a value is considered valid if it is valid against *all* of a list of subschemas.
+The `allOf` JSON Schema keyword expresses that a value must be valid against *all* of a list of subschemas.
 
-This can be used to model an inheritance relationship between schemas. For code generation, the first referenced schema (with `$ref`) within `allOf` is considered the parent class.
+For `object` types, it can be used to model an inheritance relationship between schemas. For code generation, the first subschema that's a reference (`$ref`) is considered the parent.
+Subschemas in an `allOf` SHOULD NOT declare the same properties, because this will lead to problems for code generation tools.
 
-To model polymorphism, the `discriminator` keyword can be used to designate a property that determines the child schema of a value.
-Values that are valid against child schemas that were added in a new version of an OpenAPI description, will be rejected during validation against the older version of the OpenAPI.
-
+To model polymorphism, the `discriminator` keyword designates a property used to resolve the child schema against which the object will be validated.
 It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
+Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
 ====
 
 [NOTE]
@@ -547,15 +547,161 @@ Version 3.0.4 of the OpenAPI Specification added that "a `discriminator` MUST NO
 At time of writing, it is not possible to define schemas that comply with this change in the OpenAPI Specification, while still allowing polymorphism using common tooling.
 Therefore, it is currently recommended to consider the discriminator having an effect on validation.
 
+.Using `allOf` to add additional restrictions or metadata
+====
 
-TODO: add examples
+|===
+|description | example
 
-.allowed uses of `oneOf`
+|
+Overriding the description of a property
+
+a|
+```YAML
+CountryIsoCode:
+  description: Country represented by an ISO 3166-1 alpha-2 code
+  type: string
+  pattern: "^[A-Z]{2}$"
+Person:
+  type: object
+  properties:
+    fullName:
+      type: string
+    citizenship:
+      allOf:
+      - $ref: "#/components/schemas/CountryIsoCode"
+      - description: "Citizenship (nationality) of the person" # overrides description
+```
+
+| Adding a pattern restriction on a string
+a|
+```YAML
+MyCode:
+  type: string
+  minLength: 3
+  maxLength: 7
+MyRestrictedCode:
+  type: string # type string already in MyCode schema, but helps for code generation
+  allOf:
+  - $ref: "#/components/schemas/MyCode"
+  - pattern: "^A.+$" # additional restriction on string value
+```
+
+| Making a property of another schema required
+a|
+```YAML
+ObjectSchema:
+  type: object
+  properties:
+    firstProperty:
+      type: string
+    secondProperty:
+      type: string
+RestrictedSchema:
+  type: object
+  allOf:
+  - $ref: "#/components/schemas/ObjectSchema"
+  - required: [firstProperty] # makes property defined in ObjectSchema required
+    type: object # object type already in ObjectSchema, but will generate inheritance in code generation
+```
+
+| *KO* : properties should not be duplicated in subschemas
+a|
+```YAML
+ParentSchema:
+  type: object
+  properties:
+    parentProperty:
+      type: string
+ChildSchema:
+  type: object
+  allOf:
+  - $ref: "#/components/schemas/ParentSchema"
+  - type: object
+    properties:
+      parentProperty: # redeclaring property from other schema causes code generation problems
+        type: string
+        pattern: "^A.*$"
+```
+
+|===
+
+====
+
+.Using `allOf` for polymorphism
+====
+```YAML
+Parent:
+  type: object
+  properties:
+    parentProperty:
+      type: string
+    type:
+      type: string
+  required: [type]
+  discriminator:
+    propertyName: type
+    mapping:
+      first: "#/components/schemas/FirstChild"
+      second: "#/components/schemas/SecondChild"
+FirstChild:
+  allOf:
+    - $ref: "#/components/schemas/Parent"
+    - type: object
+      properties:
+        firstChildProperty:
+          type: string
+SecondChild:
+  allOf:
+    - $ref: "#/components/schemas/Parent"
+    - type: object
+      properties:
+        secondChildProperty:
+          type: integer
+```
+
+|===
+| JSON value | validation result against `Parent` schema
+
+a|```JSON
+{
+  "type": "first",
+  "firstChildProperty": "abc"
+}
+```
+| valid
+
+validated against the `FirstChild` schema
+
+a|```JSON
+{
+  "type": "second",
+  "secondChildProperty": "abc"
+}
+```
+|
+invalid
+
+`SecondChild` schema requires secondChildProperty to be integer
+
+a|```JSON
+{
+  "type": "third",
+  "thirdChildProperty": "abc"
+}
+```
+| invalid
+
+No child schema resolved for discriminator value `"third"`
+|===
+====
+
+.Using `oneOf`
 [rule, oneOf]
 ====
-The `oneOf` keyword expresses that a value is considered valid if it is valid against *exactly* one of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
+The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
 
-Some use of `oneOf` may result in incompatibility problems with code generation tooling however; `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
+Some use of `oneOf` may result in incompatibility problems with code generation tooling however : `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
 ====
 
 .oneOf
@@ -567,7 +713,7 @@ Following examples were tested with https://openapi-generator.tech/docs/generato
 These examples *do not work* as expected:
 
 |===
-| oneOf example | generates
+| problematic schema  | generated code
 
 a|
 ```YAML
@@ -594,11 +740,10 @@ oneOf:
 | empty class
 |===
 
-These examples do generate correct code:
-
+These examples generate correct code:
 
 |===
-| oneOf example | generates
+| schema | generated code
 
 a|
 ```YAML
@@ -611,6 +756,7 @@ oneOf:
   properties:
     propertyB:
       type: string
+```
 |  a class with all properties combined
    as well as classes for subschemas, but without an inheritance (`extends`) relation
 
@@ -626,13 +772,10 @@ properties:
   propertyB:
     type: string
 oneOf:
-- required: [unstructured]
-- required: [structured]
+- required: [propertyA]
+- required: [propertyB]
 ```
 | a class with all properties combined
-|===
-
-
 |===
 
 ====
