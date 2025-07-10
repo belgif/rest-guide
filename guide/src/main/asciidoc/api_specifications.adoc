@@ -704,7 +704,49 @@ The `oneOf` JSON Schema keyword expresses that a value must be valid against *ex
 Some use of `oneOf` may result in incompatibility problems with code generation tooling however : `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
 ====
 
-.oneOf
+.Invalid `oneOf` usage for overlapping schemas
+====
+Following example illustrates **bad usage** of `oneOf`, as its subschemas are not designed to be mutually exclusive:
+
+```YAML
+Agent:
+  type: object
+  oneOf:
+  - $ref: "#/components/schemas/Citizen"
+  - $ref: "#/components/schemas/Professional"
+Citizen:
+  type: object
+  properties:
+    ssin:
+      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+  required: [ssin]
+Professional:
+  type: object
+  properties:
+    ssin:
+      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+    enterpriseNumber:
+      $ref: "./belgif/organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
+  required: [ssin, enterpriseNumber]
+```
+
+Any valid `Professional` object is now invalid against the `Agent` schema, e.g.:
+```JSON
+{
+  "ssin": "53480200724",
+  "enterpriseNumber": "0123456789"
+}
+```
+
+Schemas allow unspecified additional properties by default, so this value is valid against `Citizen` regardless of the `enterpriseNumber` property.
+Being valid for both subschemas, means that it is invalid against the combined `oneOf` schema.
+
+Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
+Disallowing additional properties isn't recommended, as it limits API evolvability.
+|===
+====
+
+.Compatibility of `oneOf` with tooling
 ====
 
 Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
@@ -777,7 +819,6 @@ oneOf:
 ```
 | a class with all properties combined
 |===
-
 ====
 
 [[openapi-tools]]
