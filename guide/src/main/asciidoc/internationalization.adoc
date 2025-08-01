@@ -77,7 +77,8 @@ An API MAY offer to filter the representation to a single language by using the 
 A `LocalizedString` type is defined supporting the three official Belgian languages.
 
 .LocalizedString JSON Schema (from https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml])
-```YAML
+[source,yaml]
+----
 LocalizedString:
   description: A description specified in multiple languages
   type: object
@@ -88,7 +89,7 @@ LocalizedString:
     type: string
   de:
     type: string
-```
+----
 
 .Multi-language descriptions
 ====
