@@ -45,21 +45,21 @@ If the resource supports caching, the `Vary: Accept-Language` MUST be included i
 .Language negotiation
 ====
 .Request
-```
+----
 Accept-Language: nl-BE, nl;q=0.9, fr-BE;q=0.8, fr;q=0.7, en;q=0.6, *;q=0.5
 
 GET /countries/BE
-```
+----
 
 .Response
-```
+----
 Content-Language: nl
 
 {
   "code": "BE",
   "name": "België"
 }
-```
+----
 ====
 
 === Multi-language descriptions
@@ -98,7 +98,7 @@ Including a `Content-Language` response header is optional for multi-language de
 `GET /countries/BE`
 
 .Response
-```
+----
 Content-Language: fr,nl,be
 
 {
@@ -109,16 +109,16 @@ Content-Language: fr,nl,be
    "de": "Belgien"
   }
 }
-```
+----
 
 .Filtering a single language
 
-```
+----
 GET /countries/BE?lang=fr
-```
+----
 
 Response:
-```
+----
 Content-Language: fr
 
 {
@@ -127,5 +127,5 @@ Content-Language: fr
    "fr": "Belgique"
   }
 }
-```
+----
 ====
