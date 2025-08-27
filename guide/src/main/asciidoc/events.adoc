@@ -1,18 +1,89 @@
 [[events]]
 == Events
 
-When systems are in need of subscribe-notify capabilities, they tend to define their own custom event format.
+  An "event" is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers.
 
-To improve interoperability, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had a v1.0 release in 2019.
+_definition from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
 
-The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details.
+//TODO improve formatting
+
+To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had a v1.0 release in 2019.
+
+The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
 Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
+
+Events are typically delivered using asynchronously, meaning that the receiver of an event doesn't have to be available at the time to event occurred in order to be notified.
+
+  Asynchronous messaging refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
+
+Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad interpretation, a message broker can be any system that decouples the two e.g. a Kafka broker, AMQP-compatible broker, or a buffer message database exposed using a REST API or webhooks.
+
+This guide extends upon the CloudEvents specification to add support for other asynchronous messaging than only event messages.
 
 .CloudEvents specification
 [rule, event-cespec]
 ====
 The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent events in APIs.
+
+An event SHOULD be represented as a CloudEvent in a way that allows a consumer to handle it without relying on additional protocol-specific information, except for non-functional requirements like authentication and authorization, routing or tracing.
+
+|===
+| context attribute | format | example | required/optional | description
+
+| source |uri-reference (string) - absolute URI recommended | "urn:be.example:enterprisenumber:0123456789", | required | identifies the source of the message. The exact syntax and semantics behind the data encoded in the URI is defined by the API.
+
+| id | string (UUID recommended) | "a81bc81b-dead-4e5d-abff-90865d1e13b1" | required |  Identifies the event. Producers MUST ensure that source + id is unique for each distinct event.
+
+| dataschema | URI (string) |  "https://example.org/eventCatalog/ssin-update-events.yaml#/components/schemas/SsinUpdateEvent" | optional | Generally, the API definition is used which can be found based on `service`. If present, should point to a section of the AsyncAPI/OpenAPI containing the schema of the message.
+
+|
+* time (optional)
+* `data` or `data_base64`: the data of the message. data_base64 is used for binary payloads
+* `datacontenttype` media type of data, for CloudEvent JSON format, defaults to `application/json` when absent
+* `subject`: identifier of the resource for which the event occurred
+** optional, can also be modeled as body property for more complex identifiers (e.g. composite parent/child id), to enforce a more specific forma (`subject` is of type string, or if subject identity is considered sensitive (as not to pass it in protocol headers)
+* `type`: RECOMMENDED convention: <serviceName>`.v`<majorVersion>`.`<resourceType>[`.` <childResourceType>].<method>[ `.`<suffix>]
+** `method`: `get`, `create`, `update` (partialUpdate?), `delete`, `notify` (in case of events) or a custom method (~ controller)
+** `suffix`:
+*** for replies: `reply` or `problemReply` in case a problem occurred when handling the request
+**** this can be extended with API-specific suffix e.g. intermediateReply
+*** for events: <past participle> indicating the action or change that occurred e.g. canceled, deleted, replaced
+** <resourceType> in plural unless a singleton resource. The same name should be consistently used across REST APIs (in URI path segments) and events.
+*** a further hierarchy with one or more <.childResourceType> can be used for child resource types
+
+Additional context attributes are defined by this guide:
+
+* `service` (MANDATORY) as identifier for Service: serviceName.v _majorVersion_
+** identifies the API description defining the event types
+** can be used to perform more coarse grained routing of messages, rather than on individual `type` values
+* `relatedto` and `relatedtosource`: MUST be used in case of a reply message
+** the value of `id` and `source` of the corresponding request message
 ====
+// TODO: do we need a generic mapping between REST and async?
+// TODO: interop request REST  - response async  - do we reuse BelGov-Trace-Id? but it can be generated by an intermediary - trace vs functional
+//TODO: asyncMessage request/response vs LRT
+// LRT: end user or relative short processing time -  when there's a user session - interest of consulting current processing status on-demand w/o client keeping track
+// async msg - client may need to keep track of state. very long processing, where as soon as ready (unpredictable response time)
+
+
+.Idempotent out-of-order event processing
+[rule, event-idempot]
+====
+Events should be designed for idempotent out-of-order processing.
+Consumer applications MUST be robust against duplicates when consuming events, as exactly-once delivery is difficult to guarantee in distributed systems, especially when migrating a consumer to a newer event version format.
+====
+
+As common example, idempotent out-of-order processing could be supported by sending the following information:
+
+* the resource identifier,
+* an ordering key that increases monotonically for this resource
+* the resource state after the change, either provided as part of the event or accessible via a consultation (GET) of the resource
+
+A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
+
+Hint: timestamps are often a bad choice, since in distributed systems events may occur at the same time, or clocks are not exactly synchronized, or jump forward and backward to compensate drifts or leap-seconds. If you use anyway timestamps to indicate event ordering, you must carefully ensure that the designated event order is not messed up by these effects and use UTC time zone format.
+
+//TODO: include ordering key in consult response? Etag? /history?
 
 .CloudEvents documentation
 [options="header"]
@@ -26,7 +97,9 @@ The semantics, formats and bindings of the https://github.com/cloudevents/spec[C
 | Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/documented-extensions.md
 |===
 
-JSON CloudEvent representation of an address change of an employer
+
+
+.JSON CloudEvent representation of an address change of an employer
 ====
 The context attributes `specversion`, `id`, `source` and `type` are mandatory according to the CloudEvents specification. If `datacontenttype` is absent, it is to be considered as `application/json`.
 `data_base64` is to be used instead of `data` in case of a binary payload.
@@ -39,8 +112,7 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
   "specversion": "1.0",
   "id": "550e8400-e29b-41d4-a716-446655440000",
   "source": "urn:api:be.nsso.employer",
-  "type": "be.nsso.employer.address.updated",
-  "datacontenttype": "application/json",
+  "type": "be.nsso.employer.v1.addresses.notify.updated",
   "subject": "123456",
   "time": "2025-06-12T10:05:01.288Z",
   "dataschema": "https://example.com/schemas/employer/v1#/components/schemas/AddressUpdatedEvent",
@@ -84,23 +156,12 @@ schemas:
     type: object
     allOf:
       - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/CloudEventBase"
-    properties:
-      type:
-        type: string
-        minLength: 1
-        enum:
-          - "be.nsso.employer.address.updated"
-          - "be.nsso.employer.address.added"
-          - "be.nsso.employer.address.removed"
-        x-ignore-rules:
-          "cod-design": "event types use reverse DNS dot-notation"
-    required: [type]
     discriminator:
       propertyName: type
       mapping:
-        "be.nsso.employer.address.updated": AddressUpdatedEvent
-        "be.nsso.employer.address.added": AddressAddedEvent
-        "be.nsso.employer.address.removed": AddressRemovedEvent
+       "be.nsso.employer.v1.addresses.notify.updated": AddressUpdatedEvent
+       "be.nsso.employer.v1.addresses.notify.added": AddressAddedEvent
+       "be.nsso.employer.v1.addresses.notify.removed": AddressRemovedEvent
   AddressUpdatedEvent:
     type: object
     allOf:
@@ -130,3 +191,4 @@ schemas:
       # ...
 ----
 ====
+
