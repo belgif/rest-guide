@@ -20,11 +20,21 @@ Using UUIDs as tracing headers is RECOMMENDED.
 Additionally, the `BelGov-Related-Trace-Id` HTTP header MAY be present on a response.
 Its value MUST be the same as the `BelGov-Trace-Id` on the request.
 
-Within an organization, other headers MAY be used for tracing calls, for instance the headers supported by tracing tools like Zipkin or Jaeger.
+The `BelGov-Trace-Id` value on every outgoing call SHOULD be unique, even when they are made within a single context e.g. as part of handling a single incoming request. However for security reasons, an API provider SHOULD NOT depend on an external client to generate a correct unique value.
+When auditing functionality is needed, it SHOULD be possible to correlate the various tracing IDs used in the context of a request.
+
+Within an organization's trust boundary, alternative headers MAY be used to trace calls. Often the standard https://w3c.github.io/trace-context/[W3C Trace Context] and https://w3c.github.io/baggage/[baggage] headers are used, compatible with the OpenTelemetry specification. These allow tracing and context propagation over calls across heterogeneous platforms. APIs MAY support both options dynamically depending on the client being located within the trust boundary or not.
+
+When crossing a trust boundary, a mapping can be made, for instance:
+
+* the client's `BelGov-Trace-Id` can be put on the baggage of internal calls
+* the `BelGov-Trace-Id` of outgoing messages can be set to the OpenTelemetry `trace-id` or `span-id`
 ====
 
-In communication external to an organization, each `BelGov-Trace-Id` value should be unique.
-For instance, when a RESTful service makes multiple outgoing calls within the context of the same incoming request, every outgoing request should be uniquely identifiable with its own ID.
-For auditing purposes, it should be possible to correlate the various tracing IDs used in the context of a request.
+For calls across trust boundaries (e.g. by a 3rd party client), the W3C headers are not being recommended because they are less designed for this use case:
 
-An API provider should not be dependent on the client generating correct unique trace IDs.
+* trace information wouldn't be complete, missing trace parts at external parties
+* measures have to be taken to address security concerns (Denial of Service, information exposure): verify and filter input values, restart the trace, filter sensitive information in outgoing headers (e.g. in baggage or tracestate)
+** also see "Security Considerations" and "Privacy Considerations" in https://w3c.github.io/trace-context/#security-considerations[W3C Trace Context] and https://w3c.github.io/baggage/#security-considerations[baggage]
+* W3C tracing and baggage headers are hard to implement (trace-id, parent-id, flags, tracestate) for parties that aren't using an OpenTelemetry implementation
+
