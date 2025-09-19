@@ -100,7 +100,7 @@ Including a `Content-Language` response header is optional for multi-language de
 
 .Response
 ----
-Content-Language: fr,nl,be
+Content-Language: fr,nl,de
 
 {
   "code": "BE",
