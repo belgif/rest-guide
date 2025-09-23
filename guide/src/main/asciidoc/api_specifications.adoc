@@ -527,6 +527,300 @@ EuroCentAmount:
 ```
 ====
 
+
+
+.allOf
+[rule, allOf]
+====
+The `allOf` JSON Schema keyword expresses that a value must be valid against *all* of a list of subschemas.
+
+For `object` types, it can be used to model an inheritance relationship between schemas. For code generation, the first subschema that's a reference (`$ref`) is considered the parent.
+Subschemas in an `allOf` SHOULD NOT declare the same properties, because this will lead to problems for code generation tools.
+
+To model polymorphism, the `discriminator` keyword designates a property used to resolve the child schema against which the object will be validated.
+It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
+Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
+====
+
+[NOTE]
+Version 3.0.4 of the OpenAPI Specification added that "a `discriminator` MUST NOT change the validation outcome of the schema". However, most existing tooling currently do reject values that are not valid against their corresponding child schema or cannot be mapped to one.
+At time of writing, it is not possible to define schemas that comply with this change in the OpenAPI Specification, while still allowing polymorphism using common tooling.
+Therefore, it is currently recommended to consider the discriminator having an effect on validation.
+
+.Using `allOf` to add additional restrictions or metadata
+====
+
+|===
+|description | example
+
+|
+Overriding the description of a property
+
+a|
+```YAML
+CountryIsoCode:
+  description: Country represented by an ISO 3166-1 alpha-2 code
+  type: string
+  pattern: "^[A-Z]{2}$"
+Person:
+  type: object
+  properties:
+    fullName:
+      type: string
+    citizenship:
+      allOf:
+      - $ref: "#/components/schemas/CountryIsoCode"
+      - description: "Citizenship (nationality) of the person" # overrides description
+```
+
+| Adding a pattern restriction on a string
+a|
+```YAML
+MyCode:
+  type: string
+  minLength: 3
+  maxLength: 7
+MyRestrictedCode:
+  type: string # type string already in MyCode schema, but helps for code generation
+  allOf:
+  - $ref: "#/components/schemas/MyCode"
+  - pattern: "^A.+$" # additional restriction on string value
+```
+
+| Making a property of another schema required
+a|
+```YAML
+ObjectSchema:
+  type: object
+  properties:
+    firstProperty:
+      type: string
+    secondProperty:
+      type: string
+RestrictedSchema:
+  type: object
+  allOf:
+  - $ref: "#/components/schemas/ObjectSchema"
+  - required: [firstProperty] # makes property defined in ObjectSchema required
+    type: object # object type already in ObjectSchema, but will generate inheritance in code generation
+```
+
+| *KO* : properties should not be duplicated in subschemas
+a|
+```YAML
+ParentSchema:
+  type: object
+  properties:
+    parentProperty:
+      type: string
+ChildSchema:
+  type: object
+  allOf:
+  - $ref: "#/components/schemas/ParentSchema"
+  - type: object
+    properties:
+      parentProperty: # redeclaring property from other schema causes code generation problems
+        type: string
+        pattern: "^A.*$"
+```
+
+|===
+
+====
+
+.Using `allOf` for polymorphism
+====
+```YAML
+Parent:
+  type: object
+  properties:
+    parentProperty:
+      type: string
+    type:
+      type: string
+  required: [type]
+  discriminator:
+    propertyName: type
+    mapping:
+      first: "#/components/schemas/FirstChild"
+      second: "#/components/schemas/SecondChild"
+FirstChild:
+  allOf:
+    - $ref: "#/components/schemas/Parent"
+    - type: object
+      properties:
+        firstChildProperty:
+          type: string
+SecondChild:
+  allOf:
+    - $ref: "#/components/schemas/Parent"
+    - type: object
+      properties:
+        secondChildProperty:
+          type: integer
+```
+
+|===
+| JSON value | validation result against `Parent` schema
+
+a|```JSON
+{
+  "type": "first",
+  "firstChildProperty": "abc"
+}
+```
+| valid
+
+validated against the `FirstChild` schema
+
+a|```JSON
+{
+  "type": "second",
+  "secondChildProperty": "abc"
+}
+```
+|
+invalid
+
+`SecondChild` schema requires secondChildProperty to be integer
+
+a|```JSON
+{
+  "type": "third",
+  "thirdChildProperty": "abc"
+}
+```
+| invalid
+
+No child schema resolved for discriminator value `"third"`
+|===
+====
+
+.Using `oneOf`
+[rule, oneOf]
+====
+The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
+
+Some use of `oneOf` may result in incompatibility problems with code generation tooling however : `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
+====
+
+.Invalid `oneOf` usage for overlapping schemas
+====
+Following example illustrates **bad usage** of `oneOf`, as its subschemas are not designed to be mutually exclusive:
+
+```YAML
+Agent:
+  type: object
+  oneOf:
+  - $ref: "#/components/schemas/Citizen"
+  - $ref: "#/components/schemas/Professional"
+Citizen:
+  type: object
+  properties:
+    ssin:
+      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+  required: [ssin]
+Professional:
+  type: object
+  properties:
+    ssin:
+      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+    enterpriseNumber:
+      $ref: "./belgif/organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
+  required: [ssin, enterpriseNumber]
+```
+
+Any valid `Professional` object is now invalid against the `Agent` schema, e.g.:
+```JSON
+{
+  "ssin": "53480200724",
+  "enterpriseNumber": "0123456789"
+}
+```
+
+Schemas allow unspecified additional properties by default, so this value is valid against `Citizen` regardless of the `enterpriseNumber` property.
+Being valid for both subschemas, means that it is invalid against the combined `oneOf` schema.
+
+Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
+Disallowing additional properties isn't recommended, as it limits API evolvability.
+|===
+====
+
+.Compatibility of `oneOf` with tooling
+====
+
+Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
+
+
+These examples *do not work* as expected:
+
+|===
+| problematic schema  | generated code
+
+a|
+```YAML
+oneOf:
+- type: string
+- type: integer
+```
+| empty class
+
+a|
+```YAML
+oneOf:
+- type: string
+- type: string
+```
+| empty class
+a|```YAML
+StringOneOfPattern:
+type: string
+oneOf:
+- pattern: "^\\d{12}$"
+- pattern: "^\\d{5}$"
+```
+| empty class
+|===
+
+These examples generate correct code:
+
+|===
+| schema | generated code
+
+a|
+```YAML
+oneOf:
+- type: object
+  properties:
+    propertyA:
+      type: string
+- type: object
+  properties:
+    propertyB:
+      type: string
+```
+|  a class with all properties combined
+   as well as classes for subschemas, but without an inheritance (`extends`) relation
+
+Use option `useOneOfInterfaces: false` (=default). If set to `true`, an empty parent interface is generated that can't be used for deserialization (no `@JsonSubTypes`)
+
+a|
+```YAML
+type: object
+description: Exactly one of `propertyA` or `propertyB` properties should be set.
+properties:
+  propertyA:
+    type: string
+  propertyB:
+    type: string
+oneOf:
+- required: [propertyA]
+- required: [propertyB]
+```
+| a class with all properties combined
+|===
+====
+
 [[openapi-tools]]
 === Tools
 
