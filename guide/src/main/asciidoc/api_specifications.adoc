@@ -20,7 +20,7 @@ It is based on http://swagger.io/[Swagger^], which was standardized as OpenAPI.
 [rule, oas-contra]
 .OpenAPI
 ====
-Specifications of a new REST API SHOULD be provided using https://spec.openapis.org/oas/v3.0[*OpenAPI 3.0*].
+The description of a new REST API SHOULD be provided using https://spec.openapis.org/oas/v3.0[*OpenAPI 3.0*].
 OpenAPI uses the https://spec.openapis.org/oas/v3.0#schema-object[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 
 
@@ -29,7 +29,7 @@ https://spec.openapis.org/oas/v3.1[OpenAPI 3.1] improves upon OpenAPI 3.0, but t
 
 The OpenAPI standard also includes a list of supported primitive https://spec.openapis.org/oas/v3.0#data-types[data types].
 
-You can visualize OpenAPI files using some of the tools listed in <<openapi-tools>>.
+You can visualize OpenAPI documents using some of the tools listed in <<openapi-tools>>.
 
 [rule, ext-docs]
 .Additional documentation
@@ -40,7 +40,7 @@ Any additional documentation SHOULD be linked from the API's OpenAPI definition 
 [rule, oas-yaml]
 .Use YAML format for OpenAPI
 ====
-OpenAPI files SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
+OpenAPI documents SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
 
 YAML is a superset of JSON which allows a simpler notation, and also allows comments.
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
@@ -118,7 +118,7 @@ Code generators use it to generate method names and generally take care of trans
 .General HTTP headers
 ====
 [[general-http-headers]]
-HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explicitly in the OpenAPI specification, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
+HTTP header parameters that may be present on all or most operations of an API SHOULD NOT be documented explicitly in the OpenAPI description, as this would clutter the spec and make it difficult to keep up to date. Rather, refer API users to general documentation on these headers.
 
 Operation-specific HTTP header parameters SHOULD be documented.
 ====
@@ -141,10 +141,10 @@ Examples of headers that should be specified on operations that support them:
 .`doc` and `refData` resources
 ====
 [[doc-resource,doc resource]]
-The OpenAPI specification file and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
+The OpenAPI description and other API documentation SHOULD be placed under a special `doc` resource under the API root location.
 Access to these documentation resources SHOULD be granted to any user or potential user of the API.
 
-Root OpenAPI 3.0 documents SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://spec.openapis.org/oas/v3.0#openapi-description-structure[OpenAPI 3.0 specification].
+The OpenAPI 3.0 entry document SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://spec.openapis.org/oas/v3.0#openapi-description-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
 As reference data is typically static, consider supporting <<Caching>> headers for these resources.
@@ -178,7 +178,7 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 .`default` values
 ====
 [[default-values,default values]]
-Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI specification.
+Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI description.
 ====
 
 [rule, path-param]
@@ -259,28 +259,28 @@ Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use
 ====
 
 [rule, oas-reuse]
-.Reusable OpenAPI files
+.Reusable OpenAPI documents
 ====
-Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference data types (schemas) and other components from other files.
-These files SHOULD follow the OpenAPI file format as well and may include data type (schema) definitions, but also other component types like parameters, path items, request bodies and responses.
+Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference schemas (data types) and other components from other files.
+These files SHOULD be OpenAPI documents as well that follow the OpenAPI specification and may include schema definitions, but also other component types like parameters, path items, request bodies and responses.
 
-To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` file may be necessary.
+To work around limitations of certain tools, a conversion step to inline the definitions into the `openapi.yaml` entry document may be necessary.
 
-Duplication of types in multiple APIs SHOULD be avoided. Rather, put the type in a reusable OpenAPI file.
-Files reusable from multiple APIs SHOULD be organized in this structure:
+Duplication of definitions in multiple APIs SHOULD be avoided. Rather, put the definition in a reusable OpenAPI document.
+OpenAPI documents reusable from multiple APIs SHOULD be organized in this structure:
 ```
 <domain>/<version>/<domain-version>.yaml
 <domain>/<subdomain>/<version>/<domain-subdomain-version>.yaml
 ```
 
-Definitions SHOULD be grouped per (sub)domain in a file.
-Each file has its own lifecycle, with a major version number in its directory and file name, that is increased when backwards compatibility is broken.
-This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the OpenAPI document as well.
+Definitions SHOULD be grouped per (sub)domain in an OpenAPI document.
+Each OpenAPI document has its own lifecycle, with a major version number in its directory and file name, that is increased when backwards compatibility is broken.
+This version, with optionally a minor and patch version added to it, MUST be specified in the `info` section in the OpenAPI document.
 ====
 
-While it is not strictly necessary for external definitions to be put in a valid OpenAPI file, doing so makes it possible to use standard OpenAPI tooling on them.
+While it is not strictly necessary for external definitions to be put in a valid OpenAPI document, doing so makes it possible to use standard OpenAPI tooling on them.
 
-.Reusable OpenAPI file
+.Reusable OpenAPI document
 ====
 ./person/identifier/v1/person-identifier-v1.yaml
 ```YAML
@@ -289,7 +289,7 @@ info:
   title: person-identifier
   description: data types for person identifiers
   version: "1.1.2"
-paths: {} # empty paths property required to be a valid OpenAPI file
+paths: {} # empty paths property required to be a valid OpenAPI document
 components:
   schemas:
     Ssin:
@@ -298,7 +298,7 @@ components:
       pattern: \d{11}
 ```
 
-A type can be referenced from another OpenAPI file:
+A type can be referenced from another OpenAPI document:
 ```YAML
 "$ref": "./person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
 ```
@@ -315,18 +315,18 @@ The technical types referenced in this style guide are available in the https://
 Other types for business concepts commonly used by Belgian government institutions are available in other repositories.
 ====
 
-
-=== JSON data types
+[[schemas]]
+=== Schemas
 
 [rule, oas-types]
-.Naming of data types (schemas)
+.Naming of schemas (data types)
 ====
 
-As stated in <<rule-oas-comp>>, data type (schema) names should use UpperCamelCase and American English.
+As stated in <<rule-oas-comp>>, schema (data type) names should use UpperCamelCase and American English.
 
-In addition, data type names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
+In addition, schema names SHOULD NOT include overly generic terms like `info(rmation)` and `data`.
 
-A data type name SHOULD refer to the business meaning rather than how it is defined.
+A schema name SHOULD refer to the business meaning rather than how it is defined.
 ====
 
 |===
@@ -338,10 +338,10 @@ A data type name SHOULD refer to the business meaning rather than how it is defi
 |===
 
 [rule, oas-descr]
-.Data type description
+.Schema description
 ====
-The `description` property MAY provide a textual description of a JSON data type.
-The `title` property MUST NOT be used because it hides the actual data type name in visualization tools like Swagger UI.
+The `description` property MAY provide a textual description of a schema.
+The `title` property MUST NOT be used because it hides the actual schema name in visualization tools like Swagger UI.
 ====
 
 |===
@@ -824,12 +824,12 @@ oneOf:
 [[openapi-tools]]
 === Tools
 
-Following tools can be used to edit OpenAPI files
+Following tools can be used to edit OpenAPI documents
 
 [options="header"]
 |===
 |Name|Link| Description
-|Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of OpenAPI files. Does not support references to external files.
+|Swagger UI | https://swagger.io/swagger-ui/ | Browser application. Graphical and text view of OpenAPI documents. Does not support references to external files.
 |Zalando's Swagger plugin | https://github.com/zalando/intellij-swagger | Open Source plugin for IntelliJ. Text-only editor.
 |Stoplight Studio | https://github.com/stoplightio/studio/releases | Commercial editor with a free version. Graphical and text view, both web based or as desktop application. Supports validation of API style guides (https://stoplight.io/open-source/spectral[Spectral]).
 |42Crunch OpenAPI (Swagger) Editor for VS Code|https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi|Open Source plugin for Visual Studio Code. Text editor with SwaggerUI preview and multi-file support.
@@ -837,7 +837,7 @@ Following tools can be used to edit OpenAPI files
 |IntelliJ OpenAPI Specifications |https://www.jetbrains.com/help/idea/openapi.html|Plugin bundled with IntelliJ Ultimate (commercial). Text editor with SwaggerUI preview and multi-file support.
 |===
 
-Following tools can be used to generate server stubs and API client libraries from OpenAPI specification files.
+Following tools can be used to generate server stubs and API client libraries from OpenAPI documents.
 
 [options="header"]
 |===

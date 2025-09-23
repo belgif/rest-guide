@@ -91,7 +91,7 @@ Thereby, for a major version only a single minor and patch version can be availa
 The version of the API MUST be included in the `info` section of the OpenAPI definition.
 ====
 
-Note that reusable OpenAPI files are to be versioned as well, as specified in <<openapi>>.
+Note that reusable OpenAPI documents are to be versioned as well, as specified in <<openapi>>.
 
 .API version in OpenAPI
 ====
