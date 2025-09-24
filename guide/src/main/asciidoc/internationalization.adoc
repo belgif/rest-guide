@@ -1,3 +1,4 @@
+[[internationalization]]
 == Internationalization (I18N)
 
 Textual descriptions part of a resource may need to be offered in the language of a user.

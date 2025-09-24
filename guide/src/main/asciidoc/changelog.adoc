@@ -1,4 +1,12 @@
 == Changelog
+* 2025-09-24
+** add rules about composition, inheritance and polymorphism in schemas using `oneOf`, `allOf` and `discriminator` in <<rule-sch-allof>> and <<rule-sch-oneof>>
+** add linked documentation pages for each issue type in <<bad-request>>
+** improve <<internationalization>> guidelines:
+*** clarifications on the `Content-Language` header
+*** language choice may also be based on a user profile
+*** update <<rule-int-negot>>: language priority using `q` param, matching regional language variants and fallback behavior
+** (minor): apply https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.1[OAS definitions] for an OpenAPI (entry) document and OpenAPI description throughout the guide
 * 2025-06-16
 ** recommend OpenAPI 3.0 and remove OpenAPI 2.0 throughout the guide
 ** new in <<bad-request, Bad Request Problem>>: standardized `invalidInput` issue type

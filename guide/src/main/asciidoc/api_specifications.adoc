@@ -527,10 +527,10 @@ EuroCentAmount:
 ```
 ====
 
+While the OpenAPI Specification is well suited to document APIs and express constraints on requests and responses, the full expressiveness of OpenAPI schemas may cause interoperability problems with the type system of common programming languages. This guide adds some restrictions on the use of OpenAPI schemas to avoid such problems.
 
-
-.allOf
-[rule, allOf]
+.Composing schemas with allOf
+[rule, sch-allof]
 ====
 The `allOf` JSON Schema keyword expresses that a value must be valid against *all* of a list of subschemas.
 
@@ -619,7 +619,7 @@ ChildSchema:
   - $ref: "#/components/schemas/ParentSchema"
   - type: object
     properties:
-      parentProperty: # redeclaring property from other schema causes code generation problems
+      parentProperty: # redeclaring property from other schema generate duplicate properties in parent and child class when using code generation
         type: string
         pattern: "^A.*$"
 ```
@@ -697,7 +697,7 @@ No child schema resolved for discriminator value `"third"`
 ====
 
 .Using `oneOf`
-[rule, oneOf]
+[rule, sch-oneof]
 ====
 The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
 
@@ -743,14 +743,12 @@ Being valid for both subschemas, means that it is invalid against the combined `
 
 Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
 Disallowing additional properties isn't recommended, as it limits API evolvability.
-|===
 ====
 
 .Compatibility of `oneOf` with tooling
 ====
 
 Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
-
 
 These examples *do not work* as expected:
 
