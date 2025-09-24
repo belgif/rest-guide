@@ -21,7 +21,7 @@ The main benefit for choosing RESTful services is to increase flexibility and to
 
 These Belgif resources may also be useful when developing RESTful webservices:
 
-* OpenAPI specifications for common data types can be found in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories].
+* OpenAPI documents for common definitions can be found in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories].
 * The https://github.com/belgif/rest-guide-validator[belgif-rest-guide-validator] validates compliance of OpenAPI documents to this guide.
 * The https://github.com/belgif/rest-problem-java[belgif-rest-problem-java] library can be used to implement error handling in Java REST clients and server implementations, using <<error-handling,standardized Problem messages>>.
 * Semantics of common business data (e.g. social security number, address, ...) are maintained by the REST Functional Working Group in the https://github.com/belgif/fedvoc[Belgif FedVoc repository].
