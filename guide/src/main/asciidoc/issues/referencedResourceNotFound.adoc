@@ -14,6 +14,7 @@ Example footnote:[For brevity, only the issue itself is shown here. Typically, t
 ----
 {
   "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
   "title": "Referenced resource not found",
   "detail": "Referenced resource enterpriseNumber = '0000000196' does not exist",
   "in": "query",
