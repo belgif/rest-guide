@@ -14,7 +14,7 @@ Moreover, the project provides SDKs for most popular programming languages to su
 
 Events are typically delivered using asynchronously, meaning that the receiver of an event doesn't have to be available at the time to event occurred in order to be notified.
 
-  Asynchronous messaging refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
+Asynchronous messaging refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
 
 Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad interpretation, a message broker can be any system that decouples the two e.g. a Kafka broker, AMQP-compatible broker, or a buffer message database exposed using a REST API or webhooks.
 
@@ -26,6 +26,17 @@ This guide extends upon the CloudEvents specification to add support for other a
 The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent events in APIs.
 
 An event SHOULD be represented as a CloudEvent in a way that allows a consumer to handle it without relying on additional protocol-specific information, except for non-functional requirements like authentication and authorization, routing or tracing.
+The routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
+
+Events contain two types of information:
+
+* context: metadata providing contextual information about the occurrence
+* data: Domain-specific information about the occurrence (i.e. the payload). This might include information about the occurrence, details about the data that was changed, or more.
+
+
+If a CloudEvent is respresented in structured JSON format, the event data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
+
+The CloudEvent specification following standard context attributes:
 
 |===
 | context attribute | format | example | required/optional | description
@@ -36,28 +47,47 @@ An event SHOULD be represented as a CloudEvent in a way that allows a consumer t
 
 | dataschema | URI (string) |  "https://example.org/eventCatalog/ssin-update-events.yaml#/components/schemas/SsinUpdateEvent" | optional | Generally, the API definition is used which can be found based on `service`. If present, should point to a section of the AsyncAPI/OpenAPI containing the schema of the message.
 
-|
-* time (optional)
-* `data` or `data_base64`: the data of the message. data_base64 is used for binary payloads
-* `datacontenttype` media type of data, for CloudEvent JSON format, defaults to `application/json` when absent
-* `subject`: identifier of the resource for which the event occurred
-** optional, can also be modeled as body property for more complex identifiers (e.g. composite parent/child id), to enforce a more specific forma (`subject` is of type string, or if subject identity is considered sensitive (as not to pass it in protocol headers)
-* `type`: RECOMMENDED convention: <serviceName>`.v`<majorVersion>`.`<resourceType>[`.` <childResourceType>].<method>[ `.`<suffix>]
-** `method`: `get`, `create`, `update` (partialUpdate?), `delete`, `notify` (in case of events) or a custom method (~ controller)
-** `suffix`:
-*** for replies: `reply` or `problemReply` in case a problem occurred when handling the request
-**** this can be extended with API-specific suffix e.g. intermediateReply
-*** for events: <past participle> indicating the action or change that occurred e.g. canceled, deleted, replaced
-** <resourceType> in plural unless a singleton resource. The same name should be consistently used across REST APIs (in URI path segments) and events.
-*** a further hierarchy with one or more <.childResourceType> can be used for child resource types
+| time | date-time (string) | "2025-08-20T12:10:13+02:00" | optional |
 
-Additional context attributes are defined by this guide:
+| `datacontenttype` | string | "application/json" | optional | Media type of data. For CloudEvent JSON format, defaults to `application/json` when absent
 
-* `service` (MANDATORY) as identifier for Service: serviceName.v _majorVersion_
-** identifies the API description defining the event types
-** can be used to perform more coarse grained routing of messages, rather than on individual `type` values
-* `relatedto` and `relatedtosource`: MUST be used in case of a reply message
-** the value of `id` and `source` of the corresponding request message
+| `subject` | string | | optional | Identifier of the resource for which the event occurred
+
+may also be modeled as body property for more complex identifiers (e.g. composite parent/child id), to enforce a more specific form (`subject` is of type string, or if subject identity is considered sensitive (as not to pass it in protocol headers)
+
+| `type`| string | | mandatory a|
+RECOMMENDED convention: <serviceName>`.v`<majorVersion>`.`<resourceType>[`.` <childResourceType>].<method>[ `.`<suffix>]
+with:
+
+* `method`: `get`, `create`, `update` (partialUpdate?), `delete`, `notify` (in case of events) or a custom method (~ controller)
+* `suffix`:
+** for replies: `reply` or `problemReply` in case a problem occurred when handling the request
+** this can be extended with API-specific suffix e.g. intermediateReply
+** for events (after `notify`) : <past participle> indicating the action or change that occurred e.g. canceled, deleted, replaced
+* <resourceType> in plural unless a singleton resource. The same name should be consistently used across REST APIs (in URI path segments) and events.
+** a further hierarchy with one or more <.childResourceType> can be used for child resource types
+|===
+
+
+Additional context attributes that are not part of the CloudEvent specification, may be defined and MUST follow the https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
+.
+
+This guide defines following additional attributes:
+
+|===
+| context attribute | format | example | required/optional | description
+
+| `service` | string | | MANDATORY a| identifies the API description defining the event types
+can be used to perform more coarse grained routing of messages, rather than on individual `type` values
+
+Recommended format: serviceName.v _majorVersion_
+
+| `relatedto`| string | | MANDATORY only for reply messages | the value of `id` of the corresponding request message
+
+| `relatedtosource` | string | | MANDATORY only for reply messages | the value of `source` of the corresponding request message
+
+|===
+
 ====
 // TODO: do we need a generic mapping between REST and async?
 // TODO: interop request REST  - response async  - do we reuse BelGov-Trace-Id? but it can be generated by an intermediary - trace vs functional
