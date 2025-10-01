@@ -94,7 +94,7 @@ GET {API}/employers[^] HTTP/1.1
 }
 ----
 
-.JSON data types
+.JSON schemas
 ```YAML
 EmployersCollection:
   allOf:
@@ -172,7 +172,7 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 }
 ```
 
-.JSON data types
+.JSON schemas
 ```YAML
 AppendixCodesCollection:
   description: A collection of appendix codes
@@ -376,7 +376,7 @@ GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
 [[create-resource]]
 === Create a new resource​
 The collection resource can be used to create new document resources from the `POST` request body.
-Absent optional values are set to their default value if one is specified in the OpenAPI specification.
+Absent optional values are set to their default value if one is specified in the OpenAPI description.
 
 [cols="1,2,3"]
 |===
@@ -423,7 +423,7 @@ a|The API should specify for each creation operation, if it returns:
 |Default response code if the resource is created. 
 |<<http-409,409>>
 |Conflict
-|The resource could not be created because the request is in conflict with the current state of the resource. E.g. the resource already exists (duplicate key violation).
+|The resource could not be created because the request is in conflict with data on the server. E.g. the resource already exists (duplicate key violation).
 
 |<<http-303,303>>
 |See Other

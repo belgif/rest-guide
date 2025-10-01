@@ -198,7 +198,7 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |
 /doc +
 /doc/openapi.yaml +
-/doc/openapi.json | API documentation (OpenAPI file and other)  | <<doc-resource>>
+/doc/openapi.json | API documentation (OpenAPI description and other)  | <<doc-resource>>
 | /refData | resources representing reference data used in the API (i.e. code lists) | <<doc-resource>>
 | /health | API health status | <<health>>
 |===

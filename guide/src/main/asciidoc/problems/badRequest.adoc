@@ -1,6 +1,8 @@
 [[bad-request]]
 = Bad Request
 :nofooter:
+ifdef::full-guide[:issues: issues]
+ifndef::full-guide[:issues: ../issues]
 
 *Status code* 400 Bad Request
 
@@ -11,24 +13,29 @@ The following issue types may be returned by any API:
 |===
 | Issue type | description
 
-|`urn:problem-type:belgif:input-validation:schemaViolation`| violation of the OpenAPI schema
-|`urn:problem-type:belgif:input-validation:unknownInput` a| Request contains an unknown input field
+|xref:{issues}/schemaViolation.adoc[`urn:problem-type:belgif:input-validation:schemaViolation`]| violation of the OpenAPI description of the API
+|xref:{issues}/invalidInput.adoc[`urn:problem-type:belgif:input-validation:invalidInput`] a| Request contains invalid input
+
+This issue type is used when the input is invalid against validations that aren't formally expressed in the OpenAPI description.
+
+|xref:{issues}/unknownInput.adoc[`urn:problem-type:belgif:input-validation:unknownInput`] a| Request contains an unknown input field
 ifdef::full-guide[]
 (see <<rule-req-valid>>)
 endif::[]
-|`urn:problem-type:belgif:input-validation:referencedResourceNotFound`| A resource referenced in the request by its identifier can't be found.
+|xref:{issues}/referencedResourceNotFound.adoc[`urn:problem-type:belgif:input-validation:referencedResourceNotFound`]| A resource referenced in the request by its identifier can't be found.
 
 ifdef::full-guide[]
 This issue type is only used for resource identifiers in header or query parameters or in the request body. For resource identifiers in the request path, a <<resource-not-found>> Problem is returned instead, with a `404` status code.
 endif::[]
 |===
 
-Other issue types may be defined as a URN in one of following formats:
+APIs can provide their own types for other input validation issues that require specific handling by client applications.
+Additional issue types SHOULD be defined as URNs in one of following formats:
 
 * `urn:problem-type:<org>:input-validation:<type>`
 * `urn:problem-type:<org>:input-validation:<api>:<type>`
 
-Issue types follow the same structure as a Problem, but don't use the `status` or `instance` properties.
+Issues follow the same structure as a Problem, but don't use the `status` or `instance` properties. As for problems, API clients can use the `type` to determine how the handle an issue. They should not parse the `title` or `detail` properties to extract information; additional properties are a more suitable and less error-prone way to obtain such information.
 
 ```
 POST /enterprises/abc
@@ -70,6 +77,7 @@ Content-Type: application/problem+json
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
       "title": "Input isn't valid with respect to schema",
       "detail": "enterpriseNumber abc should be numeric",
       "in": "path",
@@ -88,6 +96,7 @@ Content-Type: application/problem+json
     },
     {
       "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
       "title": "Referenced resource not found",
       "detail": "Referenced resource boardMembers[1].ssin = '98765432109' does not exist",
       "in": "body",
@@ -95,9 +104,10 @@ Content-Type: application/problem+json
       "value": "98765432109"
     },
     {
-      "type": "urn:problem-type:cbss:input-validation:invalidPeriod",
-      "title": "Period is invalid",
-      "detail": "endDate should be after startDate",
+      "type": "urn:problem-type:belgif:input-validation:invalidInput",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/invalidInput.html",
+      "title": "Invalid input",
+      "detail": "endDate of a period should be after its startDate",
       "in": "body",
       "name": "boardMembers[0].period",
       "value": {

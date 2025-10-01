@@ -38,7 +38,7 @@
           <dependency>
             <groupId>org.asciidoctor</groupId>
             <artifactId>asciidoctorj-diagram</artifactId>
-            <version>2.3.2</version>
+            <version>3.0.1</version>
           </dependency>
           <dependency>
             <groupId>io.github.belgif.restguide</groupId>
@@ -83,6 +83,21 @@
             <configuration>
               <sourceDirectory>${basedir}/src/main/asciidoc/problems</sourceDirectory>
               <outputDirectory>${project.build.directory}/generated-docs/problems</outputDirectory>
+              <attributes>
+                <stylesheet>../my-theme.css</stylesheet>
+              </attributes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-issues</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/main/asciidoc/issues</sourceDirectory>
+              <outputDirectory>${project.build.directory}/generated-docs/issues</outputDirectory>
+              <preserveDirectories>true</preserveDirectories>
               <attributes>
                 <stylesheet>../my-theme.css</stylesheet>
               </attributes>

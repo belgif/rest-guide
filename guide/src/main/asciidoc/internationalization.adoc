@@ -1,3 +1,4 @@
+[[internationalization]]
 == Internationalization (I18N)
 
 Textual descriptions part of a resource may need to be offered in the language of a user.
@@ -5,9 +6,18 @@ Textual descriptions part of a resource may need to be offered in the language o
 One of following strategies may be chosen for internationalization:
 
 * Do not offer textual descriptions in the API response. Offer them only separate from the data, for example as a dedicated collection resource in the API returning a code list with descriptions. This list can be cached by a client.
-* Only include descriptions in a single language, specified by the caller in the `Accept-Language` header.
-* Offer descriptions in all applicable languages, i.e. for APIs offered by the Belgian Government in French, Dutch, German and sometimes English as well. This approach is not scalable to high number of languages.
+* Only include descriptions in a single language, determined by language negotiation (`Accept-Language` header) or by the language in the user's profile.
+* Offer descriptions in all applicable languages, i.e. for APIs offered by the Belgian Government in French, Dutch, German and sometimes English as well. This approach is not scalable to a high number of languages.
   The descriptions may be filtered by a `lang` query parameter.
+
+[rule, int-conlang]
+.Content-Language
+====
+For internationalized content, the `Content-Language` response header MUST be used to indicate the natural language(s) of the intended audience of the response content.
+For content that isn't translated, or returned in all supported languages, this header MAY be included.
+
+If no `Content-Language` is specified, the default is that the content is intended for all language audiences. This might mean that the sender does not consider it to be specific to any natural language, or that the sender does not know for which language it is intended.
+====
 
 [[i18n-negotiation]]
 === Accept-Language
@@ -15,33 +25,42 @@ One of following strategies may be chosen for internationalization:
 As for <<Media Types>>, HTTP supports content negotiation for the language used in response content.
 
 [rule, int-negot]
-.HTTP language headers
+.Accept-Language header
 ====
-Users can inform the server that a specific language is requested by adding the `Accept-Language` HTTP header to each request (http://tools.ietf.org/html/rfc7231#section-5.3.5[RFC 7231]).
+When API responses include textual descriptions in a single language, users can indicate their preferred language by adding the `Accept-Language` HTTP request header (https://datatracker.ietf.org/doc/html/rfc9110#name-accept-language[RFC 9110]).
+Alternatively, the language may also be retrieved from the user's profile.
 
-Its value is a language tag (https://tools.ietf.org/html/rfc5646[RFC 5646]), consisting of a {iso639-1}[ISO 639-1] lowercase language code, optionally followed by an uppercase country code indicating a country-specific variant.
+The value of `Accept-Language` is a language tag (https://tools.ietf.org/html/rfc5646[RFC 5646]), consisting of a {iso639-1}[ISO 639-1] lowercase language code, optionally followed by an uppercase country code indicating a country-specific variant.
 Internationalized APIs of Belgian Federal Government organizations MUST also support the variants for the official Belgian languages ending on `-BE`.
-Multiple languages may be specified in order of preference.
-A wildcard `*` matches any language.
 
-The `Content-Language` response header MUST be used to indicate the language used in the response for internationalized content.
+A client may specify multiple languages in `Accept-Language`, with a `q` parameter to indicate their priority.
+A wildcard `*` matches any language, but is not always sent by HTTP client implementations.
+
+For best interoperability, clients are recommended to also include language tags without a country suffix, and servers to fall back to the general language or a supported country-specific variant if the requested variant isn't supported.
 
 In case the server could not honor any of the requested languages, it SHOULD return the resource in a default language.
 
 If the resource supports caching, the `Vary: Accept-Language` MUST be included in the response.
 ====
 
-.HTTP language headers
+.Language negotiation
 ====
-.Request headers
-```
-Accept-Language: nl-BE, nl, fr-BE, fr, en, *
-```
+.Request
+----
+Accept-Language: nl-BE, nl;q=0.9, fr-BE;q=0.8, fr;q=0.7, en;q=0.6, *;q=0.5
 
-.Response headers
-```
+GET /countries/BE
+----
+
+.Response
+----
 Content-Language: nl
-```
+
+{
+  "code": "BE",
+  "name": "België"
+}
+----
 ====
 
 === Multi-language descriptions
@@ -59,7 +78,8 @@ An API MAY offer to filter the representation to a single language by using the 
 A `LocalizedString` type is defined supporting the three official Belgian languages.
 
 .LocalizedString JSON Schema (from https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml])
-```YAML
+[source,yaml]
+----
 LocalizedString:
   description: A description specified in multiple languages
   type: object
@@ -70,28 +90,44 @@ LocalizedString:
     type: string
   de:
     type: string
-```
+----
 
 .Multi-language descriptions
 ====
+Including a `Content-Language` response header is optional for multi-language descriptions.
+
 .Request
 `GET /countries/BE`
 
 .Response
-```json
-"name": {
- "fr": "Belgique",
- "nl": "België",
- "de": "Belgien"
+----
+Content-Language: fr,nl,de
+
+{
+  "code": "BE",
+  "name": {
+   "fr": "Belgique",
+   "nl": "België",
+   "de": "Belgien"
+  }
 }
-```
+----
 
 .Filtering a single language
-`GET /countries/BE?lang=fr`
 
-```json
-"name": {
- "fr": "Belgique"
+----
+GET /countries/BE?lang=fr
+----
+
+Response:
+----
+Content-Language: fr
+
+{
+  "code": "BE",
+  "name": {
+   "fr": "Belgique"
+  }
 }
-```
+----
 ====

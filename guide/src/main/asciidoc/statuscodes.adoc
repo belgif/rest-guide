@@ -216,7 +216,7 @@ The 406 error response indicates that the API is not able to generate any of the
 
 
 |[[http-409]]409 Conflict
-|**409 (“Conflict”) should be used when a request conflicts with the current state of the target resource**
+|**409 (“Conflict”) should be used when a request conflicts with data on the server**
 
 The 409 error response tells the client that they tried to put the REST API’s resources into an impossible or inconsistent state. For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 |<<POST,POST>>, <<PUT,PUT>>, <<PATCH,PATCH>>, <<DELETE,DELETE>>
