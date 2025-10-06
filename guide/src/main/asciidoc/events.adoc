@@ -181,21 +181,17 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ----
 {
   "specversion": "1.0",
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "source": "urn:api:be.nsso.employer",
-  "type": "be.nsso.employer.v1.addresses.notify.updated",
-  "subject": "123456",
-  "time": "2025-06-12T10:05:01.288Z",
-  "dataschema": "https://example.com/schemas/employer/v1#/components/schemas/AddressUpdatedEvent",
-  "data":{
-    "employerId": "123456",
-    "oldAddress": {
-      "addressLine1": "Old Example Street 123",
-      "addressLine2": "1234 Example Town"
-    },
-    "newAddress": {
-      "addressLine1": "New Example Street 789",
-      "addressLine2": "1234 Example Town"
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.meeting.v3",
+  "type": "be.belgif.example.meeting.v3.meetings.notify.invited",
+  "source": "urn:async-source:be.belgif.example",
+  "subject": "132456",
+  "data": {
+    "id": "132456",
+    "invitees": [ "123", "456" ],
+    "period": {
+      "start": "2025-10-06T13:30:00+02:00",
+      "end": "2025-10-06T14:30:00+02:00"
     }
   }
 }
@@ -203,8 +199,8 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ====
 
 
-.Specifying events
-[rule, event-contract]
+.Specifying asynchronous messages
+[rule, async-contract]
 ====
 Related asynchronous message types and their exchanges SHOULD be grouped together in a service, which is documented by an OpenAPI 3.0 or https://www.asyncapi.com/docs/reference/specification/v3.0.0[AsyncAPI 3.0] description. This provides more cohesive documentation and makes it easier to manage the lifecycle of asynchronous message types, similar as how synchronous calls are grouped and documented together for a REST API.
 
@@ -225,22 +221,22 @@ When providing a generic asynchronous endpoint for exchange of event types of mu
 .OpenAPI and AsyncAPI description of asynchronous message exchanges
 ====
 
-// TODO: rename files to example business names (e.g. addressChangeEvents.yaml etc)
+The following documents describe an example _meeting_ API that allows to manage meetings and get notifications upon meeting changes over two protocols: using a REST API and using JMS messaging.
 
 [cols="1,1"]
 |===
 |
-OpenAPI with only message schemas
+OpenAPI with only the message schemas
 |
-https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/composition-example.yaml[composition-example.yaml]
+https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-messages.yaml[meeting-messages.yaml]
 
 | OpenAPI documenting asynchronous message exchange over REST API
   referencing schemas from composition-example.yaml
-| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/openapi-example.yaml[openapi-example.yaml]
+| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-openapi.yaml[meeting-openapi.yaml]
 
 | AsyncAPI documenting message exchange over JMS message broker
    referencing schemas from composition-example.yaml
-| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/asyncapi-example.yaml[asyncapi-example.yaml]
+| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-asyncapi.yaml[meeting-asyncapi.yaml]
 |===
 
 ====
@@ -250,43 +246,68 @@ https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/compo
 [source,yaml]
 ----
 schemas:
-  AddressEvent:
-    type: object
-    allOf:
-      - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
-    discriminator:
-      propertyName: type
-      mapping:
-       "be.nsso.employer.v1.addresses.notify.updated": AddressUpdatedEvent
-       "be.nsso.employer.v1.addresses.notify.added": AddressAddedEvent
-       "be.nsso.employer.v1.addresses.notify.removed": AddressRemovedEvent
-  AddressUpdatedEvent:
-    type: object
-    allOf:
-      - $ref: "#/components/schemas/AddressEvent"
-    properties:
-      data:
-        description: The event payload in JSON format
-        type: object
-        properties:
-          employerId:
-            $ref: "./belgif/employment/identifier/employment-identifier-v1.yaml#/components/schemas/EmployerId"
-          oldAddress:
-            $ref: "#/components/schemas/Address"
-          newAddress:
-            $ref: "#/components/schemas/Address"
-        required: [employerId, oldAddress, newAddress]
+    MeetingMessage:
+      description: Common parent schema of all async messages in the meeting API
+      # common parent is not needed if only using the message type schemas from AsyncAPI
+      allOf:
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+      discriminator:
+        propertyName: type
+        mapping:
+          "be.belgif.example.meeting.v3.meetings.create": CreateMeetingMessage
+          "be.belgif.example.meeting.v3.meetings.create.reply": CreateMeetingReplyMessage
+          "be.belgif.example.meeting.v3.meetings.create.problemReply": CreateMeetingProblemReplyMessage
+          "be.belgif.example.meeting.v3.meetings.notify.canceled": MeetingCanceledMessage
+          "be.belgif.example.meeting.v3.meetings.notify.invited": MeetingInvitedMessage
+    CreateMeetingMessage:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+      properties:
+        data:
+          $ref: "#/components/schemas/Meeting"
+      required: [data]
+    CreateMeetingReplyMessage:
+      type: object
+      allOf:
+        # extends reply message, which adds relatedto(source) properties
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousReplyMessageBase"
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+          required: [id]
       required: [ data ]
-    AddressAddedEvent:
+
+    CreateMeetingProblemReplyMessage:
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousProblemReplyMessage"
+
+    MeetingInvitedMessage:
       type: object
       allOf:
-        - $ref: "#/components/schemas/AddressEvent"
-      # ...
-    AddressRemovedEvent:
+        - $ref: "#/components/schemas/MeetingMessage"
+      properties:
+        data:
+          $ref: "#/components/schemas/Meeting"
+      required: [ data ]
+
+    MeetingCanceledMessage:
       type: object
       allOf:
-        - $ref: "#/components/schemas/AddressEvent"
-      # ...
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              description: Identifier of the meeting
+              type: string
+          required: [id]
+      required: [ data ]
 ----
 ====
 
