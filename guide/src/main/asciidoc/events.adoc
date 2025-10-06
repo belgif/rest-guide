@@ -37,16 +37,16 @@ Moreover, the project provides SDKs for most popular programming languages to su
 ====
 The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent asynchronous messages in APIs.
 
-This guide extends upon the CloudEvents specification, defining an AsyncMessage. It adds support for other asynchronous messages than events, using a CloudEvent-compatible message format (e.g. an asynchronous request-reply exchange) and specifies additional guidelines and context attributes.
+This guide extends upon the CloudEvents specification, defining an Asynchronous Message. which adds support for other asynchronous messages than events  (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible message format. It also specifies additional guidelines and context attributes.
 
-All functional message data SHOULD be part of an AsyncMessage, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
+All functional message data SHOULD be part of an  Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
 
-Asynchronous messages contain two types of information:
+Asynchronous Messages contain two types of information:
 
 * context: metadata providing contextual information about the message
 * data: Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
 
-If a CloudEvent is represented in structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
+If using the CloudEvent structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
 
 The context is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
