@@ -310,23 +310,3 @@ schemas:
       required: [ data ]
 ----
 ====
-
-
-.Idempotent out-of-order event processing
-[rule, event-idempot]
-====
-Events should be designed for idempotent out-of-order processing.
-Consumer applications MUST be robust against duplicates when consuming events, as exactly-once delivery is difficult to guarantee in distributed systems, especially when migrating a consumer to a newer event version format.
-====
-
-As common example, idempotent out-of-order processing could be supported by sending the following information:
-
-* the resource identifier,
-* an ordering key that increases monotonically for this resource
-* the resource state after the change, either provided as part of the event or accessible via a consultation (GET) of the resource
-
-A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
-
-Hint: timestamps are often a bad choice, since in distributed systems events may occur at the same time, or clocks are not exactly synchronized, or jump forward and backward to compensate drifts or leap-seconds. If you use anyway timestamps to indicate event ordering, you must carefully ensure that the designated event order is not messed up by these effects and use UTC time zone format.
-
-//TODO: include ordering key in consult response? Etag? /history?
