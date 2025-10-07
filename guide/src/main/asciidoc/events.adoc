@@ -33,7 +33,7 @@ Moreover, the project provides SDKs for most popular programming languages to su
 
 
 .CloudEvents format for asynchronous messages
-[rule, event-cespec]
+[rule, async-cespec]
 ====
 The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent asynchronous messages in APIs.
 
@@ -61,7 +61,7 @@ a| `type`
 
 string
 
-see <<rule-event-svctype>>
+see <<rule-async-svctype>>
 
 a| `be.nsso.employer.v1.employers.address.notify.updated`
 a|  Type of the message.
@@ -118,20 +118,20 @@ a| `service`
 
 string
 
-see <<rule-event-svctype>>
+see <<rule-async-svctype>>
 
 | `addressChanges.v1`
 a| identifies the API description defining the event types
 can be used to perform more coarse grained routing of messages, rather than on individual `type` values
 
-| `relatedto`|
+a| `relatedto`|
 REQUIRED for reply messages only
 
 string
 |
 | the value of `id` of the corresponding request message
 
-| `relatedtosource`
+a| `relatedtosource`
 | REQUIRED for reply messages only
 
 string
@@ -141,7 +141,7 @@ string
 |===
 ====
 
-[rule, event-svctype]
+[rule, async-svctype]
 .Value of `service` and `type` of an asynchronous message
 ====
 The value of the `service` context attribute SHOULD follow format: _serviceName_ `.v` _majorVersion_
@@ -207,7 +207,7 @@ When using AsyncAPI, schemas of the events SHOULD be put in (a) separate schema-
 The same guidelines as for REST APIs apply, like naming conventions, reuse of components and <<Versioning, versioning>>.
 
 The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents repository] provides a schema for asynchronous messages the structured JSON CloudEvent format.
-You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage can be used for `problemReply` messages.
+You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage` can be used for `problemReply` messages.
 
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
 ====
