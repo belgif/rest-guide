@@ -84,12 +84,12 @@ LocalizedString:
   description: A description specified in multiple languages
   type: object
   properties:
-  fr:
-    type: string
-  nl:
-    type: string
-  de:
-    type: string
+    fr:
+      type: string
+    nl:
+      type: string
+    de:
+      type: string
 ----
 
 .Multi-language descriptions
