@@ -97,7 +97,7 @@ a| `time`
 date-time (string)
 a| `"2025-08-20T12:10:13+02:00"`
 
-| Timestamp of when the occurrence (event) happened. If the time of the occurrence cannot be determined then this attribute MAY be set to some other time (such as the current time) by the CloudEvents producer, however all producers for the same source of a single `service` MUST be consistent in this respect. In other words, either they all use the actual time of the occurrence or they all use the same algorithm to determine the value used.
+| Timestamp of when the occurrence (in case of an event) happened. If the time of the occurrence cannot be determined then this attribute MAY be set to some other time (such as the current time) by the CloudEvents producer, however all producers for the same source of a single `service` MUST be consistent in this respect. In other words, either they all use the actual time of the occurrence or they all use the same algorithm to determine the value used.
 
 a| `datacontenttype`
 | OPTIONAL
