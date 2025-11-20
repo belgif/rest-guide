@@ -95,7 +95,9 @@ a| `time`
 | OPTIONAL
 
 date-time (string)
-a| `"2025-08-20T12:10:13+02:00"` |
+a| `"2025-08-20T12:10:13+02:00"`
+
+| Timestamp of when the occurrence (event) happened. If the time of the occurrence cannot be determined then this attribute MAY be set to some other time (such as the current time) by the CloudEvents producer, however all producers for the same source of a single `service` MUST be consistent in this respect. In other words, either they all use the actual time of the occurrence or they all use the same algorithm to determine the value used.
 
 a| `datacontenttype`
 | OPTIONAL
@@ -228,11 +230,11 @@ OpenAPI with only the message schemas
 https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-messages.yaml[meeting-messages.yaml]
 
 | OpenAPI documenting asynchronous message exchange over REST API
-  referencing schemas from composition-example.yaml
+  referencing schemas from meeting-messages.yaml
 | https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-openapi.yaml[meeting-openapi.yaml]
 
 | AsyncAPI documenting message exchange over JMS message broker
-   referencing schemas from composition-example.yaml
+   referencing schemas from meeting-messages.yaml
 | https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-asyncapi.yaml[meeting-asyncapi.yaml]
 |===
 
