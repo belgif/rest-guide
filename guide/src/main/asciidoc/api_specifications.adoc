@@ -702,7 +702,7 @@ No child schema resolved for discriminator value `"third"`
 ====
 The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
 
-However, many uses of `oneOf` result in incompatibility problems with code generation tooling however. Thereby, use of `oneOf` SHOULD be limited to:
+However, many uses of `oneOf` result in incompatibility problems with code generation tooling however. Thereby, use of `oneOf` SHOULD be limited to either:
 
 * subschemas without a `type` constraint that only list `required` properties
 * subschemas with an `enum` of a simple `type` (i.e. no `array` or `object`)
