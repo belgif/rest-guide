@@ -599,6 +599,7 @@ ObjectSchema:
       type: string
 RestrictedSchema:
   type: object
+  required: [firstProperty] # duplicating the `required` constraint here is necessary to make validation work with current swagger-request-validator
   allOf:
   - $ref: "#/components/schemas/ObjectSchema"
   - required: [firstProperty] # makes property defined in ObjectSchema required
