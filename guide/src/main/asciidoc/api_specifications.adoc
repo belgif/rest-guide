@@ -705,7 +705,7 @@ The `oneOf` JSON Schema keyword expresses that a value must be valid against *ex
 However, many uses of `oneOf` result in incompatibility problems with code generation tooling however. Thereby, use of `oneOf` SHOULD be limited to:
 
 * subschemas without a `type` constraint that only list `required` properties
-* schemas with an `enum` of a simple `type` (i.e. no `array` or `object`)
+* subschemas with an `enum` of a simple `type` (i.e. no `array` or `object`)
 ====
 
 
