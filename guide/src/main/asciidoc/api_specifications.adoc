@@ -61,11 +61,11 @@ Alongside the definitions of allowed interactions (operations, schemas, ...), su
 Free-text documentation can be added throughout an OpenAPI:
 
 * General documentation for the whole API can be provided in the OpenAPI's `info` object, like  `title` (MANDATORY), `contact` and `description`
-* The `summary` property on operations SHOULD be used to provide a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
+* The `summary` property SHOULD be present on each operation providing a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
 * The `description` property on various definitions MAY be used to provide longer descriptions
 ** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
 * The `title` property on schemas MAY be used to provide a human-readable short name of a schema
-** For reusable schemas under `components`, it is redundant with the schema component's name. In this case, it SHOULD NOT be used or either have the same value as the component name so it won't hide the actual schema name in visualization tools like SwaggerUI.
+** For reusable schemas under `components`, it is redundant with the component's name. In this case, it SHOULD NOT be used or either have the same value as the component name so it won't hide the actual schema name in visualization tools like SwaggerUI.
 ** For inline schemas (i.e. part of another definition) of type `object`, an UpperCamelCase `title` SHOULD be used to provide a human-readable name for code generation. However, if the schema can be reused, it is better to refactor it to its own schema component (<<rule-oas-comp>>)
 ====
 
@@ -95,9 +95,17 @@ components:
       title: Pet # OK, because identical to the schema component's name; can also be omitted
       description: a pet in the pet store
       type: object
+```
+
+```YAML
+components:
+  schemas:
+    Pet:
+      type: object
+      description: a pet in the pet store
       properties:
         owner:
-          title: Owner  # OK. Name is used for code generation and visualization. If the Owner schema can be reused, move it to its own schema component and reference it
+          title: Owner  # OK. The title is used for code generation and visualization. If the Owner schema can be reused, move it to its own schema component and reference it
           description: The owner of the pet
           type: object
 ```
