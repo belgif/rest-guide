@@ -71,13 +71,13 @@ The query component of a URI contains a set of parameters to be interpreted as a
 [[query-parameters]]
 .Query parameters
 ====
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats*?q=sdworx*# +
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats**?q=sdworx**# +
 Filter the resource collection using a search string.
 
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331*?select=(name,address)*# +
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?select=(name,address)**# +
 Filter the resource properties to the ones specified in the `select` query parameter.
 
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331*?lang=nl*# +
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?lang=nl**# +
 Only return translatable properties in Dutch.
 ====
 
