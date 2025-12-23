@@ -122,9 +122,9 @@ string
 
 see <<rule-async-svctype>>
 
-| `addressChanges.v1`
-a| identifies the API description defining the event types
-can be used to perform more coarse grained routing of messages, rather than on individual `type` values
+| `be.nsso.employer.v1`
+a| Identifies the API description defining the event types.
+It can be used to perform more coarse grained routing of messages, rather than on individual `type` values.
 
 a| `relatedto`|
 REQUIRED for reply messages only
@@ -148,7 +148,7 @@ string
 ====
 The value of the `service` context attribute SHOULD follow format: _serviceName_ `.v` _majorVersion_
 
-Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`.
+Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`. It SHOULD be prefixed with a reverse-DNS name. The prefixed domain dictates the organization which defines the semantics of the message type.
 
 The value of `type` SHOULD follow this naming convention:
 
