@@ -1,4 +1,7 @@
 == Changelog
+* 2025-11-25
+** new guidelines on <<events, Asynchronous messaging and events>>
+** new rule <<rule-trace-w3c>> on the use of W3C/OTel tracing only within an organization's trust boundary
 * 2025-09-24
 ** add rules about composition, inheritance and polymorphism in schemas using `oneOf`, `allOf` and `discriminator` in <<rule-sch-allof>> and <<rule-sch-oneof>>
 ** add linked documentation pages for each issue type in <<bad-request>>
