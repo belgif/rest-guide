@@ -82,7 +82,7 @@ REQUIRED
 
 string (UUID recommended)
 a| `"a81bc81b-dead-4e5d-abff-90865d1e13b1"`
-|  Identifies the message. Producers MUST ensure that source + id is unique for each distinct event.
+|  Identifies the message. Producers MUST ensure that `source` + `id` is unique for each distinct event.
 
 a| `dataschema`
 | OPTIONAL
@@ -312,21 +312,25 @@ schemas:
 ----
 ====
 
-.Idempotent out-of-order event processing
-[rule, event-idempot]
+.Duplicates and out-of-order messages
+[rule, async-order]
 ====
-Events should be designed for idempotent out-of-order processing.
-Consumer applications MUST be robust against duplicates when consuming events, as exactly-once delivery is difficult to guarantee in distributed systems, especially when migrating a consumer to a newer event version format.
+Distributed and concurrent systems make it hard to guarantee exactly-once or order-preserving message delivery. Consumers SHOULD NOT rely on messages being unique and sent in (chronologic) order unless explicitly documented in the API description.
+
+Asynchronous messages SHOULD be designed to allow duplicates and out-of-order processing. A consumer should not need to rely on the order of arrival or any transport-layer information not part of the Asynchronous Message to detect duplicates or an ordered relationship between messages.
+
 ====
 
-As common example, idempotent out-of-order processing could be supported by sending the following information:
+While the combination of `source` and `id` is unique, this might not be sufficient e.g. in a migration scenario to detect duplicates when the same data change is provided in multiple messages in different formats. A separate identifier of the data change may be needed in such case.
 
-* the resource identifier,
-* an ordering key that increases monotonically for this resource
-* the resource state after the change, either provided as part of the event or accessible via a consultation (GET) of the resource
+As common example, idempotent out-of-order processing for data change events can be supported by sending the following information:
 
-A receiver that is interested in the current state can then ignore events that are older than the last processed event of each resource. A receiver interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
+* the document (entity) <<section-identifier, identifier>>,
+* an ordering key that increases monotonically for this document
+* the document state after the change
 
-Hint: timestamps are often a bad choice, since in distributed systems events may occur at the same time, or clocks are not exactly synchronized, or jump forward and backward to compensate drifts or leap-seconds. If you use anyway timestamps to indicate event ordering, you must carefully ensure that the designated event order is not messed up by these effects and use UTC time zone format.
+A consumer that is interested in the current state can then ignore events that are older than the last processed event of each resource. A consumer interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
+
+Note: timestamps are often a bad choice as ordering key, since in distributed systems events may occur at the same time, and clocks are not sufficiently synchronized, and jump forward and backward to compensate drifts or leap seconds.
 
 //TODO: include ordering key in consult response? Etag? /history?
