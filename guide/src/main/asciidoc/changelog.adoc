@@ -1,4 +1,15 @@
 == Changelog
+* 2025-11-25
+** new guidelines on <<events, Asynchronous messaging and events>>
+** new rule <<rule-trace-w3c>> on the use of W3C/OTel tracing only within an organization's trust boundary
+* 2025-09-24
+** add rules about composition, inheritance and polymorphism in schemas using `oneOf`, `allOf` and `discriminator` in <<rule-sch-allof>> and <<rule-sch-oneof>>
+** add linked documentation pages for each issue type in <<bad-request>>
+** improve <<internationalization>> guidelines:
+*** clarifications on the `Content-Language` header
+*** language choice may also be based on a user profile
+*** update <<rule-int-negot>>: language priority using `q` param, matching regional language variants and fallback behavior
+** (minor): apply https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.1[OAS definitions] for an OpenAPI (entry) document and OpenAPI description throughout the guide
 * 2025-06-16
 ** recommend OpenAPI 3.0 and remove OpenAPI 2.0 throughout the guide
 ** new in <<bad-request, Bad Request Problem>>: standardized `invalidInput` issue type
@@ -92,7 +103,7 @@
 * 2020-03-24
 ** add links to GitHub, vocabularies and OAS schemas in the <<Introduction>>
 * 2020-01-10
-** updated rules: naming of <<JSON properties>> and naming of <<JSON data types>>: no digits as first letter and no dots in names
+** updated rules: naming of <<JSON properties>> and naming of <<schemas>>: no digits as first letter and no dots in names
 ** added <<http-413,413 Payload Too Large>> to list of HTTP status codes
 ** updated <<Resource URI>> notation rule: no trailing slashes in URIs
 ** added rule: <<default-values>> in OpenAPI specification
@@ -103,9 +114,9 @@
 ** add status code `303 See Other` to <<create-resource, Create a new resource >>
 ** new rule: use tags in <<openapi,OpenAPI>>
 ** new section: how to specify <<media-types-openapi, media types in OpenAPI>>
-** update rules: naming of <<JSON properties>> and naming of <<JSON data types>> to make names more meaningful
-** new rule: use `description` and avoid `title` to describe <<JSON data types>>
-** updated rule: String and integer types (<<JSON data types>>). String based codes should have a unique representation.
+** update rules: naming of <<JSON properties>> and naming of <<schemas>> to make names more meaningful
+** new rule: use `description` and avoid `title` to describe <<schemas>>
+** updated rule: String and integer types (<<schemas>>). String based codes should have a unique representation.
 * 2019-01-22
 ** modified <<API specifications>> guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
@@ -117,11 +128,11 @@
 ** document `select` reserved query param to filter resource representation (<<document-consult>>)
 * 2018-11-26
 ** add SelfLink type in <<Hypermedia controls>>
-** recommend American English for <<JSON>> property names and <<JSON data types>>
-** add recommendations on typing of properties in <<JSON data types>> (integer/string, enums)
+** recommend American English for <<JSON>> property names and <<schemas>>
+** add recommendations on typing of properties in <<schemas>> (integer/string, enums)
 * 2018-09-09
 ** HttpLink type updated in <<Hypermedia controls>> to be read only instead of required
-** new rule in <<JSON data types>> for enum values
+** new rule in <<schemas>> for enum values
 * 2018-08-09
 ** Standardized Problem response for several use cases in <<Error handling>> and updated Problem examples throughout the guide
 * 2018-08-08

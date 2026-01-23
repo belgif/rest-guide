@@ -1,12 +1,23 @@
 [[events]]
-== Events
+== Asynchronous messaging and events
 
-When systems are in need of subscribe-notify capabilities, they tend to define their own custom event format.
+  An "event" is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers.
 
-To improve interoperability, this styleguide promotes and adopts the CloudEvents specification prepared by the Cloud Native Computing Foundation (CNCF): https://cloudevents.io/.
+_definition from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
 
-On October 24, 2019 they released a v1.0 version of this specification which thoroughly separates the core conceptual event model from any format and protocol details.
-Moreover, some SDKs are in development to support integration of CloudEvents in some popular programming languages.
+Events are typically delivered using asynchronous messaging.
+
+_Asynchronous messaging_ refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
+
+Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad sense, a message broker can be any system that decouples both parties e.g. a Kafka broker, an AMQP-compatible broker, or a message database exposed using a REST API or webhooks.
+
+To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
+
+This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for other asynchronous messages than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
+
+The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
+Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
+
 
 .CloudEvents documentation
 [options="header"]
@@ -19,3 +30,284 @@ Moreover, some SDKs are in development to support integration of CloudEvents in 
 | Web Hooks for Event Delivery | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/http-webhook.md
 | Extensions (Sequence, Claim Check, Partitioning, ...) | https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/documented-extensions.md
 |===
+
+
+.CloudEvents format for asynchronous messages
+[rule, async-cespec]
+====
+The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent asynchronous messages in APIs.
+
+This guide extends upon the CloudEvents specification, defining an _Asynchronous Message_ to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
+
+All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
+
+Asynchronous Messages contain two types of information:
+
+* context: metadata providing contextual information about the message
+* data: Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
+
+If using the CloudEvent structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
+
+The context is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
+
+Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an AsynchronousMessage defined by this guide.
+
+[cols="1,1,2,3"]
+|===
+| context attribute | format | example | description
+
+a| `type`
+| REQUIRED
+
+string
+
+see <<rule-async-svctype>>
+
+a| `be.nsso.employer.v1.employers.address.notify.updated`
+a|  Type of the message.
+Often this attribute is used for routing, observability, policy enforcement, etc.
+
+a| `source`
+a|REQUIRED
+
+uri-reference (string)
+
+absolute URI recommended
+a| `"urn:be.example:enterprisenumber:0123456789"`
+| identifies the source of the message. The exact syntax and semantics behind the data encoded in the URI is defined by the API.
+
+a| `id`
+|
+REQUIRED
+
+string (UUID recommended)
+a| `"a81bc81b-dead-4e5d-abff-90865d1e13b1"`
+|  Identifies the message. Producers MUST ensure that source + id is unique for each distinct event.
+
+a| `dataschema`
+| OPTIONAL
+
+URI (string)
+a| `"https://example.org/eventCatalog/ssin-update-events.yaml#/components/schemas/SsinUpdateEvent"`
+|  Generally, the API definition is used which can be found based on `service`. If present, should point to a section of the AsyncAPI/OpenAPI containing the schema of the message.
+
+a| `time`
+| OPTIONAL
+
+date-time (string)
+a| `"2025-08-20T12:10:13+02:00"`
+
+| Timestamp of when the occurrence (in case of an event) happened. If the time of the occurrence cannot be determined then this attribute MAY be set to some other time (such as the current time) by the CloudEvents producer, however all producers for the same source of a single `service` MUST be consistent in this respect. In other words, either they all use the actual time of the occurrence or they all use the same algorithm to determine the value used.
+
+a| `datacontenttype`
+| OPTIONAL
+
+string
+a| `"application/json"`
+| Media type of data. For CloudEvent JSON format, defaults to `application/json` when absent
+
+a| `subject`
+| OPTIONAL
+
+string
+|
+| Identifier of the resource that's the subject of the message, e.g. for which an event occurred or a request is sent.
+
+The subject may also be modeled as body property to represent more complex identifiers (e.g. composite parent/child id), to enforce a more specific format (`subject` is of type string), or if subject identity is considered sensitive (as to not pass it in protocol headers).
+
+a| `service`
+| REQUIRED
+
+string
+
+see <<rule-async-svctype>>
+
+| `addressChanges.v1`
+a| identifies the API description defining the event types
+can be used to perform more coarse grained routing of messages, rather than on individual `type` values
+
+a| `relatedto`|
+REQUIRED for reply messages only
+
+string
+|
+| the value of `id` of the corresponding request message
+
+a| `relatedtosource`
+| REQUIRED for reply messages only
+
+string
+|
+| the value of `source` of the corresponding request message
+
+|===
+====
+
+[rule, async-svctype]
+.Value of `service` and `type` of an asynchronous message
+====
+The value of the `service` context attribute SHOULD follow format: _serviceName_ `.v` _majorVersion_
+
+Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`.
+
+The value of `type` SHOULD follow this naming convention:
+
+_serviceName_ `.v` _majorVersion_ `.` _resourceType_[ `.`  _childResourceType_] `.` _method_ [ `.` _suffix_]
+
+with:
+
+// TODO: add partialUpdate / patch?
+
+* _method_: `get`, `create`, `update`, `delete`, `notify` (in case of events) or a custom method (similar to REST controller)
+* _suffix_ is present for:
+** events (after method `notify`) : a _past participle_ indicating the action or change that occurred e.g. "canceled", "deleted" or "replaced"
+** replies: `reply` or `problemReply` in case a problem occurred when handling the request
+*** custom API-specific suffixes are also allowed e.g. intermediateReply
+* _resourceType_ : the type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see <<Document>>) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
+** for child resource types, add one or more _childResourceType_ segments
+====
+
+NOTE: To reduce complexity of managing multiple versions, versioning is done at service-level, not for each specific event type. This is similar to REST APIs, where versions are also managed at API-level rather than at operation-level.
+
+.JSON CloudEvent representation of an address change of an employer
+====
+The context attributes `specversion`, `id`, `source` and `type` are mandatory according to the CloudEvents specification. If `datacontenttype` is absent, it is to be considered as `application/json`.
+`data_base64` is to be used instead of `data` in case of a binary payload.
+
+https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md[JSON Event Format for CloudEvents] provides the full specification on how CloudEvents are represented in JSON.
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.meeting.v3",
+  "type": "be.belgif.example.meeting.v3.meetings.notify.invited",
+  "source": "urn:async-source:be.belgif.example",
+  "subject": "132456",
+  "data": {
+    "id": "132456",
+    "invitees": [ "123", "456" ],
+    "period": {
+      "start": "2025-10-06T13:30:00+02:00",
+      "end": "2025-10-06T14:30:00+02:00"
+    }
+  }
+}
+----
+====
+
+
+.Specifying asynchronous messages
+[rule, async-contract]
+====
+Related asynchronous message types and their exchanges SHOULD be grouped together in a service, which is documented by an OpenAPI 3.0 or https://www.asyncapi.com/docs/reference/specification/v3.0.0[AsyncAPI 3.0] description. This provides more cohesive documentation and makes it easier to manage the lifecycle of asynchronous message types, similar as how synchronous calls are grouped and documented together for a REST API.
+
+OpenAPI can be used when asynchronous messages are transferred over HTTP(S), while AsyncAPI also allows for other exchange protocols.
+
+When using AsyncAPI, schemas of the events SHOULD be put in (a) separate schema-only OpenAPI document(s) and referenced from the AsyncAPI document. This allows the use of OpenAPI tooling like code generation and editing for message schemas.
+The same guidelines as for REST APIs apply, like naming conventions, reuse of components and <<Versioning, versioning>>.
+
+The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents repository] provides a schema for asynchronous messages the structured JSON CloudEvent format.
+You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage` can be used for `problemReply` messages.
+
+There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
+====
+
+When providing a generic asynchronous endpoint for exchange of event types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema.
+
+
+.OpenAPI and AsyncAPI description of asynchronous message exchanges
+====
+
+The following documents describe an example _meeting_ API that allows to manage meetings and get notifications upon meeting changes over two protocols: using a REST API and using JMS messaging.
+
+[cols="1,1"]
+|===
+|
+OpenAPI with only the message schemas
+|
+https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-messages.yaml[meeting-messages.yaml]
+
+| OpenAPI documenting asynchronous message exchange over REST API
+  referencing schemas from meeting-messages.yaml
+| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-openapi.yaml[meeting-openapi.yaml]
+
+| AsyncAPI documenting message exchange over JMS message broker
+   referencing schemas from meeting-messages.yaml
+| https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeting-asyncapi.yaml[meeting-asyncapi.yaml]
+|===
+
+====
+
+.Schema of an asynchronous message
+====
+[source,yaml]
+----
+schemas:
+    MeetingMessage:
+      description: Common parent schema of all async messages in the meeting API
+      # common parent is not needed if only using the message type schemas from AsyncAPI
+      allOf:
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+      discriminator:
+        propertyName: type
+        mapping:
+          "be.belgif.example.meeting.v3.meetings.create": CreateMeetingMessage
+          "be.belgif.example.meeting.v3.meetings.create.reply": CreateMeetingReplyMessage
+          "be.belgif.example.meeting.v3.meetings.create.problemReply": CreateMeetingProblemReplyMessage
+          "be.belgif.example.meeting.v3.meetings.notify.canceled": MeetingCanceledMessage
+          "be.belgif.example.meeting.v3.meetings.notify.invited": MeetingInvitedMessage
+    CreateMeetingMessage:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+      properties:
+        data:
+          $ref: "#/components/schemas/Meeting"
+      required: [data]
+    CreateMeetingReplyMessage:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+        # extends reply message, which adds relatedto(source) properties
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousReplyMessageBase"
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+          required: [id]
+      required: [ data ]
+
+    CreateMeetingProblemReplyMessage:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousProblemReplyMessage"
+
+    MeetingInvitedMessage:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/MeetingMessage"
+      properties:
+        data:
+          $ref: "#/components/schemas/Meeting"
+      required: [ data ]
+
+    MeetingCanceledMessage:
+      type: object
+      allOf:
+        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              description: Identifier of the meeting
+              type: string
+          required: [id]
+      required: [ data ]
+----
+====

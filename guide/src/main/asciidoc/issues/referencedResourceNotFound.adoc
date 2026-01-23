@@ -1,0 +1,24 @@
+= Referenced Resource Not Found
+:nofooter:
+
+Type::
+`urn:problem-type:belgif:input-validation:referencedResourceNotFound`
+Title::
+Referenced resource not found
+Description::
+A resource referenced in the request by its identifier can't be found.
++
+This issue type is only used for resource identifiers in header or query parameters or in the request body. For resource identifiers in the request path, a xref:../index.adoc#resource-not-found[Resource Not Found] Problem is returned instead, with a `404` status code.
+Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../index.adoc#bad-request[Bad Request] Problem.]::
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
+  "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
+  "title": "Referenced resource not found",
+  "detail": "Referenced resource enterpriseNumber = '0000000196' does not exist",
+  "in": "query",
+  "name": "enterpriseNumber",
+  "value": "0000000196"
+}
+----

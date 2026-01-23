@@ -98,7 +98,7 @@ For new identifiers, a string based format SHOULD be used: textual lowerCamelCas
 
 Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identical. This means that capitalization, whitespace or leading zeroes are significant.
 
-In the OpenAPI data type for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format. 
+In the OpenAPI schema for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format.
 
 No business meaning SHOULD be attributed to parts of the identifier. This should be captured in separate data fields. Parts with technical meaning like a checksum are allowed.
 ====
@@ -111,7 +111,7 @@ WARNING: Don't use database-generated keys as identity keys in your public API t
 ====
 The table below lists some examples of identifiers, though it does not list all possibilities or considerations when designing a new identifier.
 |===
-| identifier structure | example | OpenAPI type | considerations
+| identifier structure | example | OpenAPI schema | considerations
 
 |UUID 
 | "d9e35127-e9b1-4201-a211-2b52e52508df"
@@ -176,7 +176,7 @@ A _code_ is a special type of identifier:
 ====
 New code types SHOULD be represented as string values in lowerCamelCase.
 
-Depending on context, the OpenAPI data type may enumerate the list of allowed values (see <<enum-rule>>).
+Depending on context, the OpenAPI schema enumerate the list of allowed values (see <<enum-rule>>).
 ====
 
 .Code
@@ -208,7 +208,7 @@ PaymentMethodCode:
 ====
 When defining the type for a property representing an existing numerical code or identifier:
 
-* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI data type to avoid erroneous values (i.e. without leading zeros).
+* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI schema to avoid erroneous values (i.e. without leading zeros).
 * Otherwise, use an integer based type. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32` and using `minimum`/`maximum`).
 
 For new identifiers, it is not recommended to use a number type however as stated in <<new-identifiers>>
@@ -259,7 +259,7 @@ Following naming guidelines should be applied when using an identifier or code i
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see <<rule-jsn-naming>>); no need to suffix with `id` or `code`
 * path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
 * query search parameter: use same name as the property in the JSON resource representation of the response (see <<filtering>>)
-* OpenAPI type: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
+* OpenAPI schema: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
 As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
 
@@ -290,7 +290,7 @@ Response:
 }
 ```
 
-OpenAPI types (not all are listed for brevity):
+OpenAPI schemas (not all are listed for brevity):
 ```YAML
 Order: #<6>
   type: object
@@ -363,7 +363,7 @@ GET /persons/{ssin} <1>
 }
 ```
 <1> Standardized business identifier name `Ssin` is preferred over `id`.
-<2> JSON property name designates relation to the other resource. The OpenAPI specification declares the expected value to be of type `Ssin`.
+<2> JSON property name designates relation to the other resource. The OpenAPI description declares the expected value to be of type `Ssin`.
 ====
 
 .Multiple types of identifiers
@@ -450,6 +450,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
       "in": "path",
       "name": "employerId",
       "value": "abc",
@@ -557,7 +558,7 @@ Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recom
 
 Use `PUT` when you like to do a complete update of a document resource.
 All values are replaced by the values submitted by the client.
-Absent optional values in the request are set to their default value if one is specified in the OpenAPI specification.
+Absent optional values in the request are set to their default value if one is specified in the OpenAPI description.
 
 .PUT on a document resource
 ====

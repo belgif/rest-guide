@@ -26,9 +26,9 @@ As of January 2025, new releases no longer include OpenAPI 2.0 variants.
 
 # Related tools
 
-The [https://github.com/belgif/rest-guide-validator](belgif-rest-guide-validator) validates compliance of OpenAPI documents to the REST guide. 
+The [belgif-rest-guide-validator](https://github.com/belgif/rest-guide-validator) validates compliance of OpenAPI documents to the REST guide. 
 
-The [https://github.com/belgif/rest-problem-java](belgif-rest-problem-java) library can be used to implement error handling in Java REST clients and server implementations, using standardized Problem messages as listed in the REST guide.
+The [belgif-rest-problem-java](https://github.com/belgif/rest-problem-java) library can be used to implement error handling in Java REST clients and server implementations, using standardized Problem messages as listed in the REST guide.
 
 
 # Guidelines to write the styleguide
