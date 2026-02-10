@@ -214,8 +214,15 @@ You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` s
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
 ====
 
-When providing a generic asynchronous endpoint for exchange of event types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema.
+[rule, async-generic]
+.Endpoints for transfer of asynchronous messages of any type
+====
+When providing a generic asynchronous endpoint for exchange of message types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The definitions of specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema.
 
+Additional data outside the `AsynchronousMessage` MUST NOT be required for the functional processsing of a message, but MAY support technical aspects during message transfer like batch-level routing or authentication.
+
+For batch transfers supporting a very large number of messages, like SFTP file transfer, the `AsynchronousMessagesBatch` schema SHOULD be used.
+====
 
 .OpenAPI and AsyncAPI description of asynchronous message exchanges
 ====
