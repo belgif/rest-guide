@@ -321,7 +321,7 @@ Asynchronous messages SHOULD be designed to allow duplicates and out-of-order pr
 
 ====
 
-While the combination of `source` and `id` is unique, this might not be sufficient e.g. in a migration scenario to detect duplicates when the same data change is provided in multiple messages in different formats. A separate identifier of the data change may be needed in such case.
+While the combination of `source` and `id` is unique, this might not be sufficient e.g. in a migration scenario to detect duplicates when the same data change event is provided in multiple messages in different formats. A separate identifier of the data change may be needed in such case.
 
 As common example, idempotent out-of-order processing for data change events can be supported by sending the following information:
 
@@ -332,5 +332,50 @@ As common example, idempotent out-of-order processing for data change events can
 A consumer that is interested in the current state can then ignore events that are older than the last processed event of each resource. A consumer interested in the history of a resource can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
 
 Note: timestamps are often a bad choice as ordering key, since in distributed systems events may occur at the same time, and clocks are not sufficiently synchronized, and jump forward and backward to compensate drifts or leap seconds.
+
+.Data change event with an ordering key
+====
+This example represents two events for a name change on the same person.
+`ssin` is the document identifier, while `version` increases sequentially for any change on the person. The event includes the full representation of the person after the change.
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "data": {
+    "ssin": "12345678901",
+    "version": "2",
+    "name": {
+      "givenName": "John",
+      "familyName": "Doe"
+    }
+  }
+}
+----
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "subject": "132456",
+  "data": {
+    "ssin": "12345678901",
+    "version": "3",
+    "name": {
+      "givenName": "Johnny",
+      "familyName": "Doe"
+    }
+  }
+}
+----
+====
 
 //TODO: include ordering key in consult response? Etag? /history?
