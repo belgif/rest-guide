@@ -361,11 +361,10 @@ This example represents two events for a name change on the same person.
 ----
 {
   "specversion": "1.0",
-  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "id": "550e8400-e29b-41d4-a716-446655440009",
   "service": "be.belgif.example.person.v3",
   "type": "be.belgif.example.person.v3.person.notify.nameChanged",
   "source": "urn:async-source:be.belgif.example",
-  "subject": "132456",
   "data": {
     "ssin": "12345678901",
     "version": "3",
