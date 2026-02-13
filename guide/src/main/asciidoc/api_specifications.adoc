@@ -49,23 +49,23 @@ Documentation SHOULD be geared towards users, and SHOULD NOT document the intern
 
 Alongside the definitions of allowed interactions (operations, schemas, ...), sufficient additional documentation SHOULD be provided by:
 
-* Adding clarifications in various free-text properties (<<rule-oas-descr>>)
+* Adding clarifications in various free-text documentation properties (<<rule-oas-descr>>)
 * Using tags to group operations (<<rule-oas-tags>>)
 * Adding examples throughout the OpenAPI (<<rule-oas-exampl>>)
 * Linking to any documentation not part of the OpenAPI, using the `externalDocs` property.
 ====
 
 [rule, oas-descr]
-.Free-text descriptions
+.Free-text documentation
 ====
 Free-text documentation can be added throughout an OpenAPI:
 
-* General documentation for the whole API can be provided in the OpenAPI's `info` object, like  `title` (MANDATORY), `contact` and `description`
+* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (MANDATORY), `contact` and `description`
 * The `summary` property SHOULD be present on each operation providing a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
 * The `description` property on various definitions MAY be used to provide longer descriptions
 ** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
 * The `title` property on schemas MAY be used to provide a human-readable short name of a schema
-** For reusable schemas under `components`, it is redundant with the component's name. In this case, it SHOULD NOT be used or either have the same value as the component name so it won't hide the actual schema name in visualization tools like SwaggerUI.
+** For reusable schemas under `components`, it is redundant with the component's name. In this case, it either SHOULD NOT be used or have the same value as the component's name so it won't hide it in visualization tools like SwaggerUI.
 ** For inline schemas (i.e. part of another definition) of type `object`, an UpperCamelCase `title` SHOULD be used to provide a human-readable name for code generation. However, if the schema can be reused, it is better to refactor it to its own schema component (<<rule-oas-comp>>)
 ====
 
