@@ -12,17 +12,17 @@ As of January 2025, new releases no longer include OpenAPI 2.0 variants.
 
 | domain | release | OpenAPI | 
 |--------|---------|---------|
-| common | [latest release](https://github.com/belgif/openapi-common/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml)|
-| problem | [latest release](https://github.com/belgif/openapi-problem/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-problem/blob/master/src/main/openapi/problem/v1/problem-v1.yaml)|
-| time | [latest release](https://github.com/belgif/openapi-time/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-time/blob/master/src/main/openapi/time/v1/time-v1.yaml)|
-| person | [latest release](https://github.com/belgif/openapi-person/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person/blob/master/src/main/openapi/person/v2/person-v2.yaml)|
-| person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person-identifier/blob/master/src/main/openapi/person/identifier/v1/person-identifier-v1.yaml)|
-| location | [latest release](https://github.com/belgif/openapi-location/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-location/blob/master/src/main/openapi/location/v1/location-v1.yaml)|
-| organization | [latest release](https://github.com/belgif/openapi-organization/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization/blob/master/src/main/openapi/organization/v1/organization-v1.yaml)|
-| organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization-identifier/blob/master/src/main/openapi/organization/identifier/v1/organization-identifier-v1.yaml)|
-| employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-employment-identifier/blob/master/src/main/openapi/employment/identifier/v1/employment-identifier-v1.yaml)|
-| money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/master/src/main/openapi/money/v1/money-v1.yaml)|
-| healthcare | [latest release](https://github.com/belgif/openapi-healthcare/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-healthcare/blob/master/src/main/openapi/healthcare/v1/healthcare-v1.yaml)|
+| common | [latest release](https://github.com/belgif/openapi-common/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-common/blob/main/src/main/openapi/common/v1/common-v1.yaml)|
+| problem | [latest release](https://github.com/belgif/openapi-problem/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-problem/blob/main/src/main/openapi/problem/v1/problem-v1.yaml)|
+| time | [latest release](https://github.com/belgif/openapi-time/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-time/blob/main/src/main/openapi/time/v1/time-v1.yaml)|
+| person | [latest release](https://github.com/belgif/openapi-person/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person/blob/main/src/main/openapi/person/v2/person-v2.yaml)|
+| person-identifier | [latest release](https://github.com/belgif/openapi-person-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-person-identifier/blob/main/src/main/openapi/person/identifier/v1/person-identifier-v1.yaml)|
+| location | [latest release](https://github.com/belgif/openapi-location/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-location/blob/main/src/main/openapi/location/v1/location-v1.yaml)|
+| organization | [latest release](https://github.com/belgif/openapi-organization/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization/blob/main/src/main/openapi/organization/v1/organization-v1.yaml)|
+| organization-identifier | [latest release](https://github.com/belgif/openapi-organization-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-organization-identifier/blob/main/src/main/openapi/organization/identifier/v1/organization-identifier-v1.yaml)|
+| employment-identifier | [latest release](https://github.com/belgif/openapi-employment-identifier/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-employment-identifier/blob/main/src/main/openapi/employment/identifier/v1/employment-identifier-v1.yaml)|
+| money | [latest release](https://github.com/belgif/openapi-money/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-money/blob/main/src/main/openapi/money/v1/money-v1.yaml)|
+| healthcare | [latest release](https://github.com/belgif/openapi-healthcare/releases/latest) | [OpenAPI (dev version)](https://github.com/belgif/openapi-healthcare/blob/main/src/main/openapi/healthcare/v1/healthcare-v1.yaml)|
 
 # Related tools
 
