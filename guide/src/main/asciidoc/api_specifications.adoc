@@ -706,8 +706,10 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 
 * subschemas with only a `required` constraint, without a `type` or other constraint
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
+* subschemas of `type: object`, when a `discriminator` is also defined. Properties may only be defined within the subschemas.
 ====
 
+Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
 
 .`oneOf` compatible with tooling
 ====
@@ -747,8 +749,58 @@ SecondEnum:
   - D
 ```
 | an enum class `OneOfEnums` that enumerates all values of `FirstEnum` and `SecondEnum`
-|===
+a|
+```YAML
+PolymorphicValue:
+# no properties may be defined in this schema
+  oneOf:
+    - $ref: "#/components/schemas/ChildA"
+    - $ref: "#/components/schemas/ChildB"
+  discriminator:
+    mapping:
+      "a": ChildA
+      "b": ChildB
+    propertyName: type
+BaseSchema:
+  # a common base for the Child schemas is optional
+  type: object
+  description: Common parent for an entity
+  required:
+    - type
+    - sharedProperty
+  properties:
+    type: # the discriminator property must be defined and required in the oneOf subschemas
+      type: string
+    sharedProperty:
+      type: string
+ChildA:
+  allOf:
+    - $ref: '#/components/schemas/BaseSchema'
+    - type: object
+      description: childA type
+      required:
+        - propertyA  # makes the schema mutually exclusive with ChildB
+      properties:
+        propertyA:
+          type: string
+ChildB:
+  allOf:
+    - $ref: '#/components/schemas/BaseSchema'
+    - type: object
+      description: childB type
+      required:
+        - propertyB # makes the schema mutually exclusive with ChildA
+      properties:
+        propertyB:
+          type: string
+```
+|
+A `PolymorphicValue` interface with only the `type` property and `@JsonSubType` annotations.
 
+`ChildA` and `ChildB` classes implementing `PolymorphicValue` and extending a class `BaseSchema`.
+
+This requires setting `useOneOfInterfaces` to `true` in openapi-generator.
+|===
 ====
 
 Following example illustrates **bad usage** of `oneOf`, as its subschemas are not designed to be mutually exclusive:
@@ -787,7 +839,6 @@ Schemas allow unspecified additional properties by default, so this value is val
 Being valid for both subschemas, means that it is invalid against the combined `oneOf` schema. Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
 Disallowing additional properties isn't recommended, as it limits API evolvability.
 
-Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
 These examples *do not work* as expected:
 
 |===
@@ -840,10 +891,13 @@ ChoiceB:
   required: [propertyB]
 ```
 a|
-A class `OneOfTwoObjects` with:
+With option `useOneOfInterfaces` set to `false`, a class `OneOfTwoObjects` with:
 
 * both `propertyA` and `propertyB` listed as required (non-null annotation)
 * only the pattern constrained of `ChoiceB` applied to `sharedProperty`
+
+With `useOneOfInterfaces` set to `true`, an empty interface `OneOfTwoObjects` that doesn't allow deserialization because of missing `@JsonSubType` annotation (no discriminator).
+
 |===
 
 [[openapi-tools]]
