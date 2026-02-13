@@ -31,12 +31,6 @@ The OpenAPI standard also includes a list of supported primitive https://spec.op
 
 You can visualize OpenAPI documents using some of the tools listed in <<openapi-tools>>.
 
-[rule, ext-docs]
-.Additional documentation
-====
-Any additional documentation SHOULD be linked from the API's OpenAPI definition using the `externalDocs` property.
-====
-
 [rule, oas-yaml]
 .Use YAML format for OpenAPI
 ====
@@ -44,6 +38,77 @@ OpenAPI documents SHOULD be made available in YAML format, and OPTIONALLY in JSO
 
 YAML is a superset of JSON which allows a simpler notation, and also allows comments.
 According to usage, a conversion step to JSON might be necessary considering limitations of tools.
+====
+
+
+[rule, oas-doc]
+.OpenAPI as documentation
+====
+OpenAPI authors SHOULD add sufficient documentation so that the OpenAPI can be used as an entry point to start using the API.
+Documentation SHOULD be geared towards users, and SHOULD NOT document the internal implementation of the API.
+
+Alongside the definitions of allowed interactions (operations, schemas, ...), sufficient additional documentation SHOULD be provided by:
+
+* Adding clarifications in various free-text documentation properties (<<rule-oas-descr>>)
+* Using tags to group operations (<<rule-oas-tags>>)
+* Adding examples throughout the OpenAPI (<<rule-oas-exampl>>)
+* Linking to any documentation not part of the OpenAPI, using the `externalDocs` property.
+====
+
+[rule, oas-descr]
+.Free-text documentation
+====
+Free-text documentation can be added throughout an OpenAPI:
+
+* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (MANDATORY), `contact` and `description`
+* The `summary` property SHOULD be present on each operation providing a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
+* The `description` property on various definitions MAY be used to provide longer descriptions
+** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
+* The `title` property on schemas MAY be used to provide a human-readable short name of a schema
+** For reusable schemas under `components`, it is redundant with the component's name. In this case, it either SHOULD NOT be used or have the same value as the component's name so it won't hide it in visualization tools like SwaggerUI.
+** For inline schemas (i.e. part of another definition) of type `object`, an UpperCamelCase `title` SHOULD be used to provide a human-readable name for code generation. However, if the schema can be reused, it is better to refactor it to its own schema component (<<rule-oas-comp>>)
+====
+
+====
+[red]#BAD#
+```YAML
+components:
+  schemas:
+    Pet:
+      title: a pet in the pet store # title overrides the Pet schema name in visualization tooling
+      type: object
+```
+
+[green]#GOOD#
+```YAML
+components:
+  schemas:
+    Pet:
+      description: a pet in the pet store
+      type: object
+```
+
+```YAML
+components:
+  schemas:
+    Pet:
+      title: Pet # OK, because identical to the schema component's name; can also be omitted
+      description: a pet in the pet store
+      type: object
+```
+
+```YAML
+components:
+  schemas:
+    Pet:
+      type: object
+      description: a pet in the pet store
+      properties:
+        owner:
+          title: Owner  # OK. The title is used for code generation and visualization. If the Owner schema can be reused, move it to its own schema component and reference it
+          description: The owner of the pet
+          type: object
+```
 ====
 
 [rule, oas-tags]
@@ -335,31 +400,6 @@ A schema name SHOULD refer to the business meaning rather than how it is defined
 |SSIN | Ssin
 |CustomerInformation | Customer
 |LanguageEnumeration | Language
-|===
-
-[rule, oas-descr]
-.Schema description
-====
-The `description` property MAY provide a textual description of a schema.
-The `title` property MUST NOT be used because it hides the actual schema name in visualization tools like Swagger UI.
-====
-
-|===
-|KO|OK
-
-a|
-```YAML
-Pet:
-  title: a pet in the pet store
-  type: object
-```
-
-a|
-```YAML
-Pet:
-  description: a pet in the pet store
-  type: object
-```
 |===
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
