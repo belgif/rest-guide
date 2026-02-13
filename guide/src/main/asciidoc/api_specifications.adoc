@@ -599,6 +599,7 @@ ObjectSchema:
       type: string
 RestrictedSchema:
   type: object
+  required: [firstProperty] # duplicating the `required` constraint here is necessary to make validation work with current swagger-request-validator
   allOf:
   - $ref: "#/components/schemas/ObjectSchema"
   - required: [firstProperty] # makes property defined in ObjectSchema required
@@ -701,11 +702,107 @@ No child schema resolved for discriminator value `"third"`
 ====
 The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
 
-Some use of `oneOf` may result in incompatibility problems with code generation tooling however : `oneOf` SHOULD NOT be used for schemas with a `type` other than `object`.
+However, many uses of `oneOf` result in incompatibility problems with code generation tooling however. Thereby, use of `oneOf` SHOULD be limited to either:
+
+* subschemas with only a `required` constraint, without a `type` or other constraint
+* subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
+* subschemas of `type: object`, when a `discriminator` is also defined. Properties may only be defined within the subschemas.
 ====
 
-.Invalid `oneOf` usage for overlapping schemas
+Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
+
+.`oneOf` compatible with tooling
 ====
+These examples generate correct code:
+|===
+| schema | generated code
+
+a|
+```YAML
+type: object
+description: Exactly one of `propertyA` or `propertyB` properties should be set.
+properties:
+  propertyA:
+    type: string
+  propertyB:
+    type: string
+    oneOf:
+    - required: [propertyA]
+    - required: [propertyB]
+```
+| a class with all properties combined, and without required property (non-null) constraints
+a|
+```YAML
+OneOfEnums:
+  oneOf:
+  - $ref: "#/components/schemas/FirstEnum"
+  - $ref: "#/components/schemas/SecondEnum"
+FirstEnum:
+  type: string
+  enum:
+  - A
+  - B
+SecondEnum:
+  type: string
+  enum:
+  - C
+  - D
+```
+| an enum class `OneOfEnums` that enumerates all values of `FirstEnum` and `SecondEnum`
+a|
+```YAML
+PolymorphicValue:
+# no properties may be defined in this schema
+  oneOf:
+    - $ref: "#/components/schemas/ChildA"
+    - $ref: "#/components/schemas/ChildB"
+  discriminator:
+    mapping:
+      "a": ChildA
+      "b": ChildB
+    propertyName: type
+BaseSchema:
+  # a common base for the Child schemas is optional
+  type: object
+  description: Common parent for an entity
+  required:
+    - type
+    - sharedProperty
+  properties:
+    type: # the discriminator property must be defined and required in the oneOf subschemas
+      type: string
+    sharedProperty:
+      type: string
+ChildA:
+  allOf:
+    - $ref: '#/components/schemas/BaseSchema'
+    - type: object
+      description: childA type
+      required:
+        - propertyA  # makes the schema mutually exclusive with ChildB
+      properties:
+        propertyA:
+          type: string
+ChildB:
+  allOf:
+    - $ref: '#/components/schemas/BaseSchema'
+    - type: object
+      description: childB type
+      required:
+        - propertyB # makes the schema mutually exclusive with ChildA
+      properties:
+        propertyB:
+          type: string
+```
+|
+A `PolymorphicValue` interface with only the `type` property and `@JsonSubType` annotations.
+
+`ChildA` and `ChildB` classes implementing `PolymorphicValue` and extending a class `BaseSchema`.
+
+This requires setting `useOneOfInterfaces` to `true` in openapi-generator.
+|===
+====
+
 Following example illustrates **bad usage** of `oneOf`, as its subschemas are not designed to be mutually exclusive:
 
 ```YAML
@@ -739,16 +836,8 @@ Any valid `Professional` object is now invalid against the `Agent` schema, e.g.:
 ```
 
 Schemas allow unspecified additional properties by default, so this value is valid against `Citizen` regardless of the `enterpriseNumber` property.
-Being valid for both subschemas, means that it is invalid against the combined `oneOf` schema.
-
-Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
+Being valid for both subschemas, means that it is invalid against the combined `oneOf` schema. Alternatively, polymorphism with `allOf` and `discriminator` can be used, or a single `Agent` schema which specifies all properties directly.
 Disallowing additional properties isn't recommended, as it limits API evolvability.
-====
-
-.Compatibility of `oneOf` with tooling
-====
-
-Following examples were tested with https://openapi-generator.tech/docs/generators/java/[openapi-generator's Java code generation].
 
 These examples *do not work* as expected:
 
@@ -765,59 +854,51 @@ oneOf:
 
 a|
 ```YAML
-oneOf:
-- type: string
-- type: string
-```
-| empty class
-a|```YAML
-StringOneOfPattern:
-type: string
-oneOf:
-- pattern: "^\\d{12}$"
-- pattern: "^\\d{5}$"
-```
-| empty class
-|===
+OneOfTypesSchema:
+  oneOf:
+  - $ref: "#/components/schemas/StringSchema"
+  - $ref: "#/components/schemas/AlsoStringSchema"
+StringSchema:
+  type: string
+AlsoStringSchema:
+  type: string
 
-These examples generate correct code:
-
-|===
-| schema | generated code
+| empty class
 
 a|
 ```YAML
-oneOf:
-- type: object
+OneOfTwoObjects:
+  oneOf:
+    - $ref: "#/components/schemas/ChoiceA"
+    - $ref: "#/components/schemas/ChoiceB"
+ChoiceA:
+  type: object
   properties:
     propertyA:
       type: string
-- type: object
+    sharedProperty:
+      type: string
+      pattern: "^A.*$"
+  required: [propertyA]
+ChoiceB:
+  type: object
   properties:
     propertyB:
       type: string
+    sharedProperty:
+      type: string
+      pattern: "^B.*$"
+  required: [propertyB]
 ```
-|  a class with all properties combined
-   as well as classes for subschemas, but without an inheritance (`extends`) relation
-
-Use option `useOneOfInterfaces: false` (=default). If set to `true`, an empty parent interface is generated that can't be used for deserialization (no `@JsonSubTypes`)
-
 a|
-```YAML
-type: object
-description: Exactly one of `propertyA` or `propertyB` properties should be set.
-properties:
-  propertyA:
-    type: string
-  propertyB:
-    type: string
-oneOf:
-- required: [propertyA]
-- required: [propertyB]
-```
-| a class with all properties combined
+With option `useOneOfInterfaces` set to `false`, a class `OneOfTwoObjects` with:
+
+* both `propertyA` and `propertyB` listed as required (non-null annotation)
+* only the pattern constrained of `ChoiceB` applied to `sharedProperty`
+
+With `useOneOfInterfaces` set to `true`, an empty interface `OneOfTwoObjects` that doesn't allow deserialization because of missing `@JsonSubType` annotation (no discriminator).
+
 |===
-====
 
 [[openapi-tools]]
 === Tools
