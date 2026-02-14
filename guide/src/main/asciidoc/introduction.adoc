@@ -7,15 +7,6 @@ This guide is a living document, updated when new interoperability issues arise 
 All changes are reviewed by the REST design workgroup, in which the Belgian government organizations are represented.
 If you find errors or omissions, or want to contribute, you can open an issue or pull request on https://github.com/belgif/rest-guide[GitHub].
 
-*Why choose RESTful web services?*
-
-The main benefit for choosing RESTful services is to increase flexibility and to offer web service support to client platforms not able to communicate using SOAP web services.
-
-* REST is the defacto standard to communicate with web services from JavaScript and native mobile applications.
-* While SOAP is strictly linked to XML and needs complex standards (MTOM, Soap-with-Attachments) to work with other media formats, RESTful services can support this natively.
-* WS-* specifications added to SOAP are often overly complex and redundant to the possibilities over the underlying communication protocol (e.g. HTTP).
-* REST has become the industry standard for developing APIs on the web (https://developers.google.com/apis-explorer[Google^], https://developers.facebook.com/docs/graph-api/reference[Facebook^], https://developer.amazon.com/public/apis[Amazon^], https://dev.twitter.com/rest/public[Twitter^], etc).
-
 [[related-belgif, Related Belgif initiatives]]
 *Related Belgif initiatives*
 
@@ -38,6 +29,30 @@ These Belgif resources may also be useful when developing RESTful webservices:
 [NOTE]
 ====
 For brevity most URLs in JSON examples are shortened, but in practice they should be in absolute notation.
+====
+
+*Organizations that endorse the Belgif REST guidelines*
+
+[cols="5*^.^a",frame=none,grid=none]
+|===
+
+| link:https://labced.be[image:logos/bced.png[Banque Carrefour d'Échange de Données,title=Banque Carrefour d'Échange de Données],window=_blank]
+| link:https://www.ksz-bcss.fgov.be[image:logos/cbss.png[Crossroads Bank of Social Security,title=Crossroads Bank of Social Security,width=150],window=_blank]
+| link:https://bosa.belgium.be[image:logos/bosa.png[BOSA FPS Policy and Support,title=BOSA FPS Policy and Support,width=180],window=_blank]
+| link:https://be.brussels/en/about-region/structure-and-organisations/administrations-and-institutions-region/paradigm[image:logos/paradigm.png[Paradigm Brussels,title=Paradigm Brussels],window=_blank]
+| link:https://www.vlaanderen.be/digitaal-vlaanderen[image:logos/vdi.png[Agentschap Digitaal Vlaanderen,title=Agentschap Digitaal Vlaanderen],window=_blank]
+
+| link:https://www.ehealth.fgov.be[image:logos/ehealth.png[eHealth,title=eHealth],window=_blank]
+| link:https://fin.belgium.be[image:logos/fps-finance.png[Federal Public Service Finance,title=Federal Public Service Finance],window=_blank]
+| link:https://www.sfpd.fgov.be[image:logos/fps-pensions.png[Federal Public Service Pensions,title=Federal Public Service Pensions,width=80],window=_blank]
+| link:https://www.stib-mivb.be[image:logos/stib-mivb.png[Société des Transports Intercommunaux de Bruxelles - Maatschappij voor Intercommunaal Vervoer te Brussel,title=Société des Transports Intercommunaux de Bruxelles - Maatschappij voor Intercommunaal Vervoer te Brussel,width=75],window=_blank]
+| link:https://smals.be[image:logos/smals.png[Smals,title=Smals],window=_blank]
+
+|===
+
+[TIP]
+====
+Contact mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be] if you would like to see your organization listed here.
 ====
 
 [[license]]
