@@ -1,4 +1,13 @@
 == Changelog
+* 2026-02-16
+** new rule <<rule-oas-doc>> on providing documentation in OpenAPI. This replaces the previous `[ext-docs]` rule.
+** update rule <<rule-oas-descr>>:
+*** extended with all OpenAPI free-text documentation properties
+*** a `summary` should now be present for each operation
+*** for inline schemas of type `object`, a `title` is now recommended. For schema components, it shouldn't override the component name if present.
+** update rule <<rule-sch-oneof>>: changed allowed usage to ensure tooling compatibility (`object` subschemas with `discriminator`, subschemas with only `required` and `enum` subschemas)
+** update <<rule-trc-header>>: make UUIDv4 optional for trace ids and recommend randomness
+
 * 2025-11-25
 ** new guidelines on <<events, Asynchronous messaging and events>>
 ** new rule <<rule-trace-w3c>> on the use of W3C/OTel tracing only within an organization's trust boundary
