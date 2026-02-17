@@ -746,7 +746,7 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 
 * subschemas with only a `required` constraint, without a `type` or other constraint
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
-* subschemas of `type: object`, when a `discriminator` is also defined. Properties may only be defined within the subschemas.
+* subschemas of `type: object`, when a `discriminator` is also defined. Properties may only be defined within the subschemas. Like for allOf-style polymorphism (<<rule-sch-allof>>), it is RECOMMENDED to provide explicit `mapping` of discriminator values to subschemas.
 ====
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
