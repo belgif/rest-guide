@@ -759,14 +759,15 @@ These examples generate correct code:
 
 a|
 ```YAML
-type: object
-description: Exactly one of `propertyA` or `propertyB` properties should be set.
-properties:
-  propertyA:
-    type: string
-  propertyB:
-    type: string
-    oneOf:
+OneOfPropertiesRequired:
+  type: object
+  description: Exactly one of `propertyA` or `propertyB` properties should be set.
+  properties:
+    propertyA:
+      type: string
+    propertyB:
+      type: string
+  oneOf:
     - required: [propertyA]
     - required: [propertyB]
 ```
