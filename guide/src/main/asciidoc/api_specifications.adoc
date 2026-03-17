@@ -769,7 +769,7 @@ These examples generate correct code:
 
 a|
 ```YAML
-OneOfTwoPropertiesRequiredSchema:
+OneOfPropertiesRequired:
   type: object
   description: Exactly one of `propertyA` or `propertyB` properties should be set.
   properties:
