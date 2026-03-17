@@ -577,8 +577,11 @@ The `allOf` JSON Schema keyword expresses that a value must be valid against *al
 For `object` types, it can be used to model an inheritance relationship between schemas. For code generation, the first subschema that's a reference (`$ref`) is considered the parent.
 Subschemas in an `allOf` SHOULD NOT declare the same properties, because this will lead to problems for code generation tools.
 
-To model polymorphism, the `discriminator` keyword designates a property used to resolve the child schema against which the object will be validated.
-It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
+To model polymorphism, the `discriminator` keyword designates a property used to resolve the child schema against which the object will be validated:
+
+* The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the "parent" schema (declaring `allOf`), and listed as `required`.
+* It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
+
 Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
 ====
 
@@ -746,7 +749,14 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 
 * subschemas with only a `required` constraint, without a `type` or other constraint
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
-* subschemas of `type: object`, when a `discriminator` is also defined. Properties may only be defined within the subschemas. Like for allOf-style polymorphism (<<rule-sch-allof>>), it is RECOMMENDED to provide explicit `mapping` of discriminator values to subschemas.
+* subschemas of `type: object`, when a `discriminator` is also defined. Unlike `allOf`-style polymorphism (<<rule-sch-allof>>), properties SHOULD only be defined within the subschemas.
+
+When using `oneOf` in combination with a `discriminator`:
+
+* an explicit `mapping` of discriminator values to subschemas is RECOMMENDED
+* the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`.
+
+Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
 ====
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
@@ -759,14 +769,15 @@ These examples generate correct code:
 
 a|
 ```YAML
-type: object
-description: Exactly one of `propertyA` or `propertyB` properties should be set.
-properties:
-  propertyA:
-    type: string
-  propertyB:
-    type: string
-    oneOf:
+OneOfTwoPropertiesRequiredSchema:
+  type: object
+  description: Exactly one of `propertyA` or `propertyB` properties should be set.
+  properties:
+    propertyA:
+      type: string
+    propertyB:
+      type: string
+  oneOf:
     - required: [propertyA]
     - required: [propertyB]
 ```
