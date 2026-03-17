@@ -16,7 +16,7 @@ Embedded resources are returned at the client's request if the `embed` query par
 The name of the JSON property referencing the subresource can be used as value of the `embed` parameter.
 ====
 
-This way of embedding resources limits the changes required when a clients starts to use it, and only impacts the JSON Schema type of the root document.
+This way of embedding resources limits the changes required when a client starts to use it, and only impacts the JSON Schema type of the root document.
 It also works well when there are multiple occurrences of the same subresource, and when embedding resources more than one level deep.
 
 In JSON Schema, `additionalProperties` can be used to specify the schemas allowed in `embedded`.

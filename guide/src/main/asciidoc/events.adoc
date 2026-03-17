@@ -39,8 +39,6 @@ The semantics, formats and bindings of the https://github.com/cloudevents/spec[C
 
 This guide extends upon the CloudEvents specification, defining an _Asynchronous Message_ to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
 
-All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
-
 Asynchronous Messages contain two types of information:
 
 * context: metadata providing contextual information about the message
@@ -48,7 +46,15 @@ Asynchronous Messages contain two types of information:
 
 If using the CloudEvent structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
 
-The context is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
+All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event SHOULD NOT identify a specific routing destination.
+
+An Asynchronous Message MUST be immutable. If a context attribute is added by an intermediary, the result is considered a new Asynchronous Message and the identifier of the message (combination of `source` and `id`) should be changed as well. Exchanging a message multiple times over different protocol bindings doesn't impact its identity.
+====
+
+.Context attributes of an asynchronous message
+[rule, async-ctxt]
+====
+The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
 Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an AsynchronousMessage defined by this guide.
 
@@ -82,7 +88,7 @@ REQUIRED
 
 string (UUID recommended)
 a| `"a81bc81b-dead-4e5d-abff-90865d1e13b1"`
-|  Identifies the message. Producers MUST ensure that source + id is unique for each distinct event.
+|  Identifies the message. Producers MUST ensure that `source` + `id` is unique for each distinct event.
 
 a| `dataschema`
 | OPTIONAL
@@ -316,5 +322,70 @@ schemas:
               type: string
           required: [id]
       required: [ data ]
+----
+====
+
+.Duplicates and out-of-order messages
+[rule, async-order]
+====
+Distributed and concurrent systems make it hard to guarantee exactly-once or order-preserving message delivery. Consumers SHOULD NOT rely on messages being unique and sent in (chronological) order unless explicitly documented in the API description.
+
+Asynchronous messages SHOULD be designed to allow duplicates and out-of-order processing. A consumer should be able to detect duplicates or any ordered relationship without having to rely on the order of arrival or transport-layer information not part of the Asynchronous Message.
+====
+
+While the combination of `source` and `id` is unique, this might not be sufficient e.g. in a migration scenario to detect duplicates when the same data change event is provided in multiple messages in different formats. A separate identifier of the data change may be needed in such case.
+
+As common example, idempotent out-of-order processing for data change events can be supported by sending the following information:
+
+* the document (entity) <<section-identifier, identifier>>,
+* an ordering key that increases monotonically for this document
+* the document state after the change
+
+A consumer interested in the current state can then ignore events older than the last processed event of the document. A consumer interested in the history of a document can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
+If a consultation operation for the document exists, including the same ordering key in its response allows consumers to ignore any data change events that were already applied.
+
+Note: timestamps are often a bad choice as ordering key, since in distributed systems events may occur at the same time, and clocks are not sufficiently synchronized, and jump forward and backward to compensate drifts or leap seconds.
+
+.Data change event with an ordering key
+====
+This example represents two events for a name change on the same person.
+`ssin` is the document identifier, while `version` increases sequentially for any change on the person. The event includes the full representation of the person after the change.
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "data": {
+    "ssin": "12345678901",
+    "version": "2",
+    "name": {
+      "givenName": "John",
+      "familyName": "Doe"
+    }
+  }
+}
+----
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "550e8400-e29b-41d4-a716-446655440009",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "data": {
+    "ssin": "12345678901",
+    "version": "3",
+    "name": {
+      "givenName": "Johnny",
+      "familyName": "Doe"
+    }
+  }
+}
 ----
 ====
