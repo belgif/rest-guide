@@ -35,16 +35,16 @@ Moreover, the project provides SDKs for most popular programming languages to su
 .CloudEvents format for asynchronous messages
 [rule, async-cespec]
 ====
-The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent asynchronous messages in APIs.
+The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent asynchronous messages in APIs.
 
-This guide extends upon the CloudEvents specification, defining an _Asynchronous Message_ to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
+An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
 
 Asynchronous Messages contain two types of information:
 
-* context: metadata providing contextual information about the message
-* data: Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
+* _context_ : Metadata providing contextual information about the message
+* _data_ : Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
 
-If using the CloudEvent structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
+When using the CloudEvent structured JSON format, the data is represented by a `data` (any JSON type) or `data_base64` property (a binary as base64-encoded string).
 
 All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event SHOULD NOT identify a specific routing destination.
 
@@ -56,7 +56,7 @@ An Asynchronous Message MUST be immutable. If a context attribute is added by an
 ====
 The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
-Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an AsynchronousMessage defined by this guide.
+Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
 
 [cols="1,1,2,3"]
 |===
