@@ -577,9 +577,9 @@ The `allOf` JSON Schema keyword expresses that a value must be valid against *al
 For `object` types, it can be used to model an inheritance relationship between schemas. For code generation, the first subschema that's a reference (`$ref`) is considered the parent.
 Subschemas in an `allOf` SHOULD NOT declare the same properties, because this will lead to problems for code generation tools.
 
-To model polymorphism, the `discriminator` keyword designates a property used to resolve the child schema against which the object will be validated:
+To model polymorphism, the `discriminator` keyword on a parent schema designates a property used to resolve the child schema against which the object will be validated:
 
-* The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the "parent" schema (declaring `allOf`), and listed as `required`.
+* The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the parent schema and listed as `required`.
 * It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas.
 
 Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
