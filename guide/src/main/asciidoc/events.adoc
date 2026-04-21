@@ -257,7 +257,8 @@ https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeti
 ====
 [source,yaml]
 ----
-schemas:
+components:
+  schemas:
     MeetingMessage:
       description: Common parent schema of all async messages in the meeting API
       # common parent is not needed if only using the message type schemas from AsyncAPI
@@ -266,11 +267,11 @@ schemas:
       discriminator:
         propertyName: type
         mapping:
-          "be.belgif.example.meeting.v3.meetings.create": CreateMeetingMessage
-          "be.belgif.example.meeting.v3.meetings.create.reply": CreateMeetingReplyMessage
-          "be.belgif.example.meeting.v3.meetings.create.problemReply": CreateMeetingProblemReplyMessage
-          "be.belgif.example.meeting.v3.meetings.notify.canceled": MeetingCanceledMessage
-          "be.belgif.example.meeting.v3.meetings.notify.invited": MeetingInvitedMessage
+          "be.belgif.example.meeting.v3.meetings.create": "#/components/schemas/CreateMeetingMessage"
+          "be.belgif.example.meeting.v3.meetings.create.reply": "#/components/schemas/CreateMeetingReplyMessage"
+          "be.belgif.example.meeting.v3.meetings.create.problemReply": "#/components/schemas/CreateMeetingProblemReplyMessage"
+          "be.belgif.example.meeting.v3.meetings.notify.canceled": "#/components/schemas/MeetingCanceledMessage"
+          "be.belgif.example.meeting.v3.meetings.notify.invited": "#/components/schemas/MeetingInvitedMessage"
     CreateMeetingMessage:
       type: object
       allOf:
