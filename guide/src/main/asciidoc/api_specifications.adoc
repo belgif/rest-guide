@@ -580,10 +580,12 @@ Subschemas in an `allOf` SHOULD NOT declare the same properties, because this wi
 To model polymorphism, the `discriminator` keyword on a parent schema designates a property used to resolve the child schema against which the object will be validated:
 
 * The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the parent schema and listed as `required`.
-* It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas, using the URI-reference syntax (e.g. `"#/components/schemas/Child"`)
+* It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas, using the URI-reference syntax (e.g. `"#/components/schemas/Child"`).
 
 Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
 ====
+
+Using schema names in discriminator `mapping` instead of URI-references is discouraged because it leads to implementation-specific behavior (as described in https://spec.openapis.org/oas/v3.0.4#options-for-mapping-values-to-schemas[these] https://spec.openapis.org/oas/v3.0.4#resolving-implicit-connections[two] sections of the OpenAPI specification).
 
 [NOTE]
 Version 3.0.4 of the OpenAPI Specification added that "a `discriminator` MUST NOT change the validation outcome of the schema". However, most existing tooling currently do reject values that are not valid against their corresponding child schema or cannot be mapped to one.
@@ -758,8 +760,6 @@ When using `oneOf` in combination with a `discriminator`:
 
 Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
 ====
-
-Using schema names in discriminator `mapping` instead of URI-references is discouraged because it leads to implementation-specific behavior (as described in https://spec.openapis.org/oas/v3.0.4#options-for-mapping-values-to-schemas[these] https://spec.openapis.org/oas/v3.0.4#resolving-implicit-connections[two] sections of the OpenAPI specification).
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
 
