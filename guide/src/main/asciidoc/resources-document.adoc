@@ -56,7 +56,6 @@ a|
 === Child resources
 
 A document may have _child resources_ of any type (singleton document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
-// TODO: no /{id1}/{id2}
 
 In domain modeling, an entity can be modeled as a child of another entity, when its lifecycle depends on the parent, i.e.:
 
@@ -71,12 +70,12 @@ In that case, model the related resources in a separate API and link to the prin
 [rule, child-ent]
 ====
 
-Interactions with entities that are, in conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
+Interactions with entities that are, in a conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
 
 The *identity* of a child entity can be represented by:
 
 * its own globally unique identifier
-* a composite key (parent id + child id) with the child id only unique within the scope of its parent
+* or a composite key (parent id + child id) with the child id only unique within the scope of its parent
 
 If there's a natural business key, whether composite or not, it SHOULD be used instead of introducing a new identifier (also see <<rule-id-choice>>).
 
@@ -110,7 +109,7 @@ Consider following example:
 
 * a _meeting_ is a top level resource: `/meetings/{meetingId}`
 * a _meeting_ has _invitation_ child entities
-* an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once
+* an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once. Alternatively, a new globally unique `invitationId` could be introduced.
 
 Following choices are possible to represent _invitation_ entities:
 
@@ -153,7 +152,7 @@ a|
 
 *(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId={personId}`
 
-*(2)* the character used as key separator `:` should be chosen so that it isn't allowed as part of `meetingId` or `personId`
+*(2)* to avoid URL parsing errors, the character used as key separator `:` should be chosen so that it isn't allowed as part of `meetingId` or `personId`
 ====
 
 
