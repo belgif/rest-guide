@@ -53,11 +53,108 @@ a|
 |===
 ====
 
-*Child resources of a document*
+=== Child resources
 
-A document may have _child resources_ of any type (document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
-Occasionally complex resources have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer resource could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
-In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see <<rule-hyp-links>>) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation. 
+A document may have _child resources_ of any type (singleton document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
+
+In domain modeling, an entity can be modeled as a child of another entity, when its lifecycle depends on the parent, i.e.:
+
+* a child resource cannot be created without a parent
+* if the parent is deleted, the child is deleted as well
+* it is not possible to change the parent of a child
+
+Occasionally complex documents have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer document could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
+In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see <<rule-hyp-links>>) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
+
+.Child entities
+[rule, child-ent]
+====
+
+Interactions with entities that are, in a conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
+
+The *identity* of a child entity can be represented by:
+
+* its own globally unique identifier
+* or a composite key (parent id + child id) with the child id only unique within the scope of its parent
+
+If there's a natural business key, whether composite or not, it SHOULD be used instead of introducing a new identifier (also see <<rule-id-choice>>).
+
+Regardless of choice, the identifier of the parent entity SHOULD be included in the full representation of a child and be immutable.
+
+The *path* of a child entity can be designed either as a top-level or child resource path:
+
+|===
+|option| preferred when
+
+| top-level resource path
+a|
+* the parent entity is managed in another API
+* resource nesting would become too deep
+* clients frequently perform operations on the child entities _without_ knowing the parent id
+
+| child resource path under the parent entity
+
+a|
+
+* the child entity is an integral part of the parent
+* the parent resource is managed in the same API
+* clients usually perform operations on the child entities _within_ the context of its parent entity
+|===
+
+====
+
+.Child entity
+====
+Consider following example:
+
+* a _meeting_ is a top level resource: `/meetings/{meetingId}`
+* a _meeting_ has _invitation_ child entities
+* an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once. Alternatively, a new globally unique `invitationId` could be introduced.
+
+Following choices are possible to represent _invitation_ entities:
+
+[cols="1,2,2"]
+|===
+|identity of child entity | child resource path | top-level resource path
+
+|composite key
+a|
+
+`/meetings/{meetingId}/invitations/{personId}` (GET/PUT/PATCH/DELETE)
+
+`/meetings/{meetingId}/invitations` (GET/POST)
+
+`/invitations` (GET)   *(1)*
+
+
+a|
+
+`/invitations/{meetingId}:{personId}` (GET/PUT/PATCH/DELETE) *(2)*
+
+`/invitations` (GET/POST)
+
+
+| globally unique id
+
+a|
+`/meetings/{meetingId}/invitations/{invitationId}` (GET/PUT/PATCH/DELETE)
+
+`/meetings/{meetingId}/invitations` (GET/POST)
+
+`/invitations` (GET)   *(1)*
+
+a|
+`/invitations/{invitationId}` (GET/PUT/PATCH/DELETE)
+
+`/invitations` (GET/POST)
+
+|===
+
+*(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId={personId}`
+
+*(2)* to avoid URL parsing errors, the character used as key separator `:` should be chosen so that it isn't allowed as part of `meetingId` or `personId`
+====
+
 
 [[section-identifier]]
 === Identifier
