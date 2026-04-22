@@ -35,22 +35,28 @@ Moreover, the project provides SDKs for most popular programming languages to su
 .CloudEvents format for asynchronous messages
 [rule, async-cespec]
 ====
-The semantics, formats and bindings of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0] SHOULD be used to represent asynchronous messages in APIs.
+The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent asynchronous messages in APIs.
 
-This guide extends upon the CloudEvents specification, defining an _Asynchronous Message_ to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
-
-All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event will not identify a specific routing destination.
+An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
 
 Asynchronous Messages contain two types of information:
 
-* context: metadata providing contextual information about the message
-* data: Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
+* _context_ : Metadata providing contextual information about the message
+* _data_ : Domain-specific information about the message (i.e. the payload). This might include information about an event occurrence, details about the data that was changed, or more.
 
-If using the CloudEvent structured JSON format, the data is represented by `data` (any JSON type) or `data_base64` (a binary as base64-encoded string).
+When using the CloudEvent structured JSON format, the data is represented by a `data` (any JSON type) or `data_base64` property (a binary as base64-encoded string).
 
-The context is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
+All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event SHOULD NOT identify a specific routing destination.
 
-Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an AsynchronousMessage defined by this guide.
+An Asynchronous Message MUST be immutable. If a context attribute is added by an intermediary, the result is considered a new Asynchronous Message and the identifier of the message (combination of `source` and `id`) should be changed as well. Exchanging a message multiple times over different protocol bindings doesn't impact its identity.
+====
+
+.Context attributes of an asynchronous message
+[rule, async-ctxt]
+====
+The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
+
+Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
 
 [cols="1,1,2,3"]
 |===
@@ -82,7 +88,7 @@ REQUIRED
 
 string (UUID recommended)
 a| `"a81bc81b-dead-4e5d-abff-90865d1e13b1"`
-|  Identifies the message. Producers MUST ensure that source + id is unique for each distinct event.
+|  Identifies the message. Producers MUST ensure that `source` + `id` is unique for each distinct event.
 
 a| `dataschema`
 | OPTIONAL
@@ -122,9 +128,9 @@ string
 
 see <<rule-async-svctype>>
 
-| `addressChanges.v1`
-a| identifies the API description defining the event types
-can be used to perform more coarse grained routing of messages, rather than on individual `type` values
+| `be.nsso.employer.v1`
+a| Identifies the API description defining the event types.
+It can be used to perform more coarse grained routing of messages, rather than on individual `type` values.
 
 a| `relatedto`|
 REQUIRED for reply messages only
@@ -148,7 +154,7 @@ string
 ====
 The value of the `service` context attribute SHOULD follow format: _serviceName_ `.v` _majorVersion_
 
-Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`.
+Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`. It SHOULD be prefixed with a reverse-DNS name. The prefixed domain dictates the organization which defines the semantics of the message type.
 
 The value of `type` SHOULD follow this naming convention:
 
@@ -214,8 +220,15 @@ You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` s
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
 ====
 
-When providing a generic asynchronous endpoint for exchange of event types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema.
+[rule, async-generic]
+.Endpoints for transfer of asynchronous messages of any type
+====
+When providing a generic asynchronous endpoint for exchange of message types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The definitions of specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema (see <<rule-async-contract>>).
 
+For batch transfers supporting a very large number of messages, like SFTP file transfer, the `AsynchronousMessagesBatch` schema SHOULD be used.
+
+Additional data outside the `AsynchronousMessage` MUST NOT be required for the functional processsing of a message, but MAY support technical aspects during message transfer like batch-level routing or authentication.
+====
 
 .OpenAPI and AsyncAPI description of asynchronous message exchanges
 ====
@@ -309,5 +322,70 @@ schemas:
               type: string
           required: [id]
       required: [ data ]
+----
+====
+
+.Duplicates and out-of-order messages
+[rule, async-order]
+====
+Distributed and concurrent systems make it hard to guarantee exactly-once or order-preserving message delivery. Consumers SHOULD NOT rely on messages being unique and sent in (chronological) order unless explicitly documented in the API description.
+
+Asynchronous messages SHOULD be designed to allow duplicates and out-of-order processing. A consumer should be able to detect duplicates or any ordered relationship without having to rely on the order of arrival or transport-layer information not part of the Asynchronous Message.
+====
+
+While the combination of `source` and `id` is unique, this might not be sufficient e.g. in a migration scenario to detect duplicates when the same data change event is provided in multiple messages in different formats. A separate identifier of the data change may be needed in such case.
+
+As common example, idempotent out-of-order processing for data change events can be supported by sending the following information:
+
+* the document (entity) <<section-identifier, identifier>>,
+* an ordering key that increases monotonically for this document
+* the document state after the change
+
+A consumer interested in the current state can then ignore events older than the last processed event of the document. A consumer interested in the history of a document can use the ordering key to recreate a (partially) ordered sequence of events, and ignore duplicate events with the same ordering key.
+If a consultation operation for the document exists, including the same ordering key in its response allows consumers to ignore any data change events that were already applied.
+
+Note: timestamps are often a bad choice as ordering key, since in distributed systems events may occur at the same time, and clocks are not sufficiently synchronized, and jump forward and backward to compensate drifts or leap seconds.
+
+.Data change event with an ordering key
+====
+This example represents two events for a name change on the same person.
+`ssin` is the document identifier, while `version` increases sequentially for any change on the person. The event includes the full representation of the person after the change.
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "data": {
+    "ssin": "12345678901",
+    "version": "2",
+    "name": {
+      "givenName": "John",
+      "familyName": "Doe"
+    }
+  }
+}
+----
+
+[source,json]
+----
+{
+  "specversion": "1.0",
+  "id": "550e8400-e29b-41d4-a716-446655440009",
+  "service": "be.belgif.example.person.v3",
+  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "source": "urn:async-source:be.belgif.example",
+  "data": {
+    "ssin": "12345678901",
+    "version": "3",
+    "name": {
+      "givenName": "Johnny",
+      "familyName": "Doe"
+    }
+  }
+}
 ----
 ====
