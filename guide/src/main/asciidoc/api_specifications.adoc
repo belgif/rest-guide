@@ -66,7 +66,9 @@ Free-text documentation can be added throughout an OpenAPI:
 ** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
 * The `title` property on schemas MAY be used to provide a human-readable short name of a schema
 ** For reusable schemas under `components`, it is redundant with the component's name. In this case, it either SHOULD NOT be used or have the same value as the component's name so it won't hide it in visualization tools like SwaggerUI.
-** For inline schemas (i.e. part of another definition) of type `object`, an UpperCamelCase `title` SHOULD be used to provide a human-readable name for code generation. However, if the schema can be reused, it is better to refactor it to its own schema component (<<rule-oas-comp>>)
+** For inline schemas (i.e. part of another definition) of type `object`, an UpperCamelCase `title` SHOULD be used to provide a human-readable name for code generation. However:
+*** if the schema can be reused, it is better to refactor it to its own schema component (<<rule-oas-comp>>).
+*** for inline schemas under the `allOf` or `not` keywords, the `title` property is OPTIONAL, because no classes are generated for them.
 ====
 
 ====
