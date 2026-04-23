@@ -10,7 +10,7 @@
 *** clarify that an Asynchronous Message is immutable and all functional data should be part of it (i.e. not exclusively in exchange protocol)
 *** guidelines on context attributes were split off to <<rule-async-ctxt>>
 ** new rule <<rule-async-generic>> with guidelines on generic endpoints for Asynchronous Messages
-** add a list of Belgian Government organizations that endorse this guide (<<Introduction>>)
+** add a list of organizations that endorse this guide (<<Introduction>>)
 
 * 2026-02-16
 ** new rule <<rule-oas-doc>> on providing documentation in OpenAPI. This replaces the previous `[ext-docs]` rule.
