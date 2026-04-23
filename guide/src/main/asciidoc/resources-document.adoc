@@ -152,7 +152,7 @@ a|
 
 *(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId={personId}`
 
-*(2)* to avoid URL parsing errors, the character used as key separator `:` should be chosen so that it isn't allowed as part of `meetingId` or `personId`
+*(2)* to avoid URL parsing errors, the character used as key separator (`:` in this example) should be chosen so that it isn't allowed as part of `meetingId` or `personId`
 ====
 
 

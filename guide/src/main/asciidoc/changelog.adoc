@@ -1,4 +1,17 @@
 == Changelog
+
+* 2026-04-23
+** update <<rule-sch-allof>> and <<rule-sch-oneof>>: guidelines on use of `discriminator` and `mapping`
+** new rule <<rule-child-ent>> on representation of child entities
+** update rule <<rule-oas-descr>> with exception for `title` within `allOf` and `not` inline schemas
+** update <<rule-async-svctype>>: `service` should be prefixed with a reverse-DNS name
+** new rule <<rule-async-order>> on out-of-order and duplicate messages
+** update rule <<rule-async-cespec>>:
+*** clarify that an Asynchronous Message is immutable and all functional data should be part of it (i.e. not exclusively in exchange protocol)
+*** guidelines on context attributes were split off to <<rule-async-ctxt>>
+** new rule <<rule-async-generic>> with guidelines on generic endpoints for Asynchronous Messages
+** add a list of Belgian Government organizations that endorse this guide (<<Introduction>>)
+
 * 2026-02-16
 ** new rule <<rule-oas-doc>> on providing documentation in OpenAPI. This replaces the previous `[ext-docs]` rule.
 ** update rule <<rule-oas-descr>>:
