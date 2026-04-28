@@ -1,6 +1,6 @@
 == Changelog
 
-* 2026-04-23
+* 2026-04-28
 ** update <<rule-sch-allof>> and <<rule-sch-oneof>>: guidelines on use of `discriminator` and `mapping`
 ** new rule <<rule-child-ent>> on representation of child entities
 ** update rule <<rule-oas-descr>> with exception for `title` within `allOf` and `not` inline schemas

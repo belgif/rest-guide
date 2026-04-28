@@ -33,12 +33,14 @@ For brevity most URLs in JSON examples are shortened, but in practice they shoul
 
 *Organizations that endorse the Belgif REST guidelines*
 
-[cols="4*^.^a",frame=none,grid=none]
+[cols="3*^.^a",frame=none,grid=none]
 |===
 
 | link:https://www.ksz-bcss.fgov.be[image:logos/cbss.png[Crossroads Bank of Social Security,title=Crossroads Bank of Social Security,width=150],window=_blank]
+| link:https://bosa.belgium.be[image:logos/bosa.png[BOSA FPS Policy and Support,title=BOSA FPS Policy and Support,width=180],window=_blank]
 | link:https://www.ehealth.fgov.be[image:logos/ehealth.png[eHealth,title=eHealth],window=_blank]
 | link:https://fin.belgium.be[image:logos/fps-finance.png[Federal Public Service Finance,title=Federal Public Service Finance],window=_blank]
+| link:https://www.nisse.be[image:logos/nisse.png[National Institute for the Social Security of the Self-employed,title=National Institute for the Social Security of the Self-employed],window=_blank]
 | link:https://smals.be[image:logos/smals.png[Smals,title=Smals],window=_blank]
 
 |===
