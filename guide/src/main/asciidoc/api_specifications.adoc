@@ -917,7 +917,7 @@ StringSchema:
   type: string
 AlsoStringSchema:
   type: string
-
+```
 | empty class
 
 a|
