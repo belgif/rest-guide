@@ -142,12 +142,12 @@ For a single type of interaction with an entity (e.g. consult, update, delete or
 If sensitive data needs to be fully hidden from client or server applications, even in the message payload, consider alternatives like encryption or pseudonymisation.
 ====
 
+[cols="3*a"]
 |===
 | suffix |  original URL example                | safe URL example
 
-|`/get`  | `GET /persons/{sensitivePersonId}` | `POST /persons/get`
-|`/update`  | `PUT /persons/{sensitivePersonId}`
-or
+|`/get`  a| `GET /persons/{sensitivePersonId}` | `POST /persons/get`
+|`/update`  | `PUT /persons/{sensitivePersonId}` +
 `PATCH /persons/{sensitivePersonId}` | `POST /persons/update`
 |`/delete`  | `DELETE /persons/{sensitivePersonId}` | `POST /persons/delete`
 |`/query`  | `GET /persons?sensitiveData={sensitiveData}` | `POST /persons/query`
