@@ -125,4 +125,32 @@ include::resources-collection.adoc[leveloffset=+1]
 
 include::resources-controller.adoc[leveloffset=+1]
 
+=== Sensitive data
 
+[rule,sens-dat]
+.Sensitive Data in URLs or headers
+====
+Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters. Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
+The `Authorization` and `Cookie` HTTP headers are an exception, as they are recognized by infrastructure as sensitive and not logged.
+
+For operations that would otherwise be modeled as URLs containing sensitive data, the sensitive data SHOULD instead be put in the request payload of a POST operation.
+A verb suffix `get`, `update`, `delete` or `query` SHOULD be used for operations that would otherwise not use the POST method.
+Resource linking, caching or embedding are not possible for such URLs.
+
+For a single type of interaction with an entity (e.g. consult, update, delete or query), avoid introducing multiple API operations. Querying usually supports more parameters, so is more often sensitive.
+
+If sensitive data needs to be fully hidden from client or server applications, even in the message payload, consider alternatives like encryption or pseudonymisation.
+====
+
+[cols="3*a", cols="1,3,3"]
+|===
+| suffix |  original URL example                | safe URL example
+
+|`/get`  | `GET /persons/{sensitivePersonId}` | `POST /persons/get`
+|`/update`  | `PUT /persons/{sensitivePersonId}` +
+`PATCH /persons/{sensitivePersonId}` | `POST /persons/update`
+|`/delete`  | `DELETE /persons/{sensitivePersonId}` | `POST /persons/delete`
+|`/query`  | `GET /persons?sensitiveData={sensitiveData}` | `POST /persons/query`
+|_none_ | `POST /persons/{sensitivePersonId}/documents` | `POST /persons/documents`
+|_none_ | `POST /persons/{sensitivePersonId}/transferDossier` | `POST /persons/transferDossier`
+|===
