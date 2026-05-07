@@ -60,7 +60,7 @@ Alongside the definitions of allowed interactions (operations, schemas, ...), su
 ====
 Free-text documentation can be added throughout an OpenAPI:
 
-* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (MANDATORY), `contact` and `description`
+* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (REQUIRED), `contact` and `description`
 * The `summary` property SHOULD be present on each operation providing a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
 * The `description` property on various definitions MAY be used to provide longer descriptions
 ** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
@@ -181,6 +181,63 @@ Code generators use it to generate method names and generally take care of trans
 ```
 ====
 
+[rule, opbody-req]
+.Required request payload
+====
+Request payloads are optional by default in OpenAPIn even though they usually need to be required. It is most of the time an omission when this default isn't changed.
+
+OpenAPI authors MUST specify the `required` property on a `requestBody` explicitly, to avoid any ambiguity.
+====
+
+.Required request payload
+====
+```yaml
+/documents:
+  post:
+    summary: Create a new document
+    operationId: createDocument
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Document"
+      required: true
+```
+====
+
+.Security requirements
+====
+The `security` field defined at the root level of the OpenAPI entry document, or on an operation object, can be used to specify security requirements for interactions with the API.
+
+Each property name under `security` MUST correspond to a security scheme components (in `#/components/securitySchemes`). If the security scheme is of type "oauth2" or "openIdConnect", then the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope.
+The scope names MUST correspond to one of the `scopes` values in one of the OAuth flows the corresponding security scheme component.
+====
+
+.OAuth2 security requirements
+====
+```yaml
+security:   # root-level security requirement is applied to all operations unless overridden
+  - Oauth:  # the name of the securityScheme component
+    - 'scope:organisation:myapi:consult'  # scope name in at least one of the flows of the securityScheme
+    - 'scope:organisation:myapi:update'
+components:
+  securitySchemes:
+    Oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://oauth.example.org/authorize'
+          tokenUrl: 'https://oauth.example.org/token'
+          scopes:
+            'scope:organization:myapi:consult': this scope allows to consult all data
+            'scope:organization:myapi:update': this scope allows to update all data
+        clientCredentials:
+          tokenUrl: 'https://oauth.example.org/token'
+          scopes:
+            'scope:organization:myapi:consult': this scope allows to consult all data
+            'scope:organization:myapi:update': this scope allows to update all data
+````
+
 [rule, gen-header]
 .General HTTP headers
 ====
@@ -246,6 +303,8 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ====
 [[default-values,default values]]
 Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI description.
+
+Default values MUST be schema-valid.
 ====
 
 [rule, path-param]
