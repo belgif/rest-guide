@@ -205,6 +205,7 @@ OpenAPI authors MUST specify the `required` property on a `requestBody` explicit
 ```
 ====
 
+[rule, sec-req]
 .Security requirements
 ====
 The `security` field defined at the root level of the OpenAPI entry document, or on an operation object, can be used to specify security requirements for interactions with the API.
