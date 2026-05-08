@@ -291,10 +291,10 @@ Take into account the considerations http://zalando.github.io/restful-api-guidel
 
 |===
 
-|`next` | MANDATORY (except for the last page) | hyperlink to the next page
+|`next` | REQUIRED (except for the last page) | hyperlink to the next page
 |`prev` | OPTIONAL | hyperlink to the previous page
 |`pageSize` | RECOMMENDED | Maximum number of items per page. For the last page, its value should be independent of the number of actually returned items.
-| `page` |MANDATORY (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
+| `page` |REQUIRED (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
 | `first` | OPTIONAL | hyperlink to the first page
 | `last` | OPTIONAL | hyperlink to the last page
 | `total` | OPTIONAL | Total number of items across all pages. If query parameters are used to filter the result set, this is the total of the collection result set, not of the entire collection.
@@ -308,7 +308,7 @@ The names of the properties with hyperlink values and the `items` property are d
 |===
 
 | `pageSize` | OPTIONAL |  maximum number of items per page desired by client; must have a default value if absent.
-| `page` | MANDATORY with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
+| `page` | REQUIRED with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
 
 |===
 
