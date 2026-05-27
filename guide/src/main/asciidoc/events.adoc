@@ -56,11 +56,22 @@ An Asynchronous Message MUST be immutable. If a context attribute is added by an
 ====
 The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
-Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
+The table below lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
+
+Future minor version updates of the CloudEvents specification or of the Asynchronous Message schemas may define additional attributes. For forward-compatibility, consumers SHOULD ignore any unknown context attributes.
 
 [cols="1,1,2,3"]
 |===
 | context attribute | format | example | description
+
+a| `specversion`
+| REQUIRED
+
+string
+| "1.0"
+| The version of the CloudEvents specification used to represent the message.
+
+Producers MUST use 1.0 to reference this version of the specification, while consumers SHOULD accept any value with major version number 1.
 
 a| `type`
 | REQUIRED
@@ -69,7 +80,7 @@ string
 
 see <<rule-async-svctype>>
 
-a| `be.nsso.employer.v1.employers.address.notify.updated`
+a| `"be.nsso.employer.v1.employers.address.notify.updated"`
 a|  Type of the message.
 Often this attribute is used for routing, observability, policy enforcement, etc.
 
