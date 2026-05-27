@@ -230,9 +230,9 @@ Absent for events.
 
 _childResourceType_
 
-| The type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see <<Document>>) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
+| The type of resource of the subject of the message. The same names and resource hierarchy SHOULD be used consistently across REST APIs (see <<Document>>) and asynchronous messages, i.e. a lowerCamelCase noun in American English. Use a singular noun if the message applies on a single entity, and plural if it applies to multiple or a variable number of entities.
 
-For child resource types, add one or more _childResourceType_ segments
+For child resource types, add one or more _childResourceType_ segments.
 |===
 ====
 
