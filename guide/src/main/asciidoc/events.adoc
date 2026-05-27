@@ -1,19 +1,49 @@
 [[events]]
 == Asynchronous messaging and events
 
-  An "event" is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers.
+This chapter specifies how to represent:
 
-_definition from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
-
-Events are typically delivered using asynchronous messaging.
+* any type of message that is exchanged using asynchronous messaging
+* messages that communicate an event, even if exchanged synchronously
 
 _Asynchronous messaging_ refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
 
 Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad sense, a message broker can be any system that decouples both parties e.g. a Kafka broker, an AMQP-compatible broker, or a message database exposed using a REST API or webhooks.
 
-To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
+In general, we can distinguish following types of messages:
 
-This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for other asynchronous messages than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
+[cols="3"]
+|===
+|message type| conveys | properties
+
+| Command
+| a request for action
+a|
+* carries expectation that something happens as a result
+* directed from requesting system to the system handling the action
+
+| Query
+|
+a request for information
+a|
+* expectation that information will be provided
+* does not change any state
+* directed from requesting system to the system providing the information
+
+| Event
+| a data record expressing an occurrence and its context (*)
+a|
+* Events are routed from an event producer (the source) to interested event consumers (*)
+* the producer has no expectations of any action to be performed or of a reply
+* undirected: content isn't specific to a destination. An event could be distributed to a single, multiple or no destination.
+
+(*) _from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
+|===
+
+All of these message types can be communicated synchronously or asynchronously, though commands and queries are exchanged often synchronously while events typically delivered asynchronously.
+
+To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
+This guide extends upon this specification, defining additional guidelines and context attributes. It also adds support to represent commands and queries for asynchronous messaging, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
 
 The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
 Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
@@ -35,9 +65,9 @@ Moreover, the project provides SDKs for most popular programming languages to su
 .CloudEvents format for asynchronous messages
 [rule, async-cespec]
 ====
-The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent asynchronous messages in APIs.
+The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent events and asynchronous messages in APIs.
 
-An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. an asynchronous request-reply exchange) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
+An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. request/reply commands and queries) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
 
 Asynchronous Messages contain two types of information:
 
@@ -69,7 +99,7 @@ string
 
 see <<rule-async-svctype>>
 
-a| `be.nsso.employer.v1.employers.address.notify.updated`
+a| `be.nsso.employer.v1.employers.address.updated`
 a|  Type of the message.
 Often this attribute is used for routing, observability, policy enforcement, etc.
 
@@ -152,28 +182,84 @@ string
 [rule, async-svctype]
 .Value of `service` and `type` of an asynchronous message
 ====
-The value of the `service` context attribute SHOULD follow format: _serviceName_ `.v` _majorVersion_
 
-Similar to REST API names, `serviceName` denotes the API which defines the message, with its major version defined by `majorVersion`. It SHOULD be prefixed with a reverse-DNS name. The prefixed domain dictates the organization which defines the semantics of the message type.
+The value of the `service` and `type` context attributes SHOULD be structured as follows:
 
-The value of `type` SHOULD follow this naming convention:
+[cols="1,5"]
+|===
+| context attribute | format
 
-_serviceName_ `.v` _majorVersion_ `.` _resourceType_[ `.`  _childResourceType_] `.` _method_ [ `.` _suffix_]
+| `service` a|  _serviceName_ `.v` _majorVersion_
+
+|`type` a| _serviceName_ `.v` _majorVersion_ `.` _resourceType_[ `.`  _childResourceType_] `.` _method_ [ `.` _suffix_]
+|===
 
 with:
 
+[cols="1,4"]
+|===
+
+| _serviceName_ | The API which defines the message. It SHOULD be prefixed with a reverse-DNS name. The prefixed domain dictates the organization which defines the semantics of the message type.
+
+| _majorVersion_ | The major version of the API
+
+| _method_ |
+
+For commands:  `create`, `update`, `delete` or a custom method (similar to REST controller)
+
+For events:  a _past participle_ indicating the action or change that occurred e.g. "canceled", "deleted" or "replaced"
+
+For queries: `get`, `query` or a custom method (similar to REST controller)
+
+// TODO: query
+
 // TODO: add partialUpdate / patch?
 
-* _method_: `get`, `create`, `update`, `delete`, `notify` (in case of events) or a custom method (similar to REST controller)
-* _suffix_ is present for:
-** events (after method `notify`) : a _past participle_ indicating the action or change that occurred e.g. "canceled", "deleted" or "replaced"
-** replies: `reply` or `problemReply` in case a problem occurred when handling the request
-*** custom API-specific suffixes are also allowed e.g. intermediateReply
-* _resourceType_ : the type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see <<Document>>) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
-** for child resource types, add one or more _childResourceType_ segments
+| _suffix_
+
+a|
+For commands and queries:
+
+* requests: `request`
+* replies: `reply` or `problemReply` in case a problem occurred when handling the request
+* custom API-specific suffixes are also allowed e.g. intermediateReply
+
+Absent for events.
+
+| _resourceType_
+
+_childResourceType_
+
+| The type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see <<Document>>) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
+
+For child resource types, add one or more _childResourceType_ segments
+|===
 ====
 
 NOTE: To reduce complexity of managing multiple versions, versioning is done at service-level, not for each specific event type. This is similar to REST APIs, where versions are also managed at API-level rather than at operation-level.
+
+.`service` and `type` values
+====
+[cols="2,5"]
+|===
+| attribute | value
+
+| `service` | `be.belgif.example.meeting.v3`
+
+| `type` for an event |
+`be.belgif.example.meeting.v3.meeting.canceled`
+
+| `type` for creation command
+| `be.belgif.example.meeting.v3.meeting.create.request`
+`be.belgif.example.meeting.v3.meeting.create.reply`
+`be.belgif.example.meeting.v3.meeting.create.problemReply`
+
+| `type` for query
+| `be.belgif.example.meeting.v3.meetings.query.request`
+`be.belgif.example.meeting.v3.meetings.query.reply`
+`be.belgif.example.meeting.v3.meetings.query.problemReply`
+|===
+====
 
 .JSON CloudEvent representation of an address change of an employer
 ====
@@ -188,7 +274,7 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
   "specversion": "1.0",
   "id": "450e8400-e29b-41d4-a716-446655440007",
   "service": "be.belgif.example.meeting.v3",
-  "type": "be.belgif.example.meeting.v3.meetings.notify.invited",
+  "type": "be.belgif.example.meeting.v3.meeting.invited",
   "source": "urn:async-source:be.belgif.example",
   "subject": "132456",
   "data": {
@@ -253,26 +339,38 @@ https://github.com/belgif/openapi-cloudevents/blob/main/src/test/resources/meeti
 
 ====
 
-.Schema of an asynchronous message
+.Schemas of asynchronous messages
 ====
 [source,yaml]
 ----
 components:
   schemas:
-    MeetingMessage:
-      description: Common parent schema of all async messages in the meeting API
-      # common parent is not needed if only using the message type schemas from AsyncAPI
-      allOf:
-        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+    SentMeetingMessage:
+      description: Schema combining all async messages that can be sent in the meeting API
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/CreateMeetingRequestMessage"
       discriminator:
         propertyName: type
         mapping:
-          "be.belgif.example.meeting.v3.meetings.create": "#/components/schemas/CreateMeetingMessage"
-          "be.belgif.example.meeting.v3.meetings.create.reply": "#/components/schemas/CreateMeetingReplyMessage"
-          "be.belgif.example.meeting.v3.meetings.create.problemReply": "#/components/schemas/CreateMeetingProblemReplyMessage"
-          "be.belgif.example.meeting.v3.meetings.notify.canceled": "#/components/schemas/MeetingCanceledMessage"
-          "be.belgif.example.meeting.v3.meetings.notify.invited": "#/components/schemas/MeetingInvitedMessage"
-    CreateMeetingMessage:
+          "be.belgif.example.meeting.v3.meeting.create.request": "#/components/schemas/CreateMeetingRequestMessage"
+    ReceivedMeetingMessage:
+      description: Schema combining all async messages that can be received in the meeting API
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/CreateMeetingReplyMessage"
+        - $ref: "#/components/schemas/CreateMeetingProblemReplyMessage"
+        - $ref: "#/components/schemas/MeetingInvitedMessage"
+        - $ref: "#/components/schemas/MeetingCanceledMessage"
+      discriminator:
+        propertyName: type
+        mapping:
+          "be.belgif.example.meeting.v3.meeting.create.reply": "#/components/schemas/CreateMeetingReplyMessage"
+          "be.belgif.example.meeting.v3.meeting.create.problemReply": "#/components/schemas/CreateMeetingProblemReplyMessage"
+          "be.belgif.example.meeting.v3.meeting.invited": "#/components/schemas/MeetingInvitedMessage"
+          "be.belgif.example.meeting.v3.meeting.canceled": "#/components/schemas/MeetingCanceledMessage"
+
+    CreateMeetingRequestMessage:
       type: object
       allOf:
         - $ref: "#/components/schemas/MeetingMessage"
@@ -285,7 +383,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/MeetingMessage"
         # extends reply message, which adds relatedto(source) properties
-        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousReplyMessageBase"
+        - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousReplyMessageBase"
       properties:
         data:
           type: object
@@ -299,7 +397,7 @@ components:
       type: object
       allOf:
         - $ref: "#/components/schemas/MeetingMessage"
-        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousProblemReplyMessage"
+        - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousProblemReplyMessage"
 
     MeetingInvitedMessage:
       type: object
@@ -313,7 +411,7 @@ components:
     MeetingCanceledMessage:
       type: object
       allOf:
-        - $ref: "../../main/openapi/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
+        - $ref: "./belgif/cloudevents/v1/cloudevents-v1.yaml#/components/schemas/AsynchronousMessageBase"
       properties:
         data:
           type: object
@@ -358,7 +456,7 @@ This example represents two events for a name change on the same person.
   "specversion": "1.0",
   "id": "450e8400-e29b-41d4-a716-446655440007",
   "service": "be.belgif.example.person.v3",
-  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "type": "be.belgif.example.person.v3.person.nameChanged",
   "source": "urn:async-source:be.belgif.example",
   "data": {
     "ssin": "12345678901",
@@ -377,7 +475,7 @@ This example represents two events for a name change on the same person.
   "specversion": "1.0",
   "id": "550e8400-e29b-41d4-a716-446655440009",
   "service": "be.belgif.example.person.v3",
-  "type": "be.belgif.example.person.v3.person.notify.nameChanged",
+  "type": "be.belgif.example.person.v3.person.nameChanged",
   "source": "urn:async-source:be.belgif.example",
   "data": {
     "ssin": "12345678901",
