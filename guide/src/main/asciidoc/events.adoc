@@ -203,6 +203,17 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ----
 ====
 
+.Problem replies for asynchronous operations
+[rule, async-prbl]
+====
+Each asynchronous interaction (command or query) that provides a reply, SHOULD also provide a problem reply, with a Problem Details object (RFC 9457) as `data`. The same standardized Belgif problem types SHOULD be used as for REST APIs (see <<error-handling>>).
+
+The `type` SHOULD be the same as the one of the request, but with the `problemReply` suffix instead of `request`.
+
+The `AsynchronousProblemReplyMessage` schema of the https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] can be used.
+
+If an API provides a reply when a received message has an unexpected `service` or `type` value, the `urn:problem-type:belgif:resourceNotFound` problem type SHOULD be used. If the received `service` was unexpected, the value of `service` in the problem reply SHOULD be the one identifying the API that received the message.
+====
 
 .Specifying asynchronous messages
 [rule, async-contract]
@@ -214,7 +225,7 @@ OpenAPI can be used when asynchronous messages are transferred over HTTP(S), whi
 When using AsyncAPI, schemas of the events SHOULD be put in (a) separate schema-only OpenAPI document(s) and referenced from the AsyncAPI document. This allows the use of OpenAPI tooling like code generation and editing for message schemas.
 The same guidelines as for REST APIs apply, like naming conventions, reuse of components and <<Versioning, versioning>>.
 
-The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents repository] provides a schema for asynchronous messages the structured JSON CloudEvent format.
+The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] provides schemas for asynchronous messages the structured JSON CloudEvent format.
 You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage` can be used for `problemReply` messages.
 
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
@@ -324,6 +335,28 @@ components:
           required: [id]
       required: [ data ]
 ----
+
+In AsyncAPI, commands and queries with replies can be represented as operations:
+
+[source,yaml]
+----
+operations:
+  createMeeting:
+    summary: "Create a meeting"
+    action: send
+    channel:
+      $ref: '#/channels/MeetingSendChannel'
+    messages:
+      - $ref: '#/channels/MeetingSendChannel/messages/be.belgif.example.meeting.v3.meeting.create.request'
+    reply:
+      channel:
+        $ref: '#/channels/MeetingReceiveChannel'
+      messages:
+        - $ref: '#/channels/MeetingReceiveChannel/messages/be.belgif.example.meeting.v3.meeting.create.reply'
+        - $ref: '#/channels/MeetingReceiveChannel/messages/be.belgif.example.meeting.v3.meeting.create.problemReply'
+----
+
+Note that it is also possible to define operations with `action: receive`, where the API client receives requests and sends replies.
 ====
 
 .Duplicates and out-of-order messages
