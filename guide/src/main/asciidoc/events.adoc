@@ -58,7 +58,7 @@ The context of an Asynchronous Message is represented by attributes that MUST fo
 
 The table below lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
 
-Future minor version updates of the CloudEvents specification or of the Asynchronous Message schemas may define additional attributes. For forward-compatibility, consumers SHOULD ignore any unknown context attributes.
+Future minor version updates of the CloudEvents specification or of the Asynchronous Message schemas may define additional attributes. For forward-compatibility, consumers SHOULD ignore any unknown context attributes. As an Asynchronous Message is immutable (<<rule-async-cespec>>), if the message is redistributed to other consumers with the same `id` and `source` values, all attributes, including the unknown ones, MUST remain unchanged.
 
 [cols="1,1,2,3"]
 |===
