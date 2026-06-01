@@ -72,7 +72,7 @@ Their deprecation SHOULD be documented in OpenAPI .
 Deprecated elements MAY be completely removed them after a period in which clients can adapt.
 Always communicate clearly about the deprecated fields and transition period to clients.
 
-`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters and Schema Objects (data types). Otherwise, like on object properties, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
+`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters, headers and Schema Objects (data types). Otherwise, like on security schemes, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
 
 ====
 
