@@ -32,22 +32,22 @@ Note that it not possible to specify more than one schema this way in OpenAPI, s
   "family": {
     "parents": [{
       "ssin": "12345678901",
-      "href": "http://myrestapi/people/12345678901"
+      "href": "http://myrestapi/persons/12345678901"
     }],
     "children": [{
       "ssin": "98765432101",
-      "href": "http://myrestapi/people/98765432101"
+      "href": "http://myrestapi/persons/98765432101"
     }]
   },
   "embedded": {
-    "http://myrestapi/people/12345678901": {
-      "self": "http://myrestapi/people/12345678901",
+    "http://myrestapi/persons/12345678901": {
+      "self": "http://myrestapi/persons/12345678901",
       "ssin": "12345678901",
       "givenName": "Jane",
       "lastName": "Doe"
     },
-    "http://myrestapi/people/98765432101": {
-      "self": "http://myrestapi/people/98765432101",
+    "http://myrestapi/persons/98765432101": {
+      "self": "http://myrestapi/persons/98765432101",
       "ssin": "98765432101",
       "givenName": "Bobby",
       "lastName": "Doe"

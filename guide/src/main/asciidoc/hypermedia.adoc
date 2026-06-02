@@ -62,7 +62,7 @@ GET {API}/companies/1
    "self": "{API}/companies/1[/companies/1^]"
    "owner": {
       "ssin": "12345678901",
-      "href": "http://example.org/v1/people/12345678901"
+      "href": "http://example.org/v1/persons/12345678901"
    },
    "website": "https://wwww.mycompany.com"
 }
