@@ -83,6 +83,7 @@ Family:
 GET {API}/employer/409536968?embed=employees(address)
 ====
 
+[#caching]
 == Caching
 
 [rule, prf-cach]

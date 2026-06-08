@@ -22,7 +22,7 @@ If no `Content-Language` is specified, the default is that the content is intend
 [[i18n-negotiation]]
 == Accept-Language
 
-As for xref:mediatypes.adoc#media-types[], HTTP supports content negotiation for the language used in response content.
+As for xref:mediatypes.adoc[], HTTP supports content negotiation for the language used in response content.
 
 [rule, int-negot]
 .Accept-Language header

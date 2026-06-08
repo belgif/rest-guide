@@ -14,7 +14,7 @@ Status code xref:statuscodes.adoc#http-406[406] MUST be used to indicate that th
 
 Status code xref:statuscodes.adoc#http-415[415] MUST be used to indicate an unsupported media type in the request payload.
 
-If a resource supports multiple content types through negotation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see xref:performance.adoc#Caching[]).
+If a resource supports multiple content types through negotation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see xref:performance.adoc#Caching[Caching]).
 ====
 
 .Content negotiation
@@ -52,8 +52,8 @@ Content-Type: application/json;charset=UTF-8
 
 Media types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
 
-* `application/merge-patch+json` for JSON Merge Patch payloads (see xref:resources-document.adoc#partial-update[])
-* `application/problem+json` for Problem Detail for HTTP APIs (RFC 9457) payloads (see xref:errorhandling.adoc#error-handling[])
+* `application/merge-patch+json` for JSON Merge Patch payloads (see xref:resources-document.adoc#partial-update[Partial update])
+* `application/problem+json` for Problem Detail for HTTP APIs (RFC 9457) payloads (see xref:errorhandling.adoc[])
 
 [discrete]
 

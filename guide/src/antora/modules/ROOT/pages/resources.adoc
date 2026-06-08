@@ -47,10 +47,10 @@ Trailing slashes MUST NOT be used.
 ====
 The URI **SHOULD NOT contain a file extension**.
 
-A notable exception to this rule is the OpenAPI description (see xref:api_specifications.adoc#doc-resource[]).
+A notable exception to this rule is the OpenAPI description (see xref:api_specifications.adoc#doc-resource[doc resource]).
 ====
 
-Instead, look at how to express xref:mediatypes.adoc#media-types[] using HTTP headers.
+Instead, look at how to express xref:mediatypes.adoc[] using HTTP headers.
 
 .URI extensions
 ====
@@ -114,9 +114,9 @@ parameters:
 == Resource Archetypes
 There are three different resource archetypes:
 
-* xref:resources-document.adoc#Document[]
-* xref:resources-collection.adoc#Collection[]
-* xref:resources-controller.adoc#Controller[]
+* xref:resources-document.adoc[]
+* xref:resources-collection.adoc[]
+* xref:resources-controller.adoc[]
 
 
 

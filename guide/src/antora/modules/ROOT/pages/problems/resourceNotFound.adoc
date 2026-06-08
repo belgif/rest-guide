@@ -102,5 +102,5 @@ Content-Type: application/problem+json
 ifdef::full-guide[]
 The xref:problems/badRequest.adoc#input-validation-schema[InputValidationProblem Schema Object] SHOULD be used to represent this type of problem.
 
-Note that this problem type is only used when the resource path cannot be resolved. For resources referenced otherwise (i.e. request body, header or query parameter), xref:problems/badRequest.adoc#bad-request[] is returned with a `urn:problem-type:belgif:input-validation:referencedResourceNotFound` issue type.
+Note that this problem type is only used when the resource path cannot be resolved. For resources referenced otherwise (i.e. request body, header or query parameter), xref:problems/badRequest.adoc[] is returned with a `urn:problem-type:belgif:input-validation:referencedResourceNotFound` issue type.
 endif::[]

@@ -195,7 +195,7 @@ Operation-specific HTTP header parameters SHOULD be documented.
 Following are examples of HTTP headers that shouldn't be documented explicitly for each operation:
 
 * `Accept-Language`
-* `BelGov-Trace-Id` and `BelGov-Related-Trace-Id` (documented in xref:tracing.adoc#Tracing[])
+* `BelGov-Trace-Id` and `BelGov-Related-Trace-Id` (documented in xref:tracing.adoc[])
 * `Authorization`
 
 Examples of headers that should be specified on operations that support them:
@@ -214,7 +214,7 @@ Access to these documentation resources SHOULD be granted to any user or potenti
 The OpenAPI 3.0 entry document SHOULD be named `openapi.json` or `openapi.yaml`, as specified in the https://spec.openapis.org/oas/v3.0#openapi-description-structure[OpenAPI 3.0 specification].
 
 Resources representing reference data (code lists) specific to an API SHOULD be placed under a `refData` resource.
-As reference data is typically static, consider supporting xref:performance.adoc#Caching[] headers for these resources.
+As reference data is typically static, consider supporting xref:performance.adoc#caching[caching] headers for these resources.
 ====
 
 Note that these are exceptions to the rule that API resource URLs shouldn't have a file extension.
@@ -413,7 +413,7 @@ A schema name SHOULD refer to the business meaning rather than how it is defined
 The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
 ====
 
-An example is the description a map of `embedded` resources, as described in xref:performance.adoc#embedding[].
+An example is the description a map of `embedded` resources, as described in xref:performance.adoc#embedding[Embedding].
 Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [rule, prop-req]
@@ -511,7 +511,7 @@ State:
 ```
 ====
 
-When defining a type for an identifier or code, like the above example, the guidelines under xref:resources-document.adoc#Identifier[] apply, even when not used as a URL path parameter of a document resource.
+When defining a type for an identifier or code, like the above example, the guidelines under xref:resources-document.adoc#section-identifier[Identifier] apply, even when not used as a URL path parameter of a document resource.
 
 [rule, dec-type]
 .Decimals

@@ -27,7 +27,7 @@ The enclosed entity contains a set of instructions describing how a resource cur
 The PATCH method affects the resource identified by the Request-URI, and it also MAY have side effects on other resources; i.e., new resources may be created, or existing ones modified, by the application of a PATCH.​
 PATCH operations are not required to be idempotent, however they will often be in pratice.
 
-See xref:resources-document.adoc#partial-update[] on how to specify the set of instructions describing how a resource on the server should be modified.
+See xref:resources-document.adoc#partial-update[Partial update] on how to specify the set of instructions describing how a resource on the server should be modified.
 
 
 **Compatibility**

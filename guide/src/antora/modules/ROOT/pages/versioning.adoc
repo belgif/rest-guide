@@ -1,4 +1,4 @@
-= Versioning ==
+= Versioning
 
 == Preserving compatibility
 
@@ -62,7 +62,7 @@ Apply the following rules to evolve RESTful APIs in a backward-compatible way:
 * a new resource variant (with another name) can be created in addition to the old resource variant
 ====
 
-Note that while clients must ignore unknown response fields, APIs may refuse requests containing unknown fields (xref:api_specifications.adoc#rule-req-valid[]).
+Note that while clients must ignore unknown response fields, APIs may refuse requests containing unknown fields (xref:api_specifications.adoc#rule-req-valid[[req-valid\]]).
 
 [rule, evo-deprec]
 .Deprecation
@@ -79,6 +79,7 @@ Always communicate clearly about the deprecated fields and transition period to 
 Use of deprecated elements in requests may be monitored by the server in order to evaluate the impact of their removal.
 However, this isn't possible for response elements, so there is always remains some risk for breaking clients.
 
+[[api-versioning]]
 == API versioning
 
 [rule, api-version]
@@ -91,7 +92,7 @@ Thereby, for a major version only a single minor and patch version can be availa
 The version of the API MUST be included in the `info` section of the OpenAPI definition.
 ====
 
-Note that reusable OpenAPI documents are to be versioned as well, as specified in xref:api_specifications.adoc#openapi[].
+Note that reusable OpenAPI documents are to be versioned as well, as specified in xref:api_specifications.adoc#openapi[OpenAPI].
 
 .API version in OpenAPI
 ====

@@ -95,7 +95,7 @@ xref:methods.adoc#PUT[PUT] only in case it is used to create a new document reso
 |[[http-202]]202 Accepted
 |**202 (“Accepted”) must be used to indicate successful start of an asynchronous action**
 
-A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process (see xref:resources-document.adoc#long-running-tasks[]).
+A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process (see xref:resources-document.adoc#long-running-tasks[Long-running tasks]).
 A POST method may send 202 responses, but other methods should not.
 |​xref:methods.adoc#POST[POST] 
 

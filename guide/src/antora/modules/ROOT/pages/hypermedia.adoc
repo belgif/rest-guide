@@ -10,7 +10,7 @@ Thanks to _hypermedia controls_ a client can navigate through the REST API witho
 ====
 When referencing another resource within the same API, a link SHOULD be added using the `href` attribute.
 
-It is NOT RECOMMENDED to link to resources in other APIs to avoid a tight coupling between the APIs, unless the link target is guaranteed to remain very stable (like the `href` links to standard problem types xref:errorhandling.adoc#rule-err-problem[]).
+It is NOT RECOMMENDED to link to resources in other APIs to avoid a tight coupling between the APIs, unless the link target is guaranteed to remain very stable (like the `href` links to standard problem types xref:errorhandling.adoc#rule-err-problem[[err-problem\]]).
 
 Each resource MAY also contain its own location in a `self` attribute at root level of the JSON document.
 
@@ -106,7 +106,7 @@ components:
 ```
 ====
 
-Hyperlinks for xref:resources-collection.adoc#Pagination[] inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
+Hyperlinks for xref:resources-collection.adoc#Pagination[Pagination] inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
 
 [[collection-links]]
 .Pagination links

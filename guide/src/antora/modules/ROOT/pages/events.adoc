@@ -169,7 +169,7 @@ with:
 ** events (after method `notify`) : a _past participle_ indicating the action or change that occurred e.g. "canceled", "deleted" or "replaced"
 ** replies: `reply` or `problemReply` in case a problem occurred when handling the request
 *** custom API-specific suffixes are also allowed e.g. intermediateReply
-* _resourceType_ : the type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see xref:resources-document.adoc#Document[]) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
+* _resourceType_ : the type of resource of the subject of the message. The same naming and resource hierarchy should be used consistently across REST APIs (see xref:resources-document.adoc[]) and asynchronous messages. This means lowerCamelCase and plural for resources part of a collection and singular for singleton resources.
 ** for child resource types, add one or more _childResourceType_ segments
 ====
 

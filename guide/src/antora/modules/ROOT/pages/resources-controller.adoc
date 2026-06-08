@@ -39,7 +39,7 @@ Converting money from one currency to another (using GET because of no side effe
 Before using a controller resource to represent an action, consider reifying the action as a collection or document resource (noun) describing the intent of the action.
 ====
 
-xref:resources-document.adoc#long-running-tasks[] are an example of actions modelled as a collection/document instead of a controller.
+xref:resources-document.adoc#long-running-tasks[Long-running tasks] are an example of actions modelled as a collection/document instead of a controller.
 
 .Reification examples
 ====

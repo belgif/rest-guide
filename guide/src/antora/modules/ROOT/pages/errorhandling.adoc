@@ -69,7 +69,7 @@ The Problem Details response body MAY be absent when the HTTP status code itself
 
 This guide applies following additional restrictions on the Problem Details structure:
 
-* `type` and `instance` SHOULD be specified as absolute URIs in order to avoid issues when resolving relative URIs (see xref:hypermedia.adoc#links[])
+* `type` and `instance` SHOULD be specified as absolute URIs in order to avoid issues when resolving relative URIs (see xref:hypermedia.adoc#links[Links])
 * The `type` property, a stable identifier for the type of problem, is MANDATORY instead of optional
 * a new optional `href` property SHOULD be used to provide a URI to human-readable documentation on the problem type instead of dereferencing the `type` value
 ====

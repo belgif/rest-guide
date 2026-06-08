@@ -32,7 +32,7 @@ The representation of a collection MUST contain a list of links to child resourc
 * The number of items in the collection result set MAY be included in the response using the `total` property. If the response is paginated, its value MUST correspond to the number of items regardless of pagination, rather than only the number of items in the current page.
 ====
 
-CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
+CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
 .Most used response codes
 
@@ -126,7 +126,7 @@ EmployerLink:
 .Getting full representations of collection items
 ====
 When the collection items contain few data, you may want to retrieve them in full when getting the collection.
-In this case, the full representations MUST be included in an 'embedded' property as described in xref:performance.adoc#embedding-resources[].
+In this case, the full representations MUST be included in an 'embedded' property as described in xref:performance.adoc#embedding-resources[Embedding resources].
 ====
 
 .Consulting a collection with embedded items
@@ -224,7 +224,7 @@ For example, the query
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#get[]
+|xref:methods.adoc#get[GET]
 |/employers
 |get all the employers documents in the collection
 
@@ -380,7 +380,7 @@ Absent optional values are set to their default value if one is specified in the
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​xref:methods.adoc#post[]
+|​​​​​​​​​xref:methods.adoc#post[POST]
 |/employers
 |create a new employer in the collection
 
@@ -454,7 +454,7 @@ In order to remove a single specific item from a collection, use xref:resources-
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#delete[]
+|xref:methods.adoc#delete[DELETE]
 |/employers
 |Delete all the employers documents in the collection.
 

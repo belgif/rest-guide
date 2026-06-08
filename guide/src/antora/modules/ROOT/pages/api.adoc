@@ -7,9 +7,9 @@ The REST uniform interface embraces all aspects of the HyperText Transfer Protoc
 The REST uniform interface is based on three fundamental elements:
 
 [arabic]
-. xref:resources.adoc#Resources[] – How can we express where the data is being transferred to or from?
-. xref:methods.adoc#http-methods[] – What are the protocol mechanisms used to transfer the data?
-. xref:mediatypes.adoc#media-types[] – What type of data is being transferred?
+. xref:resources.adoc[] – How can we express where the data is being transferred to or from?
+. xref:methods.adoc[] – What are the protocol mechanisms used to transfer the data?
+. xref:mediatypes.adoc[] – What type of data is being transferred?
 
 == API
 
@@ -33,7 +33,7 @@ Compare an API to the concept of https://www.informit.com/articles/article.aspx?
 host:: Hostname is determined by the environment where the service is deployed
 pathPrefix:: Optional path prefix to discriminate between REST APIs and other resources on the same host. [gray]#(example: /REST)#
 apiName:: Name of the API that groups a functional consistent set of resources. The API name consists of one or multiple _path segments_ and SHOULD be written in lowerCamelCase [gray]#(example: /referenceData/geography)#.
-majorVersion:: Major version numbers are integers and start at 1. See xref:versioning.adoc#api-versioning[].
+majorVersion:: Major version numbers are integers and start at 1. See xref:versioning.adoc#api-versioning[API versioning].
 resources:: All path segments identifying the actual resources.
 ====
 
@@ -42,9 +42,9 @@ resources:: All path segments identifying the actual resources.
 The Richardson Maturity Model (developed by Leonard Richardson) breaks down the principal elements of a RESTful interface into three steps.
 In order to be compliant to the _uniform interface_ as described by Roy Fielding, all three levels must be fulfilled.
 
-. *xref:resources.adoc#Resources[]* -- Level 1 tackles the question of handling complexity by using divide and conquer, breaking a large service endpoint down into multiple resources, each represented by a unique URI.
-. *xref:methods.adoc#http-methods[]* -- Level 2 introduces a standard set of verbs so that we handle similar situations in the same way, removing unnecessary variation.
-. *xref:hypermedia.adoc#hypermedia-controls[]* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
+. *xref:resources.adoc[]* -- Level 1 tackles the question of handling complexity by using divide and conquer, breaking a large service endpoint down into multiple resources, each represented by a unique URI.
+. *xref:methods.adoc[]* -- Level 2 introduces a standard set of verbs so that we handle similar situations in the same way, removing unnecessary variation.
+. *xref:hypermedia.adoc[]* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
 
 
 [rule, api-matur]

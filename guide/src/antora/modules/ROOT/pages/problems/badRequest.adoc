@@ -20,12 +20,12 @@ This issue type is used when the input is invalid against validations that aren'
 
 |xref:{issues}/unknownInput.adoc[`urn:problem-type:belgif:input-validation:unknownInput`] a| Request contains an unknown input field
 ifdef::full-guide[]
-(see xref:api_specifications.adoc#rule-req-valid[])
+(see xref:api_specifications.adoc#rule-req-valid[[req-valid\]])
 endif::[]
 |xref:{issues}/referencedResourceNotFound.adoc[`urn:problem-type:belgif:input-validation:referencedResourceNotFound`]| A resource referenced in the request by its identifier can't be found.
 
 ifdef::full-guide[]
-This issue type is only used for resource identifiers in header or query parameters or in the request body. For resource identifiers in the request path, a xref:problems/resourceNotFound.adoc#resource-not-found[] Problem is returned instead, with a `404` status code.
+This issue type is only used for resource identifiers in header or query parameters or in the request body. For resource identifiers in the request path, a xref:problems/resourceNotFound.adoc[] Problem is returned instead, with a `404` status code.
 endif::[]
 |===
 

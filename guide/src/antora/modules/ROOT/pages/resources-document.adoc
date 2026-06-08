@@ -4,7 +4,7 @@ A document resource is a _singular concept_ that is referring to a business enti
 
 *Documents in a collection*
 
-Most document resources are contained in a _parent xref:resources-collection.adoc#Collection[collection resource]_ to which a *variable path segment with identity key* is added.
+Most document resources are contained in a _parent xref:resources-collection.adoc[collection resource]_ to which a *variable path segment with identity key* is added.
 
 image::collection.png[]
 
@@ -64,7 +64,7 @@ In domain modeling, an entity can be modeled as a child of another entity, when 
 * it is not possible to change the parent of a child
 
 Occasionally complex documents have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer document could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
-In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:hypermedia.adoc#rule-hyp-links[]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
+In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
 
 .Child entities
 [rule, child-ent]
@@ -273,7 +273,7 @@ A _code_ is a special type of identifier:
 ====
 New code types SHOULD be represented as string values in lowerCamelCase.
 
-Depending on context, the OpenAPI schema enumerate the list of allowed values (see xref:api_specifications.adoc#enum-rule[]).
+Depending on context, the OpenAPI schema enumerate the list of allowed values (see xref:api_specifications.adoc#enum-rule[Enum values rule]).
 ====
 
 .Code
@@ -353,9 +353,9 @@ Following naming guidelines should be applied when using an identifier or code i
 
 * JSON property:
 ** within an object that represents the entire or part of a resource: use `id` or `code`
-** to reference a resource within another one's representation: property name should designate the relation between the resources (see xref:json.adoc#rule-jsn-naming[]); no need to suffix with `id` or `code`
+** to reference a resource within another one's representation: property name should designate the relation between the resources (see xref:json.adoc#rule-jsn-naming[[jsn-naming\]]); no need to suffix with `id` or `code`
 * path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
-* query search parameter: use same name as the property in the JSON resource representation of the response (see xref:resources-collection.adoc#filtering[])
+* query search parameter: use same name as the property in the JSON resource representation of the response (see xref:resources-collection.adoc#filtering[Filtering])
 * OpenAPI schema: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
 As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
@@ -499,7 +499,7 @@ GET {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#get[]
+|xref:methods.adoc#get[GET]
 |/employers/{employerId}
 |Consult a single employer
 
@@ -646,7 +646,7 @@ JSON Merge Patch is limited however, e.g. it doesn't allow for an update of a si
 If this proves to be an issue, this might however indicate that the array elements might be better modeled as separate sub-resources.
 
 . use POST on a child resource instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
-  See xref:resources-controller.adoc#Controller[] for more information.
+  See xref:resources-controller.adoc[] for more information.
 
 Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recommended, as it proves to be difficult to implement.
 
@@ -672,7 +672,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#put[]
+|xref:methods.adoc#put[PUT]
 |/employers/{employerId}
 |Replace the entire employer resource with the client data. This implies a full update of the resource. Via `PUT` the client submits new values for all the data.
 
@@ -740,7 +740,7 @@ The `PATCH` message SHOULD conform to the JSON Merge Patch (https://tools.ietf.o
 
 APIs should support both the media type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON media type.
 
-Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to xref:json.adoc#rule-jsn-null[].
+Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to xref:json.adoc#rule-jsn-null[[jsn-null\]].
 JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because in a JSON Merge Patch request, required properties may be absent or optional properties may be removed using a `null` value.
 
 ====
@@ -754,7 +754,7 @@ PATCH {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#patch[]
+|xref:methods.adoc#patch[PATCH]
 |`/employers/{employerId}`
 |Performs a partial update of an existing employer.
 
@@ -843,7 +843,7 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 
 [cols="1,2,3"]
 |===
-|xref:methods.adoc#delete[]
+|xref:methods.adoc#delete[DELETE]
 |/employers/{employerId}
 |Deletes an employer.
 
@@ -1007,5 +1007,5 @@ Content-Type: application/json;charset=UTF-8
 ```
 
 Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
-The cause of failure is represented using an embedded Problem object, as defined in xref:errorhandling.adoc#error-handling[].
+The cause of failure is represented using an embedded Problem object, as defined in xref:errorhandling.adoc[].
 ====

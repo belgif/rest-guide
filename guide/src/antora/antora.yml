@@ -13,3 +13,5 @@ asciidoc:
     checkedbox: 'pass:normal[&#10004;]'
     source-highlighter: coderay
     icons: font
+    idprefix: ''
+    idseparator: '-'
