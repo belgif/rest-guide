@@ -1,0 +1,120 @@
+= Versioning ==
+
+== Preserving compatibility
+
+[CAUTION]
+.Don’t Break Backward Compatibility
+====
+Change APIs, but keep all consumers running.
+Consumers usually have independent release lifecycles, focus on stability, and avoid changes that do not provide additional value.
+APIs are service contracts that cannot be broken via unilateral decisions.
+====
+
+There are two techniques to change APIs without breaking them:
+
+* evolve the API, allowing clients to gradually implement changes by following rules for compatible extensions and deprecation
+* introduce new major API version and still support older version(s) for a period in which clients can transition to the new version
+
+Backwards-incompatible changes, requiring a big bang release, are only feasible if:
+
+* there is a very limited number of clients
+* the release is well coordinated
+* a temporary service interruption is allowed.
+
+In this case, the major version number could be kept the same as only a single version of the API is active at a given time and it can be easier to keep the base URL of the API unchanged.
+
+[rule, api-evol]
+.Prefer API evolution
+====
+We strongly encourage using API evolution when possible and discourage versioning:
+
+* versioning requires maintaining and supporting two service contracts
+* API evolution maintains stable URIs (e.g. links from other APIs) and allows for a more gradual migration of clients
+====
+
+NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn't included as an option in this guide as it has various practical problems
+
+== API evolution
+
+[rule, evo-object]
+.JSON object as top level structure
+====
+In a request or response body, if any, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
+
+JSON objects support compatible extension by additional attributes.
+This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+====
+
+With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
+
+[rule, evo-compat]
+.Compatible extensions
+====
+Apply the following rules to evolve RESTful APIs in a backward-compatible way:
+
+* New fields may be added to response. Clients MUST ignore unknown fields in response payloads.
+* Add only optional, never mandatory fields to request payloads
+* Never change the meaning of a field.
+* Never change input validation logic to be more restrictive
+* Enum ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too.
+* Enum values can be reduced when used as output parameters, but not extended as clients might not be ready to handle them.
+* Support redirection in case a URL has to change (301 Moved Permanently)
+* a new resource variant (with another name) can be created in addition to the old resource variant
+====
+
+Note that while clients must ignore unknown response fields, APIs may refuse requests containing unknown fields (xref:api_specifications.adoc#rule-req-valid[]).
+
+[rule, evo-deprec]
+.Deprecation
+====
+Deprecation MAY be used to indicate parts of an API are not recommended to be used anymore.
+Their deprecation SHOULD be documented in OpenAPI .
+Deprecated elements MAY be completely removed them after a period in which clients can adapt.
+Always communicate clearly about the deprecated fields and transition period to clients.
+
+`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters, headers and Schema Objects (data types). Otherwise, like on security schemes, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
+
+====
+
+Use of deprecated elements in requests may be monitored by the server in order to evaluate the impact of their removal.
+However, this isn't possible for response elements, so there is always remains some risk for breaking clients.
+
+== API versioning
+
+[rule, api-version]
+.Version numbering
+====
+The version string of an API SHOULD contain a major, minor and optionally a patch number.
+
+Only the major version of the API is part of the base URL of the API.
+Thereby, for a major version only a single minor and patch version can be available in production at a time.
+The version of the API MUST be included in the `info` section of the OpenAPI definition.
+====
+
+Note that reusable OpenAPI documents are to be versioned as well, as specified in xref:api_specifications.adoc#openapi[].
+
+.API version in OpenAPI
+====
+[source,yaml,subs="normal"]
+----
+openapi: "3.0.3"
+info:
+  title: petShop
+  description: API exposing my pet shop's functionality
+  version: "2.1.2"
+servers:
+  url: https://example.org/petShop/v2
+----
+====
+
+Similar guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements.
+
+[rule, ver-del]
+.Removing an old version
+====
+Before removing an old API version:
+
+* provide a transition period supporting old and new versions at the same time before removing the old version
+* always communicate clearly about the transition period to clients
+* use of the old version may be monitored by the server in order to evaluate the impact of their removal.
+====

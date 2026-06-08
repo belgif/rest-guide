@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-The REST styleguide defines a set of rules and best practices for designing RESTful APIs. It is maintained in this repository as an AsciiDoc document, built with AsciidoctorJ and custom extensions. The styleguide is published as a standalone HTML document and bundled as a zip file for distribution.
+The REST styleguide defines a set of rules and best practices for designing RESTful APIs. It is maintained in this repository as an AsciiDoc document, built with Antora and a custom extension. The styleguide is published as a multi-page Antora site and bundled as a zip file for distribution.
 
 ## Build
 
-This is a Maven multi-module project. Requires Java 17.
+This is a Maven project. Requires Java 17.
 
 ```bash
 # Build everything (default goal is `package`)
@@ -14,27 +14,51 @@ mvn
 
 # Build without packaging the zip
 mvn compile
+
+# If Node.js is already installed locally, skip the download for faster builds:
+mvn compile -Dnode.executable=node
 ```
 
-Output is generated to `guide/target/generated-docs/` (HTML) and bundled as a zip in `target/`.
+Output is generated to `guide/target/site/` (Antora HTML site) and bundled as a zip in `target/`.
 
 There are no automated tests. The build either succeeds (valid AsciiDoc) or fails.
 
 ## Architecture
 
-Two Maven modules:
+One Maven module:
 
-- **`asciidoc-extensions/`** — Custom AsciidoctorJ block processor (`RuleBlock`) that adds a `[rule, <id>]` block to AsciiDoc. It assigns a stable HTML anchor (`rule-<id>`), a reftext (`[id]`), and styles the block as `exampleblock rule`. Registered via Java SPI in `META-INF/services/`.
+- **`guide/`** — The AsciiDoc source for the REST styleguide and the Antora build configuration. Built with `org.antora:antora-maven-plugin`.
 
-- **`guide/`** — The AsciiDoc source for the REST styleguide. Entry point is `guide/src/main/asciidoc/index.adoc`, which `include::` assembles all chapter files. Three Asciidoctor executions are configured in the POM:
-  1. Main guide (`index.adoc` → `generated-docs/`)
-  2. Problem pages (`problems/` → `generated-docs/problems/`)
-  3. Issue pages (`issues/` → `generated-docs/issues/`, with `preserveDirectories`)
+### Antora source layout
+
+```
+guide/src/antora/
+  antora.yml                          # Antora component descriptor (name: api-guide, version: ~)
+  extensions/
+    rule-block-extension.js           # Custom asciidoctor.js block processor for [rule, <id>]
+  modules/ROOT/
+    nav.adoc                          # Navigation tree
+    pages/                            # One .adoc file per page
+      *.adoc                          # Chapter pages (introduction, api, resources, …)
+      problems/*.adoc                 # Standardized HTTP problem type pages
+      issues/*.adoc                   # Input validation issue type pages
+      issues/ext/*.adoc               # Extended issue type pages
+    images/                           # Images referenced by pages
+```
+
+The Antora playbook is `antora-playbook.yml` at the repository root.
+
+### URL structure
+
+The Antora component is named `api-guide` with `version: ~` (versionless). Combined with `site.url: https://www.belgif.be/specification/rest` in the playbook, this produces stable URLs:
+- Main guide pages: `https://www.belgif.be/specification/rest/api-guide/<page>.html`
+- Problem pages: `https://www.belgif.be/specification/rest/api-guide/problems/<page>.html`
+- Issue pages: `https://www.belgif.be/specification/rest/api-guide/issues/<page>.html`
 
 ## AsciiDoc Conventions
 
 ### Rules
-Rules use the custom `[rule, <rule-id>]` block (registered by `asciidoc-extensions`):
+Rules use the custom `[rule, <rule-id>]` block (processed by `rule-block-extension.js`):
 
 ```asciidoc
 [rule, uri-notat]
@@ -60,11 +84,15 @@ Rules use the custom `[rule, <rule-id>]` block (registered by `asciidoc-extensio
 Use **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **SHOULD**, **SHOULD NOT**, **RECOMMENDED**, **MAY**, **OPTIONAL** in rule text per RFC 2119.
 
 ### Cross-references
-Reference rules with `<<rule-<rule-id>>>` or `<<rule-<rule-id>, custom text>>`.
+- Same-page: `<<rule-<rule-id>>>` or `<<rule-<rule-id>, custom text>>`
+- Cross-page: `xref:page.adoc#anchor[text]` — the page path is relative to `modules/ROOT/pages/`
+
+### Page headings
+Each page starts with `= Title` (level 0). Sections use `==`, `===`, etc. within a page.
 
 ## Release Process
 
-Before releasing, update `changelog.adoc` and the `:update-date:` attribute in `index.adoc`. Releases are triggered by pushing a git tag:
+Before releasing, update `changelog.adoc`. Releases are triggered by pushing a git tag:
 
 ```bash
 git tag -a v2025.06 -m "release v2025.06"
@@ -72,3 +100,4 @@ git push origin v2025.06
 ```
 
 The `maven-release` GitHub Actions workflow picks up the tag, uses it as the version, and creates a draft GitHub release with the artifact attached.
+

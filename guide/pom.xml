@@ -15,93 +15,27 @@
   <description>REST style guide for Belgian government institutions</description>
 
   <build>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ssh</artifactId>
-        <version>3.5.3</version>
-      </extension>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ssh-external</artifactId>
-        <version>3.5.3</version>
-      </extension>
-    </extensions>
-
     <defaultGoal>package</defaultGoal>
     <plugins>
       <plugin>
-        <groupId>org.asciidoctor</groupId>
-        <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>3.2.0</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.asciidoctor</groupId>
-            <artifactId>asciidoctorj-diagram</artifactId>
-            <version>3.2.1</version>
-          </dependency>
-          <dependency>
-            <groupId>io.github.belgif.restguide</groupId>
-            <artifactId>asciidoctorj-rest-guide-extensions</artifactId>
-            <version>${project.parent.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>io.spring.asciidoctor</groupId>
-            <artifactId>spring-asciidoctor-extensions-block-switch</artifactId>
-            <version>0.6.3</version>
-          </dependency>
-        </dependencies>
+        <groupId>org.antora</groupId>
+        <artifactId>antora-maven-plugin</artifactId>
+        <version>1.0.0-alpha.5</version>
+        <extensions>true</extensions>
         <configuration>
-          <attributes>
-            <source-highlighter>coderay</source-highlighter>
-          </attributes>
-          <requires>
-            <require>asciidoctor-diagram</require>
-          </requires>
+          <playbookFile>${maven.multiModuleProjectDirectory}/antora-playbook.yml</playbookFile>
+          <nodeExecutable>node</nodeExecutable>
+          <options>
+            <option>to-dir ${project.build.directory}/site</option>
+          </options>
         </configuration>
         <executions>
           <execution>
-            <id>generate-styleguide</id>
+            <id>build-antora-site</id>
             <phase>compile</phase>
             <goals>
-              <goal>process-asciidoc</goal>
+              <goal>antora</goal>
             </goals>
-            <configuration>
-              <sourceDocumentName>index.adoc</sourceDocumentName>
-              <outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
-              <attributes>
-                <stylesheet>my-theme.css</stylesheet>
-              </attributes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>generate-problems</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-              <sourceDirectory>${basedir}/src/main/asciidoc/problems</sourceDirectory>
-              <outputDirectory>${project.build.directory}/generated-docs/problems</outputDirectory>
-              <attributes>
-                <stylesheet>../my-theme.css</stylesheet>
-              </attributes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>generate-issues</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-              <sourceDirectory>${basedir}/src/main/asciidoc/issues</sourceDirectory>
-              <outputDirectory>${project.build.directory}/generated-docs/issues</outputDirectory>
-              <preserveDirectories>true</preserveDirectories>
-              <attributes>
-                <stylesheet>../my-theme.css</stylesheet>
-              </attributes>
-            </configuration>
           </execution>
         </executions>
       </plugin>

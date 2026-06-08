@@ -1,0 +1,15 @@
+name: api-guide
+title: REST Guidelines
+version: ~
+start_page: introduction.adoc
+nav:
+  - modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    full-guide: ''
+    API: 'https://api.socialsecurity.be/demo/v1'
+    iso639-1: 'http://www.loc.gov/standards/iso639-2/php/code_list.php'
+    checkedbox: 'pass:normal[&#10004;]'
+    source-highlighter: coderay
+    icons: font

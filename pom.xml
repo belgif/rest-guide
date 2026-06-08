@@ -24,7 +24,6 @@
   </developers>
 
   <modules>
-    <module>asciidoc-extensions</module>
     <module>guide</module>
   </modules>
 

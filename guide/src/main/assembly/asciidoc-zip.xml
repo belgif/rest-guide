@@ -9,7 +9,7 @@
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<fileSets>
 		<fileSet>
-			<directory>target/generated-docs</directory>
+			<directory>target/site</directory>
       <outputDirectory>/</outputDirectory>
 		</fileSet>
 	</fileSets>
