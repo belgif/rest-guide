@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "antora --fetch --to-dir=./build antora-playbook.yml",
+    "preview": "antora --fetch --to-dir=./build --serve antora-playbook.yml"
+  },
+  "devDependencies": {
+    "@antora/lunr-extension": "1.0.0-alpha.13",
+    "antora": "3.1.15"
+  }
+}

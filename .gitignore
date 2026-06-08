@@ -9,3 +9,4 @@ target
 ui-bundle.zip
 node/
 node_modules/
+/build/

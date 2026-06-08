@@ -2,6 +2,7 @@ site:
   title: REST Guidelines
   url: https://www.belgif.be/specification/rest
   start_page: api-guide::introduction.adoc
+  robots: allow
 
 content:
   sources:
@@ -12,11 +13,14 @@ content:
 asciidoc:
   extensions:
     - ./guide/src/antora/extensions/rule-block-extension.js
+antora:
+  extensions:
+    - '@antora/lunr-extension'
 
 ui:
   bundle:
     url: ./ui-bundle.zip
-
+  supplemental_files: ./guide/supplemental-ui
 runtime:
   log:
     failure_level: error
