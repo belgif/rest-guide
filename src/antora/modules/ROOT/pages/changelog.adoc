@@ -35,7 +35,7 @@
 * 2025-06-16
 ** recommend OpenAPI 3.0 and remove OpenAPI 2.0 throughout the guide
 ** new in xref:problems/badRequest.adoc#bad-request[ Bad Request Problem]: standardized `invalidInput` issue type
-** update section xref:resources-document.adoc#section-identifier[]: describe potential compatibility problems with escaped slash values in path params
+** update section xref:resources-document.adoc#section-identifier[Identifier]: describe potential compatibility problems with escaped slash values in path params
 ** update rule xref:resources-document.adoc#rule-id-name[[id-name\]]: always prefix `id` and `code` path param names with their resource type
 ** update description xref:statuscodes.adoc#http-409[`409 Conflict`] status: conflict with "data on the server" instead of "current state of the target resource". Remove optimistic locking issue (usually `412`)
 
