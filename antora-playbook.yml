@@ -7,12 +7,12 @@ site:
 content:
   sources:
     - url: .
-      start_path: guide/src/antora
+      start_path: src/antora
       branches: HEAD
 
 asciidoc:
   extensions:
-    - ./guide/src/antora/extensions/rule-block-extension.js
+    - ./src/antora/extensions/rule-block-extension.js
 antora:
   extensions:
     - '@antora/lunr-extension'
@@ -20,7 +20,7 @@ antora:
 ui:
   bundle:
     url: ./ui-bundle.zip
-  supplemental_files: ./guide/supplemental-ui
+  supplemental_files: ./src/supplemental-ui
 
 output:
   clean: true
