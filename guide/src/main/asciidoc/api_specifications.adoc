@@ -210,8 +210,8 @@ OpenAPI authors MUST specify the `required` property on a `requestBody` explicit
 ====
 The `security` field defined at the root level of the OpenAPI entry document, or on an operation object, can be used to specify security requirements for interactions with the API.
 
-Each property name under `security` MUST correspond to a security scheme components (in `#/components/securitySchemes`). If the security scheme is of type "oauth2" or "openIdConnect", then the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope.
-The scope names MUST correspond to one of the `scopes` values in one of the OAuth flows the corresponding security scheme component.
+Each property name under `security` MUST correspond to a security scheme components (in `#/components/securitySchemes`). If the security scheme is of type `oauth2` or `openIdConnect`, then the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope.
+For `oauth2` security schemes, the scope names in the security requirement MUST correspond to one of the `scopes` values in one of the OAuth flows of the corresponding security scheme component.
 ====
 
 .OAuth2 security requirements
@@ -219,8 +219,9 @@ The scope names MUST correspond to one of the `scopes` values in one of the OAut
 ```yaml
 security:   # root-level security requirement is applied to all operations unless overridden
   - Oauth:  # the name of the securityScheme component
-    - 'scope:organisation:myapi:consult'  # scope name in at least one of the flows of the securityScheme
-    - 'scope:organisation:myapi:update'
+    - 'scope:organization:myapi:consult'  # scope name in at least one of the flows of the securityScheme
+  - Oauth:  # the name of the securityScheme component
+    - 'scope:organization:myapi:update'   # scope name in at least one of the flows of the securityScheme
 components:
   securitySchemes:
     Oauth:
