@@ -6,33 +6,25 @@ The REST styleguide defines a set of rules and best practices for designing REST
 
 ## Build
 
-This is a Maven project. Requires Java 17.
+This is a Node.js project using npm.
 
 ```bash
-# Build everything (default goal is `package`)
-mvn
-
-# Build without packaging the zip
-mvn compile
-
-# If Node.js is already installed locally, skip the download for faster builds:
-mvn compile -Dnode.executable=node
+# Build everything
+npm run build
 ```
 
-Output is generated to `guide/target/site/` (Antora HTML site) and bundled as a zip in `target/`.
+Output is generated to `build/site/` (Antora HTML site) and bundled as a zip in `build/site.zip`.
 
 There are no automated tests. The build either succeeds (valid AsciiDoc) or fails.
 
 ## Architecture
 
-One Maven module:
-
-- **`guide/`** — The AsciiDoc source for the REST styleguide and the Antora build configuration. Built with `org.antora:antora-maven-plugin`.
+One node module at project root.
 
 ### Antora source layout
 
 ```
-guide/src/antora/
+src/antora/
   antora.yml                          # Antora component descriptor (name: api-guide, version: ~)
   extensions/
     rule-block-extension.js           # Custom asciidoctor.js block processor for [rule, <id>]
@@ -44,6 +36,7 @@ guide/src/antora/
       issues/*.adoc                   # Input validation issue type pages
       issues/ext/*.adoc               # Extended issue type pages
     images/                           # Images referenced by pages
+  supplemental-ui/                    # Custom UI assets (CSS, JS, templates)
 ```
 
 The Antora playbook is `antora-playbook.yml` at the repository root.
