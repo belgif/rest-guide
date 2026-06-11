@@ -139,18 +139,18 @@ Resource linking, caching or embedding are not possible for such URLs.
 
 For a single type of interaction with an entity (e.g. consult, update, delete or query), avoid introducing multiple API operations. Querying usually supports more parameters, so is more often sensitive.
 
-If sensitive data needs to be fully hidden from client or server applications, even in the message payload, consider alternatives like encryption or pseudonymisation.
+If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
 ====
 
 [cols="3*a", cols="1,3,3"]
 |===
 | suffix |  original URL example                | safe URL example
 
-|`/get`  | `GET /persons/{sensitivePersonId}` | `POST /persons/get`
-|`/update`  | `PUT /persons/{sensitivePersonId}` +
-`PATCH /persons/{sensitivePersonId}` | `POST /persons/update`
-|`/delete`  | `DELETE /persons/{sensitivePersonId}` | `POST /persons/delete`
-|`/query`  | `GET /persons?sensitiveData={sensitiveData}` | `POST /persons/query`
-|_none_ | `POST /persons/{sensitivePersonId}/documents` | `POST /persons/documents`
-|_none_ | `POST /persons/{sensitivePersonId}/transferDossier` | `POST /persons/transferDossier`
+|`/get`  | `GET /accounts/{emailAddress}` | `POST /accounts/get`
+|`/update`  | `PUT /accounts/{emailAddress}` +
+`PATCH /accounts/{emailAddress}` | `POST /accounts/update`
+|`/delete`  | `DELETE /accounts/{emailAddress}` | `POST /accounts/delete`
+|`/query`  | `GET /documents?createdBy={emailAddress}` | `POST /documents/query`
+|_none_ | `POST /accounts/{emailAddress}/profilePictures` | `POST /accounts/profilePictures`
+|_none_ | `POST /accounts/{emailAddress}/deactivate` | `POST /accounts/deactivate`
 |===
