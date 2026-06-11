@@ -119,7 +119,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
       "title": "Referenced resource not found",
       "detail": "No person with ssin '98765432109' exists",
       "in": "body",
-      "name": "#/ssin",
+      "name": "/ssin",
       "value": "98765432109"
     }
   ]

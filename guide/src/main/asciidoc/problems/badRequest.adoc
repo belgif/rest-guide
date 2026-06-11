@@ -90,7 +90,7 @@ Content-Type: application/problem+json
       "title": "SSIN has been replaced. Use new SSIN.",
       "detail": "SSIN 12345678901 has been replaced by 23456789012",
       "in": "body",
-      "name": "#/boardMembers/0/ssin",
+      "name": "/boardMembers/0/ssin",
       "value": "12345678901",
       "replacedBy": "23456789012"
     },
@@ -100,7 +100,7 @@ Content-Type: application/problem+json
       "title": "Referenced resource not found",
       "detail": "Person referenced as board member with SSIN '98765432109' does not exist",
       "in": "body",
-      "name": "#/boardMembers/1/ssin",
+      "name": "/boardMembers/1/ssin",
       "value": "98765432109"
     },
     {
@@ -109,7 +109,7 @@ Content-Type: application/problem+json
       "title": "Invalid input",
       "detail": "endDate of a period should be after its startDate",
       "in": "body",
-      "name": "#/boardMembers/0/period",
+      "name": "/boardMembers/0/period",
       "value": {
         "startDate": "2020-12-31",
         "endDate": "2020-01-01"
