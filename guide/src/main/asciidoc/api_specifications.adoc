@@ -184,7 +184,7 @@ Code generators use it to generate method names and generally take care of trans
 [rule, opbody-req]
 .Required request payload
 ====
-Request payloads are optional by default in OpenAPIn even though they usually need to be required. It is most of the time an omission when this default isn't changed.
+Request payloads are optional by default in OpenAPI, even though they usually need to be required. It is most of the time an omission when this default isn't changed.
 
 OpenAPI authors MUST specify the `required` property on a `requestBody` explicitly, to avoid any ambiguity.
 ====
