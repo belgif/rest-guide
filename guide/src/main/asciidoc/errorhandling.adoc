@@ -82,32 +82,46 @@ This is especially useful for API-specific problem types for which the documenta
 .Example Problem response
 ====
 ```
-POST /enterprises/0206731645/employers
+POST /enterprises/abcd731645/employees
 {
-    "name": "John"
+  "ssin": "98765432109",
+  "givenName": "John",
+  "familyName": "Doe"
 }
 ```
 
 ```
-HTTP/1.1 404 Not Found
+HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```
 ```json
 {
-  "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
-  "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
-  "status": 404,
-  "title": "Resource is not found",
-  "detail": "There is no enterprise in CBE with enterprise number 0206731645",
+  "type": "urn:problem-type:belgif:badRequest",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
+  "title": "Bad Request",
+  "status": 400,
+  "detail": "The input message is incorrect",
+  "instance": "urn:uuid:123456-1234-1235-4567489798",
   "issues": [
-      {
-        "in": "path",
-        "name": "enterpriseNumber",
-        "detail": "the enterprise number is not assigned",
-        "value": "0206731645"
-      }
+    {
+      "type": "urn:problem-type:belgif:input-validation:schemaViolation",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
+      "title": "Input isn't valid with respect to schema",
+      "detail": "enterpriseNumber abcd731645 should be numeric",
+      "in": "path",
+      "name": "enterpriseNumber",
+      "value": "abcd731645"
+    },
+    {
+      "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
+      "title": "Referenced resource not found",
+      "detail": "No person with ssin '98765432109' exists",
+      "in": "body",
+      "name": "#/ssin",
+      "value": "98765432109"
+    }
   ]
 }
 ```
