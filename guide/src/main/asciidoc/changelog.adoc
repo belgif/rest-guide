@@ -1,4 +1,12 @@
 == Changelog
+* 2026-06-12
+** new rule <<rule-sens-dat>> on sensitive data in URLs or headers
+** new rule <<rule-sch-discr>> split of from <<rule-sch-oneof>> and <<sch-allof>> on URI-reference syntax for discriminator mapping
+** added link to example schema for Pagination to <<Pagination>>
+** update <<rule-sch-oneof>>: discriminator mapping should include all `oneOf` subschemas
+** new rule <<rule-sec-req>>: security requirements must be consistent with security schemes
+** new rule <<rule-opbody-req>>: `required` should be specified explicitly on request bodies
+** add reference to RFC keywords (MUST, SHOULD, etc), and replace MANDATORY by REQUIRED
 
 * 2026-04-28
 ** update <<rule-sch-allof>> and <<rule-sch-oneof>>: guidelines on use of `discriminator` and `mapping`
