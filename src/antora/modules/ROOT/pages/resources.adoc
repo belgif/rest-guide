@@ -123,14 +123,14 @@ There are three different resource archetypes:
 [rule,sens-dat]
 .Sensitive data in URLs or headers
 ====
-Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters. Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
+Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters.Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
 The `Authorization` and `Cookie` HTTP headers are an exception, as they are recognized by infrastructure as sensitive and not logged.
 
 For operations that would otherwise be modeled as URLs containing sensitive data, the sensitive data SHOULD instead be put in the request payload of a POST operation.
 A verb suffix `get`, `update`, `delete` or `query` SHOULD be used for operations that would otherwise not use the POST method.
 Resource linking, caching or embedding are not possible for such URLs.
 
-For a single type of interaction with an entity (e.g. consult, update, delete or query), avoid introducing multiple API operations. Querying usually supports more parameters, so is more often sensitive.
+For a single type of interaction with an entity (e.g. consult, update, delete or query), avoid introducing multiple API operations.Querying usually supports more parameters, so is more often sensitive.
 
 If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
 ====
@@ -139,11 +139,11 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 |===
 | suffix |  original URL example                | safe URL example
 
-|`/get`  | `GET /accounts/{emailAddress}` | `POST /accounts/get`
-|`/update`  | `PUT /accounts/{emailAddress}` +
-`PATCH /accounts/{emailAddress}` | `POST /accounts/update`
-|`/delete`  | `DELETE /accounts/{emailAddress}` | `POST /accounts/delete`
-|`/query`  | `GET /documents?createdBy={emailAddress}` | `POST /documents/query`
-|_none_ | `POST /accounts/{emailAddress}/profilePictures` | `POST /accounts/profilePictures`
-|_none_ | `POST /accounts/{emailAddress}/deactivate` | `POST /accounts/deactivate`
+|`/get`  | `GET /accounts/+{emailAddress}+` | `POST /accounts/get`
+|`/update`  | `PUT /accounts/+{emailAddress}+` +
+`PATCH /accounts/+{emailAddress}+` | `POST /accounts/update`
+|`/delete`  | `DELETE /accounts/+{emailAddress}+` | `POST /accounts/delete`
+|`/query`  | `GET /documents?createdBy=+{emailAddress}+` | `POST /documents/query`
+|_none_ | `POST /accounts/+{emailAddress}+/profilePictures` | `POST /accounts/profilePictures`
+|_none_ | `POST /accounts/+{emailAddress}+/deactivate` | `POST /accounts/deactivate`
 |===

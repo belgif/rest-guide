@@ -12,7 +12,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 ====
 {API}/employers[^] - a collection of employers
 
-{API}/persons/{ssin}/children[^] - a collection of children as a child resource of a person
+{API}/persons/+{ssin}+/children[^] - a collection of children as a child resource of a person
 ====
 
 [[collections-consult, Consulting a collection]]
@@ -79,7 +79,7 @@ GET {API}/employers[^] HTTP/1.1
  "items":[
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
-     "title":"Belgacom",
+     "title":"Proximus",
      "employerId": 93017373,
      "enterpriseNumber": "0202239951"
    },
