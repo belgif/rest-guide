@@ -128,7 +128,7 @@ a|
 
 a|
 
-`/invitations/+{meetingId}+:+{personId}+` (GET/PUT/PATCH/DELETE) *(2)*
+`/invitations/+{meetingId}+:++{personId}++` (GET/PUT/PATCH/DELETE) *(2)*
 
 `/invitations` (GET/POST)
 
