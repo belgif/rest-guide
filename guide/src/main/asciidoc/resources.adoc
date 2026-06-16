@@ -146,11 +146,11 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 |===
 | suffix |  original URL example                | safe URL example
 
-|`/get`  | `GET /accounts/{emailAddress}` | `POST /accounts/get`
-|`/update`  | `PUT /accounts/{emailAddress}` +
-`PATCH /accounts/{emailAddress}` | `POST /accounts/update`
-|`/delete`  | `DELETE /accounts/{emailAddress}` | `POST /accounts/delete`
-|`/query`  | `GET /documents?createdBy={emailAddress}` | `POST /documents/query`
-|_none_ | `POST /accounts/{emailAddress}/profilePictures` | `POST /accounts/profilePictures`
-|_none_ | `POST /accounts/{emailAddress}/deactivate` | `POST /accounts/deactivate`
+|`/get`  | `GET /accounts/+{emailAddress}+` | `POST /accounts/get`
+|`/update`  | `PUT /accounts/+{emailAddress}+` +
+`PATCH /accounts/+{emailAddress}+` | `POST /accounts/update`
+|`/delete`  | `DELETE /accounts/+{emailAddress}+` | `POST /accounts/delete`
+|`/query`  | `GET /documents?createdBy=+{emailAddress}+` | `POST /documents/query`
+|_none_ | `POST /accounts/+{emailAddress}+/profilePictures` | `POST /accounts/profilePictures`
+|_none_ | `POST /accounts/+{emailAddress}+/deactivate` | `POST /accounts/deactivate`
 |===

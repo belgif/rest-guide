@@ -132,7 +132,8 @@ Declaring each tag allows linting tooling to detect inconsistencies in tag names
 
 .Using tags
 ====
-```YAML
+[source,YAML]
+----
 tags:
   - name: Employers
     description: Managing employers
@@ -158,7 +159,7 @@ paths:
       tags:
         - referenceData # BAD: doesn't match declared tag name, words aren't separated by space, doesn't start with capital letter
         - Employers # BAD: don't set multiple tags on an operation
-```
+----
 ====
 
 [rule, openapi-opid]
@@ -327,11 +328,12 @@ paths:
 ```
 
 a|
-```YAML
+[source,YAML]
+----
 paths:
   /employers/{employerId}:
     # ....
-```
+----
 |===
 
 [rule, oas-exampl]
@@ -347,7 +349,7 @@ Example values MUST be schema-valid.
 .Examples in OpenAPI
 ====
 
-[source,yaml,subs="attributes+"]
+[source,yaml]
 ----
 /enterprises/{enterpriseNumber}:
   get:

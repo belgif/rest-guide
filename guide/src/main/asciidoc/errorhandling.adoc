@@ -127,7 +127,7 @@ with:
 * `<api>`: name of the API. It MAY be used for API-specific problem types
 * `<type>`: type of the problem in lowerCamelCase
 
-A description of an API-specific problem type MAY be provided as a reference data resource : `/refData/problemTypes/{problemType}`.
+A description of an API-specific problem type MAY be provided as a reference data resource : `/refData/problemTypes/+{problemType}+`.
 If provided, at least the HTML media type SHOULD be supported.
 ====
 

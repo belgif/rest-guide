@@ -15,7 +15,6 @@ image::collection.png[]
 
 |part of collection|`/persons/01234567890`
 a|
-[subs="normal"]
 ```json
 {
   "ssin": "01234567890",
@@ -23,7 +22,7 @@ a|
   "familyName": "Doe"
 }
 ```
-|`/persons/{ssin}`
+|`/persons/+{ssin}+`
 |===
 ====
 
@@ -41,7 +40,7 @@ Documents may also be _singletons_, of which only a single instance exists withi
 
 _image file (binary)_
 
-| `/persons/{ssin}/profilePicture`
+| `/persons/+{ssin}+/profilePicture`
 
 |singleton without a parent
 | `/endUserLicenseAgreement`
@@ -107,7 +106,7 @@ a|
 ====
 Consider following example:
 
-* a _meeting_ is a top level resource: `/meetings/{meetingId}`
+* a _meeting_ is a top level resource: `/meetings/+{meetingId}+`
 * a _meeting_ has _invitation_ child entities
 * an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once. Alternatively, a new globally unique `invitationId` could be introduced.
 
@@ -120,16 +119,16 @@ Following choices are possible to represent _invitation_ entities:
 |composite key
 a|
 
-`/meetings/{meetingId}/invitations/{personId}` (GET/PUT/PATCH/DELETE)
+`/meetings/+{meetingId}+/invitations/+{personId}+` (GET/PUT/PATCH/DELETE)
 
-`/meetings/{meetingId}/invitations` (GET/POST)
+`/meetings/+{meetingId}+/invitations` (GET/POST)
 
 `/invitations` (GET)   *(1)*
 
 
 a|
 
-`/invitations/{meetingId}:{personId}` (GET/PUT/PATCH/DELETE) *(2)*
+`/invitations/+{meetingId}+:++{personId}++` (GET/PUT/PATCH/DELETE) *(2)*
 
 `/invitations` (GET/POST)
 
@@ -137,20 +136,20 @@ a|
 | globally unique id
 
 a|
-`/meetings/{meetingId}/invitations/{invitationId}` (GET/PUT/PATCH/DELETE)
+`/meetings/+{meetingId}+/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
 
-`/meetings/{meetingId}/invitations` (GET/POST)
+`/meetings/+{meetingId}+/invitations` (GET/POST)
 
 `/invitations` (GET)   *(1)*
 
 a|
-`/invitations/{invitationId}` (GET/PUT/PATCH/DELETE)
+`/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
 
 `/invitations` (GET/POST)
 
 |===
 
-*(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId={personId}`
+*(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId=+{personId}+`
 
 *(2)* to avoid URL parsing errors, the character used as key separator (`:` in this example) should be chosen so that it isn't allowed as part of `meetingId` or `personId`
 ====
@@ -268,7 +267,7 @@ A _code_ is a special type of identifier:
 * it has an exhaustive list of possible values that doesn't change frequently over time
 * each value identifies a concept (examples: a country, a gender, ...).
 
-[rule, cod-design]
+[rule,cod-design]
 .Designing new codes
 ====
 New code types SHOULD be represented as string values in lowerCamelCase.
@@ -278,7 +277,7 @@ Depending on context, the OpenAPI schema enumerate the list of allowed values (s
 
 .Code
 ====
-`GET /refData/paymentMethods/{paymentMethodCode}` with `paymentMethodCode` of type `PaymentMethodCode`
+`GET /refData/paymentMethods/+{paymentMethodCode}+` with `paymentMethodCode` of type `PaymentMethodCode`
 
 As string with enumeration:
 ```YAML
@@ -291,7 +290,7 @@ PaymentMethodCode:
   - debitCard
 ```
 
-As string with regular expression: 
+As string with regular expression:
 ```YAML
 PaymentMethodCode:
   type: string
@@ -500,7 +499,7 @@ GET {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |<<get>>
-|/employers/{employerId}
+|/employers/+{employerId}+
 |Consult a single employer
 
 3+|Parameters
@@ -525,7 +524,7 @@ a|
 }
 ----
 
-3+|Most used response codes 
+3+|Most used response codes
 |<<http-200,200>>
 |OK
 |Default success code if the document exists.
@@ -561,7 +560,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 |The document resource does not exist.
 
 |===
-WARNING: ​<<http-204,204 No content>>  should not be used with GET. 
+WARNING: ​<<http-204,204 No content>>  should not be used with GET.
 
 
 ====
@@ -673,7 +672,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |<<put>>
-|/employers/{employerId}
+|/employers/+{employerId}+
 |Replace the entire employer resource with the client data. This implies a full update of the resource. Via `PUT` the client submits new values for all the data.
 
 3+|Request
@@ -700,14 +699,14 @@ a|
 
 ----
 
-3+|Most used response codes 
+3+|Most used response codes
 |<<http-200,200>>
 |OK
-|The update is successful and updated resource is returned. 
+|The update is successful and updated resource is returned.
 
 |<<http-204,204>>
 |No Content
-|The update is successful but updated resource is not returned. 
+|The update is successful but updated resource is not returned.
 
 |<<http-400,400>>
 |Bad request
@@ -755,7 +754,7 @@ PATCH {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |<<patch>>
-|`/employers/{employerId}`
+|`/employers/+{employerId}+`
 |Performs a partial update of an existing employer.
 
 3+|Request
@@ -774,7 +773,7 @@ a|
 | schema
 |
 a|
-[source,yaml,subs="attributes+"]
+[source,yaml]
 ----
 EmployerPatch:
   type: object
@@ -844,7 +843,7 @@ DELETE {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |<<delete>>
-|/employers/{employerId}
+|/employers/+{employerId}+
 |Deletes an employer.
 
 3+|Parameters
@@ -872,15 +871,15 @@ or
 
 |<<http-200,200>>
 |OK
-|Success code with the deleted resource returned. 
+|Success code with the deleted resource returned.
 
 |<<http-204,204>>
 |No Content
-|Success code with the deleted resource not returned. 
+|Success code with the deleted resource not returned.
 
 |<<http-400,400>>
 |Bad request
-|Generic error on client side. For example, the syntax of the request is invalid. 
+|Generic error on client side. For example, the syntax of the request is invalid.
 
 |<<http-404,404>>
 |Not Found
