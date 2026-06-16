@@ -63,7 +63,7 @@ Default sorting direction is ascending. To indicate descending direction, the pr
 a|
 [source,json, subs=normal]
 ----
-"next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
+"next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
 | <<Links>>
 
@@ -72,7 +72,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"prev": "{API}/companies?page=1&pageSize=2[/companies?page=3&pageSize=2^]"
+"prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
 | <<Links>>
 
@@ -81,7 +81,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"self": "{API}/companies/202239951[/companies/202239951^]"
+"self": "{API}/enterprises/202239951[/enterprises/202239951^]"
 ----
 | <<Links>>
 
@@ -90,7 +90,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"href": "{API}/companies/202239951[/companies/202239951^]"
+"href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
 ----
 | <<Links>>
 
@@ -99,7 +99,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"first": "{API}/companies?pageSize=2"
+"first": "{API}/enterprises?pageSize=2"
 ----
 | <<Pagination>>
 
@@ -108,7 +108,7 @@ a|
 a|
 [source,json, subs=normal]
 ----
-"last": "{API}/companies?page=4&pageSize=2",
+"last": "{API}/enterprises?page=4&pageSize=2",
 ----
 | <<Pagination>>
 
@@ -161,7 +161,7 @@ Custom headers that are standardized across Belgian Government organizations use
 ====
 
 `X-` headers were initially reserved for unstandardized parameters, but the usage of `X-` headers is deprecated (https://tools.ietf.org/html/rfc6648[RFC-6648]).
-Instead, it is recommended that company specific header' names should incorporate the organization’s name.
+Instead, it is recommended that organization's specific header names should incorporate the organization’s name.
 However, for backwards compatibility reasons, headers with the `X-` prefix may still be used.
 
 .Standard HTTP Headers referenced in the style guide

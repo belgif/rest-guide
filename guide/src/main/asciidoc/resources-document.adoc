@@ -517,9 +517,9 @@ a|
   "self": "{API}/employers/93017373[/employers/93017373^]",
   "name": "Belgacom",
   "employerId": 93017373,
-  "company": {
+  "enterprise": {
     "enterpriseNumber": "0202239951",
-    "href": "{API}/companies/202239951[/companies/202239951^]"
+    "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
   }
 }
 ----
