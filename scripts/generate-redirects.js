@@ -60,7 +60,7 @@ function walkHtmlFiles(dir) {
 }
 
 function extractAnchors(html) {
-  const articlePattern = /<article class="doc">([\s\S]*?)<\/article>/g
+  const articlePattern = /<article class="doc"[^>]*>([\s\S]*?)<\/article>/g
   const idPattern = /\bid="([^"]+)"/g
   const ignoredAnchors = new Set(['preamble', 'footnotes'])
   const anchors = []
