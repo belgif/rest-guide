@@ -60,7 +60,7 @@ Alongside the definitions of allowed interactions (operations, schemas, ...), su
 ====
 Free-text documentation can be added throughout an OpenAPI:
 
-* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (MANDATORY), `contact` and `description`
+* General documentation for the whole API can be provided in the OpenAPI's `info` object, like `title` (REQUIRED), `contact` and `description`
 * The `summary` property SHOULD be present on each operation providing a short functional description. When using OpenAPI visualization tools like SwaggerUI, it is displayed in the overview of all operations.
 * The `description` property on various definitions MAY be used to provide longer descriptions
 ** All `description` properties support https://commonmark.org/help/[CommonMark Markdown format] for rich text formatting.
@@ -181,6 +181,66 @@ Code generators use it to generate method names and generally take care of trans
 ```
 ====
 
+[rule, opbody-req]
+.Required request payload
+====
+Request payloads are optional by default in OpenAPI, even though they usually need to be required. It is most of the time an omission if this default wasn't changed.
+
+OpenAPI authors MUST specify the `required` property on a `requestBody` explicitly, to avoid any ambiguity.
+====
+
+.Required request payload
+====
+```yaml
+/documents:
+  post:
+    summary: Create a new document
+    operationId: createDocument
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Document"
+      required: true
+```
+====
+
+[rule, sec-req]
+.Security requirements
+====
+The `security` field defined at the root level of the OpenAPI entry document, or on an operation object, can be used to specify security requirements for interactions with the API.
+
+Each property name under `security` MUST correspond to a security scheme defined in `#/components/securitySchemes` in the entry OpenAPI document. If the security scheme is of type `oauth2` or `openIdConnect`, the value is a list of scope names required for the execution, and the list MAY be empty if authorization does not require a specified scope.
+For `oauth2` security schemes, the scope names in the security requirement MUST correspond to one of the `scopes` values in one of the OAuth flows of the corresponding security scheme component.
+====
+
+.OAuth2 security requirements
+====
+```yaml
+security:   # root-level security requirement is applied to all operations unless overridden
+  - Oauth:  # the name of the securityScheme component
+    - 'scope:organization:myapi:consult'  # scope name in at least one of the flows of the securityScheme
+  - Oauth:  # the name of the securityScheme component
+    - 'scope:organization:myapi:update'   # scope name in at least one of the flows of the securityScheme
+components:
+  securitySchemes:
+    Oauth: # the name of the securityScheme component
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://oauth.example.org/authorize'
+          tokenUrl: 'https://oauth.example.org/token'
+          scopes:
+            'scope:organization:myapi:consult': this scope allows to consult all data
+            'scope:organization:myapi:update': this scope allows to update all data
+        clientCredentials:
+          tokenUrl: 'https://oauth.example.org/token'
+          scopes:
+            'scope:organization:myapi:consult': this scope allows to consult all data
+            'scope:organization:myapi:update': this scope allows to update all data
+```
+====
+
 [rule, gen-header]
 .General HTTP headers
 ====
@@ -246,6 +306,8 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ====
 [[default-values,default values]]
 Absent optional properties in a request are set by the API provider to their `default` value if one is specified in the OpenAPI description.
+
+Default values MUST be schema-valid.
 ====
 
 [rule, path-param]
@@ -579,12 +641,13 @@ The `allOf` JSON Schema keyword expresses that a value must be valid against *al
 For `object` types, it can be used to model an inheritance relationship between schemas. For code generation, the first subschema that's a reference (`$ref`) is considered the parent.
 Subschemas in an `allOf` SHOULD NOT declare the same properties, because this will lead to problems for code generation tools.
 
-To model polymorphism, the `discriminator` keyword on a parent schema designates a property used to resolve the child schema against which the object will be validated:
+To model polymorphism, the `discriminator` keyword on a parent schema designates a property that determines the child schema used for validation. The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the parent schema and listed as `required`. Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
+====
 
-* The property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by the parent schema and listed as `required`.
-* It is RECOMMENDED to provide an explicit `mapping` of discriminator values to schemas, using the URI-reference syntax (e.g. `"#/components/schemas/Child"`).
-
-Objects with discriminator values that do not resolve to a child schema, are rejected during validation.
+.Discriminator mapping
+[rule, sch-discr]
+====
+The URI-reference syntax (e.g. `"#/components/schemas/Child"`) SHOULD be used to provide an explicit `mapping` of discriminator values to schemas.
 ====
 
 Using schema names in discriminator `mapping` instead of URI-references is discouraged because it leads to implementation-specific behavior (as described in https://spec.openapis.org/oas/v3.0.4#options-for-mapping-values-to-schemas[these] https://spec.openapis.org/oas/v3.0.4#resolving-implicit-connections[two] sections of the OpenAPI specification).
@@ -755,12 +818,7 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
 * subschemas of `type: object`, when a `discriminator` is also defined. Unlike `allOf`-style polymorphism (<<rule-sch-allof>>), properties SHOULD only be defined within the subschemas.
 
-When using `oneOf` in combination with a `discriminator`:
-
-* an explicit `mapping` of discriminator values to subschemas is RECOMMENDED, using the URI-reference syntax (e.g. `"#/components/schemas/FirstOption"`)
-* the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`.
-
-Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
+When using `oneOf` in combination with a `discriminator`, the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`. The discriminator `mapping` SHOULD include each of the `oneOf` subschemas. Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
 ====
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].

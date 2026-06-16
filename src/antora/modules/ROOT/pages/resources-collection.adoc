@@ -39,8 +39,8 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 |===
 
 | xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
-| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
-| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource. 
+| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
+| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
 |===
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
@@ -139,7 +139,7 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 .Response
 [subs=normal]
 ```JSON
-​​​{
+{
  "self": "{API}/appendices/employerclasses?embed=items[/appendices/employerclasses?embed=items^]",
  "items": [
   {
@@ -256,26 +256,25 @@ a|
 ----
 
 3+|Most used response codes
-​​|xref:statuscodes.adoc#http-200[200]
+|xref:statuscodes.adoc#http-200[200]
 |OK
 |Default response code, also when the filtered collection is empty. 
-| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
-| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource. 
-​
+| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
+| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
 |===
 
-WARNING: ​xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET. 
+WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
 
 
 [subs=normal]
 ```
-GET {API}/companies?name=belg[^] HTTP/1.1​
+GET {API}/companies?name=belg[^] HTTP/1.1
 ```
 
 == Pagination
 
 [rule, col-paging]
-.Paging over a large collection​
+.Paging over a large collection
 ====
 Collection with too many items MUST support pagination.
 There are two pagination techniques:
@@ -287,36 +286,35 @@ Cursor-based pagination has some advantages, especially for high volumes.
 Take into account the considerations http://zalando.github.io/restful-api-guidelines/#160[listed in the Zalando API guidelines] before choosing a pagination technique.
 ====
 
-.Reserved JSON properties:
-
+.Reserved JSON properties for pagination
 |===
-
 |`next` | MANDATORY (except for the last page) | hyperlink to the next page
+
+|`next` | REQUIRED (except for the last page) | hyperlink to the next page
 |`prev` | OPTIONAL | hyperlink to the previous page
 |`pageSize` | RECOMMENDED | Maximum number of items per page. For the last page, its value should be independent of the number of actually returned items.
-| `page` |MANDATORY (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
+| `page` |REQUIRED (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
 | `first` | OPTIONAL | hyperlink to the first page
 | `last` | OPTIONAL | hyperlink to the last page
 | `total` | OPTIONAL | Total number of items across all pages. If query parameters are used to filter the result set, this is the total of the collection result set, not of the entire collection.
-
 |===
 
 The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
 
-.Reserved query parameters:
-
+.Reserved query parameters for pagination
 |===
-
 | `pageSize` | OPTIONAL |  maximum number of items per page desired by client; must have a default value if absent.
-| `page` | MANDATORY with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
+| `page` | REQUIRED with default value 1 (offset-based); N/A (cursor-based) | the index of page to be retrieved
 
 |===
+
+A reusable `PageQueryParameter` OpenAPI component is defined in https://github.com/belgif/openapi-common/blob/main/src/main/openapi/common/v1/common-v1.yaml#L36[common-v1.yaml]. Examples of other OpenAPI components for pagination can be found https://github.com/belgif/openapi-common/blob/main/src/test/openapi/Pagination.yaml[here], but should be modified according to which pagination parameters, size limits and default values are supported by your API.
 
 .Offset-based pagination
 ====
 [subs="normal"]
 ```
-GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1​
+GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1
 ```
 
 [source,json, subs="normal"]
@@ -409,7 +407,7 @@ a|
 3+|Response
 
 |body
-|​
+|
 a|The API should specify for each creation operation, if it returns:
 
 * an empty body,
@@ -417,7 +415,7 @@ a|The API should specify for each creation operation, if it returns:
 * or a full resource representation.
 
 3+|Most used response codes
-​​
+
 |xref:statuscodes.adoc#http-201[201]
 |Created
 |Default response code if the resource is created. 
@@ -433,7 +431,7 @@ a|The API should specify for each creation operation, if it returns:
 
 |===
 
-WARNING: ​xref:statuscodes.adoc#http-200[200 OK]  should not be used with POST for creating resources. 
+WARNING: ​xref:statuscodes.adoc#http-200[200 OK]  should not be used with POST for creating resources.
 
 [source]
 ----
@@ -479,6 +477,6 @@ In order to remove a single specific item from a collection, use xref:resources-
 |xref:statuscodes.adoc#http-204[204]
 |No content
 | The items are successfully removed from the collection but no additional content is included in the response body.
-| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.  
+| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The collection resource does not exist and thus cannot be deleted.
 |===
