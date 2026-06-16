@@ -124,7 +124,7 @@ Problem `type` SHOULD be specified as a URN in one of following formats:
 with:
 
 * `<org>`: a short identifier for the organization
-* `<api>`: name of the API.It MAY be used for API-specific problem types
+* `<api>`: name of the API. It MAY be used for API-specific problem types
 * `<type>`: type of the problem in lowerCamelCase
 
 A description of an API-specific problem type MAY be provided as a reference data resource : `/refData/problemTypes/+{problemType}+`.
