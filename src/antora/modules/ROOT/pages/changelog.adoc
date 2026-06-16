@@ -1,5 +1,14 @@
 = Changelog
 
+* 2026-06-12
+** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-date\]] on sensitive data in URLs or headers
+** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
+** added link to example schema to xref:resources-collection.adoc#Pagination[Pagination]
+** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
+** new rule xref:api_specifications.adoc#rule-sch-sec-req[[sch-sec-req\]]: security requirements must be consistent with security schemes
+** new rule xref:api_specifications.adoc#rule-opbody-req[[sch-opbody-req\]]: `required` should be specified explicitly on request bodies
+** reference the RFCs on requirements levels (MUST, SHOULD, etc.) in <<Introduction>>, and replace MANDATORY by REQUIRED throughout the guide
+
 * 2026-04-28
 ** update xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] and xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: guidelines on use of `discriminator` and `mapping`
 ** new rule xref:resources-document.adoc#rule-child-ent[[child-ent\]] on representation of child entities

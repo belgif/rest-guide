@@ -118,11 +118,7 @@ There are three different resource archetypes:
 * xref:resources-collection.adoc[]
 * xref:resources-controller.adoc[]
 
-
-
-
-
-=== Sensitive data
+== Sensitive data
 
 [rule,sens-dat]
 .Sensitive data in URLs or headers
