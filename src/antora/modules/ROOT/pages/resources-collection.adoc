@@ -243,12 +243,12 @@ a|
 [source,json, subs=normal]
 ----
 {
-  "self": "{API}/companies?name=belg[/companies?name=belg^]",
+  "self": "{API}/enterprises?name=belg[/enterprises?name=belg^]",
 	"items": [{
-		"href": "{API}/companies/202239951[/companies/202239951^]",
+		"href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
 		"title": "Belgacom"
 	}, {
-		"href": "{API}/companies/448826918[/companies/448826918^]",
+		"href": "{API}/enterprises/0448826918[/enterprises/0448826918^]",
 		"title": "Carrefour Belgium SA"
 	}],
 	"total": 2
@@ -268,7 +268,7 @@ WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with 
 
 [subs=normal]
 ```
-GET {API}/companies?name=belg[^] HTTP/1.1
+GET {API}/enterprises?name=belg[^] HTTP/1.1
 ```
 
 == Pagination
@@ -314,30 +314,30 @@ A reusable `PageQueryParameter` OpenAPI component is defined in https://github.c
 ====
 [subs="normal"]
 ```
-GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1
+GET {API}/enterprises?page=2&pageSize=2[^] HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/companies?page=2&pageSize=2[/companies?page=2&pageSize=2^]",
+  "self": "{API}/enterprises?page=2&pageSize=2[/enterprises?page=2&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/companies/202239951[/companies/202239951^]",
+      "href": "{API}/enterprises/202239951[/enterprises/202239951^]",
       "title": "Belgacom"
     },
     {
-      "href": "{API}/companies/212165526[/companies/212165526^]",
+      "href": "{API}/enterprises/212165526[/enterprises/212165526^]",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "page": 2,
   "total": 7,
-  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
-  "last": "{API}/companies?page=4&pageSize=2[/companies?page=4&pageSize=2^]",
-  "prev": "{API}/companies?page=1&pageSize=2[/companies?page=1&pageSize=2^]",
-  "next": "{API}/companies?page=3&pageSize=2[/companies?page=3&pageSize=2^]"
+  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
+  "last": "{API}/enterprises?page=4&pageSize=2[/enterprises?page=4&pageSize=2^]",
+  "prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=1&pageSize=2^]",
+  "next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
 }
 ----
 ====
@@ -346,27 +346,27 @@ GET {API}/companies?page=2&pageSize=2[^] HTTP/1.1
 ====
 [subs="normal"]
 ```
-GET {API}/companies?afterCompany=0244640631[^] HTTP/1.1​
+GET {API}/enterprises?afterEnterprise=0244640631[^] HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/companies?afterCompany=0244640631&pageSize=2[/companies?afterCompany=0244640631&pageSize=2^]",
+  "self": "{API}/enterprises?afterEnterprise=0244640631&pageSize=2[/enterprises?afterEnterprise=0244640631&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/companies/202239951[/companies/202239951^]",
+      "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
       "title": "Belgacom"
     },
     {
-      "href": "{API}/companies/212165526[/companies/212165526^]",
+      "href": "{API}/enterprises/0212165526[/enterprises/0212165526^]",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "total": 7,
-  "first": "{API}/companies?pageSize=2[/companies?pageSize=2^]",
-  "next": "{API}/companies?afterCompany=0212165526&pageSize=2[/companies?afterCompany=0212165526&pageSize=2^]"
+  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
+  "next": "{API}/enterprises?afterEnterprise=0212165526&pageSize=2[/enterprises?afterEnterprise=0212165526&pageSize=2^]"
 }
 ----
 ====
@@ -392,7 +392,7 @@ a|
 {
   "name": "Belgacom",
   "employerId": 93017373,
-  "company": {
+  "enterprise": {
     "enterpriseNumber": "0202239951"
   }
 }

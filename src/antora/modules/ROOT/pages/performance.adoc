@@ -44,13 +44,13 @@ Note that it not possible to specify more than one schema this way in OpenAPI, s
       "self": "http://myrestapi/persons/12345678901",
       "ssin": "12345678901",
       "givenName": "Jane",
-      "lastName": "Doe"
+      "familyName": "Doe"
     },
     "http://myrestapi/persons/98765432101": {
       "self": "http://myrestapi/persons/98765432101",
       "ssin": "98765432101",
       "givenName": "Bobby",
-      "lastName": "Doe"
+      "familyName": "Doe"
     }
   }
 }
