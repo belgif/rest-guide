@@ -1,9 +1,10 @@
-{
+﻿{
   "scripts": {
-    "build": "antora antora-playbook.yml && node scripts/generate-redirects.js"
+    "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js",
+    "serve": "node scripts/serve.js"
   },
   "devDependencies": {
-    "@antora/lunr-extension": "1.0.0-alpha.13",
-    "antora": "3.1.15"
+    "antora": "3.1.15",
+    "pagefind": "^1.5.2"
   }
 }

@@ -25,9 +25,17 @@ module.exports.register = function (registry) {
       const title = attrs['title'] || ''
       attrs['title'] = `Rule: ${title} <<${ruleAnchor}>>`
       attrs['role'] = 'exampleblock rule'
+      // The Lunr extension indexes rendered page text, not document attributes.
+      // Add a hidden marker so the rule ID is part of the HTML text that gets indexed.
+      const searchableMarker = [
+        '++++',
+        `<span class="rule-search-keyword" style="display:none" aria-hidden="true">${ruleId} [${ruleId}]</span>`,
+        '++++',
+        ''
+      ]
+      const lines = searchableMarker.concat(reader.readLines())
       // Using open block with exampleblock style avoids bullet-list parse errors
-      return self.createBlock(parent, 'open', reader.readLines(), attrs)
+      return self.createBlock(parent, 'open', lines, attrs)
     })
   })
 }
-
