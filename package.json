@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "antora antora-playbook.yml"
+    "build": "antora antora-playbook.yml && node scripts/generate-redirects.js"
   },
   "devDependencies": {
     "@antora/lunr-extension": "1.0.0-alpha.13",

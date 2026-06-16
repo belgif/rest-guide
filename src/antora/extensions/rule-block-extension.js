@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Antora / asciidoctor.js extension for the custom [rule, <ruleId>] block.
  *
  * Replicates the behaviour of the Java RuleBlock AsciidoctorJ extension:
@@ -30,3 +30,4 @@ module.exports.register = function (registry) {
     })
   })
 }
+
