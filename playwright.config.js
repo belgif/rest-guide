@@ -4,7 +4,7 @@ const { defineConfig, devices } = require('@playwright/test')
 module.exports = defineConfig({
   testDir: './tests',
   use: {
-    baseURL: 'http://localhost:4000',
+    baseURL: 'http://127.0.0.1:4000',
   },
   projects: [
     {
@@ -14,7 +14,7 @@ module.exports = defineConfig({
   ],
   webServer: {
     command: 'node scripts/serve.js',
-    url: 'http://localhost:4000',
+    url: 'http://127.0.0.1:4000',
     reuseExistingServer: !process.env.CI,
   },
 })
