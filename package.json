@@ -1,9 +1,11 @@
-﻿{
+{
   "scripts": {
     "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js",
-    "serve": "node scripts/serve.js"
+    "serve": "node scripts/serve.js",
+    "test": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "antora": "3.1.15",
     "pagefind": "^1.5.2"
   }

@@ -11,3 +11,4 @@ node/
 node_modules/
 /build/
 /temp/
+/test-results/
