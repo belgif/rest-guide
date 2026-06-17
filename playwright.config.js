@@ -13,8 +13,8 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'node scripts/serve.js',
-    url: 'http://127.0.0.1:4000',
+    command: 'npx http-server ./build/site -p 4000',
+    port: 4000, // used to check server is running already; didn't work with 'url' alternative - possibly https://github.com/microsoft/playwright/issues/8513
     reuseExistingServer: !process.env.CI,
   },
 })
