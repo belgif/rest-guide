@@ -1,0 +1,30 @@
+site:
+  title: REST Guidelines
+  url: https://www.belgif.be/specification/rest
+  start_page: api-guide::introduction.adoc
+  robots: allow
+
+content:
+  sources:
+    - url: .
+      start_path: src/antora
+      branches: HEAD
+
+asciidoc:
+  extensions:
+    - ./src/antora/extensions/rule-block-extension.js
+
+ui:
+  bundle:
+    url: ./ui-bundle.zip
+  supplemental_files: ./src/supplemental-ui
+
+output:
+  clean: true
+  dir: ./build/site
+  destinations:
+    - provider: archive
+      path: ./build/site.zip
+runtime:
+  log:
+    failure_level: error

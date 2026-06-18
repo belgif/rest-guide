@@ -1,0 +1,196 @@
+= Changelog
+
+* 2026-06-12
+** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-date\]] on sensitive data in URLs or headers
+** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
+** added link to example schema to xref:resources-collection.adoc#Pagination[Pagination]
+** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
+** new rule xref:api_specifications.adoc#rule-sch-sec-req[[sch-sec-req\]]: security requirements must be consistent with security schemes
+** new rule xref:api_specifications.adoc#rule-opbody-req[[sch-opbody-req\]]: `required` should be specified explicitly on request bodies
+** reference the RFCs on requirements levels (MUST, SHOULD, etc.) in xref:introduction.adoc[], and replace MANDATORY by REQUIRED throughout the guide
+
+* 2026-04-28
+** update xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] and xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: guidelines on use of `discriminator` and `mapping`
+** new rule xref:resources-document.adoc#rule-child-ent[[child-ent\]] on representation of child entities
+** update rule xref:api_specifications.adoc#rule-oas-descr[[oas-descr\]] with exception for `title` within `allOf` and `not` inline schemas
+** update xref:events.adoc#rule-async-svctype[[async-svctype\]]: `service` should be prefixed with a reverse-DNS name
+** new rule xref:events.adoc#rule-async-order[[async-order\]] on out-of-order and duplicate messages
+** update rule xref:events.adoc#rule-async-cespec[[async-cespec\]]:
+*** clarify that an Asynchronous Message is immutable and all functional data should be part of it (i.e. not exclusively in exchange protocol)
+*** guidelines on context attributes were split off to xref:events.adoc#rule-async-ctxt[[async-ctxt\]]
+** new rule xref:events.adoc#rule-async-generic[[async-generic\]] with guidelines on generic endpoints for Asynchronous Messages
+** add a list of organizations that endorse this guide (xref:introduction.adoc[])
+
+* 2026-02-16
+** new rule xref:api_specifications.adoc#rule-oas-doc[[oas-doc\]] on providing documentation in OpenAPI. This replaces the previous `[ext-docs]` rule.
+** update rule xref:api_specifications.adoc#rule-oas-descr[[oas-descr\]]:
+*** extended with all OpenAPI free-text documentation properties
+*** a `summary` should now be present for each operation
+*** for inline schemas of type `object`, a `title` is now recommended. For schema components, it shouldn't override the component name if present.
+** update rule xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: changed allowed usage to ensure tooling compatibility (`object` subschemas with `discriminator`, subschemas with only `required` and `enum` subschemas)
+** update xref:tracing.adoc#rule-trc-header[[trc-header\]]: make UUIDv4 optional for trace ids and recommend randomness
+
+* 2025-11-25
+** new guidelines on xref:events.adoc#events[ Asynchronous messaging and events]
+** new rule xref:tracing.adoc#rule-trace-w3c[[trace-w3c\]] on the use of W3C/OTel tracing only within an organization's trust boundary
+* 2025-09-24
+** add rules about composition, inheritance and polymorphism in schemas using `oneOf`, `allOf` and `discriminator` in xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] and xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]
+** add linked documentation pages for each issue type in xref:problems/badRequest.adoc[]
+** improve xref:internationalization.adoc#internationalization[] guidelines:
+*** clarifications on the `Content-Language` header
+*** language choice may also be based on a user profile
+*** update xref:internationalization.adoc#rule-int-negot[[int-negot\]]: language priority using `q` param, matching regional language variants and fallback behavior
+** (minor): apply https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.1[OAS definitions] for an OpenAPI (entry) document and OpenAPI description throughout the guide
+* 2025-06-16
+** recommend OpenAPI 3.0 and remove OpenAPI 2.0 throughout the guide
+** new in xref:problems/badRequest.adoc#bad-request[ Bad Request Problem]: standardized `invalidInput` issue type
+** update section xref:resources-document.adoc#section-identifier[Identifier]: describe potential compatibility problems with escaped slash values in path params
+** update rule xref:resources-document.adoc#rule-id-name[[id-name\]]: always prefix `id` and `code` path param names with their resource type
+** update description xref:statuscodes.adoc#http-409[`409 Conflict`] status: conflict with "data on the server" instead of "current state of the target resource". Remove optimistic locking issue (usually `412`)
+
+* 2025-01-28
+** new in xref:problems/badRequest.adoc#bad-request[ Bad Request Problem]: standardized `referencedResourceNotFound` issue type
+** update of xref:errorhandling.adoc#standardized-problem-types[Standardized problem types]: add `WWW-Authenticate` header for access token or scope problems
+** update rule xref:internationalization.adoc#rule-int-negot[[int-negot\]]: a default fallback language should be used when `Accept-Language` header can't be respected
+
+.Older changes
+[%collapsible]
+====
+* 2024-12-02
+** add a list of xref:introduction.adoc#related-belgif[Related Belgif initiatives]
+** new rule xref:api_specifications.adoc#rule-prop-req[[prop-req\]] on declaring properties as `required`
+** new rule xref:api_specifications.adoc#rule-openapi-opid[[openapi-opid\]]: recommend the use of `operationId`
+** update rule xref:json.adoc#rule-jsn-null[[jsn-null\]]: clarify use of `null`
+** new rule xref:resources-document.adoc#rule-doc-patch[[doc-patch\]] on JSON Merge Patch, illustrating the use of nullable properties
+** update rule xref:errorhandling.adoc#rule-err-problem[[err-problem\]]: provide structured data in additional properties and recommend against parsing `title` or `description`
+** clarify that time offsets are mandatory for `date-time` values in xref:json.adoc#json-date-time[JSON]
+** update rule: xref:api_specifications.adoc#rule-oas-exampl[[oas-exampl\]] recommending to add examples, and clarify specifics of OpenAPI 2.0 and 3.0
+* 2024-04-05
+** update xref:api_specifications.adoc#rule-oas-tags[[oas-tags\]]: add new guidelines on tags (declared, style, no more than one tag on an operation)
+** new: rule xref:api_specifications.adoc#rule-oas-comp[[oas-comp\]] applies naming guidelines on all types of components (previously in xref:api_specifications.adoc#rule-oas-types[[oas-types\]] only for schemas)
+** added motivation for xref:api_specifications.adoc#rule-oas-rdonly[[oas-rdonly\]] why required properties shouldn't be readOnly
+** clarify that health status should be from client point-of-view in xref:health.adoc[]
+* 2024-01-31
+** new: a document may also be a singleton that's not part of a collection (xref:resources-document.adoc#document-singleton[Singleton documents])
+** new: path parameter names should use lowerCamelCase xref:api_specifications.adoc#rule-path-param[[path-param\]]
+** update: clarify that query parameters should use lowerCamelCase xref:resources.adoc#rule-uri-notat[[uri-notat\]]
+** update: the name of a multi-value query parameter should be singular if it's a noun xref:resources.adoc#rule-qry-multi[[qry-multi\]]
+** new: explicit rule and clearer guidelines on `GET /health` resource xref:health.adoc#rule-hlth-res[[hlth-res\]]
+* 2023-10-05
+** update: xref:api_specifications.adoc#rule-req-valid[[req-valid\]] issue type for unknown input is renamed
+** new: rule xref:reserved.adoc#rule-hdr-case[[hdr-case\]] on case-insensitivity of HTTP headers
+** update: explicit rules for guidelines: xref:methods.adoc#rule-meth-http[[meth-http\]] and xref:statuscodes.adoc#rule-stat-codes[[stat-codes\]] (use of appropriate HTTP methods and status codes), xref:resources-collection.adoc#rule-col-sort[[col-sort\]] (sorting a collection)
+** update: improved overview table for the use of HTTP methods xref:methods.adoc#rule-meth-http[[meth-http\]]
+** update: corrected use of status 303: allowed on all methods in overview table xref:statuscodes.adoc#rule-stat-codes[[stat-codes\]]
+** update: links to the releases of common OpenAPI definitions are added to xref:api_specifications.adoc#rule-oas-comdef[[oas-comdef\]]
+** update: Problem Details for HTTP APIs is updated to RFC 9457 which obsoletes RFC 7807 throughout the guide
+* 2023-06-14
+** add /doc/openapi.[json,yaml] to list of reserved resources xref:reserved.adoc#resource-names[Resource names]
+** updated xref:resources-document.adoc#rule-id-name[[id-name\]]: naming convention for OpenAPI types for identifiers and codes
+** updated xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]: avoid cross-API links, make self links optional
+** new: xref:api_specifications.adoc#rule-req-valid[[req-valid\]]: handling unknown request parameters
+** updated list of xref:api_specifications.adoc#openapi-tools[OpenAPI tools]
+* 2023-03-17
+** Rule identifier with anchor added for each rule in the guide
+** Updated xref:json.adoc#rule-jsn-naming[[jsn-naming\]]: naming of JSON properties
+** Updated xref:resources-document.adoc#rule-id-name[[id-name\]] with new naming conventions for identifiers and codes
+* 2022-12-07
+** new: Representing xref:errorhandling.adoc#default-problem-response[general problem types in OpenAPI]
+** new: Representing xref:api_specifications.adoc#general-http-headers[general and operation-specific HTTP headers in OpenAPI]
+* 2022-10-27
+** updated: the response body when creating a resource may also contain partial or full resource (xref:resources-collection.adoc#create-resource[ Create a new resource])
+* 2022-05-20
+** move REST guide to belgif.be, updating href problem links
+* 2022-03-31
+** new: use string based types for decimals when precision is important (xref:api_specifications.adoc#decimals[Decimals])
+** updated: new type xref:problems/badRequest.adoc#input-validation-schema[InputValidationProblem] for problems of type `badRequest` and `resourceNotFound` (breaking change)
+** updated: clarify the use of multiple query parameters to filter a collection (xref:resources-collection.adoc#filtering[Filtering])
+* 2022-02-02
+** new: designing new xref:resources-document.adoc#Identifier[identifiers and codes] or using existing numerical ones
+** updates for OpenAPI 3.0 support throughout the entire guide
+** new: xref:problems/serviceUnavailable.adoc[] problem type (http 503)
+** added: use Retry-After HTTP header in xref:problems/tooManyFailedRequests.adoc[] and xref:problems/tooManyRequests.adoc[]
+* 2021-06-24
+** updated: use URNs as problem type and add href for problem documentation (xref:errorhandling.adoc[])
+** updated: clarify use of charset in JSON media type (xref:mediatypes.adoc[])
+** added: how to specify media types in OpenAPI 3 (xref:mediatypes.adoc#media-type-openapi3[Specifying media types in OpenAPI])
+* 2020-12-02
+** new: standardized problem types internalServerError, badGateway, tooManyFailedRequests, payloadTooLarge (xref:errorhandling.adoc#standardized-problem-types[Standardized problem types])
+* 2020-11-04
+** added: xref:resources-collection.adoc#remove-collection-items[Remove a selection of items from a collection] (xref:resources-collection.adoc[])
+** updated: status codes made consistent in various locations (xref:resources-collection.adoc[], xref:resources-document.adoc[], xref:methods.adoc[] and xref:statuscodes.adoc[])
+** added: status codes xref:statuscodes.adoc#http-429[ 429 Too Many Requests] and  xref:statuscodes.adoc#http-502[ 502 Bad Gateway]  (xref:statuscodes.adoc[])
+** added: table about how to use each HTTP method (xref:methods.adoc#http-methods[ HTTP Methods])
+** added: table listing xref:statuscodes.adoc#status-codes-by-method[acceptable status codes for each method] (xref:statuscodes.adoc#status-codes[ Status Codes])
+* 2020-09-09
+** new: recommend use of CloudEvents specification (xref:events.adoc#events[])
+** add guidelines on API health checks (xref:health.adoc[])
+** move common OpenAPI schemas to separate GitHub repositories (xref:api_specifications.adoc#belgif-openapi-types[Common OpenAPI definitions])
+* 2020-08-03
+** allow OpenAPI 3.0 (xref:api_specifications.adoc[])
+** remove unmaintained swagger-validator-maven-plugin and styleguide-validationrules from tools list (xref:api_specifications.adoc#openapi-tools[])
+** change status codes to string types in example OpenAPI definitions to be compliant to the OpenAPI standard
+** set license of this guide to Apache License, Version 2.0 (xref:introduction.adoc#license[Introduction])
+* 2020-03-24
+** add links to GitHub, vocabularies and OAS schemas in the xref:introduction.adoc[]
+* 2020-01-10
+** updated rules: naming of xref:reserved.adoc#json-properties[JSON properties] and naming of xref:api_specifications.adoc#schemas[Schemas]: no digits as first letter and no dots in names
+** added xref:statuscodes.adoc#http-413[413 Payload Too Large] to list of HTTP status codes
+** updated xref:resources.adoc#resource-uri[Resource URI] notation rule: no trailing slashes in URIs
+** added rule: xref:api_specifications.adoc#default-values[default values] in OpenAPI specification
+** added xref:resources-controller.adoc[] resource archetype and move all archetypes to xref:resources.adoc[] chapter
+* 2019-05-23
+** update list of standard problem types and add InvalidParamProblem schema to problem-v1.yaml, see xref:errorhandling.adoc#standardized-problem-types[Standardized problem types]
+** new rule: naming of identifiers in xref:resources-document.adoc[]
+** add status code `303 See Other` to xref:resources-collection.adoc#create-resource[ Create a new resource ]
+** new rule: use tags in xref:api_specifications.adoc#openapi[OpenAPI]
+** new section: how to specify xref:mediatypes.adoc#media-types-openapi[ media types in OpenAPI]
+** update rules: naming of xref:reserved.adoc#json-properties[JSON properties] and naming of xref:api_specifications.adoc#schemas[Schemas] to make names more meaningful
+** new rule: use `description` and avoid `title` to describe xref:api_specifications.adoc#schemas[Schemas]
+** updated rule: String and integer types (xref:api_specifications.adoc#schemas[Schemas]). String based codes should have a unique representation.
+* 2019-01-22
+** modified xref:api_specifications.adoc[] guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
+** gCloud JSON Schemas refactored to this new file structure
+** updated list of Swagger editors and code generators in xref:api_specifications.adoc#Tools[Tools]
+** added guidelines about xref:tracing.adoc[] with standardized HTTP headers
+** add OpenAPI example of multi-valued query param to xref:resources.adoc[]
+** added rule: place reference data resources in `/refData` (xref:api_specifications.adoc#doc-resource[doc resource])
+** add list of reserved resource names to xref:reserved.adoc[]
+** document `select` reserved query param to filter resource representation (xref:resources-document.adoc#document-consult[Consult (Document)])
+* 2018-11-26
+** add SelfLink type in xref:hypermedia.adoc[]
+** recommend American English for xref:json.adoc[] property names and xref:api_specifications.adoc#schemas[Schemas]
+** add recommendations on typing of properties in xref:api_specifications.adoc#schemas[Schemas] (integer/string, enums)
+* 2018-09-09
+** HttpLink type updated in xref:hypermedia.adoc[] to be read only instead of required
+** new rule in xref:api_specifications.adoc#schemas[Schemas] for enum values
+* 2018-08-09
+** Standardized Problem response for several use cases in xref:errorhandling.adoc[] and updated Problem examples throughout the guide
+* 2018-08-08
+** added clarifications and example for use of `HttpLink` to xref:hypermedia.adoc[]
+** changed guideline for JSON Schemas to single root type per file and add rule on common BelGov schemas
+* 2018-06-29
+** added files with common data types containing types referenced throughout the guide
+** added MergePatch type to xref:resources-document.adoc#document-partial-update[Partial update]
+** added guidelines for xref:resources-document.adoc#long-running-tasks[Long-running tasks]
+* 2018-05-28
+** added xref:performance.adoc#caching[Caching] guidelines
+* 2018-04-25
+** added xref:internationalization.adoc[] guidelines
+** updated xref:resources-controller.adoc[], allowing verb as child resource and GET method in some cases
+** update format of version number in xref:api_specifications.adoc[]
+** added contact email address in xref:introduction.adoc[]
+** prefix `BelGov-` added for custom xref:reserved.adoc#reserved-HTTP-headers[reserved HTTP headers]
+* 2018-04-19
+** guidelines about reusable JSON Schemas
+* 2018-04-18
+** added xref:versioning.adoc[] guidelines
+** removed collector, added "Non-CRUD operations" under xref:resources-document.adoc[] section
+* 2018-03-14
+** added reserved HTTP headers and rule on custom http headers (xref:reserved.adoc#reserved-HTTP-headers[reserved HTTP headers])
+** content negotiation and JSON subtypes added to xref:mediatypes.adoc[]
+** xref:resources-collection.adoc#collections-consult[Consulting a collection]: empty items array mandatory when collection is empty
+** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
+* 2018-03-07
+** xref:errorhandling.adoc[]: use of RFC 7807
+====

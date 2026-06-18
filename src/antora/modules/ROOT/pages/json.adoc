@@ -1,0 +1,166 @@
+= JSON
+
+All RESTful services must support *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
+
+For extensibility, the payload (if any) of a RESTful request or response should always be a JSON object instead of an array, string, number, etc (xref:versioning.adoc#rule-evo-object[[evo-object\]]).
+This way the request or response can always be extended with new properties ( xref:versioning.adoc#rule-evo-compat[[evo-compat\]]).
+
+[rule, jsn-naming]
+.Naming of JSON properties
+====
+Following guidelines SHOULD be respected when determining a name for a JSON property:
+
+* use  _lowerCamelCase_ notation
+** also for abbreviations: all letters after the first should be lowercase
+* use American English
+* do not use underscores (_), hyphens (-) or dots (.) in a property name, nor use a digit as first letter
+* don't use overly generic terms like `info(rmation)` and `data` as property name or as part of it
+* the name should refer to the business meaning of its value in relation to the object in which it is specified, rather than how it is defined
+* omit parts of the name that are already clear from the context
+
+Properties used from other standards, like OpenID Connect and OAuth2, are allowed to deviate from this rule.
+====
+
+|===
+|KO|OK
+
+|SSIN | ssin
+|street_RRN | streetRrn
+|customerInformation | customer
+|descriptionStringLength140 | description
+a|
+```JSON
+"country": {
+  "countryNisCode": 150,
+  "countryIsoCode": "BE",
+  "countryName": "Belgium"
+}
+```
+a|
+```JSON
+"country": {
+  "nisCode": 150,
+  "isoCode": "BE",
+  "name": "Belgium"
+}
+```
+|===
+
+In below example, `enterpriseNumber` should be used even though the `enterprise` prefix is clear by its context.
+This is because `enterpriseNumber` is a fixed denomination (declared in  Crossroads Bank for Enterprises) and using just `number` would rather cause confusion to type of identifier being used.
+[subs="normal"]
+```json
+{
+  "name": "Proximus",
+  "employerId": 93017373,
+  "enterprise": {
+    "enterpriseNumber": "0202239951"
+    "href": "/organizations/0202239951"
+  }
+}
+```
+
+[rule, jsn-null]
+.Null values
+====
+
+Properties without a value SHOULD be stripped from the JSON message, instead of having a `null` value.
+
+For properties or parameters with a specified type, OpenAPI disallows `null` values by default, unless `nullable: true` is specified.
+
+A notable exception to this rule are JSON Merge Patch requests, in which a `null` value indicates the removal of a JSON property.
+
+Note that this rule doesn't apply to empty values (e.g. empty strings `""` or empty arrays `[]`) as they are considered different from a `null` value.
+====
+
+|===
+|*NOK*|*OK*
+a|[subs="normal"]
+```json
+{
+  "name": "Proximus",
+  "employerId": 93017373,
+  "enterprise": null
+}
+```
+
+a|[subs="normal"]
+```json
+{
+  "name": "Proximus",
+  "employerId": 93017373
+}
+```
+|===
+
+**The JSON properties have no specific order inside a JSON object.**
+
+[cols="1,1"]
+|===
+a|[subs="normal"]
+```json
+{
+  "name": "Proximus",
+  "employerId": 93017373
+}
+```
+
+
+a|[subs="normal"]
+```json
+{
+  "employerId": 93017373,
+  "name": "Proximus"
+}
+```
+|===
+
+**Dates are written in ISO 8601 full-date format: yyyy-MM-dd**
+
+Dates don't include time zone or offset information.
+See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[OpenAPI 3.0 data types^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
+
+```json
+{
+  "birthday": "1930-07-19"
+}
+```
+
+.Schema with date
+```YAML
+type: object
+properties:
+  birthDay:
+    type: string
+    format: date
+```
+
+[[json-date-time]]
+**Date/time are written in ISO 8601 date-time format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX**
+
+See https://tools.ietf.org/html/draft-fge-json-schema-validation-00#section-7.3.1[JSON Schema Validation 7.3.1. date-time^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
+The fraction part `.SSS` for sub-second precision is optional and may be of any length.
+The time offset relative to UTC (`XXX`) is mandatory and may be `Z` (Zulu = offset 00:00) or of format `("+" / "-") time-hour ":" time-minute`.
+
+.Example UTC
+```json
+{
+  "lastModification": "2016-04-24T09:26:01.5214Z"
+}
+```
+
+.Example with numeric offset
+```json
+{
+  "lastModification": "2016-04-24T11:26:00+02:00"
+}
+```
+
+.Schema with date-time
+```YAML
+type: object
+properties:
+  lastModification:
+    type: string
+    format: date-time
+```

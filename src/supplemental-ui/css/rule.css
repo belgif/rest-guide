@@ -1,0 +1,12 @@
+.rule.exampleblock>.content{
+    background-color: #fffef7;
+    border-color: #b71818;
+    border-width: 2px;
+}
+
+.rule.exampleblock>.title{
+    color: black;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 110%;
+}

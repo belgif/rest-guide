@@ -1,0 +1,71 @@
+= Introduction
+
+This style guide for RESTful services is a collaborative effort by several Belgian government institutions, originally under the https://www.gcloud.belgium.be/[G-Cloud] umbrella, before moving to https://www.belgif.be/[Belgif], the Belgian Interoperability Framework.
+Its goal is to improve compatibility between RESTful services offered by government institutions or any other organization adopting these guidelines.
+
+This guide is a living document, updated when new interoperability issues arise or when REST-related standards evolve.
+All changes are reviewed by the REST design workgroup, in which the Belgian government organizations are represented.
+If you find errors or omissions, or want to contribute, you can open an issue or pull request on https://github.com/belgif/rest-guide[GitHub].
+
+[[related-belgif, Related Belgif initiatives]]
+*Related Belgif initiatives*
+
+These Belgif resources may also be useful when developing RESTful webservices:
+
+* OpenAPI documents for common definitions can be found in the https://github.com/belgif?q=openapi&type=&language=[openapi-* GitHub repositories].
+* The https://github.com/belgif/rest-guide-validator[belgif-rest-guide-validator] validates compliance of OpenAPI documents to this guide.
+* The https://github.com/belgif/rest-problem-java[belgif-rest-problem-java] library can be used to implement error handling in Java REST clients and server implementations, using xref:errorhandling.adoc#error-handling[standardized Problem messages].
+* Semantics of common business data (e.g. social security number, address, ...) are maintained by the REST Functional Working Group in the https://github.com/belgif/fedvoc[Belgif FedVoc repository].
+* Securing REST APIs. Guidelines are under development by the REST Security Working Group, based on the OpenID Connect and https://tools.ietf.org/html/rfc6749[OAuth 2.0^] standards.
+
+*Links*
+
+****
+* Sources: https://github.com/belgif/rest-guide
+* Issues: https://github.com/belgif/rest-guide/issues
+* Contact: mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be]
+****
+
+[NOTE]
+====
+For brevity most URLs in JSON examples are shortened, but in practice they should be in absolute notation.
+====
+
+*Organizations that endorse the Belgif REST guidelines*
+
+[cols="3*^.^a",frame=none,grid=none]
+|===
+
+| link:https://www.ksz-bcss.fgov.be[image:logos/cbss.png[Crossroads Bank of Social Security,title=Crossroads Bank of Social Security,width=150],window=_blank]
+| link:https://bosa.belgium.be[image:logos/bosa.png[BOSA FPS Policy and Support,title=BOSA FPS Policy and Support,width=180],window=_blank]
+| link:https://www.ehealth.fgov.be[image:logos/ehealth.png[eHealth,title=eHealth],window=_blank]
+| link:https://fin.belgium.be[image:logos/fps-finance.png[Federal Public Service Finance,title=Federal Public Service Finance],window=_blank]
+| link:https://www.nisse.be[image:logos/nisse.png[National Institute for the Social Security of the Self-employed,title=National Institute for the Social Security of the Self-employed],window=_blank]
+| link:https://smals.be[image:logos/smals.png[Smals,title=Smals],window=_blank]
+
+|===
+
+[TIP]
+====
+Contact mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be] if you would like to see your organization listed here.
+====
+
+[[license]]
+*License*
+```
+This work is licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+
+*Conformance*
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in https://www.rfc-editor.org/info/bcp14[BCP 14] https://www.rfc-editor.org/rfc/rfc2119[[RFC2119]] https://www.rfc-editor.org/rfc/rfc8174[[RFC8174]] when, and only when, they appear in all capitals, as shown here.

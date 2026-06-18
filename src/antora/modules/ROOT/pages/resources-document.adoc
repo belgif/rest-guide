@@ -1,0 +1,1010 @@
+= Document
+
+A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and xref:hypermedia.adoc#links[_links_] to other related resources.
+
+*Documents in a collection*
+
+Most document resources are contained in a _parent xref:resources-collection.adoc[collection resource]_ to which a *variable path segment with identity key* is added.
+
+image::collection.png[]
+
+.Document resource part of a collection
+====
+|===
+|Location|Document URI| Resource representation| Path template
+
+|part of collection|`/persons/01234567890`
+a|
+```json
+{
+  "ssin": "01234567890",
+  "givenName": "John",
+  "familyName": "Doe"
+}
+```
+|`/persons/+{ssin}+`
+|===
+====
+
+[[document-singleton, Singleton documents]]
+*Singleton documents*
+
+Documents may also be _singletons_, of which only a single instance exists within the context of its parent, if any. A singleton document's URI ends with a *fixed path segment that is a singular noun*.
+
+.Singleton document resources
+====
+|===
+|Location|Document URI| Resource representation| Path template
+
+|singleton with document as parent | `/persons/01234567890/profilePicture` |
+
+_image file (binary)_
+
+| `/persons/+{ssin}+/profilePicture`
+
+|singleton without a parent
+| `/endUserLicenseAgreement`
+a|
+```JSON
+{ "license": "Any information obtained from this API may not be made public, nor ..."}
+```
+| `/endUserLicenseAgreement`
+|===
+====
+
+== Child resources
+
+A document may have _child resources_ of any type (singleton document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
+
+In domain modeling, an entity can be modeled as a child of another entity, when its lifecycle depends on the parent, i.e.:
+
+* a child resource cannot be created without a parent
+* if the parent is deleted, the child is deleted as well
+* it is not possible to change the parent of a child
+
+Occasionally complex documents have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer document could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
+In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
+
+.Child entities
+[rule, child-ent]
+====
+
+Interactions with entities that are, in a conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
+
+The *identity* of a child entity can be represented by:
+
+* its own globally unique identifier
+* or a composite key (parent id + child id) with the child id only unique within the scope of its parent
+
+If there's a natural business key, whether composite or not, it SHOULD be used instead of introducing a new identifier (also see <<rule-id-choice>>).
+
+Regardless of choice, the identifier of the parent entity SHOULD be included in the full representation of a child and be immutable.
+
+The *path* of a child entity can be designed either as a top-level or child resource path:
+
+|===
+|option| preferred when
+
+| top-level resource path
+a|
+* the parent entity is managed in another API
+* resource nesting would become too deep
+* clients frequently perform operations on the child entities _without_ knowing the parent id
+
+| child resource path under the parent entity
+
+a|
+
+* the child entity is an integral part of the parent
+* the parent resource is managed in the same API
+* clients usually perform operations on the child entities _within_ the context of its parent entity
+|===
+
+====
+
+.Child entity
+====
+Consider following example:
+
+* a _meeting_ is a top level resource: `/meetings/+{meetingId}+`
+* a _meeting_ has _invitation_ child entities
+* an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once. Alternatively, a new globally unique `invitationId` could be introduced.
+
+Following choices are possible to represent _invitation_ entities:
+
+[cols="1,2,2"]
+|===
+|identity of child entity | child resource path | top-level resource path
+
+|composite key
+a|
+
+`/meetings/+{meetingId}+/invitations/+{personId}+` (GET/PUT/PATCH/DELETE)
+
+`/meetings/+{meetingId}+/invitations` (GET/POST)
+
+`/invitations` (GET)   *(1)*
+
+
+a|
+
+`/invitations/+{meetingId}+:++{personId}++` (GET/PUT/PATCH/DELETE) *(2)*
+
+`/invitations` (GET/POST)
+
+
+| globally unique id
+
+a|
+`/meetings/+{meetingId}+/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
+
+`/meetings/+{meetingId}+/invitations` (GET/POST)
+
+`/invitations` (GET)   *(1)*
+
+a|
+`/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
+
+`/invitations` (GET/POST)
+
+|===
+
+*(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId=+{personId}+`
+
+*(2)* to avoid URL parsing errors, the character used as key separator (`:` in this example) should be chosen so that it isn't allowed as part of `meetingId` or `personId`
+====
+
+
+[[section-identifier]]
+== Identifier
+
+[rule, id-choice]
+.Choice of identifier
+====
+The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.
+====
+
+New types of identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems even beyond the scope for which it was initially designed, making it very hard to change its structure later on.
+
+Designing identifiers in a URI structure, as specified in the https://github.com/belgif/thematic/blob/master/URI/iceg_uri_standard.md[ICEG URI standard], is useful as it makes the identifier context-independent and more self-descriptive. A REST API may choose to use a shorter API-local form of a URI identifier because of practical considerations.
+
+When designing an identifier, various requirements may be of importance specific to the use case:
+
+* the governance and lifecycle of identifiers and the entities they represent 
+* easy to memorize (e.g. textual identifier like problem types)
+* input by user (e.g. web form, over phone/mail)
+** easy to type (ignore special separator chars, difference between lower/capital case), limited length
+** validation of typing errors, e.g. by checksum, fixed length, ...
+** hint on format to recognize purpose of identifier based on its value
+* printable (restricted length)
+* open to evolve structure for new use cases
+* ability to generate identifiers collision-free at multiple independent sources, e.g. by adding a source-specific prefix, using UUIDs, ...
+* stable across different deployment environments (e.g. problem type codes)
+* hide any business information (e.g. no sequential number that indicates number of resources created)
+* not easy to guess a valid identifier, especially for unsecured resources (e.g. no sequentially generated identifier)
+* easy to represent in URL parameter without escaping
+** default configurations of Apache HTTPD, Apache Tomcat (used by Spring Boot) and Spring Security are known to block requests with an escaped slash in a path parameter value
+* sortable (for technical reasons e.g. pagination)
+
+[rule, id-design]
+.Designing new identifiers
+====
+[[new-identifiers]]
+For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
+
+Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identical. This means that capitalization, whitespace or leading zeroes are significant.
+
+In the OpenAPI schema for the identifier, a regular expression may be specified if helpful for input validation or as hint of the structure (e.g. to avoid whitespace or wrong capitalization), but shouldn't be too restrictive in order to be able to evolve the format.
+
+No business meaning SHOULD be attributed to parts of the identifier. This should be captured in separate data fields. Parts with technical meaning like a checksum are allowed.
+====
+
+NOTE: Parts of an identifier may carry some business meaning for easier readability, like the problem type identifiers in this guide, but no application logic should parse and interpret these parts.
+
+WARNING: Don't use database-generated keys as identity keys in your public API to avoid tight coupling between the database schema and API. Having the key independent of all other columns insulates the database relationships from changes in data values or database design (agility) and guarantees uniqueness.
+
+.Identifiers
+====
+The table below lists some examples of identifiers, though it does not list all possibilities or considerations when designing a new identifier.
+|===
+| identifier structure | example | OpenAPI schema | considerations
+
+|UUID 
+| "d9e35127-e9b1-4201-a211-2b52e52508df"
+a| 
+Type defined in https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml]
+```YAML
+Uuid:
+  description: Universally Unique Identifier, as standardized in RFC 4122 and ISO/IEC 9834-8
+  type: string
+  pattern: '^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$'
+```
+a|
+long identifier,
+not easy to memorize or input by user,
+easy to generate,
+resistant to brute-force guessing
+
+| URI (URN)
+| "urn:problem-type:belgif:resourceNotFound"
+a| 
+```YAML
+type: string
+format: uri
+pattern: "^urn:problem-type:.+$" # further restrictions may be possible
+```
+| 
+can be human-readable,
+long, not easy to input by user
+| URI (http)
+| "https://www.waterwegen.be/id/rivier/schelde"
+a|
+```YAML
+type: string
+format: uri
+```
+|
+can be human-readable,
+long, not easy to input by user, 
+requires support for escaping of slash character when used as URL parameter,
+can be generated collision-free by multiple sources (different domain name)
+
+| custom format
+| "ab12347895"
+a| 
+```YAML
+type: string
+pattern: "^[a-z0-9]{1-20}$"
+```
+|
+short,
+easy to encode
+|===
+====
+
+A _code_ is a special type of identifier:
+
+* it has an exhaustive list of possible values that doesn't change frequently over time
+* each value identifies a concept (examples: a country, a gender, ...).
+
+[rule,cod-design]
+.Designing new codes
+====
+New code types SHOULD be represented as string values in lowerCamelCase.
+
+Depending on context, the OpenAPI schema enumerate the list of allowed values (see xref:api_specifications.adoc#enum-rule[Enum values rule]).
+====
+
+.Code
+====
+`GET /refData/paymentMethods/+{paymentMethodCode}+` with `paymentMethodCode` of type `PaymentMethodCode`
+
+As string with enumeration:
+```YAML
+PaymentMethodCode:
+  type: string
+  enum:
+  - cash
+  - wireTransfer
+  - creditCard
+  - debitCard
+```
+
+As string with regular expression:
+```YAML
+PaymentMethodCode:
+  type: string
+  pattern: "^[A-Za-z0-9]+$"
+  example: "debitCard"
+```
+====
+
+[rule, id-numer]
+.Representing existing numerical identifiers
+====
+When defining the type for a property representing an existing numerical code or identifier:
+
+* Identifiers that are commonly represented (e.g. when displayed or inputted by a user) with *leading zeros* present SHOULD be represented using a string type. A regular expression SHOULD be specified in the OpenAPI schema to avoid erroneous values (i.e. without leading zeros).
+* Otherwise, use an integer based type. It is RECOMMENDED to further restrict the format of the type (e.g. `format: int32` and using `minimum`/`maximum`).
+
+For new identifiers, it is not recommended to use a number type however as stated in <<new-identifiers>>
+====
+
+.Representing existing numerical identifiers
+====
+An employer ID may be of variable length. Leading zeroes are ignored and most of the time not displayed.
+```YAML
+EmployerId:
+  description: Definitive or provisional NSSO number, assigned to each registered employer or local or provincial administration.
+  type: integer
+  format: int64
+  minimum: 0
+  maximum: 5999999999
+  example: 21197
+```
+
+If SSIN has a zero as first digit, it is always displayed.
+
+```YAML
+Ssin:
+  description: Social Security Identification Number issued by the National Register or CBSS
+  type: string
+  pattern: '^\d{11}$'
+```
+
+Country NIS code is a three-digit code, the first digit cannot be a zero.
+
+```YAML
+CountryNisCode:
+  description: NIS code representing a country as defined by statbel.fgov.be
+  type: integer
+  minimum: 100
+  maximum: 999
+  example: 150 # represents Belgium
+```
+
+====
+
+[rule, id-name]
+.Identifier name
+====
+Following naming guidelines should be applied when using an identifier or code in a REST API:
+
+* JSON property:
+** within an object that represents the entire or part of a resource: use `id` or `code`
+** to reference a resource within another one's representation: property name should designate the relation between the resources (see xref:json.adoc#rule-jsn-naming[[jsn-naming\]]); no need to suffix with `id` or `code`
+* path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
+* query search parameter: use same name as the property in the JSON resource representation of the response (see xref:resources-collection.adoc#filtering[Filtering])
+* OpenAPI schema: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
+
+As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
+
+If multiple identifiers or coding schemes may be used within the same context, a suffix can be added to the name to disambiguate.
+====
+
+.Identifier name
+====
+
+Request:
+```
+GET /stores/{storeId}/orders/{orderId} <1>
+```
+Response:
+```YAML
+{
+  "id": 123,  #<2>
+  "customer": 456, #<3>
+  "store": {
+     "id": 789, #<4>
+     "href": "/stores/789"
+  },
+  "paymentMethod": "creditCard",
+  "deliveryMethod": {
+     "code": "deliveredAtHome", #<5>
+     "href": "/refData/deliveryMethods/deliveredAtHome"
+  }
+}
+```
+
+OpenAPI schemas (not all are listed for brevity):
+```YAML
+Order: #<6>
+  type: object
+  properties:
+    id:
+      $ref: "#/components/schemas/OrderId" #<7>
+    customer:
+      $ref: "#/components/schemas/CustomerId" #<7>
+    store:
+      $ref: "#/components/schemas/StoreReference" #<8>
+    paymentMethod:
+      $ref: "#/components/schemas/PaymentMethodCode" #<7>
+    deliveryMethod:
+      $ref: "#/components/schemas/DeliveryMethodReference" #<8>
+
+OrderId: #<7>
+  type: integer
+  format: int32
+  minimum: 1
+
+StoreReference: #<8>
+  allOf:
+  - $ref: "./common/v1/common-v1.yaml#/components/schemas/HttpLink"
+  type: object
+  properties:
+    id:
+      $ref: "#/components/schemas/StoreId" #<7>
+
+StoreId: #<7>
+  type: integer
+  format: int32
+  minimum: 1
+```
+
+<1> `id` as path parameter always prefixed with resource type to be able to distinguish multiple path parameters
+<2> `id` as property of the consulted resource
+<3> identifier used to reference another resource. JSON property name designates relation to the other resource.
+<4> `id` as property in a partial representation of a `store` resource
+<5> `code` as property in a partial representation of a `deliveryMethod` resource
+<6> The type of the full resource representation doesn't have a suffix
+<7> Types of the identifiers have the suffix `Id` or `Code`
+<8> Partial resource representations, which may link to the full resource
+
+```
+GET /refData/deliveryMethods/{deliveryMethodCode} <1>
+```
+```YAML
+{
+  "code": "deliveredAtHome",
+  "description": {
+     "nl": "Geleverd aan huis",
+     "en": "Delivered at home",
+     "fr": "Livré à domicile"
+  }
+}
+```
+<1> `code` as path parameter always prefixed by resource type
+====
+
+.Standardized business identifiers
+====
+```
+GET /persons/{ssin} <1>
+```
+```YAML
+{
+  "ssin": "12345678901", <1>
+  "partner": "2345678902", <2>
+  "civilStatus": 1
+}
+```
+<1> Standardized business identifier name `Ssin` is preferred over `id`.
+<2> JSON property name designates relation to the other resource. The OpenAPI description declares the expected value to be of type `Ssin`.
+====
+
+.Multiple types of identifiers
+====
+```
+GET /addresses/{addressId}
+```
+```YAML
+{
+  "municipality": {
+    "code": 10000,
+    "name": "Brussels"
+  },
+  "country": {
+    "nisCode": 150, <1>
+    "isoCode": "BE", <1>
+    "name": {
+      "nl": "België",
+      "fr": "Belgique"
+    }
+  }
+}
+```
+<1> Prefixes `nis` and `iso` disambiguate between two types of country identifiers used in a single context
+====
+
+[[document-consult,Consult (Document)]]
+== Consult
+
+.Consulting a document
+====
+[subs="normal"]
+```
+GET {API}/employers/93017373[^] HTTP/1.1
+```
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#get[GET]
+|/employers/+{employerId}+
+|Consult a single employer
+
+3+|Parameters
+
+|`employerId`|path-param|NSSO number uniquely identifying the employer.
+
+3+|Response
+
+|body
+|The response properties and links to other resources.
+a|
+[source,json, subs="normal"]
+----
+{
+  "self": "{API}/employers/93017373[/employers/93017373^]",
+  "name": "Belgacom",
+  "employerId": 93017373,
+  "enterprise": {
+    "enterpriseNumber": "0202239951",
+    "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
+  }
+}
+----
+
+3+|Most used response codes 
+|xref:statuscodes.adoc#http-200[200]
+|OK
+|Default success code if the document exists.
+
+
+|xref:statuscodes.adoc#http-400[400]
+|Bad request
+a|The dynamic path segment containing the identity key has a wrong data format:
+
+[source,json]
+----
+{
+  "type": "urn:problem-type:belgif:badRequest",
+  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
+  "status": 400,
+  "title": "Bad Request",
+  "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
+  "detail": "The input message is incorrect",
+  "issues": [
+    {
+      "type": "urn:problem-type:belgif:input-validation:schemaViolation",
+      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
+      "in": "path",
+      "name": "employerId",
+      "value": "abc",
+      "detail": "This value should be numeric"
+    }
+  ]
+}
+----
+​|xref:statuscodes.adoc#http-404[404]
+|Not Found
+|The document resource does not exist.
+
+|===
+WARNING: ​xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
+
+
+====
+
+[rule, res-repres]
+.Retrieve partial resource representation
+====
+The `select` query parameter is reserved to return a resource representation with only the specified properties.
+
+The value of this parameter SHOULD follow this https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form[BNF grammar]:
+
+```BNF
+
+<selects>            ::= [ <negation> ] <selects_struct>
+<selects_struct>     ::= "(" <select_items> ")"
+<select_items>       ::= <select> [ "," <select_items> ]
+<select>             ::= <select_name> | <selects_substruct>
+<selects_substruct>  ::= <select_name> <selects_struct>
+<select_name>        ::= <dash_letter_digit> [ <select_name> ]
+<dash_letter_digit> ::= <dash> | <letter> | <digit>
+<dash>              ::= "-" | "_"
+<letter>            ::= "A" | ... | "Z" | "a" | ... | "z"
+<digit>             ::= "0" | ... | "9"
+<negation>          ::= "!"
+```
+====
+
+.Select query parameter
+====
+
+```
+GET /employers/93017373?select=(name)
+```
+
+[source,json, subs=normal]
+----
+{
+  "self": "{API}/employers/93017373?select=(name)[/employers/93017373?select=(name)^]",
+  "name": "Proximus"
+}
+----
+
+Note that parentheses around the value of the `select` parameter are required, even when selecting a single property.
+
+This notation can also be used for nested properties:
+
+```
+GET /employers/93017373?select=(name,address(street(name,code)))
+```
+[source,json, subs=normal]
+----
+{
+  "self": "{API}/employers/93017373[/employers/93017373^]",
+  "name": "Proximus",
+  "address": {
+    "street": {
+      "name": "Koning Albert II laan",
+      "code": 2177
+    }
+  }
+}
+----
+====
+
+== Update
+
+Updating a resource may be done in one of several ways.
+One and only one of following patterns should be chosen per resource, unless forced by a backwards compatible change.
+
+In order of preference:
+
+. use PUT with complete objects to update a resource as long as feasible (i.e. do not use PATCH at all).
++
+This option is preferred when clients are likely to always take into account the entire resource representation.
+If a client ignores some of a resource's properties returned by a consultation, they are likely to be omitted from the PUT request and thus lost.
+This scenario may occur when new properties were added during the API lifecycle.
+In this case, use of PUT isn't advised.
+
+. Use PATCH with partial objects to only update parts of a resource, whenever possible, using the JSON Merge Patch standard.
++
+JSON Merge Patch is limited however, e.g. it doesn't allow for an update of a single element of an array.
+If this proves to be an issue, this might however indicate that the array elements might be better modeled as separate sub-resources.
+
+. use POST on a child resource instead of PATCH if the request does not modify the resource in a way defined by the semantics of the media type.
+  See xref:resources-controller.adoc[] for more information.
+
+Use of the JSON Patch standard, an alternative to JSON Merge Patch, is not recommended, as it proves to be difficult to implement.
+
+[[document-full-update]]
+=== Full update
+
+Use `PUT` when you like to do a complete update of a document resource.
+All values are replaced by the values submitted by the client.
+Absent optional values in the request are set to their default value if one is specified in the OpenAPI description.
+
+.PUT on a document resource
+====
+[subs="normal"]
+```
+PUT {API}/employers/93017373[^] HTTP/1.1
+
+{
+    "employerId": 93017373,
+    "name": "Belgacom"
+}
+
+```
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#put[PUT]
+|/employers/+{employerId}+
+|Replace the entire employer resource with the client data. This implies a full update of the resource. Via `PUT` the client submits new values for all the data.
+
+3+|Request
+
+|body
+|Full representation of the resource to persist.
+|
+
+3+|Parameters
+
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
+
+3+|Response
+
+|body
+|either empty or resource after update
+a|
+[source,json]
+----
+{
+    "employerId": 93017373,
+    "name": "Belgacom"
+}
+
+----
+
+3+|Most used response codes 
+|xref:statuscodes.adoc#http-200[200]
+|OK
+|The update is successful and updated resource is returned.
+
+|xref:statuscodes.adoc#http-204[204]
+|No Content
+|The update is successful but updated resource is not returned.
+
+|xref:statuscodes.adoc#http-400[400]
+|Bad request
+|The input data is not valid according the data schema.
+
+|xref:statuscodes.adoc#http-404[404]
+|Not Found
+|The resource does not exist and thus cannot be updated.
+
+|xref:statuscodes.adoc#http-409[409]
+|Conflict
+|The update is in conflict with the data on the server.
+
+|===
+====
+
+[[document-partial-update]]
+=== Partial update
+
+[rule, doc-patch]
+.JSON Merge patch
+====
+Use `PATCH` when you like to do a partial update of a document resource.
+
+The `PATCH` message SHOULD conform to the JSON Merge Patch (https://tools.ietf.org/html/rfc7386[RFC 7386]) specification:
+
+* JSON properties in the request overwrite the ones in the previous resource state
+* properties with value `null` in the request are removed from the resource
+* properties not present in the request are preserved
+
+APIs should support both the media type of JSON merge patch `application/merge-patch+json` as the generic `application/json` JSON media type.
+
+Properties that can be removed, must have `nullable: true` in the OpenAPI 3.0 schema describing the JSON Merge Patch request, which is an exception to xref:json.adoc#rule-jsn-null[[jsn-null\]].
+JSON Merge Patch requests SHOULD be represented by a different schema than other document operations (create, consult or full update), because in a JSON Merge Patch request, required properties may be absent or optional properties may be removed using a `null` value.
+
+====
+
+.JSON merge patch
+====
+[subs="normal"]
+```
+PATCH {API}/employers/93017373[^] HTTP/1.1
+```
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#patch[PATCH]
+|`/employers/+{employerId}+`
+|Performs a partial update of an existing employer.
+
+3+|Request
+
+|body
+|`application/merge-patch+json` or  `application/json`
+a|
+[source,json]
+----
+{
+  "bankrupt": false,
+  "bankruptDate": null
+}
+----
+
+| schema
+|
+a|
+[source,yaml]
+----
+EmployerPatch:
+  type: object
+  properties:
+    bankrupt:
+      type: boolean  # mandatory property, shouldn't be nullable
+    bankruptDate:
+      type: string
+      format: date
+      nullable: true # optional property, use null to remove it
+----
+
+3+|Parameters
+
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
+
+3+|Response
+
+|body
+|empty or the complete resource after applying PATCH
+a|
+[source,json]
+----
+{
+    "employerId": 93017373,
+    "name": "Belgacom",
+    "bankrupt": false
+}
+----
+
+3+|Most used response codes
+|xref:statuscodes.adoc#http-200[200]
+|OK
+|Success code with resource after applying PATCH returned.
+
+|xref:statuscodes.adoc#http-204[204]
+|No Content
+|Success code without returning the resource.
+
+|xref:statuscodes.adoc#http-400[400]
+|Bad request
+|The input data is not valid according the data schema.
+
+|xref:statuscodes.adoc#http-404[404]
+|Not Found
+|The resource does not exist and thus cannot be updated.
+
+|xref:statuscodes.adoc#http-409[409]
+|Conflict
+|The update is in conflict with the data on the server.
+
+|===
+====
+
+[[remove-document]]
+== Remove
+
+Use `DELETE` when you like to delete a document resource.
+
+.Deleting a document resource
+====
+[subs="normal"]
+```
+DELETE {API}/employers/93017373[^] HTTP/1.1
+```
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#delete[DELETE]
+|/employers/+{employerId}+
+|Deletes an employer.
+
+3+|Parameters
+
+|`employerId`|path-param|employer ID of NSSO uniquely identifying the employer.
+
+3+|Response
+
+|body
+|empty or a message indicating success
+a|
+[source]
+----
+204 No Content
+
+or
+
+200 OK
+{
+ "message": "Employer is deleted."
+}
+----
+
+3+|Most used response codes
+
+|xref:statuscodes.adoc#http-200[200]
+|OK
+|Success code with the deleted resource returned.
+
+|xref:statuscodes.adoc#http-204[204]
+|No Content
+|Success code with the deleted resource not returned.
+
+|xref:statuscodes.adoc#http-400[400]
+|Bad request
+|Generic error on client side. For example, the syntax of the request is invalid.
+
+|xref:statuscodes.adoc#http-404[404]
+|Not Found
+|The resource does not exist and thus cannot be deleted.
+
+|xref:statuscodes.adoc#http-409[409]
+|Conflict
+|
+The resource could not be deleted because the request is in conflict with data on the server.
+
+For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
+
+|===
+====
+
+[[long-running-tasks]]
+== Long-running tasks
+
+Some operations need to be performed asynchronously, as they take too long to complete.
+
+[rule, lng-task]
+.Long-running tasks
+====
+Long-running tasks MUST be represented as a resource.
+The task resource is created using a POST action returning a `202 Accepted` response containing the URL of the task in the `Location` HTTP header.
+It can then be fetched by the client to get the processing status of the task.
+
+When GETting the task resource, the response can be:
+
+* Still processing: status `200 OK` and a representation of the task's current status
+* Success: status `303 See Other` with the `Location` header containing the URL of the task's output.
+* Failure: status `200 OK` with a representation of the task's status, including the reason of the failure
+====
+
+Variations on the above may be required, e.g. if the task has no output, the response on success may be `200 OK` without a `Location` header.
+The schema https://github.com/belgif/openapi-common/blob/master/src/main/openapi/common/v1/common-v1.yaml[common-v1.yaml] defines the representation of a task's status.
+
+.Long-running task
+====
+*Submitting the task*
+
+`POST /images/tasks`
+
+```
+HTTP/1.1 202 Accepted
+Content-Type: application/json;charset=UTF-8
+Location: http://www.example.org/images/tasks/1
+Date: Sun, 13 Sep 2018 01:49:27 GMT
+```
+```JSON
+{
+  "self": "/images/tasks",
+  "status": {
+    "state": "processing",
+    "pollAfter": "2018-09-13T01:59:27Z"
+  }
+}
+```
+
+The response `202 Accepted` status indicates that the server accepted the request for processing.
+`pollAfter` hints when to check for an updated status at a later time.
+
+*Getting the processing status*
+
+`GET /images/tasks/1`
+
+_When the server is still processing the task_
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```JSON
+{
+  "self": "/images/tasks/1",
+  "status": {
+    "state": "processing",
+    "pollAfter": "2018-09-13T02:09:27Z"
+  }
+}
+```
+
+_When processing has completed_
+
+```
+HTTP/1.1 303 See Other
+Location: http://www.example.org/images/1
+Content-Type: application/json;charset=UTF-8
+```
+```JSON
+{
+  "self": "/images/tasks/1",
+  "status": {
+    "state": "done",
+    "completed":"2018-09-13T02:10:00Z"
+  }
+}
+```
+
+The `Location` header refers to the result of the task.
+
+_In case of failure during processing_
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+```
+```JSON
+{
+  "self": "/images/tasks/1",
+  "status": {
+    "state": "failed",
+    "completed":"2018-09-13T02:10:00Z",
+    "problem": {
+      "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
+      "title": "Bad Request",
+      "status": 400,
+      "type": "urn:problem-type:example:invalidImageFormat",
+      "href": "https://example.org/example/v1/refData/problemTypes/urn:problem-type:example:invalidImageFormat",
+      "detail": "Invalid image format"
+    }
+  }
+}
+```
+
+Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
+The cause of failure is represented using an embedded Problem object, as defined in xref:errorhandling.adoc[].
+====

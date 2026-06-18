@@ -1,0 +1,149 @@
+= Resources
+
+:rfc3986: https://tools.ietf.org/html/rfc3986
+
+A REST APIs exposes a set of _resources_. Resources model the _data and functionality of a system_. A resource can be data, processing logic, files, or anything else that a service may have access to.
+
+== Resource URI
+
+Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rfc3986}[RFC 3986]).
+
+
+NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ] +
+example:   \https://api.socialsecurity.be/demo/v1/employers/406798006?lang=nl
+
+URIs must be intuitively structured.
+
+URI fragments point to a part of a resource's representation, and are never sent to the API, but handled locally by clients. They are thereby not specified in a REST API's specifications (OpenAPI).
+
+[rule, uri-notat]
+.URI notation
+==========================
+**Path segments and query parameters** within an API SHOULD use **lowerCamelCase** notation to enhance readability and to separate compound names.
+
+As lowerCamelCase is used for JSON property names as well, the casing is consistent throughout the API.
+Trailing slashes MUST NOT be used.
+==========================
+
+.URI notation
+====
+|===
+|GOOD|BAD
+
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331# +
+| [red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats/331# +
+[red]#\https://api.socialsecurity.be/demo/v1/social-secretariats/331# +
+
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331#
+|[red]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331/#
+
+|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats?country=BE# +
+|[red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats?Country=BE#
+|===
+====
+
+[rule, uri-extens]
+.URI extensions
+====
+The URI **SHOULD NOT contain a file extension**.
+
+A notable exception to this rule is the OpenAPI description (see xref:api_specifications.adoc#doc-resource[doc resource]).
+====
+
+Instead, look at how to express xref:mediatypes.adoc[] using HTTP headers.
+
+.URI extensions
+====
+[green]#GOOD: \https://api.socialsecurity.be/demo/v1/socialSecretariats/331# +
+[red]#BAD: \https://api.socialsecurity.be/demo/v1/socialSecretariats/331.json#
+====
+
+
+
+[rule, qry-filter]
+.Query parameters
+====
+The query part of a URI may be used to filter the resource output.
+====
+
+The query component of a URI contains a set of parameters to be interpreted as a variation or derivative of the resource. The query component can provide clients with additional interaction capabilities such as ad hoc searching and filtering.
+
+[[query-parameters]]
+.Query parameters
+====
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats**?q=sdworx**# +
+Filter the resource collection using a search string.
+
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?select=(name,address)**# +
+Filter the resource properties to the ones specified in the `select` query parameter.
+
+[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?lang=nl**# +
+Only return translatable properties in Dutch.
+====
+
+[rule, qry-multi]
+.Multiple values for the same query parameter
+====
+When a single query parameter can have multiple values, the parameter SHOULD be repeated for each value.
+
+If the parameter's name is a noun, it SHOULD be singular.
+====
+
+.Multi-valued parameter
+====
+[subs=normal]
+.Request
+```
+GET /cars?color=black&color=blue
+```
+
+[source,yaml,subs="normal"]
+.OpenAPI
+----
+parameters:
+- name: color
+  in: query
+  # defaults for style and explode properties are OK (style: form, explode: true)
+  schema:
+    type: array
+    items:
+      type: string
+----
+====
+
+== Resource Archetypes
+There are three different resource archetypes:
+
+* xref:resources-document.adoc[]
+* xref:resources-collection.adoc[]
+* xref:resources-controller.adoc[]
+
+== Sensitive data
+
+[rule,sens-dat]
+.Sensitive data in URLs or headers
+====
+Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters.Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
+The `Authorization` and `Cookie` HTTP headers are an exception, as they are recognized by infrastructure as sensitive and not logged.
+
+For operations that would otherwise be modeled as URLs containing sensitive data, the sensitive data SHOULD instead be put in the request payload of a POST operation.
+A verb suffix `get`, `update`, `delete` or `query` SHOULD be used for operations that would otherwise not use the POST method.
+Resource linking, caching or embedding are not possible for such URLs.
+
+For a single type of interaction with an entity (e.g. consult, update, delete or query), avoid introducing multiple API operations.Querying usually supports more parameters, so is more often sensitive.
+
+If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
+====
+
+[cols="1a,3a,3a"]
+|===
+| suffix |  original URL example                | safe URL example
+
+|`/get`  | `GET /accounts/+{emailAddress}+` | `POST /accounts/get`
+|`/update`  | `PUT /accounts/+{emailAddress}+` +
+`PATCH /accounts/+{emailAddress}+` | `POST /accounts/update`
+|`/delete`  | `DELETE /accounts/+{emailAddress}+` | `POST /accounts/delete`
+|`/query`  | `GET /documents?createdBy=+{emailAddress}+` | `POST /documents/query`
+|_none_ | `POST /accounts/+{emailAddress}+/profilePictures` | `POST /accounts/profilePictures`
+|_none_ | `POST /accounts/+{emailAddress}+/deactivate` | `POST /accounts/deactivate`
+|===

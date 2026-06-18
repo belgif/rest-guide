@@ -6,3 +6,9 @@ target
 *.iml
 /bin/
 .vscode/settings.json
+ui-bundle.zip
+node/
+node_modules/
+/build/
+/temp/
+/test-results/
