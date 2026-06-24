@@ -46,7 +46,7 @@ Asynchronous Messages contain two types of information:
 
 When using the CloudEvent structured JSON format, the data is represented by a `data` (any JSON type) or `data_base64` property (a binary as base64-encoded string).
 
-All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the event, but an event SHOULD NOT identify a specific routing destination.
+All functional message data SHOULD be part of an Asynchronous Message, without relying on additional protocol-specific information. Protocol-specific headers can be used for non-functional aspects like authentication and authorization, routing or tracing. Routing can be performed based on information contained in the message, but a message SHOULD NOT identify a specific routing destination.
 
 An Asynchronous Message MUST be immutable. If a context attribute is added by an intermediary, the result is considered a new Asynchronous Message and the identifier of the message (combination of `source` and `id`) should be changed as well. Exchanging a message multiple times over different protocol bindings doesn't impact its identity.
 ====
@@ -203,6 +203,55 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ----
 ====
 
+.Size of an asynchronous message
+[rule, async-size]
+====
+Implementations handling Asynchronous Messages MUST at least support messages up to 64kB.
+APIs SHOULD be designed not to exceed this limit. If an API allows to exchange larger messages, it MUST be explicitly stated in its documentation.
+
+For use cases requiring large data exchanges, consider using the claim-check pattern i.e. include a reference to the large data instead.
+
+If the claim-check pattern is used for the entire _data_ of the Asynchronous Message, the https://github.com/cloudevents/spec/blob/main/cloudevents/extensions/dataref.md[`dataref` extension attribute] SHOULD be used and documented in the API description.
+Alternatively, the claim-check pattern can be used to only split off parts of the _data_. In this case, the reference(s) SHOULD be part of the structured value of the `data` attribute.
+====
+
+.Claim-check pattern
+====
+The following example shows a message in which the entire _data_ is replaced by a reference:
+[source,json]
+----
+{
+    "specversion": "1.0",
+    "type": "be.belgif.example.meeting.v3.meeting.get.reply",
+    "service": "be.belgif.example.meeting.v3",
+    "source": "urn:async-source:be.belgif.example",
+    "id": "b73b2241-d57a-4c9f-aa7e-d4eb611a3b5c",
+    "datacontenttype": "application/json",
+    "dataref": "https://meeting.example.belgif.be/data/456789"
+}
+----
+
+The following example shows a message in which only parts of the _data_ are replaced by a reference:
+
+[source,json]
+----
+{
+    "specversion": "1.0",
+    "type": "be.belgif.example.meeting.v3.meeting.get.reply",
+    "service": "be.belgif.example.meeting.v3",
+    "source": "urn:async-source:be.belgif.example",
+    "id": "d1ef338f-a957-410a-8af7-657df6336be2",
+    "data": {
+       "id": "1234",
+       "name": "Board Meeting",
+       "attachments": [
+         "https://meeting.example.belgif.be/attachments/1",
+         "https://meeting.example.belgif.be/attachments/2"
+       ]
+    }
+}
+----
+====
 
 .Specifying asynchronous messages
 [rule, async-contract]
