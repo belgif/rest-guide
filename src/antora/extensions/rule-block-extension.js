@@ -6,9 +6,12 @@
  *   - Prepends "Rule: " to the title and appends a self-link <<rule-<ruleId>>>
  *   - Applies roles "exampleblock rule" so existing CSS keeps working
  *
- * A postprocessor adds data-pagefind-weight="10" to every rule block title element
- * so that rule IDs (already present as "[ruleId]" link text in the title) are ranked
- * higher in pagefind search results.
+ * A postprocessor transforms every rule block's title element:
+ *   - Moves id="rule-<ruleId>" from the outer wrapper div to the title element
+ *   - Changes the title element from <div> to <h6> so pagefind's sub-result
+ *     system (which only anchors to h1-h6 elements) links search results
+ *     directly to the rule's own anchor (#rule-<ruleId>)
+ *   - Adds data-pagefind-weight="10" to boost the rule ID in search rankings
  */
 module.exports.register = function (registry) {
   registry.block('rule', function () {
@@ -35,9 +38,15 @@ module.exports.register = function (registry) {
   registry.postprocessor(function () {
     const self = this
     self.process(function (document, output) {
-      // Stamp data-pagefind-weight on the title element of every rule block so that
-      // the "[ruleId]" link text already present there is ranked higher in search.
-      return output.replace(/<div class="title">Rule:/g, '<div class="title" data-pagefind-weight="10">Rule:')
+      // Move id from the outer wrapper div to the title element, changing it from
+      // <div> to <h6>. pagefind's sub-result system only anchors to h1-h6 elements,
+      // so this makes search results link directly to the rule's own anchor.
+      // data-pagefind-weight boosts the title text (incl. "[ruleId]") in search rankings.
+      return output.replace(
+        /<div id="(rule-[^"]+)" class="openblock exampleblock rule">\n<div class="title">([^\n]*)<\/div>/g,
+        (match, ruleId, titleContent) =>
+          `<div class="openblock exampleblock rule">\n<h6 id="${ruleId}" class="title" data-pagefind-weight="10">${titleContent}</h6>`
+      )
     })
   })
 }
