@@ -9,6 +9,7 @@ content:
     - url: .
       start_path: src/antora
       branches: HEAD
+      edit_url: false # this doesn't work for local files currently, the edit-this-page.hbs file is overriden with an empty file instead
 
 asciidoc:
   extensions:
