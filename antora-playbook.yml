@@ -1,5 +1,5 @@
 site:
-  title: REST Guidelines
+  title: Belgif REST Guidelines
   url: https://www.belgif.be/specification/rest
   start_page: api-guide::introduction.adoc
   robots: allow
