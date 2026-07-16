@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js",
+    "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js && node scripts/create-site-archive.js",
     "serve": "http-server ./build/site/ -p 4000",
     "test": "playwright test"
   },
@@ -8,6 +8,7 @@
     "@playwright/test": "^1.61.0",
     "antora": "3.1.15",
     "http-server": "^14.1.1",
-    "pagefind": "^1.5.2"
+    "pagefind": "^1.5.2",
+    "yazl": "^3.3.1"
   }
 }

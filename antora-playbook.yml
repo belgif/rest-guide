@@ -23,9 +23,6 @@ ui:
 output:
   clean: true
   dir: ./build/site
-  destinations:
-    - provider: archive
-      path: ./build/site.zip
 runtime:
   log:
     failure_level: error
