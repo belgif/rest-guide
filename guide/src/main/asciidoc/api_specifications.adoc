@@ -820,7 +820,7 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
 * subschemas of `type: object`, when a `discriminator` is also defined. Unlike `allOf`-style polymorphism (<<rule-sch-allof>>), properties SHOULD only be defined within the subschemas.
 
-When using `oneOf` in combination with a `discriminator`, the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`. The discriminator `mapping` SHOULD include each of the `oneOf` subschemas. Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
+When using `oneOf` in combination with a `discriminator`, the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`. The schemas referenced by the discriminator's `mapping` SHOULD be the same as the `oneOf` subschemas. Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
 ====
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
