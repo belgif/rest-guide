@@ -5,3 +5,20 @@
 pre {
     text-wrap-mode: wrap;
 }
+
+.doc .exampleblock > .content {
+    border-width: 0.1rem;
+}
+
+.rule.exampleblock > .content {
+    background-color: #fffef7;
+    border-color: #b71818;
+    border-width: 0.2rem;
+}
+
+.rule.exampleblock > .title {
+    color: black;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 110%;
+}
