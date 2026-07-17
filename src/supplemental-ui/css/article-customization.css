@@ -2,6 +2,21 @@
     max-width: 60rem;
 }
 
+/* START fix for scrolling to fragment links from https://gitlab.com/antora/antora-ui-default/-/merge_requests/166/diffs */
+
+/* Keep fragment targets visible below the fixed navbar and toolbar. */
+.doc [id] {
+  scroll-margin-top: 6rem;  /* size of the top bar plus toolbar heights, fixed value bc variable like in MR not available in this version of the UI bundle */
+}
+
+/* The navigation script sets scrollTop directly; do not animate that update. */
+.nav-panel-menu,
+.nav-panel-explore .components {
+  scroll-behavior: auto;
+}
+
+/* END fix for scrolling to fragment links */
+
 pre {
     text-wrap-mode: wrap;
 }
