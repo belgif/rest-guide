@@ -24,7 +24,7 @@ The description of a new REST API SHOULD be provided using https://spec.openapis
 OpenAPI uses the https://spec.openapis.org/oas/v3.0#schema-object[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 
 
-https://spec.openapis.org/oas/v3.1[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not sufficiently supported yet by tooling.
+More recent https://spec.openapis.org/oas/latest.html[OpenAPI 3.x] versions improve upon OpenAPI 3.0, but SHOULD NOT be used to avoid interoperability problems because they are not yet sufficiently supported by tooling.
 ====
 
 The OpenAPI standard also includes a list of supported primitive https://spec.openapis.org/oas/v3.0#data-types[data types].
