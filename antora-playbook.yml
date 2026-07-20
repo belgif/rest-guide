@@ -1,6 +1,6 @@
 site:
   title: Belgif REST Guidelines
-  url: https://www.belgif.be/specification/rest
+  url: https://www.belgif.be/specification/rest/api-guide
   start_page: api-guide::introduction.adoc
   robots: allow
 
@@ -9,7 +9,7 @@ content:
     - url: .
       start_path: src/antora
       branches: HEAD
-      edit_url: false # this doesn't work for local files currently, the edit-this-page.hbs file is overriden with an empty file instead
+      edit_url: false # this doesn't work for local files currently, the edit-this-page.hbs file is overridden with an empty file instead
 
 asciidoc:
   extensions:

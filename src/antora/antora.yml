@@ -7,6 +7,7 @@ nav:
 
 asciidoc:
   attributes:
+    rest-guide-update-date: '2026-06-12'
     full-guide: ''
     API: 'https://api.socialsecurity.be/demo/v1'
     iso639-1: 'http://www.loc.gov/standards/iso639-2/php/code_list.php'
