@@ -126,7 +126,7 @@ EmployerLink:
 .Getting full representations of collection items
 ====
 When the collection items contain few data, you may want to retrieve them in full when getting the collection.
-In this case, the full representations MUST be included in an 'embedded' property as described in xref:performance.adoc#embedding-resources[Embedding resources].
+In this case, the full representations MUST be included in an 'embedded' property as described in xref:performance.adoc#embedding[Embedding resources].
 ====
 
 .Consulting a collection with embedded items
