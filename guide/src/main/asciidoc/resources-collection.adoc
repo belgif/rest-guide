@@ -116,7 +116,7 @@ EmployerLink:
   - type: object
     properties:
       employerId:
-        $ref: "./employer/identifier/v1/employer-identifier-v1beta.yaml#/components/schemas/EmployerId"
+        $ref: "./employer/identifier/v1/employer-identifier-v1.yaml#/components/schemas/EmployerId"
       enterpriseNumber:
         $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
 ```
