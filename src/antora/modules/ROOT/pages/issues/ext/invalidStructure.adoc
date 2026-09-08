@@ -1,5 +1,6 @@
 = Invalid Structure
 :nofooter:
+:page-pagefind-ignore: true
 
 Type::
 `urn:problem-type:belgif-ext:input-validation:invalidStructure`
