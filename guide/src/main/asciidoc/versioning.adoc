@@ -50,19 +50,20 @@ With Postel’s Law in mind, here are some rules for providers and consumers tha
 [rule, evo-compat]
 .Compatible extensions
 ====
-Apply the following rules to evolve RESTful APIs in a backward-compatible way:
+Apply the following rules to evolve APIs in a backward-compatible way:
 
-* New fields may be added to response. Clients MUST ignore unknown fields in response payloads.
-* Add only optional, never mandatory fields to request payloads
+* New fields may be added to output, if they can be safely ignored by existing clients. Clients MUST ignore unknown fields in output.
+* Add only optional, never mandatory input fields.
 * Never change the meaning of a field.
 * Never change input validation logic to be more restrictive
-* Enum ranges can be reduced when used as input parameters, only if the server is ready to accept and handle old range values too.
+* Enum ranges can be reduced when used as input parameters, only if the API provider is ready to accept and handle old range values too.
 * Enum values can be reduced when used as output parameters, but not extended as clients might not be ready to handle them.
-* Support redirection in case a URL has to change (301 Moved Permanently)
 * a new resource variant (with another name) can be created in addition to the old resource variant
 ====
 
 Note that while clients must ignore unknown response fields, APIs may refuse requests containing unknown fields (<<rule-req-valid>>).
+
+Redirection (301 Moved Permanently) MAY be supported when a URL has to change, but don't assume clients are configured to automatically follow them.
 
 [rule, evo-deprec]
 .Deprecation
@@ -72,7 +73,7 @@ Their deprecation SHOULD be documented in OpenAPI .
 Deprecated elements MAY be completely removed them after a period in which clients can adapt.
 Always communicate clearly about the deprecated fields and transition period to clients.
 
-`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters, headers and Schema Objects (data types). Otherwise, like on security schemes, the custom OpenAPI extension `x-deprecated: true` SHOULD be used.
+`deprecated: true` SHOULD be used wherever OpenAPI 3.0 allows it: on operations, parameters, headers and Schema Objects (data types). Otherwise, like on security schemes, the custom extension `x-deprecated: true` SHOULD be used. AsyncAPI only allows `deprecated: true` on Schema Objects.
 
 ====
 
@@ -93,8 +94,11 @@ The version of the API MUST be included in the `info` section of the OpenAPI def
 
 Note that reusable OpenAPI documents are to be versioned as well, as specified in <<openapi>>.
 
-.API version in OpenAPI
+.API version in OpenAPI and AsyncAPI
 ====
+
+Following REST API has version `2.1.2`, as specified in its OpenAPI definition, while only the major version part `v2` is part of the base URL:
+
 [source,yaml,subs="normal"]
 ----
 openapi: "3.0.3"
@@ -105,6 +109,30 @@ info:
 servers:
   url: https://example.org/petShop/v2
 ----
+
+Following asynchronous API has version `3.7.1`, as specified in its AsyncAPI definition, while only the major version part `v3` is part of the asynchronous messages' `service` and `type` properties:
+
+[source,yaml,subs="normal"]
+----
+asyncapi: 3.0.0
+info:
+  title: Meeting
+  version: 3.7.1
+  description: |
+    The meeting API allows you to manage meetings and get notifications upon meeting changes.
+----
+
+[source,json,subs="normal"]
+----
+{
+  "specversion": "1.0",
+  "id": "450e8400-e29b-41d4-a716-446655440007",
+  "service": "be.belgif.example.meeting.v3",
+  "type": "be.belgif.example.meeting.v3.meeting.created",
+  "...": "..."
+}
+----
+
 ====
 
 Similar guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements.
