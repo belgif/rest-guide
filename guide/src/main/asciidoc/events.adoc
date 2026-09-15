@@ -1,19 +1,16 @@
 [[events]]
 == Asynchronous messaging and events
 
-  An "event" is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers.
-
-_definition from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
-
-Events are typically delivered using asynchronous messaging.
-
-_Asynchronous messaging_ refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
+*Asynchronous messaging* refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
 
 Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad sense, a message broker can be any system that decouples both parties e.g. a Kafka broker, an AMQP-compatible broker, or a message database exposed using a REST API or webhooks.
 
+An *event* is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers. _This definition is taken from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
+
+Events are typically delivered using asynchronous messaging.
 To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
 
-This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for other asynchronous messages than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
+This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for asynchronous messages other than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
 
 The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
 Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
