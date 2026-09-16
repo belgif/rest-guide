@@ -1,19 +1,16 @@
 [[events]]
 == Asynchronous messaging and events
 
-  An "event" is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers.
-
-_definition from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
-
-Events are typically delivered using asynchronous messaging.
-
-_Asynchronous messaging_ refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
+*Asynchronous messaging* refers to communication where participants don't need to be actively present or available at the same time to exchange information. It's characterized by messages being sent and received at different times, without the expectation of an immediate response.
 
 Asynchronous messaging is enabled by a _message broker_ between the message sender (producer) and receiver (consumer). In the broad sense, a message broker can be any system that decouples both parties e.g. a Kafka broker, an AMQP-compatible broker, or a message database exposed using a REST API or webhooks.
 
+An *event* is a data record expressing an occurrence and its context. Events are routed from an event producer (the source) to interested event consumers. _This definition is taken from https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#event)[the CloudEvents Specification]_
+
+Events are typically delivered using asynchronous messaging.
 To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
 
-This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for other asynchronous messages than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
+This guide extends upon the CloudEvents specification, defining additional guidelines and context attributes. It also adds support for asynchronous messages other than events, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
 
 The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
 Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
@@ -56,11 +53,22 @@ An Asynchronous Message MUST be immutable. If a context attribute is added by an
 ====
 The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
-Following table lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
+The table below lists context attributes standardized by the CloudEvents Specification, alongside the attributes `service`, `relatedto` and `relatedtosource` of an _Asynchronous Message_ defined by this guide.
+
+Future minor version updates of the CloudEvents specification or of the Asynchronous Message schemas may define additional attributes. For forward-compatibility, consumers SHOULD ignore any unknown context attributes. As an Asynchronous Message is immutable (<<rule-async-cespec>>), if the message is redistributed to other consumers with the same `id` and `source` values, all attributes, including the unknown ones, MUST remain unchanged.
 
 [cols="1,1,2,3"]
 |===
 | context attribute | format | example | description
+
+a| `specversion`
+| REQUIRED
+
+string
+| "1.0"
+| The version of the CloudEvents specification used to represent the message.
+
+Producers MUST use 1.0 to reference this version of the specification, while consumers SHOULD accept any value with major version number 1.
 
 a| `type`
 | REQUIRED
@@ -69,7 +77,7 @@ string
 
 see <<rule-async-svctype>>
 
-a| `be.nsso.employer.v1.employers.address.notify.updated`
+a| `"be.nsso.employer.v1.employers.address.notify.updated"`
 a|  Type of the message.
 Often this attribute is used for routing, observability, policy enforcement, etc.
 
@@ -203,6 +211,18 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ----
 ====
 
+.Problem replies for asynchronous operations
+[rule, async-prbl]
+====
+Each asynchronous interaction (command or query) that provides a reply, SHOULD also provide a problem reply, with a Problem Details object (RFC 9457) as `data`. The same standardized Belgif problem types SHOULD be used as for REST APIs (see <<error-handling>>).
+
+The `type` SHOULD be the same as the one of the request, but with the `problemReply` suffix instead of `reply`.
+
+The `AsynchronousProblemReplyMessage` schema of the https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] can be used.
+
+If an API provides a reply when a received message has an unexpected `service` or `type` value, the `urn:problem-type:belgif:resourceNotFound` problem type SHOULD be used. If the received `service` was unexpected, the value of `service` in the problem reply SHOULD be the one identifying the API that received the message.
+====
+
 .Size of an asynchronous message
 [rule, async-size]
 ====
@@ -263,7 +283,7 @@ OpenAPI can be used when asynchronous messages are transferred over HTTP(S), whi
 When using AsyncAPI, schemas of the events SHOULD be put in (a) separate schema-only OpenAPI document(s) and referenced from the AsyncAPI document. This allows the use of OpenAPI tooling like code generation and editing for message schemas.
 The same guidelines as for REST APIs apply, like naming conventions, reuse of components and <<Versioning, versioning>>.
 
-The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents repository] provides a schema for asynchronous messages the structured JSON CloudEvent format.
+The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] provides schemas for asynchronous messages the structured JSON CloudEvent format.
 You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage` can be used for `problemReply` messages.
 
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
@@ -373,6 +393,28 @@ components:
           required: [id]
       required: [ data ]
 ----
+
+In AsyncAPI, commands and queries with replies can be represented as operations:
+
+[source,yaml]
+----
+operations:
+  createMeeting:
+    summary: "Create a meeting"
+    action: send
+    channel:
+      $ref: '#/channels/MeetingSendChannel'
+    messages:
+      - $ref: '#/channels/MeetingSendChannel/messages/be.belgif.example.meeting.v3.meeting.create.request'
+    reply:
+      channel:
+        $ref: '#/channels/MeetingReceiveChannel'
+      messages:
+        - $ref: '#/channels/MeetingReceiveChannel/messages/be.belgif.example.meeting.v3.meeting.create.reply'
+        - $ref: '#/channels/MeetingReceiveChannel/messages/be.belgif.example.meeting.v3.meeting.create.problemReply'
+----
+
+Note that it is also possible to define operations with `action: receive`, where the API client receives requests and sends replies.
 ====
 
 .Duplicates and out-of-order messages
