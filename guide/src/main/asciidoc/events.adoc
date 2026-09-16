@@ -211,10 +211,6 @@ For events:  a _past participle_ indicating the action or change that occurred e
 
 For queries: `get`, `query` or a custom method (similar to REST controller)
 
-// TODO: query
-
-// TODO: add partialUpdate / patch?
-
 | _suffix_
 
 a|
