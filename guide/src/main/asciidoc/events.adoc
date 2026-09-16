@@ -208,7 +208,7 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ====
 Each asynchronous interaction (command or query) that provides a reply, SHOULD also provide a problem reply, with a Problem Details object (RFC 9457) as `data`. The same standardized Belgif problem types SHOULD be used as for REST APIs (see <<error-handling>>).
 
-The `type` SHOULD be the same as the one of the request, but with the `problemReply` suffix instead of `request`.
+The `type` SHOULD be the same as the one of the request, but with the `problemReply` suffix instead of `reply`.
 
 The `AsynchronousProblemReplyMessage` schema of the https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] can be used.
 
