@@ -67,7 +67,7 @@ Moreover, the project provides SDKs for most popular programming languages to su
 ====
 The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent events and asynchronous messages in APIs.
 
-An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. request/reply commands and queries) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
+An _Asynchronous Message_ extends a CloudEvent to describe not only events, but any type of asynchronous message (e.g. commands or queries both with request and reply) using a CloudEvent-compatible format. It also specifies additional guidelines and context attributes.
 
 Asynchronous Messages contain two types of information:
 
