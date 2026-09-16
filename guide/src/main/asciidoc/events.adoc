@@ -1,5 +1,5 @@
 [[events]]
-== Asynchronous messaging and events
+== Events and asynchronous messaging
 
 This chapter specifies how to represent:
 
@@ -42,8 +42,8 @@ a|
 
 All of these message types can be communicated synchronously or asynchronously, though commands and queries are exchanged often synchronously while events typically delivered asynchronously.
 
-To represent events in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
-This guide extends upon this specification, defining additional guidelines and context attributes. It also adds support to represent commands and queries for asynchronous messaging, still using the CloudEvent message format (e.g. an asynchronous request-reply exchange).
+To represent asynchronous messages in an interoperable way, this guide promotes and adopts the https://cloudevents.io/[CloudEvents specification] which is part of the Cloud Native Computing Foundation (CNCF) and had its 1.0 release in 2019.
+This guide extends upon this specification, defining additional guidelines and context attributes. While the CloudEvents specification only focuses on messages of type event, this guide also extends it to add support to represent commands and queries for asynchronous messaging (e.g. an asynchronous request-reply exchange).
 
 The CloudEvents specification thoroughly separates the core conceptual event model from any format and protocol details. It standardizes bindings to common protocols like HTTP, Kafka, AMQP and MQTT.
 Moreover, the project provides SDKs for most popular programming languages to support integration of CloudEvents.
