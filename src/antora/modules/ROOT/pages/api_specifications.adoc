@@ -24,7 +24,7 @@ The description of a new REST API SHOULD be provided using https://spec.openapis
 OpenAPI uses the https://spec.openapis.org/oas/v3.0#schema-object[OpenAPI Schema Object] to describe the JSON representation of resources, which is a variant of https://json-schema.org/specification-links.html#draft-5[*JSON Schema*], with some significant incompatibilities.
 
 
-https://spec.openapis.org/oas/v3.1[OpenAPI 3.1] improves upon OpenAPI 3.0, but to avoid interoperability problems it SHOULD NOT be used yet because it is not sufficiently supported yet by tooling.
+More recent https://spec.openapis.org/oas/latest.html[OpenAPI 3.x] versions improve upon OpenAPI 3.0, but SHOULD NOT be used to avoid interoperability problems because they are not yet sufficiently supported by tooling.
 ====
 
 The OpenAPI standard also includes a list of supported primitive https://spec.openapis.org/oas/v3.0#data-types[data types].
@@ -820,7 +820,7 @@ However, many uses of `oneOf` result in incompatibility problems with code gener
 * subschemas with an `enum` of the same simple `type` (i.e. no `array` or `object`)
 * subschemas of `type: object`, when a `discriminator` is also defined. Unlike `allOf`-style polymorphism (<<rule-sch-allof>>), properties SHOULD only be defined within the subschemas.
 
-When using `oneOf` in combination with a `discriminator`, the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`. The discriminator `mapping` SHOULD include each of the `oneOf` subschemas. Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
+When using `oneOf` in combination with a `discriminator`, the property used as discriminator (i.e. value of `propertyName`) SHOULD be specified by each `oneOf` subschema, and listed as `required`. The schemas referenced by the discriminator's `mapping` SHOULD be the same as the `oneOf` subschemas. Objects with discriminator values that do not resolve to a subschema, are rejected during validation.
 ====
 
 Examples below were tested with openapi-generator's https://openapi-generator.tech/docs/generators/java/[Java] and https://openapi-generator.tech/docs/generators/spring/[Spring code generation].
