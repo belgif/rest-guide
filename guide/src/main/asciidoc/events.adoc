@@ -207,7 +207,7 @@ with:
 
 For commands:  `create`, `update`, `delete` or a custom method (similar to REST controller)
 
-For events:  a _past participle_ indicating the action or change that occurred e.g. "canceled", "deleted" or "replaced"
+For events:  a _past participle_ indicating the action or change that occurred e.g. "created", "updated", "deleted", ...
 
 For queries: `get`, `query` or a custom method (similar to REST controller)
 
