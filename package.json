@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
     "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js && node scripts/create-site-archive.js",
