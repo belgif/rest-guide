@@ -1,0 +1,37 @@
+# Release on GitHub releases when a version tag is created
+name: npm-release
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: npm
+    - name: Install dependencies
+      run: npm ci
+    - name: Build site
+      run: |
+        npm run build
+        VERSION="${GITHUB_REF_NAME#v}"
+        ARTIFACT_FILE="build/rest-styleguide-${VERSION}.zip"
+        cp build/site.zip "$ARTIFACT_FILE"
+        echo "ARTIFACT_FILE=$ARTIFACT_FILE" >> $GITHUB_ENV
+        echo "ARTIFACT_NAME=`basename $ARTIFACT_FILE`" >> $GITHUB_ENV
+    - name: Create draft GitHub release
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release create "$GITHUB_REF_NAME" "$ARTIFACT_FILE" \
+          --draft \
+          --title "Release $GITHUB_REF_NAME" \
+          --notes "Changes:\n- [placeholder]"
+

@@ -92,5 +92,5 @@ git tag -a v2025.06 -m "release v2025.06"
 git push origin v2025.06
 ```
 
-The `maven-release` GitHub Actions workflow picks up the tag, uses it as the version, and creates a draft GitHub release with the artifact attached.
+The `npm-release` GitHub Actions workflow picks up the tag, uses it as the version in the `rest-styleguide-<version>.zip` artifact name, and creates a draft GitHub release with the artifact attached.
 

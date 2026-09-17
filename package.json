@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "antora antora-playbook.yml && pagefind --site build/site && node scripts/generate-redirects.js && node scripts/create-site-archive.js",
     "serve": "http-server ./build/site/ -p 4000",
