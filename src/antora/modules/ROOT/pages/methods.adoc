@@ -54,6 +54,7 @@ The HTTP methods SHOULD be used that are appropriate for the type of action perf
 
 The table below lists the usages of HTTP methods for each resource archetype. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
 
+The recently introduced HTTP method `QUERY` is not yet widely supported and SHOULD NOT be used.
 ====
 
 

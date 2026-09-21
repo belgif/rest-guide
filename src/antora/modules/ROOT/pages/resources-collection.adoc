@@ -18,6 +18,17 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 [[collections-consult, Consulting a collection]]
 == Consult
 
+[rule, col-get]
+.API operation to consult a collection
+====
+An operation to consult a collection resource SHOULD be provided as a `GET` method on the collection resource URI.
+
+When consultation requires input parameters with a complex structure (e.g. extensive filtering or sorting options parameters), a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations of query parameters.
+Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
+====
+
+The recently introduced HTTP method `QUERY`, providing an alternative to a `/search` controller, SHOULD NOT be used yet (xref:methods.adoc#rule-meth-http[[meth-http\]]).
+
 [rule, col-repres]
 .Representation of a collection
 ====
@@ -35,9 +46,7 @@ The representation of a collection MUST contain a list of links to child resourc
 CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
 .Most used response codes
-
 |===
-
 | xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
 | xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
@@ -45,32 +54,14 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
 
-[rule, col-sort]
-.Sorting a collection
-====
-A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
-Descending sorting order can be indicated by prefixing the property name with `-`.
-
-The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
-====
-
-.Sort query parameter
-
-[cols="3*"]
-|===
-
-| sort
-| Multi-value query param with list of properties to sort on.
-  Direction is ascending by default. To indicate descending, prefix property with `-`.
-|`?sort=age&sort=-name`
-|===
-
 .Consulting a collection
 ====
+.Request
 [subs=normal]
-```
-GET {API}/employers[^] HTTP/1.1
-```
+----
+GET {API}/employers?title=P*[^] HTTP/1.1
+----
+
 [source,json,subs="normal"]
 .Response
 ----
@@ -94,8 +85,10 @@ GET {API}/employers[^] HTTP/1.1
 }
 ----
 
-.JSON schemas
-```YAML
+OpenAPI schemas for the response payload:
+
+[source, yaml]
+----
 EmployersCollection:
   allOf:
   - $ref: common/v1/common-v1.yaml#/components/schemas/SelfLink
@@ -119,8 +112,58 @@ EmployerLink:
         $ref: "./employer/identifier/v1/employer-identifier-v1.yaml#/components/schemas/EmployerId"
       enterpriseNumber:
         $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
-```
+----
 ====
+
+
+.Consultation with complex input structure
+====
+
+If input with a complex structure is needed, a `/search` controller with `POST` may be used.
+
+.Request
+----
+POST {API}/employers/search
+----
+
+[source,json]
+----
+{
+  "title": [
+    {
+      "excludeIfMatching": false,
+      "expression": "P*"
+    },
+    {
+      "excludeIfMatching": true,
+      "expression": "B*"
+    }
+  ]
+}
+----
+
+.Response
+
+The response is the same as for the `GET` alternative.
+====
+
+[rule, col-sort]
+.Sorting a collection
+====
+A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
+Descending sorting order can be indicated by prefixing the property name with `-`.
+
+The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
+====
+
+.Sort query parameter
+[cols="3*"]
+|===
+| sort
+| Multi-value query param with list of properties to sort on.
+Direction is ascending by default. To indicate descending, prefix property with `-`.
+|`?sort=age&sort=-name`
+|===
 
 [rule,col-embed]
 .Getting full representations of collection items
@@ -467,7 +510,7 @@ In order to remove a single specific item from a collection, use xref:resources-
 
 |body
 |
-|Empty or a message incidating success. 
+|Empty or a message indicating success.
 
 
 3+|Most used response codes
