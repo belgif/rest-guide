@@ -475,10 +475,11 @@ A schema name SHOULD refer to the business meaning rather than how it is defined
 ====
 `additionalProperties` SHOULD be used exclusively to describe an object representing a map of key-value pairs.
 The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
+
+Restrictions on `additionalProperties`, other than when used for maps, SHOULD be avoided, in order to support API evolution (xref:versioning.adoc#rule-evo-object[[evo-object\]]).
 ====
 
 An example is the description a map of `embedded` resources, as described in xref:performance.adoc#embedding[Embedding].
-Other uses of `additionalProperties` than for maps are to be avoided, in order to support schema evolution.
 
 [rule, prop-req]
 .Required properties
