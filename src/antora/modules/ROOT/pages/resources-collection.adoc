@@ -12,7 +12,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 ====
 {API}/employers[^] - a collection of employers
 
-{API}/persons/+{ssin}+/children[^] - a collection of children as a child resource of a person
+{API}/persons/children[^] - a collection of children as a child resource of a person. The person identifier of the parent is omitted from the path, because it is considered sensitive.
 ====
 
 [[collections-consult, Searching a collection]]
@@ -45,28 +45,32 @@ The representation of a collection MUST contain a list of links to child resourc
 
 CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
-.Most used response codes
-|===
-| xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
-| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
-| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
-|===
-
-WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
-
 .Consulting a collection
 ====
-.Request
+
 [subs=normal]
 ----
 GET {API}/employers?title=P*[^] HTTP/1.1
 ----
 
+[cols="1,2,3"]
+|===
+3+|Request
+|xref:methods.adoc#get[GET]
+|/employers/+{employerId}+
+|List employers
+
+|parameters
+|filtering, sorting or pagination parameters
+|see <<rule-col-sort>>, <<searching, searching>> and <<Pagination, pagination>>
+
+3+| Response
+
+|body
+2+a|
 [source,json,subs="normal"]
-.Response
 ----
 {
- "self": "{API}/employers",
  "items":[
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
@@ -84,25 +88,30 @@ GET {API}/employers?title=P*[^] HTTP/1.1
  "total":2
 }
 ----
+3+|Most used response codes
+| xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
+| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
+| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
+|===
+
+WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used when consulting a collection.
 
 OpenAPI schemas for the response payload:
 
 [source, yaml]
 ----
 EmployersCollection:
-  allOf:
-  - $ref: common/v1/common-v1.yaml#/components/schemas/SelfLink
-  - type: object
-    properties:
+  type: object
+  properties:
+    items:
+      type: array
       items:
-        type: array
-        items:
-          $ref: "#/components/schemas/EmployerLink"
-      total:
-        type: integer
-    required:
-      - items
-      - total
+        $ref: "#/components/schemas/EmployerLink"
+    total:
+      type: integer
+  required:
+    - items
+    - total
 EmployerLink:
   allOf:
   - $ref: common/v1/common-v1.yaml#/components/schemas/HttpLink
@@ -116,10 +125,10 @@ EmployerLink:
 ====
 
 
-.Consultation with complex input structure
+.Consultation with complex or sensitive input
 ====
 
-If input with a complex structure is needed, a `/search` controller with `POST` may be used.
+If input with a complex structure is needed, or its input may contain sensitive data, a `/search` controller with `POST` may be used.
 
 .Request
 ----
@@ -146,24 +155,6 @@ POST {API}/employers/search
 
 The response is the same as for the `GET` alternative.
 ====
-
-[rule, col-sort]
-.Sorting a collection
-====
-A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
-Descending sorting order can be indicated by prefixing the property name with `-`.
-
-The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
-====
-
-.Sort query parameter
-[cols="3*"]
-|===
-| sort
-| Multi-value query param with list of properties to sort on.
-Direction is ascending by default. To indicate descending, prefix property with `-`.
-|`?sort=age&sort=-name`
-|===
 
 [rule,col-embed]
 .Getting full representations of collection items
@@ -243,6 +234,29 @@ AppendixCodeLink:
         $ref: 'appendixCode.yaml#/components/schemas/AppendixCodeValue'
 ```
 ====
+
+[[sorting]]
+=== Sorting
+
+[rule, col-sort]
+.Sorting a collection
+====
+A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
+Descending sorting order can be indicated by prefixing the property name with `-`.
+
+The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
+
+In case a `/search` controller is used, the sorting parameters should be represented in a structured manner in the request body, instead of using query parameters. Separate parameters for sorting properties and sorting order can be used then.
+====
+
+.Sort query parameter
+[cols="3*"]
+|===
+| sort
+| Multi-value query param with list of properties to sort on.
+Direction is ascending by default. To indicate descending, prefix property with `-`.
+|`?sort=age&sort=-name`
+|===
 
 [[filtering]]
 == Filtering
