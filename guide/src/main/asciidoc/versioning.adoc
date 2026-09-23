@@ -56,8 +56,8 @@ Apply the following rules to evolve RESTful or asynchronous APIs in a backward-c
 * Add only optional, never mandatory input fields.
 * Never change the meaning of a field.
 * Never change input validation logic to be more restrictive.
-* Enum ranges can be reduced when used as input parameters, only if the API provider is ready to accept and handle old range values too.
-* Enum values can be reduced when used as output parameters, but not extended as clients might not be ready to handle them.
+* Enum values can be added, but not removed when used as input parameters.
+* Enum values can be removed when used as output parameters, but not added as clients might not be ready to handle them.
 * A new resource variant (with another name) can be created in addition to the old resource variant.
 ====
 
