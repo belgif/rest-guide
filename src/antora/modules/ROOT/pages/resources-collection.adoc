@@ -174,20 +174,18 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 [subs=normal]
 ```JSON
 {
- "self": "{API}/appendices/employerclasses?embed=items[/appendices/employerclasses?embed=items^]",
  "items": [
   {
    "value": "0",
-   "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
+   "href": "{API}/appendices/employerclasses/0"
   }, {
    "value": "2",
-   "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
+   "href": "{API}/appendices/employerclasses/2"
   }
  ],
  "total":2,
  "embedded": {
    "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
-     "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]",
      "value": "2",
      "description": {
        "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
@@ -195,7 +193,6 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
       }
    },
    "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
-     "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]",
      "value": "0",
      "description": {
       "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
@@ -277,20 +274,27 @@ Unless the API documentation explicitly states otherwise, returned collection it
 ====
 
 For example, the query 
-`GET /cars?doors=5&color=black&color=blue` should be interpreted by default as: "search for all cars that have 5 doors AND are of color blue OR black". 
+`GET /cars?doors=5&color=black&color=blue` should be interpreted by default as: "search for all cars that have 5 doors AND are of color blue OR black".
+
+.Searching in a collection
+====
+[subs=normal]
+```
+GET {API}/enterprises?title=P*[^] HTTP/1.1
+```
 
 [cols="1,2,3"]
 |===
 |xref:methods.adoc#get[GET]
-|/employers
-|get all the employers documents in the collection
+|/organizations
+|get all the organization documents in the collection
 
 
 3+|Parameters
 
 |name
 |query-param
-|Filter only employers that have a specific name.
+|Only match organizations that have a specific name.
 
 3+|Response
 
@@ -300,15 +304,19 @@ a|
 [source,json, subs=normal]
 ----
 {
-  "self": "{API}/enterprises?name=belg[/enterprises?name=belg^]",
-	"items": [{
-		"href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
-		"title": "Belgacom"
-	}, {
-		"href": "{API}/enterprises/0448826918[/enterprises/0448826918^]",
-		"title": "Carrefour Belgium SA"
-	}],
-	"total": 2
+  "items": [
+    {
+      "href": "{API}/organizations/0202239951",
+      "name": "Proximus",
+      "enterpriseNumber": "0202239951"
+    },
+    {
+      "href": "{API}/organizations/0816851945",
+      "name": "Partena",
+      "enterpriseNumber": "0816851945"
+    }
+  ],
+  "total": 2
 }
 ----
 
@@ -321,12 +329,7 @@ a|
 |===
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
-
-
-[subs=normal]
-```
-GET {API}/enterprises?name=belg[^] HTTP/1.1
-```
+====
 
 == [[Pagination]] [[pagination]] Pagination
 
@@ -371,30 +374,32 @@ A reusable `PageQueryParameter` OpenAPI component is defined in https://github.c
 ====
 [subs="normal"]
 ```
-GET {API}/enterprises?page=2&pageSize=2[^] HTTP/1.1
+GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/enterprises?page=2&pageSize=2[/enterprises?page=2&pageSize=2^]",
+  "self": "{API}/organizations?page=2&pageSize=2",
   "items": [
     {
-      "href": "{API}/enterprises/202239951[/enterprises/202239951^]",
-      "title": "Belgacom"
+      "href": "{API}/organizations/0202239951",
+      "title": "Proximus",
+      "enterpriseNumber": "0202239951"
     },
     {
-      "href": "{API}/enterprises/212165526[/enterprises/212165526^]",
-      "title": "CPAS de Silly"
+      "href": "{API}/organizations/0212165526",
+      "title": "CPAS de Silly",
+      "enterpriseNumber": "0212165526"
     }
   ],
   "pageSize": 2,
   "page": 2,
   "total": 7,
-  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
-  "last": "{API}/enterprises?page=4&pageSize=2[/enterprises?page=4&pageSize=2^]",
-  "prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=1&pageSize=2^]",
-  "next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2",
+  "last": "{API}/organizations?page=4&pageSize=2",
+  "prev": "{API}/organizations?page=1&pageSize=2",
+  "next": "{API}/organizations?page=3&pageSize=2"
 }
 ----
 ====
@@ -403,44 +408,44 @@ GET {API}/enterprises?page=2&pageSize=2[^] HTTP/1.1
 ====
 [subs="normal"]
 ```
-GET {API}/enterprises?afterEnterprise=0244640631[^] HTTP/1.1
+GET {API}/organizations?after=0244640631[^] HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/enterprises?afterEnterprise=0244640631&pageSize=2[/enterprises?afterEnterprise=0244640631&pageSize=2^]",
+  "self": "{API}/organizations?afterEnterprise=0244640631&pageSize=2[/organizations?after=0244640631&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
-      "title": "Belgacom"
+      "href": "{API}/organizations/0202239951[/organizations/0202239951^]",
+      "title": "Proximus"
     },
     {
-      "href": "{API}/enterprises/0212165526[/enterprises/0212165526^]",
+      "href": "{API}/organizations/0212165526[/organizations/0212165526^]",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "total": 7,
-  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
-  "next": "{API}/enterprises?afterEnterprise=0212165526&pageSize=2[/enterprises?afterEnterprise=0212165526&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2[/organizations?pageSize=2^]",
+  "next": "{API}/organizations?after=0212165526&pageSize=2[/organizations?after=0212165526&pageSize=2^]"
 }
 ----
 ====
 
 [[create-resource]]
-== Create a new resource​
+== Create a new resource
 The collection resource can be used to create new document resources from the `POST` request body.
 Absent optional values are set to their default value if one is specified in the OpenAPI description.
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​xref:methods.adoc#post[POST]
+|xref:methods.adoc#post[POST]
 |/employers
 |create a new employer in the collection
 
 
-3+|​​​Request
+3+|Request
 |body
 |​The data of the resource to create.
 a|
