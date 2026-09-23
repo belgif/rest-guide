@@ -23,7 +23,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 ====
 An operation to consult a collection resource SHOULD be provided as a `GET` method on the collection resource URI.
 
-When consultation requires input parameters with a complex structure (e.g. extensive search or sorting parameters), a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations of query parameters.
+When consultation requires input parameters with a complex structure (e.g. extensive search or sorting parameters) or has sensitive data, a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations or exposure of query parameters.
 Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
 ====
 
