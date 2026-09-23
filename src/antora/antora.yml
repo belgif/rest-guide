@@ -16,3 +16,4 @@ asciidoc:
     icons: font
     idprefix: ''
     idseparator: '-'
+    page-pagination: ''
