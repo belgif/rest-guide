@@ -244,22 +244,22 @@ AppendixCodeLink:
 ```
 ====
 
-== [[searching]] [[filtering]] Searching
+[[filtering]]
+== Filtering
 
-[[rule-col-filter]]
-[rule, col-search]
-.Searching items in a collection
+[rule, col-filter]
+.Filtering items in a collection
 ====
-A collection may support xref:reserved.adoc#query-parameters[query parameters] to retrieve a subset of its items:
+A collection may support xref:reserved.adoc#query-parameters[query parameters] to retrieve filter its items:
 
-* a query parameter with the name of a document property, matches items on the specified value
+* a query parameter with the name of a document property, filters items on the specified value
 * the query parameter `q` is reserved for a full text search on all the document's content
-* other search parameters may be supported, e.g. to look up items within a search period
+* other filter parameters may be supported, e.g. to look up items within a search period
 
 Unless the API documentation explicitly states otherwise, returned collection items:
 
-* should satisfy ALL search query parameters (AND-logic)
-* have to match ANY of the values of a multi-valued search query parameter (OR-logic).
+* should satisfy ALL filter query parameters (AND-logic)
+* have to match ANY of the values of a multi-valued filter query parameter (OR-logic).
 ====
 
 For example, the query 
@@ -301,7 +301,7 @@ a|
 3+|Most used response codes
 |xref:statuscodes.adoc#http-200[200]
 |OK
-|Default response code, also when search matches no items.
+|Default response code, also when filtered collection is empty.
 | xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
 |===
@@ -314,7 +314,7 @@ WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with 
 GET {API}/enterprises?name=belg[^] HTTP/1.1
 ```
 
-== Pagination
+== [[Pagination]] [[pagination]] Pagination
 
 [rule, col-paging]
 .Paging over a large collection
@@ -339,7 +339,7 @@ Take into account the considerations http://zalando.github.io/restful-api-guidel
 | `page` |REQUIRED (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
 | `first` | OPTIONAL | hyperlink to the first page
 | `last` | OPTIONAL | hyperlink to the last page
-| `total` | OPTIONAL | Total number of items across all pages. If search parameters are used, this is the total of the result set, not of the entire collection.
+| `total` | OPTIONAL | Total number of items across all pages. If filter parameters are used, this is the total of the result set, not of the entire collection.
 |===
 
 The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
@@ -490,7 +490,7 @@ Date: Wed, 06 Jan 2016 15:37:16 GMT
 == Remove
 
 A selection of items can be removed from a collection using the DELETE method. In fact, the collection itself cannot be removed, but it can be emptied if all its items are removed.
-By using query parameters, the items to be removed can be selected.
+By using query parameters, the items to be removed can be filtered.
 In order to remove a single specific item from a collection, use xref:resources-document.adoc#remove-document[ DELETE on the document resource].
 
 [cols="1,2,3"]

@@ -23,8 +23,8 @@ A list of reserved words exists for common used practices
 
 |[[query-param-q]]q
 |The standard search parameter to do a full-text search.
-|?q=Belgacom
-|xref:resources-collection.adoc#searching[Searching]
+|?q=Proximus
+|xref:resources-collection.adoc#filtering[Filtering]
 
 |[[query-param-select]]select
 | Filter the resource properties to the ones specified.
@@ -40,7 +40,7 @@ Default sorting direction is ascending. To indicate descending direction, the pr
 | embed
 | Request to embed subresource
 | ?embed=mainAddress
-| xref:performance.adoc#embedding-resources[Embedding resources]
+| xref:performance.adoc#embedding[Embedding resources]
 
 | [[query-param-lang]]lang
 | language to filter multi-language descriptions
@@ -118,7 +118,7 @@ a|
 | xref:resources-collection.adoc[]
 
 | total
-| the total number of items in a collection (search) result.
+| the total number of items in a collection result, after filtering.
 |
 | xref:resources-collection.adoc[]
 
