@@ -69,7 +69,7 @@ The recently introduced HTTP method `QUERY` is not yet widely supported and SHOU
 
 |<<GET>>
 |xref:resources-document.adoc#document-consult[ consult]
-|xref:resources-collection.adoc#collections-consult[ consult]
+|xref:resources-collection.adoc#collections-consult[ search]
 |xref:resources-controller.adoc#controller[ idempotent actions without side effects]
 |Empty
 |Resource(s) 
