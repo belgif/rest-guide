@@ -12,6 +12,8 @@ When referencing another resource within the same API, a link SHOULD be added us
 
 It is NOT RECOMMENDED to link to resources in other APIs to avoid a tight coupling between the APIs, unless the link target is guaranteed to remain very stable (like the `href` links to standard problem types xref:errorhandling.adoc#rule-err-problem[[err-problem\]]).
 
+Entities with a sensitive identifier don't have their own URI (see xref:resources.adoc#rule-sens-dat[[sens-dat\]]), so they don't need to be linked.
+
 Each resource MAY also contain its own location in a `self` attribute at root level of the JSON document.
 
 URIs SHOULD always be absolute.
@@ -54,29 +56,35 @@ In a JSON response, they can be added anywhere.
 
 .Resource links
 ====
-GET {API}/enterprises/1
+GET {API}/organizations/0202239951
 
 [subs="normal"]
 ```json
 {
-   "self": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
-   "owner": {
-      "ssin": "12345678901",
-      "href": "http://example.org/v1/persons/12345678901"
-   },
-   "website": "https://wwww.myenterprise.com"
+  "self": "{API}/organizations/0202239951"
+  "succeededBy": {
+    "enterpriseNumber": "0123456789",
+    "href": "{API}/organizations/0123456789"
+  },
+  "owner": "12345678902",
+  "website": "https://wwww.myenterprise.com"
 }
 ```
 
-PATCH {API}/enterprises/1
+The `href` in `succeededBy` is a link to the corresponding organization's document resource, while `owner` is a sensitive identifier and therefore has no link.
+
+PATCH {API}/organizations/0202239951
 
 [subs="normal"]
 ```json
 {
-   "owner": {
-      "ssin": "12345678902"
-   },
-   "website": "https://wwww.mynewwebsite.com"
+  "succeededBy": {
+    "enterpriseNumber": "0123456789",
+  },
+  "owner": {
+    "ssin": "12345678902"
+  },
+  "website": "https://wwww.mynewwebsite.com"
 }
 ```
 
@@ -106,7 +114,7 @@ components:
 ```
 ====
 
-Hyperlinks for xref:resources-collection.adoc#Pagination[Pagination] inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
+Hyperlinks for xref:resources-collection.adoc#pagination[Pagination] inside collections and self-references should use a simple URI value in combination with their corresponding link relations (next, prev, first, last, self) instead of the extensible link type.
 
 [[collection-links]]
 .Pagination links
@@ -114,9 +122,9 @@ Hyperlinks for xref:resources-collection.adoc#Pagination[Pagination] inside coll
 [subs="normal"]
 ```json
 {
-   "self": "{API}/enterprises?page=2&pageSize=10[/enterprises?page=2&pageSize=10^]",
-   "prev": "{API}/enterprises?page=2&pageSize=1[/enterprises?page=1&pageSize=10^]",
-   "next": "{API}/enterprises?page=2&pageSize=3[/enterprises?page=3&pageSize=10^]"
+   "self": "{API}/organizations?page=2&pageSize=10",
+   "prev": "{API}/organizations?page=2&pageSize=1",
+   "next": "{API}/organizations?page=2&pageSize=3"
 }
 ```
 ====
