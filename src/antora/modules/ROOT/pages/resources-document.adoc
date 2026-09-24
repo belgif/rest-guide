@@ -13,17 +13,21 @@ image::collection.png[]
 |===
 |Location|Document URI| Resource representation| Path template
 
-|part of collection|`/persons/01234567890`
+|part of collection|`/organizations/012345678901`
 a|
 ```json
 {
-  "ssin": "01234567890",
-  "givenName": "John",
-  "familyName": "Doe"
+  "enterpriseNumber": "012345678901",
+  "name": "PetShop Incorporated"
 }
 ```
-|`/persons/+{ssin}+`
+|`/organizations/+{enterpriseNumber}+`
 |===
+
+Example in case of a sensitive identifier:
+
+`POST /persons/get` with `ssin` in request body.
+
 ====
 
 [[document-singleton, Singleton documents]]
@@ -36,11 +40,11 @@ Documents may also be _singletons_, of which only a single instance exists withi
 |===
 |Location|Document URI| Resource representation| Path template
 
-|singleton with document as parent | `/persons/01234567890/profilePicture` |
+|singleton with document as parent | `/organizations/012345678901/logo` |
 
 _image file (binary)_
 
-| `/persons/+{ssin}+/profilePicture`
+| `/organizations/+{enterpriseNumber}+/logo`
 
 |singleton without a parent
 | `/endUserLicenseAgreement`
@@ -50,6 +54,10 @@ a|
 ```
 | `/endUserLicenseAgreement`
 |===
+
+Example in case of a sensitive identifier:
+
+`POST /persons/idCardPicture` with `ssin` in request body.
 ====
 
 == Child resources
@@ -354,7 +362,7 @@ Following naming guidelines should be applied when using an identifier or code i
 ** within an object that represents the entire or part of a resource: use `id` or `code`
 ** to reference a resource within another one's representation: property name should designate the relation between the resources (see xref:json.adoc#rule-jsn-naming[[jsn-naming\]]); no need to suffix with `id` or `code`
 * path parameter: use `id` or `code`, prefixed with the resource type. This allows to disambiguate when there are multiple identifiers in a single path
-* query search parameter: use same name as the property in the JSON resource representation of the response (see xref:resources-collection.adoc#filtering[Filtering])
+* query search parameter: use same name as the property in the JSON resource representation of the response (see xref:resources-collection.adoc#searching[Searching])
 * OpenAPI schema: add suffix `Id` or `Code` to distinguish it from the type of the full resource representation
 
 As an exception, use the standardized name for the business identifier if one exists, rather than `id` or `code`.
@@ -449,17 +457,18 @@ GET /refData/deliveryMethods/{deliveryMethodCode} <1>
 .Standardized business identifiers
 ====
 ```
-GET /persons/{ssin} <1>
+GET /organizations/{enterpriseNumber} <1>
 ```
 ```YAML
 {
-  "ssin": "12345678901", <1>
-  "partner": "2345678902", <2>
-  "civilStatus": 1
+  "enterpriseNumber": "0123456789", <1>
+  "absorbedOrganizations": ["0234567891", "0345678912"], <2>
+  "succeededBy": "0456789123", <2>
+  "status": "active"
 }
 ```
-<1> Standardized business identifier name `Ssin` is preferred over `id`.
-<2> JSON property name designates relation to the other resource. The OpenAPI description declares the expected value to be of type `Ssin`.
+<1> Standardized business identifier name `enterpriseNumber` is preferred over `id`.
+<2> JSON property name designates relation to the other resource. The OpenAPI description declares the expected value to be of schema `EnterpriseNumber`.
 ====
 
 .Multiple types of identifiers
@@ -499,7 +508,7 @@ GET {API}/employers/93017373[^] HTTP/1.1
 [cols="1,2,3"]
 |===
 |xref:methods.adoc#get[GET]
-|/employers/+{employerId}+
+|`/employers/+{employerId}+`
 |Consult a single employer
 
 3+|Parameters
@@ -509,13 +518,12 @@ GET {API}/employers/93017373[^] HTTP/1.1
 3+|Response
 
 |body
-|The response properties and links to other resources.
+|The representation of the entity, including links to other resources.
 a|
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/employers/93017373[/employers/93017373^]",
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951",
@@ -555,14 +563,31 @@ a|The dynamic path segment containing the identity key has a wrong data format:
   ]
 }
 ----
-​|xref:statuscodes.adoc#http-404[404]
+|xref:statuscodes.adoc#http-404[404]
 |Not Found
 |The document resource does not exist.
 
 |===
-WARNING: ​xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
 
+WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used when consulting a document.
 
+When the document identifier is sensitive, a POST operation with payload should be used as request:
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#post[POST]
+|`/persons/get`
+|Consult a person
+|body| identifier of the consulted entity
+a|
+```json
+{
+  "ssin": "12345678901"
+}
+```
+|===
+
+The possible responses are the same as for a GET operation, including a `404 Not Found` response code when the document does not exist.
 ====
 
 [rule, res-repres]
@@ -678,7 +703,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 3+|Request
 
 |body
-|Full representation of the resource to persist.
+|Full new representation of the resource to persist.
 |
 
 3+|Parameters
@@ -696,7 +721,6 @@ a|
     "employerId": 93017373,
     "name": "Belgacom"
 }
-
 ----
 
 3+|Most used response codes 
@@ -721,6 +745,22 @@ a|
 |The update is in conflict with the data on the server.
 
 |===
+
+When the document identifier is sensitive, a POST operation with payload should be used as request:
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#post[POST]
+|`/persons/update`
+|Update a person
+
+|body
+|Full new representation of the resource to persist, including its (immutable) identifier.
+|
+|===
+
+The possible responses are the same as for a PUT operation, including a `404 Not Found` response code when the document does not exist.
+
 ====
 
 [[document-partial-update]]
@@ -826,6 +866,22 @@ a|
 |The update is in conflict with the data on the server.
 
 |===
+
+
+When the document identifier is sensitive, a POST operation with payload should be used as request:
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#post[POST]
+|`/persons/update`
+|Partially update a person
+
+|body
+|Identifier of the document and the changes to the resource to persist.
+|
+|===
+
+The possible responses are the same as for a PATCH operation, including a `404 Not Found` response code when the document does not exist. The operation's description should clarify if it provides a full or partial update.
 ====
 
 [[remove-document]]
@@ -893,6 +949,28 @@ The resource could not be deleted because the request is in conflict with data o
 For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 
 |===
+
+
+When the document identifier is sensitive, a POST operation with payload should be used as request:
+
+[cols="1,2,3"]
+|===
+|xref:methods.adoc#post[POST]
+|`/persons/delete`
+|Delete a person
+
+|body
+|Identifier of the document to delete.
+a|
+```json
+{
+  "ssin": "12345678901"
+}
+```
+|===
+
+The possible responses are the same as for a PUT operation, including a `404 Not Found` response code when the document does not exist.
+
 ====
 
 [[long-running-tasks]]

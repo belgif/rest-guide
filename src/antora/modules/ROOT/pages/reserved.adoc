@@ -24,7 +24,7 @@ A list of reserved words exists for common used practices
 |[[query-param-q]]q
 |The standard search parameter to do a full-text search.
 |?q=Belgacom
-|xref:resources-collection.adoc#Filtering[Filtering]
+|xref:resources-collection.adoc#searching[Searching]
 
 |[[query-param-select]]select
 | Filter the resource properties to the ones specified.
@@ -118,7 +118,7 @@ a|
 | xref:resources-collection.adoc[]
 
 | total
-| the total number of items in a collection result, after filtering.
+| the total number of items in a collection (search) result.
 |
 | xref:resources-collection.adoc[]
 

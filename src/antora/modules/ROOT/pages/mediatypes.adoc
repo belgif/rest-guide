@@ -87,13 +87,16 @@ Default media types across all operations cannot be specified.
 [[media-type-openapi3]]
 .Specifying media types in OpenAPI
 ====
-```YAML
-  /persons/{ssin}/photo:
+```yaml
+  /organizations/{enterpriseNumber}/logo:
     get:
-      summary: Get the photo of the person
-      operationId: getPhoto
+      summary: Get the logo of the organization
+      operationId: getLogo
       parameters:
-      - $ref: "person/identifier/v1/person-identifier-v1.yaml#/components/parameters/SsinQueryParameter"
+        - in: query
+          name: enterpriseNumber
+          schema:
+            $ref: "organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
       responses:
         "200":
           description: successful operation
@@ -102,19 +105,13 @@ Default media types across all operations cannot be specified.
               schema:
                 type: string
                 format: binary
-        "400":
-          description: SSIN has invalid structure
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/InvalidSsinProblem"
         "404":
-          description: SSIN was not found
+          description: Enterprise number was not found
           content:
             application/problem+json:
               schema:
-                $ref: "#/components/schemas/UnknownSsinProblem"
+                $ref: "problem/v1/#/components/schemas/InputValidationProblem"
         default:
-          "$ref": "./problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
+          "$ref": "problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
 ```
 ====

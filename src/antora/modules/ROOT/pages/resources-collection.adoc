@@ -12,11 +12,22 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 ====
 {API}/employers[^] - a collection of employers
 
-{API}/persons/+{ssin}+/children[^] - a collection of children as a child resource of a person
+{API}/persons/children[^] - a collection of children as a child resource of a person. The person identifier of the parent is omitted from the path, because it is considered sensitive.
 ====
 
 [[collections-consult, Consulting a collection]]
 == Consult
+
+[rule, col-get]
+.API operation to consult a collection
+====
+An operation to consult a collection resource SHOULD be provided as a `GET` method on the collection resource URI.
+
+When consultation requires input parameters with a complex structure (e.g. extensive search or sorting parameters) or has sensitive data, a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations or exposure of query parameters.
+Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
+====
+
+The recently introduced HTTP method `QUERY`, providing an alternative to a `/search` controller, SHOULD NOT be used yet (xref:methods.adoc#rule-meth-http[[meth-http\]]).
 
 [rule, col-repres]
 .Representation of a collection
@@ -34,48 +45,32 @@ The representation of a collection MUST contain a list of links to child resourc
 
 CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
-.Most used response codes
-
-|===
-
-| xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
-| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
-| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
-|===
-
-WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
-
-[rule, col-sort]
-.Sorting a collection
-====
-A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
-Descending sorting order can be indicated by prefixing the property name with `-`.
-
-The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
-====
-
-.Sort query parameter
-
-[cols="3*"]
-|===
-
-| sort
-| Multi-value query param with list of properties to sort on.
-  Direction is ascending by default. To indicate descending, prefix property with `-`.
-|`?sort=age&sort=-name`
-|===
-
 .Consulting a collection
 ====
+
 [subs=normal]
-```
-GET {API}/employers[^] HTTP/1.1
-```
+----
+GET {API}/employers?title=P*[^] HTTP/1.1
+----
+
+[cols="1,2,3"]
+|===
+3+|Request
+|xref:methods.adoc#get[GET]
+|/employers/+{employerId}+
+|List employers
+
+|parameters
+|filtering, sorting or pagination parameters
+|see <<rule-col-sort>>, <<searching, searching>> and <<Pagination, pagination>>
+
+3+| Response
+
+|body
+2+a|
 [source,json,subs="normal"]
-.Response
 ----
 {
- "self": "{API}/employers",
  "items":[
    {
      "href":"{API}/employers/93017373[/employers/93017373^]",
@@ -93,23 +88,30 @@ GET {API}/employers[^] HTTP/1.1
  "total":2
 }
 ----
+3+|Most used response codes
+| xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
+| xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
+| xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
+|===
 
-.JSON schemas
-```YAML
+WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used when consulting a collection.
+
+OpenAPI schemas for the response payload:
+
+[source, yaml]
+----
 EmployersCollection:
-  allOf:
-  - $ref: common/v1/common-v1.yaml#/components/schemas/SelfLink
-  - type: object
-    properties:
+  type: object
+  properties:
+    items:
+      type: array
       items:
-        type: array
-        items:
-          $ref: "#/components/schemas/EmployerLink"
-      total:
-        type: integer
-    required:
-      - items
-      - total
+        $ref: "#/components/schemas/EmployerLink"
+    total:
+      type: integer
+  required:
+    - items
+    - total
 EmployerLink:
   allOf:
   - $ref: common/v1/common-v1.yaml#/components/schemas/HttpLink
@@ -119,7 +121,39 @@ EmployerLink:
         $ref: "./employer/identifier/v1/employer-identifier-v1.yaml#/components/schemas/EmployerId"
       enterpriseNumber:
         $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
-```
+----
+====
+
+
+.Consultation with complex or sensitive input
+====
+
+If input with a complex structure is needed, or its input may contain sensitive data, a `/search` controller with `POST` may be used.
+
+.Request
+----
+POST {API}/employers/search
+----
+
+[source,json]
+----
+{
+  "title": [
+    {
+      "excludeIfMatching": false,
+      "expression": "P*"
+    },
+    {
+      "excludeIfMatching": true,
+      "expression": "B*"
+    }
+  ]
+}
+----
+
+.Response
+
+The response is the same as for the `GET` alternative.
 ====
 
 [rule,col-embed]
@@ -140,20 +174,18 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
 [subs=normal]
 ```JSON
 {
- "self": "{API}/appendices/employerclasses?embed=items[/appendices/employerclasses?embed=items^]",
  "items": [
   {
    "value": "0",
-   "href": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]"
+   "href": "{API}/appendices/employerclasses/0"
   }, {
    "value": "2",
-   "href": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]"
+   "href": "{API}/appendices/employerclasses/2"
   }
  ],
  "total":2,
  "embedded": {
    "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
-     "self": "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]",
      "value": "2",
      "description": {
        "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
@@ -161,7 +193,6 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
       }
    },
    "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
-     "self": "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]",
      "value": "0",
      "description": {
       "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
@@ -201,39 +232,69 @@ AppendixCodeLink:
 ```
 ====
 
-[[filtering]]
-== Filtering
+[[sorting]]
+=== Sorting
 
-[rule, col-filter]
-.Filtering items in a collection
+[rule, col-sort]
+.Sorting a collection
 ====
-A collection may support xref:reserved.adoc#query-parameters[ query parameters] to filter its items:
+A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
+Descending sorting order can be indicated by prefixing the property name with `-`.
 
-* a query parameter with the name of a document property, filters items on the specified value
+The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
+
+In case a `/search` controller is used, the sorting parameters should be represented in a structured manner in the request body, instead of using query parameters. Separate parameters for sorting properties and sorting order can be used then.
+====
+
+.Sort query parameter
+[cols="3*"]
+|===
+| sort
+| Multi-value query param with list of properties to sort on.
+Direction is ascending by default. To indicate descending, prefix property with `-`.
+|`?sort=age&sort=-name`
+|===
+
+=== [[searching]] [[filtering]] Searching
+
+[[rule-col-filter]]
+[rule, col-search]
+.Searching items in a collection
+====
+A collection may support xref:reserved.adoc#query-parameters[query parameters] to retrieve a subset of its items:
+
+* a query parameter with the name of a document property, matches items on the specified value
 * the query parameter `q` is reserved for a full text search on all the document's content
-* other filter parameters may be supported, e.g. to look up items within a search period
+* other search parameters may be supported, e.g. to look up items within a search period
 
 Unless the API documentation explicitly states otherwise, returned collection items:
 
-* should satisfy ALL filter query parameters (AND-logic)
-* have to match ANY of the values of a multi-valued filter query parameter (OR-logic).
+* should satisfy ALL search query parameters (AND-logic)
+* have to match ANY of the values of a multi-valued search query parameter (OR-logic).
 ====
 
 For example, the query 
-`GET /cars?doors=5&color=black&color=blue` should be interpreted by default as: "search for all cars that have 5 doors AND are of color blue OR black". 
+`GET /cars?doors=5&color=black&color=blue` should be interpreted by default as: "search for all cars that have 5 doors AND are of color blue OR black".
+
+.Searching in a collection
+====
+[subs=normal]
+```
+GET {API}/enterprises?title=P*[^] HTTP/1.1
+```
 
 [cols="1,2,3"]
 |===
 |xref:methods.adoc#get[GET]
-|/employers
-|get all the employers documents in the collection
+|/organizations
+|get all the organization documents in the collection
 
 
-3+|​​​Parameters
+3+|Parameters
 
 |name
 |query-param
-|Filter only employers that have a specific name.
+|Only match organizations that have a specific name.
 
 3+|Response
 
@@ -243,35 +304,34 @@ a|
 [source,json, subs=normal]
 ----
 {
-  "self": "{API}/enterprises?name=belg[/enterprises?name=belg^]",
-	"items": [{
-		"href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
-		"title": "Belgacom"
-	}, {
-		"href": "{API}/enterprises/0448826918[/enterprises/0448826918^]",
-		"title": "Carrefour Belgium SA"
-	}],
-	"total": 2
+  "items": [
+    {
+      "href": "{API}/organizations/0202239951",
+      "name": "Proximus",
+      "enterpriseNumber": "0202239951"
+    },
+    {
+      "href": "{API}/organizations/0816851945",
+      "name": "Partena",
+      "enterpriseNumber": "0816851945"
+    }
+  ],
+  "total": 2
 }
 ----
 
 3+|Most used response codes
 |xref:statuscodes.adoc#http-200[200]
 |OK
-|Default response code, also when the filtered collection is empty. 
+|Default response code, also when search matches no items.
 | xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
 |===
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
+====
 
-
-[subs=normal]
-```
-GET {API}/enterprises?name=belg[^] HTTP/1.1
-```
-
-== Pagination
+=== Pagination
 
 [rule, col-paging]
 .Paging over a large collection
@@ -296,7 +356,7 @@ Take into account the considerations http://zalando.github.io/restful-api-guidel
 | `page` |REQUIRED (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
 | `first` | OPTIONAL | hyperlink to the first page
 | `last` | OPTIONAL | hyperlink to the last page
-| `total` | OPTIONAL | Total number of items across all pages. If query parameters are used to filter the result set, this is the total of the collection result set, not of the entire collection.
+| `total` | OPTIONAL | Total number of items across all pages. If search parameters are used, this is the total of the result set, not of the entire collection.
 |===
 
 The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
@@ -314,30 +374,32 @@ A reusable `PageQueryParameter` OpenAPI component is defined in https://github.c
 ====
 [subs="normal"]
 ```
-GET {API}/enterprises?page=2&pageSize=2[^] HTTP/1.1
+GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/enterprises?page=2&pageSize=2[/enterprises?page=2&pageSize=2^]",
+  "self": "{API}/organizations?page=2&pageSize=2",
   "items": [
     {
-      "href": "{API}/enterprises/202239951[/enterprises/202239951^]",
-      "title": "Belgacom"
+      "href": "{API}/organizations/0202239951",
+      "title": "Proximus",
+      "enterpriseNumber": "0202239951"
     },
     {
-      "href": "{API}/enterprises/212165526[/enterprises/212165526^]",
-      "title": "CPAS de Silly"
+      "href": "{API}/organizations/0212165526",
+      "title": "CPAS de Silly",
+      "enterpriseNumber": "0212165526"
     }
   ],
   "pageSize": 2,
   "page": 2,
   "total": 7,
-  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
-  "last": "{API}/enterprises?page=4&pageSize=2[/enterprises?page=4&pageSize=2^]",
-  "prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=1&pageSize=2^]",
-  "next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2",
+  "last": "{API}/organizations?page=4&pageSize=2",
+  "prev": "{API}/organizations?page=1&pageSize=2",
+  "next": "{API}/organizations?page=3&pageSize=2"
 }
 ----
 ====
@@ -346,44 +408,44 @@ GET {API}/enterprises?page=2&pageSize=2[^] HTTP/1.1
 ====
 [subs="normal"]
 ```
-GET {API}/enterprises?afterEnterprise=0244640631[^] HTTP/1.1
+GET {API}/organizations?after=0244640631[^] HTTP/1.1
 ```
 
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/enterprises?afterEnterprise=0244640631&pageSize=2[/enterprises?afterEnterprise=0244640631&pageSize=2^]",
+  "self": "{API}/organizations?afterEnterprise=0244640631&pageSize=2[/organizations?after=0244640631&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]",
-      "title": "Belgacom"
+      "href": "{API}/organizations/0202239951[/organizations/0202239951^]",
+      "title": "Proximus"
     },
     {
-      "href": "{API}/enterprises/0212165526[/enterprises/0212165526^]",
+      "href": "{API}/organizations/0212165526[/organizations/0212165526^]",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "total": 7,
-  "first": "{API}/enterprises?pageSize=2[/enterprises?pageSize=2^]",
-  "next": "{API}/enterprises?afterEnterprise=0212165526&pageSize=2[/enterprises?afterEnterprise=0212165526&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2[/organizations?pageSize=2^]",
+  "next": "{API}/organizations?after=0212165526&pageSize=2[/organizations?after=0212165526&pageSize=2^]"
 }
 ----
 ====
 
 [[create-resource]]
-== Create a new resource​
+== Create a new resource
 The collection resource can be used to create new document resources from the `POST` request body.
 Absent optional values are set to their default value if one is specified in the OpenAPI description.
 
 [cols="1,2,3"]
 |===
-|​​​​​​​​​xref:methods.adoc#post[POST]
+|xref:methods.adoc#post[POST]
 |/employers
 |create a new employer in the collection
 
 
-3+|​​​Request
+3+|Request
 |body
 |​The data of the resource to create.
 a|
@@ -447,7 +509,7 @@ Date: Wed, 06 Jan 2016 15:37:16 GMT
 == Remove
 
 A selection of items can be removed from a collection using the DELETE method. In fact, the collection itself cannot be removed, but it can be emptied if all its items are removed.
-By using query parameters, the items to be removed can be filtered.
+By using query parameters, the items to be removed can be selected.
 In order to remove a single specific item from a collection, use xref:resources-document.adoc#remove-document[ DELETE on the document resource].
 
 [cols="1,2,3"]
@@ -467,7 +529,7 @@ In order to remove a single specific item from a collection, use xref:resources-
 
 |body
 |
-|Empty or a message incidating success. 
+|Empty or a message indicating success.
 
 
 3+|Most used response codes
