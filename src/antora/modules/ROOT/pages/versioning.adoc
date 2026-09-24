@@ -41,7 +41,7 @@ NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn'
 ====
 In a request or response body, if any, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
 
-JSON objects support compatible extension by additional attributes.
+JSON objects support compatible extension by adding new properties.
 This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
 ====
 
