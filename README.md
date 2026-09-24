@@ -65,3 +65,5 @@ The styleguide is built with [Apache Maven](https://maven.apache.org).
 With Maven installed, run `mvn` in the root directory of the project. 
 The styleguide will be built in `guide/target/generated-docs/` and bundled as a zip in the `target` directory.
 
+The Antora site build uses `npm run build` and also regenerates `build/site/api-guide/index.html` so old single-page bookmarks and anchors continue to redirect to the matching multi-page location.
+

@@ -6,3 +6,8 @@ target
 *.iml
 /bin/
 .vscode/settings.json
+node/
+node_modules/
+/build/
+/temp/
+/test-results/
