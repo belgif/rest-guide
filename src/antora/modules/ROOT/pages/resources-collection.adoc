@@ -15,8 +15,19 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 {API}/persons/+{ssin}+/children[^] - a collection of children as a child resource of a person
 ====
 
-[[collections-consult, Consulting a collection]]
-== Consult
+[[collections-consult, Searching a collection]]
+== Search
+
+[rule, col-get]
+.API operation to search a collection
+====
+An operation to search a collection resource SHOULD be provided as a `GET` method on the collection resource URI.
+
+When searching requires input parameters with a complex structure (e.g. extensive filter or sorting parameters), a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations of query parameters.
+Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
+====
+
+The recently introduced HTTP method `QUERY`, providing an alternative to a `/search` controller, SHOULD NOT be used yet (xref:methods.adoc#rule-meth-http[[meth-http\]]).
 
 [rule, col-repres]
 .Representation of a collection
@@ -35,9 +46,7 @@ The representation of a collection MUST contain a list of links to child resourc
 CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
 
 .Most used response codes
-
 |===
-
 | xref:statuscodes.adoc#http-200[200] | OK | Default response code, also when the collection is empty.
 | xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
@@ -45,32 +54,14 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content]  should not be used with GET.
 
-[rule, col-sort]
-.Sorting a collection
-====
-A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
-Descending sorting order can be indicated by prefixing the property name with `-`.
-
-The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
-====
-
-.Sort query parameter
-
-[cols="3*"]
-|===
-
-| sort
-| Multi-value query param with list of properties to sort on.
-  Direction is ascending by default. To indicate descending, prefix property with `-`.
-|`?sort=age&sort=-name`
-|===
-
 .Consulting a collection
 ====
+.Request
 [subs=normal]
-```
-GET {API}/employers[^] HTTP/1.1
-```
+----
+GET {API}/employers?title=P*[^] HTTP/1.1
+----
+
 [source,json,subs="normal"]
 .Response
 ----
@@ -94,8 +85,10 @@ GET {API}/employers[^] HTTP/1.1
 }
 ----
 
-.JSON schemas
-```YAML
+OpenAPI schemas for the response payload:
+
+[source, yaml]
+----
 EmployersCollection:
   allOf:
   - $ref: common/v1/common-v1.yaml#/components/schemas/SelfLink
@@ -119,8 +112,58 @@ EmployerLink:
         $ref: "./employer/identifier/v1/employer-identifier-v1.yaml#/components/schemas/EmployerId"
       enterpriseNumber:
         $ref: "./organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
-```
+----
 ====
+
+
+.Consultation with complex input structure
+====
+
+If input with a complex structure is needed, a `/search` controller with `POST` may be used.
+
+.Request
+----
+POST {API}/employers/search
+----
+
+[source,json]
+----
+{
+  "title": [
+    {
+      "excludeIfMatching": false,
+      "expression": "P*"
+    },
+    {
+      "excludeIfMatching": true,
+      "expression": "B*"
+    }
+  ]
+}
+----
+
+.Response
+
+The response is the same as for the `GET` alternative.
+====
+
+[rule, col-sort]
+.Sorting a collection
+====
+A `sort` multi-value query parameter MAY be provided to allow a client to sort the items of a collection resource on one or more specified properties.
+Descending sorting order can be indicated by prefixing the property name with `-`.
+
+The API SHOULD document which properties can be used for sorting, and whether descending order is allowed.
+====
+
+.Sort query parameter
+[cols="3*"]
+|===
+| sort
+| Multi-value query param with list of properties to sort on.
+Direction is ascending by default. To indicate descending, prefix property with `-`.
+|`?sort=age&sort=-name`
+|===
 
 [rule,col-embed]
 .Getting full representations of collection items
@@ -207,7 +250,7 @@ AppendixCodeLink:
 [rule, col-filter]
 .Filtering items in a collection
 ====
-A collection may support xref:reserved.adoc#query-parameters[ query parameters] to filter its items:
+A collection may support xref:reserved.adoc#query-parameters[query parameters] to filter its items:
 
 * a query parameter with the name of a document property, filters items on the specified value
 * the query parameter `q` is reserved for a full text search on all the document's content
@@ -229,7 +272,7 @@ For example, the query
 |get all the employers documents in the collection
 
 
-3+|​​​Parameters
+3+|Parameters
 
 |name
 |query-param
@@ -258,7 +301,7 @@ a|
 3+|Most used response codes
 |xref:statuscodes.adoc#http-200[200]
 |OK
-|Default response code, also when the filtered collection is empty. 
+|Default response code, also when filtered collection is empty.
 | xref:statuscodes.adoc#http-400[400] | Bad Request | Generic error on client side. For example, the syntax of the request is invalid.
 | xref:statuscodes.adoc#http-404[404] | Not found | The URI provided cannot be mapped to a resource.
 |===
@@ -271,7 +314,7 @@ WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with 
 GET {API}/enterprises?name=belg[^] HTTP/1.1
 ```
 
-== Pagination
+== [[Pagination]] [[pagination]] Pagination
 
 [rule, col-paging]
 .Paging over a large collection
@@ -296,7 +339,7 @@ Take into account the considerations http://zalando.github.io/restful-api-guidel
 | `page` |REQUIRED (offset-based); N/A (cursor-based) | index of the current page of items, should be 1-based (the default and first page is 1)
 | `first` | OPTIONAL | hyperlink to the first page
 | `last` | OPTIONAL | hyperlink to the last page
-| `total` | OPTIONAL | Total number of items across all pages. If query parameters are used to filter the result set, this is the total of the collection result set, not of the entire collection.
+| `total` | OPTIONAL | Total number of items across all pages. If filter parameters are used, this is the total of the result set after filtering, not of the entire collection.
 |===
 
 The names of the properties with hyperlink values and the `items` property are derived from the https://www.iana.org/assignments/link-relations/link-relations.xml[IANA registered link relations].
@@ -467,7 +510,7 @@ In order to remove a single specific item from a collection, use xref:resources-
 
 |body
 |
-|Empty or a message incidating success. 
+|Empty or a message indicating success.
 
 
 3+|Most used response codes
