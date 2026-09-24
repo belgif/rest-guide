@@ -10,7 +10,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 
 .Collection name
 ====
-{API}/employers[b] - a collection of employers
+{API}/employers[^] - a collection of employers
 
 {API}/employers/+{employerId}+/subsidiaries[^] - a collection of subsidiaries as a child resource of an employer.
 ====
@@ -61,8 +61,8 @@ GET {API}/employers?title=P*[^] HTTP/1.1
 |List employers
 
 |parameters
-|filtering, sorting or pagination parameters
-|see <<rule-col-sort>>, <<searching, searching>> and <<Pagination, pagination>>
+|sorting, filtering or pagination parameters
+a|see <<sorting>>, <<filtering>> and <<pagination>>
 
 3+| Response
 
