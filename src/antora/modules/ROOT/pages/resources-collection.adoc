@@ -10,9 +10,9 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 
 .Collection name
 ====
-{API}/employers[^] - a collection of employers
+{API}/employers[b] - a collection of employers
 
-{API}/persons/children[^] - a collection of children as a child resource of a person. The person identifier of the parent is omitted from the path, because it is considered sensitive.
+{API}/employers/+{employerId}+/subsidiaries[^] - a collection of subsidiaries as a child resource of an employer.
 ====
 
 [[collections-consult, Searching a collection]]
@@ -23,7 +23,7 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 ====
 An operation to search a collection resource SHOULD be provided as a `GET` method on the collection resource URI.
 
-When searching requires input parameters with a complex structure (e.g. extensive filter or sorting parameters) or when the input contains sensitive data, a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations or exposure of query parameters.
+When searching requires input parameters with a complex structure (e.g. extensive filter or sorting parameters), a `POST` operation on a `/search` controller MAY be used instead of `GET`. This allows to represent the input parameters in a structured manner in a JSON request body without the limitations of query parameters.
 Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
 ====
 
@@ -125,10 +125,10 @@ EmployerLink:
 ====
 
 
-.Consultation with complex or sensitive input
+.Consultation with complex input structure
 ====
 
-If input with a complex structure is needed, or its input may contain sensitive data, a `/search` controller with `POST` may be used.
+If input with a complex structure is needed, a `/search` controller with `POST` may be used.
 
 .Request
 ----

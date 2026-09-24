@@ -23,11 +23,6 @@ a|
 ```
 |`/organizations/+{enterpriseNumber}+`
 |===
-
-Example in case of a sensitive identifier:
-
-`POST /persons/get` with `ssin` in request body.
-
 ====
 
 [[document-singleton, Singleton documents]]
@@ -570,24 +565,6 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 |===
 
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used when consulting a document.
-
-When the document identifier is sensitive, a POST operation with payload should be used as request:
-
-[cols="1,2,3"]
-|===
-|xref:methods.adoc#post[POST]
-|`/persons/get`
-|Consult a person
-|body| identifier of the consulted entity
-a|
-```json
-{
-  "ssin": "12345678901"
-}
-```
-|===
-
-The possible responses are the same as for a GET operation, including a `404 Not Found` response code when the document does not exist.
 ====
 
 [rule, res-repres]
@@ -745,22 +722,6 @@ a|
 |The update is in conflict with the data on the server.
 
 |===
-
-When the document identifier is sensitive, a POST operation with payload should be used as request:
-
-[cols="1,2,3"]
-|===
-|xref:methods.adoc#post[POST]
-|`/persons/update`
-|Update a person
-
-|body
-|Full new representation of the resource to persist, including its (immutable) identifier.
-|
-|===
-
-The possible responses are the same as for a PUT operation, including a `404 Not Found` response code when the document does not exist.
-
 ====
 
 [[document-partial-update]]
@@ -868,20 +829,6 @@ a|
 |===
 
 
-When the document identifier is sensitive, a POST operation with payload should be used as request:
-
-[cols="1,2,3"]
-|===
-|xref:methods.adoc#post[POST]
-|`/persons/update`
-|Partially update a person
-
-|body
-|Identifier of the document and the changes to the resource to persist.
-|
-|===
-
-The possible responses are the same as for a PATCH operation, including a `404 Not Found` response code when the document does not exist. The operation's description should clarify if it provides a full or partial update.
 ====
 
 [[remove-document]]
@@ -949,28 +896,6 @@ The resource could not be deleted because the request is in conflict with data o
 For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
 
 |===
-
-
-When the document identifier is sensitive, a POST operation with payload should be used as request:
-
-[cols="1,2,3"]
-|===
-|xref:methods.adoc#post[POST]
-|`/persons/delete`
-|Delete a person
-
-|body
-|Identifier of the document to delete.
-a|
-```json
-{
-  "ssin": "12345678901"
-}
-```
-|===
-
-The possible responses are the same as for a PUT operation, including a `404 Not Found` response code when the document does not exist.
-
 ====
 
 [[long-running-tasks]]

@@ -71,6 +71,8 @@ GET {API}/organizations/0202239951
 }
 ```
 
+The `href` in `succeededBy` is a link to the corresponding organization's document resource, while `owner` is a sensitive identifier and therefore has no link.
+
 PATCH {API}/organizations/0202239951
 
 [subs="normal"]
