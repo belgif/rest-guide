@@ -51,10 +51,10 @@ The Antora component is named `api-guide` with `version: ~` (versionless). Combi
 ## AsciiDoc Conventions
 
 ### Rules
-Rules use the custom `[rule, <rule-id>]` block (processed by `rule-block-extension.js`):
+Rules use the custom `[rule#rule-<rule-id>]` block (processed by `rule-block-extension.js`):
 
 ```asciidoc
-[rule, uri-notat]
+[rule#rule-uri-notat]
 .URI notation
 ====
 **Path segments** SHOULD use **lowerCamelCase**. Trailing slashes MUST NOT be used.
@@ -62,7 +62,7 @@ Rules use the custom `[rule, <rule-id>]` block (processed by `rule-block-extensi
 ```
 
 - `rule-id` is a shorthand identifier, max 10 characters, dashes as word separators
-- This generates anchor `#rule-<rule-id>` and cross-reference text `[rule-id]`
+- The standard block ID `rule-<rule-id>` is the anchor and generates cross-reference text `[rule-id]`
 - When renaming a `rule-id`, keep the old anchor working by adding `[[rule-<old-id>]]` inline at the start of the rule body
 
 ### Examples

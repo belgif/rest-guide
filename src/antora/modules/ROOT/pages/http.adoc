@@ -7,7 +7,7 @@ HTTP defines a standard set of methods (verbs) with their own semantics so that 
 
 These methods are described in detail in xref:methods.adoc[HTTP Methods] and are summarized in the table below. xref:resources.adoc[Resource archetypes] describes when to use which methods for each resource type.
 
-[rule, meth-http]
+[rule#rule-meth-http]
 .Use appropriate HTTP method
 ====
 The HTTP methods SHOULD be used that are appropriate for the type of action performed on the resource.
@@ -86,7 +86,7 @@ or controller info
 
 HTTP defines a standard set of response status codes. They are described in detail in xref:statuscodes.adoc[] and are summarized in the table below. The xref:resources.adoc[Resource archetypes] chapter describes the most common status codes to use for operations on each resource type.
 
-[rule, stat-codes]
+[rule#rule-stat-codes]
 .Use appropriate HTTP status codes
 ====
 The HTTP response status code SHOULD be returned that best describes the outcome of the treatment of the request.
@@ -143,7 +143,7 @@ The message _body_ or _content_ of an HTTP request or response is the data that 
 
 The HTTP protocol supports content negotiation for media types of the response.
 
-[rule, cnt-negot]
+[rule#rule-cnt-negot]
 .Content negotiation
 ====
 REST clients SHOULD specify the media type(s) that is(/are) acceptable for the response in the `Accept` HTTP header.

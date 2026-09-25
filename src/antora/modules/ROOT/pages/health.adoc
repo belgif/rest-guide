@@ -1,7 +1,7 @@
 [[health]]
 = Health
 
-[rule, hlth-res]
+[rule#rule-hlth-res]
 .Health check operation
 ====
 Each REST API SHOULD expose a `GET /health` operation which returns the availability of the API's functionality for its clients.

@@ -63,7 +63,7 @@ Moreover, the project provides SDKs for most popular programming languages to su
 
 
 .CloudEvents format for asynchronous messages
-[rule, async-cespec]
+[rule#rule-async-cespec]
 ====
 The semantics, formats and bindings of an _Asynchronous Message_, an extension of the https://github.com/cloudevents/spec[CloudEvents Specification v1.0], SHOULD be used to represent events and asynchronous messages in APIs.
 
@@ -82,7 +82,7 @@ An Asynchronous Message MUST be immutable. If a context attribute is added by an
 ====
 
 .Context attributes of an asynchronous message
-[rule, async-ctxt]
+[rule#rule-async-ctxt]
 ====
 The context of an Asynchronous Message is represented by attributes that MUST follow strict https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#naming-conventions[naming conventions] and https://github.com/cloudevents/spec/blob/main/cloudevents/spec.md#type-system[type system].
 
@@ -190,7 +190,7 @@ string
 |===
 ====
 
-[rule, async-svctype]
+[rule#rule-async-svctype]
 .Value of `service` and `type` of an asynchronous message
 ====
 
@@ -297,9 +297,9 @@ https://github.com/cloudevents/spec/blob/main/cloudevents/formats/json-format.md
 ====
 
 .Problem replies for asynchronous operations
-[rule, async-prbl]
+[rule#rule-async-prbl]
 ====
-Each asynchronous interaction (command or query) that provides a reply, SHOULD also provide a problem reply, with a Problem Details object (RFC 9457) as `data`. The same standardized Belgif problem types SHOULD be used as for REST APIs (see <<error-handling>>).
+Each asynchronous interaction (command or query) that provides a reply, SHOULD also provide a problem reply, with a Problem Details object (RFC 9457) as `data`. The same standardized Belgif problem types SHOULD be used as for REST APIs (see xref:errorhandling.adoc[]).
 
 The `type` SHOULD be the same as the one of the request, but with the `problemReply` suffix instead of `reply`.
 
@@ -309,7 +309,7 @@ If an API provides a reply when a received message has an unexpected `service` o
 ====
 
 .Size of an asynchronous message
-[rule, async-size]
+[rule#rule-async-size]
 ====
 Implementations handling Asynchronous Messages MUST at least support messages up to 64kB.
 APIs SHOULD be designed not to exceed this limit. If an API allows to exchange larger messages, it MUST be explicitly stated in its documentation.
@@ -359,14 +359,14 @@ The following example shows a message in which only parts of the _data_ are repl
 ====
 
 .Specifying asynchronous messages
-[rule, async-contract]
+[rule#rule-async-contract]
 ====
 Related asynchronous message types and their exchanges SHOULD be grouped together in a service, which is documented by an OpenAPI 3.0 or https://www.asyncapi.com/docs/reference/specification/v3.0.0[AsyncAPI 3.0] description. This provides more cohesive documentation and makes it easier to manage the lifecycle of asynchronous message types, similar as how synchronous calls are grouped and documented together for a REST API.
 
 OpenAPI can be used when asynchronous messages are transferred over HTTP(S), while AsyncAPI also allows for other exchange protocols.
 
 When using AsyncAPI, schemas of the events SHOULD be put in (a) separate schema-only OpenAPI document(s) and referenced from the AsyncAPI document. This allows the use of OpenAPI tooling like code generation and editing for message schemas.
-The same guidelines as for REST APIs apply, like naming conventions, reuse of components and xref:versioning.adoc#Versioning[ versioning].
+The same guidelines as for REST APIs apply, like naming conventions, reuse of components and xref:versioning.adoc[versioning].
 
 The https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents reusable OpenAPI] provides schemas for asynchronous messages the structured JSON CloudEvent format.
 You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` schemas using `allOf` to define schemas for specific message types. `AsynchronousProblemReplyMessage` can be used for `problemReply` messages.
@@ -374,7 +374,7 @@ You can extend the `AsynchronousMessageBase` or `AsynchronousReplyMessageBase` s
 There SHOULD be a single schema for each event `type` value, though a schema may be shared by multiple types.
 ====
 
-[rule, async-generic]
+[rule#rule-async-generic]
 .Endpoints for transfer of asynchronous messages of any type
 ====
 When providing a generic asynchronous endpoint for exchange of message types of multiple unrelated business domains, you can use the generic `AsynchronousMessage` schema of https://github.com/belgif/openapi-cloudevents/blob/main/src/main/openapi/cloudevents/v1/cloudevents-v1.yaml[Belgif openapi-cloudevents]. The definitions of specific message types should still be grouped together in a service and documented in another AsyncAPI or OpenAPI description, by extending the `AsynchronousMessageBase` schema (see <<rule-async-contract>>).
@@ -515,7 +515,7 @@ Note that it is also possible to define operations with `action: receive`, where
 ====
 
 .Duplicates and out-of-order messages
-[rule, async-order]
+[rule#rule-async-order]
 ====
 Distributed and concurrent systems make it hard to guarantee exactly-once or order-preserving message delivery. Consumers SHOULD NOT rely on messages being unique and sent in (chronological) order unless explicitly documented in the API description.
 

@@ -5,7 +5,7 @@ A controller resource models a procedural concept. Controller resources are like
 
 A REST API can rely on controller resources to perform application-specific actions that cannot be logically mapped to one of the standard methods (standard CRUD-operations).
 
-[rule, ctl-res]
+[rule#rule-ctl-res]
 .Controller resource
 ====
 A controller resource name is a verb instead of a noun.
@@ -33,7 +33,7 @@ Converting money from one currency to another (using GET because of no side effe
 
 == Controller vs document
 
-[rule, ctl-reific]
+[rule#rule-ctl-reific]
 .Reification of controller resource
 ====
 Before using a controller resource to represent an action, consider reifying the action as a collection or document resource (noun) describing the intent of the action.

@@ -16,7 +16,7 @@ URIs must be intuitively structured.
 
 URI fragments point to a part of a resource's representation, and are never sent to the API, but handled locally by clients. They are thereby not specified in a REST API's specifications (OpenAPI).
 
-[rule, uri-notat]
+[rule#rule-uri-notat]
 .URI notation
 ==========================
 **Path segments and query parameters** within an API SHOULD use **lowerCamelCase** notation to enhance readability and to separate compound names.
@@ -42,7 +42,7 @@ Trailing slashes MUST NOT be used.
 |===
 ====
 
-[rule, uri-extens]
+[rule#rule-uri-extens]
 .URI extensions
 ====
 The URI **SHOULD NOT contain a file extension**.
@@ -60,7 +60,7 @@ Instead, look at how to express xref:http.adoc#media-types[media types] using HT
 
 
 
-[rule, qry-filter]
+[rule#rule-qry-filter]
 .Query parameters
 ====
 The query part of a URI may be used to filter the resource output.
@@ -81,7 +81,7 @@ Filter the resource properties to the ones specified in the `select` query param
 Only return translatable properties in Dutch.
 ====
 
-[rule, qry-multi]
+[rule#rule-qry-multi]
 .Multiple values for the same query parameter
 ====
 When a single query parameter can have multiple values, the parameter SHOULD be repeated for each value.
@@ -120,7 +120,7 @@ There are three different resource archetypes:
 
 == Sensitive data
 
-[rule,sens-dat]
+[rule#rule-sens-dat]
 .Sensitive data in URLs or headers
 ====
 Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters.Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.

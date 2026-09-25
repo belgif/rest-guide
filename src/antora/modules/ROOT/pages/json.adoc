@@ -2,7 +2,7 @@
 
 All RESTful services must support *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
 
-[rule, rep-struct]
+[rule#rule-rep-struct]
 .Representation of structured data
 ====
 Structured data MUST be made available in JSON format (https://tools.ietf.org/html/rfc8259[RFC 8259^]) with media type `application/json`.
@@ -23,7 +23,7 @@ Media types of format `application/<subtype>+json` may be used for standardized 
 
 For extensibility, the JSON body of a RESTful request or response should always be a JSON object instead of an array, string, number, etc.
 
-[rule, evo-object]
+[rule#rule-evo-object]
 .JSON object as top level structure
 ====
 In a JSON request or response body, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
@@ -32,7 +32,7 @@ JSON objects support compatible extension by adding new properties.
 This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
 ====
 
-[rule, jsn-naming]
+[rule#rule-jsn-naming]
 .Naming of JSON properties
 ====
 Following guidelines SHOULD be respected when determining a name for a JSON property:
@@ -88,7 +88,7 @@ This is because `enterpriseNumber` is a fixed denomination (declared in  Crossro
 }
 ----
 
-[rule, jsn-null]
+[rule#rule-jsn-null]
 .Null values
 ====
 

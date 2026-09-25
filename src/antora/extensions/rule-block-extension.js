@@ -1,7 +1,7 @@
 ﻿/**
- * Antora / asciidoctor.js extension for the custom [rule, <ruleId>] block:
+ * Antora / asciidoctor.js extension for the custom [rule#rule-<ruleId>] block:
  *   - Named "rule", used on example blocks (====)
- *   - First positional attribute is the ruleId
+ *   - The standard AsciiDoc block ID is the rule anchor and source of ruleId
  *   - Generates anchor id="rule-<ruleId>" and reftext="[<ruleId>]"
  *   - Prepends "Rule: " to the title and appends a self-link <<rule-<ruleId>>>
  *   - Applies roles "exampleblock rule" so existing CSS keeps working
@@ -19,13 +19,21 @@ module.exports.register = function (registry) {
     self.onContext('example')
     self.positionalAttributes(['ruleId'])
     self.process(function (parent, reader, attrs) {
-      const ruleId = attrs['ruleId']
-      if (!ruleId) {
-        throw new Error(`rule block is missing its rule identifier argument (line ${reader.$cursor_line_number()})`)
+      const ruleAnchor = attrs['id']
+      let ruleId = attrs['ruleId']
+      if (ruleAnchor) {
+        const match = /^rule-(.+)$/.exec(ruleAnchor)
+        if (!match) {
+          throw new Error(`rule block id must start with "rule-" (line ${reader.$cursor_line_number()})`)
+        }
+        ruleId = match[1]
+      } else if (ruleId) {
+        // Keep compatibility with existing [rule, ruleId] blocks.
+        attrs['id'] = `rule-${ruleId}`
+      } else {
+        throw new Error(`rule block is missing its identifier (line ${reader.$cursor_line_number()})`)
       }
       delete attrs['ruleId']
-      const ruleAnchor = `rule-${ruleId}`
-      attrs['id'] = ruleAnchor
       attrs['reftext'] = `[${ruleId}]`
       const title = attrs['title'] || ''
       attrs['title'] = `Rule: ${title} <<${ruleAnchor}>>`

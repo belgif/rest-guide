@@ -5,7 +5,7 @@
 ** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
 ** added link to example schema to xref:resources-collection.adoc#pagination[Pagination]
 ** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
-** new rule xref:api_specifications.adoc#rule-sch-sec-req[[sch-sec-req\]]: security requirements must be consistent with security schemes
+** new rule xref:api_specifications.adoc#rule-sec-req[[sec-req\]]: security requirements must be consistent with security schemes
 ** new rule xref:api_specifications.adoc#rule-opbody-req[[sch-opbody-req\]]: `required` should be specified explicitly on request bodies
 ** reference the RFCs on requirements levels (MUST, SHOULD, etc.) in xref:introduction.adoc[], and replace MANDATORY by REQUIRED throughout the guide
 
@@ -79,9 +79,9 @@
 * 2023-10-05
 ** update: xref:api_specifications.adoc#rule-req-valid[[req-valid\]] issue type for unknown input is renamed
 ** new: rule xref:reserved.adoc#rule-hdr-case[[hdr-case\]] on case-insensitivity of HTTP headers
-** update: explicit rules for guidelines: xref:methods.adoc#rule-meth-http[[meth-http\]] and xref:statuscodes.adoc#rule-stat-codes[[stat-codes\]] (use of appropriate HTTP methods and status codes), xref:resources-collection.adoc#rule-col-sort[[col-sort\]] (sorting a collection)
-** update: improved overview table for the use of HTTP methods xref:methods.adoc#rule-meth-http[[meth-http\]]
-** update: corrected use of status 303: allowed on all methods in overview table xref:statuscodes.adoc#rule-stat-codes[[stat-codes\]]
+** update: explicit rules for guidelines: xref:http.adoc#rule-meth-http[[meth-http\]] and xref:http.adoc#rule-stat-codes[[stat-codes\]] (use of appropriate HTTP methods and status codes), xref:resources-collection.adoc#rule-col-sort[[col-sort\]] (sorting a collection)
+** update: improved overview table for the use of HTTP methods xref:http.adoc#rule-meth-http[[meth-http\]]
+** update: corrected use of status 303: allowed on all methods in overview table xref:http.adoc#rule-stat-codes[[stat-codes\]]
 ** update: links to the releases of common OpenAPI definitions are added to xref:api_specifications.adoc#rule-oas-comdef[[oas-comdef\]]
 ** update: Problem Details for HTTP APIs is updated to RFC 9457 which obsoletes RFC 7807 throughout the guide
 * 2023-06-14
@@ -106,7 +106,7 @@
 ** updated: new type xref:problems/badRequest.adoc#input-validation-schema[InputValidationProblem] for problems of type `badRequest` and `resourceNotFound` (breaking change)
 ** updated: clarify the use of multiple query parameters to filter a collection (xref:resources-collection.adoc#filtering[Filtering])
 * 2022-02-02
-** new: designing new xref:resources-document.adoc#Identifier[identifiers and codes] or using existing numerical ones
+** new: designing new xref:resources-document.adoc#section-identifier[identifiers and codes] or using existing numerical ones
 ** updates for OpenAPI 3.0 support throughout the entire guide
 ** new: xref:problems/serviceUnavailable.adoc[] problem type (http 503)
 ** added: use Retry-After HTTP header in xref:problems/tooManyFailedRequests.adoc[] and xref:problems/tooManyRequests.adoc[]
@@ -151,7 +151,7 @@
 * 2019-01-22
 ** modified xref:api_specifications.adoc[] guidelines for reusable definitions to be put in Swagger files instead of multiple smaller JSON schema files
 ** gCloud JSON Schemas refactored to this new file structure
-** updated list of Swagger editors and code generators in xref:api_specifications.adoc#Tools[Tools]
+** updated list of Swagger editors and code generators in xref:api_specifications.adoc#openapi-tools[Tools]
 ** added guidelines about xref:tracing.adoc[] with standardized HTTP headers
 ** add OpenAPI example of multi-valued query param to xref:resources.adoc[]
 ** added rule: place reference data resources in `/refData` (xref:api_specifications.adoc#doc-resource[doc resource])

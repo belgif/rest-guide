@@ -9,7 +9,7 @@ The trace ID could be used for example:
 * for audit logging, to be able to trace the origin of each request.
   It may be a legal requirement to have such audit logging when sensitive data is exchanged.
 
-[rule, trc-header]
+[rule#rule-trc-header]
 .HTTP headers for tracing
 ====
 APIs exposed to third parties SHOULD support the tracing HTTP header `BelGov-Trace-Id` on both requests and responses.
@@ -23,7 +23,7 @@ The `BelGov-Trace-Id` value on every outgoing call SHOULD be unique, even when t
 When auditing functionality is needed, it SHOULD be possible to correlate the various tracing IDs used in the context of a request.
 ====
 
-[rule, trace-w3c]
+[rule#rule-trace-w3c]
 .W3C headers for tracing and context
 ====
 Within an organization's trust boundary (i.e. internal calls), alternative HTTP headers MAY be used to trace calls.
