@@ -9,11 +9,11 @@ Period is invalid
 Description::
 The period is invalid (startDate after endDate).
 Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
-[source,json]
+[source,json,subs="+macros"]
 ----
 {
   "type": "urn:problem-type:belgif-ext:input-validation:invalidPeriod",
-  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/invalidPeriod.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/ext/invalidPeriod.html[]",
   "title": "Period is invalid",
   "detail": "2025-12-31 should not precede 2025-01-01",
   "inputs": [ <1>

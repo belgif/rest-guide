@@ -63,13 +63,14 @@ POST /enterprises/abc
 
 returns
 
+[subs="+macros,+attributes"]
 ```
 HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:badRequest",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html[]",
   "title": "Bad Request",
   "status": 400,
   "detail": "The input message is incorrect",
@@ -77,7 +78,7 @@ Content-Type: application/problem+json
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html[]",
       "title": "Input isn't valid with respect to schema",
       "detail": "enterpriseNumber abc should be numeric",
       "in": "path",
@@ -86,7 +87,7 @@ Content-Type: application/problem+json
     },
     {
       "type": "urn:problem-type:cbss:input-validation:replacedSsin",
-      "href": "https://example.cbss.be/problems/replacedSsin",
+      "href": "{API}/problems/replacedSsin",
       "title": "SSIN has been replaced. Use new SSIN.",
       "detail": "SSIN 12345678901 has been replaced by 23456789012",
       "in": "body",
@@ -96,7 +97,7 @@ Content-Type: application/problem+json
     },
     {
       "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html[]",
       "title": "Referenced resource not found",
       "detail": "Person referenced as board member with SSIN '98765432109' does not exist",
       "in": "body",
@@ -105,7 +106,7 @@ Content-Type: application/problem+json
     },
     {
       "type": "urn:problem-type:belgif:input-validation:invalidInput",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/invalidInput.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/invalidInput.html[]",
       "title": "Invalid input",
       "detail": "endDate of a period should be after its startDate",
       "in": "body",

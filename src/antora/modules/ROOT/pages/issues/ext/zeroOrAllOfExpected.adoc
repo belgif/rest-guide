@@ -9,11 +9,11 @@ All or none of these inputs must be present
 Description::
 This cross-parameter input validation issue type indicates that all or none of a set of inputs must be present.
 Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
-[source,json]
+[source,json,subs="+macros"]
 ----
 {
   "type": "urn:problem-type:belgif-ext:input-validation:zeroOrAllOfExpected",
-  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/zeroOrAllOfExpected.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/ext/zeroOrAllOfExpected.html[]",
   "title": "All or none of these inputs must be present",
   "detail": "All or none of these inputs must be present: x, y",
   "inputs": [ <1>

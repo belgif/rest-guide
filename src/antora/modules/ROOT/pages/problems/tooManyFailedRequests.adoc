@@ -13,6 +13,7 @@ GET /enterprises/123invalidEnterpriseId
 ```
 
 *Retry after a specific time*
+[subs="+macros"]
 ```
 HTTP/1.1 429 Too many requests
 Content-Type: application/problem+json
@@ -20,7 +21,7 @@ Retry-After: Thu, 05 Aug 2021 10:30:00 GMT
 
 {
    "type": "urn:problem-type:belgif:tooManyFailedRequests",
-   "href": "https://www.belgif.be/specification/rest/api-guide/problems/tooManyFailedRequests.html",
+   "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/tooManyFailedRequests.html[]",
    "status": 429,
    "title": "Too Many Failed Requests",
    "detail": "No more requests are accepted because of previous failures until 2021-08-05T10:30:00Z",
@@ -30,13 +31,14 @@ Retry-After: Thu, 05 Aug 2021 10:30:00 GMT
 ```
 
 *Retry after a number of seconds* 
+[subs="+macros"]
 ```
 HTTP/1.1 429 Too many requests
 Retry-After: 300
 Content-Type: application/problem+json
 {
    "type": "urn:problem-type:belgif:tooManyFailedRequests",
-   "href": "https://www.belgif.be/specification/rest/api-guide/problems/tooManyFailedRequests.html",
+    "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/tooManyFailedRequests.html[]",
    "status": 429,
    "title": "Too Many Failed Requests",
    "detail": "No more requests are accepted because of previous failures during next 300 seconds",

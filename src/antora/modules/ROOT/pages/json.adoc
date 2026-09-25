@@ -75,7 +75,7 @@ a|
 
 In below example, `enterpriseNumber` should be used even though the `enterprise` prefix is clear by its context.
 This is because `enterpriseNumber` is a fixed denomination (declared in  Crossroads Bank for Enterprises) and using just `number` would rather cause confusion to type of identifier being used.
-[subs="normal"]
+
 ```json
 {
   "name": "Proximus",
@@ -102,7 +102,7 @@ Note that this rule doesn't apply to empty values (e.g. empty strings `""` or em
 
 |===
 |*NOK*|*OK*
-a|[subs="normal"]
+a|
 ```json
 {
   "name": "Proximus",
@@ -111,7 +111,7 @@ a|[subs="normal"]
 }
 ```
 
-a|[subs="normal"]
+a|
 ```json
 {
   "name": "Proximus",
@@ -124,7 +124,7 @@ a|[subs="normal"]
 
 [cols="1,1"]
 |===
-a|[subs="normal"]
+a|
 ```json
 {
   "name": "Proximus",
@@ -133,7 +133,7 @@ a|[subs="normal"]
 ```
 
 
-a|[subs="normal"]
+a|
 ```json
 {
   "employerId": 93017373,

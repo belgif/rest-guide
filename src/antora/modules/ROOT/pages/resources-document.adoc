@@ -491,9 +491,9 @@ GET /addresses/{addressId}
 
 .Consulting a document
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-GET {API}/employers/93017373[^] HTTP/1.1
+GET {API}/employers/93017373 HTTP/1.1
 ```
 
 [cols="1,2,3"]
@@ -511,7 +511,7 @@ GET {API}/employers/93017373[^] HTTP/1.1
 |body
 |The representation of the entity, including links to other resources.
 a|
-[source,json, subs="attributes, verbatim"]
+[source,json, subs="+attributes"]
 ----
 {
   "name": "Proximus",
@@ -537,7 +537,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 ----
 {
   "type": "urn:problem-type:belgif:badRequest",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html[]",
   "status": 400,
   "title": "Bad Request",
   "instance": "urn:uuid:d9e35127-e9b1-4201-a211-2b52e52508df",
@@ -545,7 +545,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html[]",
       "in": "path",
       "name": "employerId",
       "value": "abc",
@@ -593,10 +593,10 @@ The value of this parameter SHOULD follow this https://en.wikipedia.org/wiki/Bac
 GET /employers/93017373?select=(name)
 ```
 
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/employers/93017373?select=(name)[/employers/93017373?select=(name)^]",
+  "self": "{API}/employers/93017373?select=(name)",
   "name": "Proximus"
 }
 ----
@@ -608,10 +608,10 @@ This notation can also be used for nested properties:
 ```
 GET /employers/93017373?select=(name,address(street(name,code)))
 ```
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/employers/93017373[/employers/93017373^]",
+  "self": "{API}/employers/93017373",
   "name": "Proximus",
   "address": {
     "street": {
@@ -656,9 +656,9 @@ Absent optional values in the request are set to their default value if one is s
 
 .PUT on a document resource
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-PUT {API}/employers/93017373[^] HTTP/1.1
+PUT {API}/employers/93017373 HTTP/1.1
 
 {
     "employerId": 93017373,
@@ -743,9 +743,9 @@ JSON Merge Patch requests SHOULD be represented by a different schema than other
 
 .JSON merge patch
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-PATCH {API}/employers/93017373[^] HTTP/1.1
+PATCH {API}/employers/93017373 HTTP/1.1
 ```
 
 [cols="1,2,3"]
@@ -834,9 +834,9 @@ Use `DELETE` when you like to delete a document resource.
 
 .Deleting a document resource
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-DELETE {API}/employers/93017373[^] HTTP/1.1
+DELETE {API}/employers/93017373 HTTP/1.1
 ```
 
 [cols="1,2,3"]

@@ -10,9 +10,9 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 
 .Collection name
 ====
-{API}/employers[^] - a collection of employers
+pass:attributes[{API}/employers] - a collection of employers
 
-{API}/employers/+{employerId}+/subsidiaries[^] - a collection of subsidiaries as a child resource of an employer.
+pass:attributes[{API}/employers/\{employerId}/subsidiaries] - a collection of subsidiaries as a child resource of an employer.
 ====
 
 [[collections-consult, Searching a collection]]
@@ -48,9 +48,9 @@ CAUTION: A collection resource, like other resources, MUST always return a JSON 
 .Consulting a collection
 ====
 
-[subs=normal]
+[subs="+attributes"]
 ----
-GET {API}/employers?title=P*[^] HTTP/1.1
+GET {API}/employers?title=P* HTTP/1.1
 ----
 
 [cols="1,2,3"]
@@ -68,18 +68,18 @@ a|see <<sorting>>, <<filtering>> and <<pagination>>
 
 |body
 2+a|
-[source,json,subs="normal"]
+[source,json,subs="+attributes"]
 ----
 {
  "items":[
    {
-     "href":"{API}/employers/93017373[/employers/93017373^]",
+     "href":"{API}/employers/93017373",
      "title":"Proximus",
      "employerId": 93017373,
      "enterpriseNumber": "0202239951"
    },
    {
-     "href":"{API}/employers/20620259[/employers/20620259^]",
+     "href":"{API}/employers/20620259",
      "title":"Partena VZW",
      "employerId": 20620259,
      "enterpriseNumber": "0409536968"
@@ -131,6 +131,7 @@ EmployerLink:
 If input with a complex structure is needed, a `/search` controller with `POST` may be used.
 
 .Request
+[subs="+attributes"]
 ----
 POST {API}/employers/search
 ----
@@ -165,13 +166,13 @@ In this case, the full representations MUST be included in an 'embedded' propert
 
 .Consulting a collection with embedded items
 ====
-[subs=normal]
+[subs="+attributes"]
 ```
-GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
+GET {API}/appendices/employerclasses?embed=items HTTP/1.1​
 ```
 
 .Response
-[subs=normal]
+[subs="+attributes"]
 ```JSON
 {
  "items": [
@@ -185,14 +186,14 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
  ],
  "total":2,
  "embedded": {
-   "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
+   "{API}/appendices/employerclasses/2": {
      "value": "2",
      "description": {
        "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
        "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
       }
    },
-   "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
+   "{API}/appendices/employerclasses/0": {
      "value": "0",
      "description": {
       "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
@@ -278,9 +279,9 @@ For example, the query
 
 .Searching in a collection
 ====
-[subs=normal]
+[subs="+attributes"]
 ```
-GET {API}/enterprises?title=P*[^] HTTP/1.1
+GET {API}/enterprises?title=P* HTTP/1.1
 ```
 
 [cols="1,2,3"]
@@ -301,7 +302,7 @@ GET {API}/enterprises?title=P*[^] HTTP/1.1
 |body
 a|
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 {
   "items": [
@@ -372,12 +373,12 @@ A reusable `PageQueryParameter` OpenAPI component is defined in https://github.c
 
 .Offset-based pagination
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
 GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 ```
 
-[source,json, subs="normal"]
+[source,json, subs="+attributes"]
 ----
 {
   "items": [
@@ -405,28 +406,28 @@ GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 
 .Cursor-based pagination
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-GET {API}/organizations?after=0244640631[^] HTTP/1.1
+GET {API}/organizations?after=0244640631 HTTP/1.1
 ```
 
-[source,json, subs="normal"]
+[source,json, subs="+attributes"]
 ----
 {
   "items": [
     {
-      "href": "{API}/organizations/0202239951[/organizations/0202239951^]",
+      "href": "{API}/organizations/0202239951",
       "title": "Proximus"
     },
     {
-      "href": "{API}/organizations/0212165526[/organizations/0212165526^]",
+      "href": "{API}/organizations/0212165526",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "total": 7,
-  "first": "{API}/organizations?pageSize=2[/organizations?pageSize=2^]",
-  "next": "{API}/organizations?after=0212165526&pageSize=2[/organizations?after=0212165526&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2",
+  "next": "{API}/organizations?after=0212165526&pageSize=2"
 }
 ----
 ====

@@ -61,43 +61,43 @@ Default sorting direction is ascending. To indicate descending direction, the pr
 |[[rel-next]]next
 |The next-reference contains the absolute URL of the next page in a paged collection result.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
-"next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
+"next": "{API}/enterprises?page=3&pageSize=2"
 ----
 | xref:links.adoc[Links]
 
 |[[rel-previous]]prev
 |The previous-reference contains the absolute URL of the previous page in a paged collection result.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
-"prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=3&pageSize=2^]"
+"prev": "{API}/enterprises?page=1&pageSize=2"
 ----
 | xref:links.adoc[Links]
 
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
-"self": "{API}/enterprises/202239951[/enterprises/202239951^]"
+"self": "{API}/enterprises/202239951"
 ----
 | xref:links.adoc[Links]
 
 |[[rel-href]]href
 |A reference (absolute URL) to another resource.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
-"href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
+"href": "{API}/enterprises/0202239951"
 ----
 | xref:links.adoc[Links]
 
 |[[rel-first]]first
 |A reference (absolute URL) to the first page in a paged collection result.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 "first": "{API}/enterprises?pageSize=2"
 ----
@@ -106,7 +106,7 @@ a|
 |[[rel-last]]last
 |A reference (absolute URL) to the last page in a paged collection result.
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 "last": "{API}/enterprises?page=4&pageSize=2",
 ----

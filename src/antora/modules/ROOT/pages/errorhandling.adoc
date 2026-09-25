@@ -95,10 +95,11 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/problem+json
 BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```
+[subs="+macros"]
 ```json
 {
   "type": "urn:problem-type:belgif:badRequest",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/badRequest.html[]",
   "title": "Bad Request",
   "status": 400,
   "detail": "The input message is incorrect",
@@ -106,7 +107,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
   "issues": [
     {
       "type": "urn:problem-type:belgif:input-validation:schemaViolation",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/schemaViolation.html[]",
       "title": "Input isn't valid with respect to schema",
       "detail": "enterpriseNumber abcd731645 should be numeric",
       "in": "path",
@@ -115,7 +116,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
     },
     {
       "type": "urn:problem-type:belgif:input-validation:referencedResourceNotFound",
-      "href": "https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html",
+      "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/referencedResourceNotFound.html[]",
       "title": "Referenced resource not found",
       "detail": "No person with ssin '98765432109' exists",
       "in": "body",
@@ -138,7 +139,7 @@ Problem `type` SHOULD be specified as a URN in one of following formats:
 with:
 
 * `<org>`: a short identifier for the organization
-* `<api>`: name of the API.It MAY be used for API-specific problem types
+* `<api>`: name of the API. It MAY be used for API-specific problem types
 * `<type>`: type of the problem in lowerCamelCase
 
 A description of an API-specific problem type MAY be provided as a reference data resource : `/refData/problemTypes/+{problemType}+`.

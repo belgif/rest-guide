@@ -12,6 +12,7 @@ POST /enterprises
 Authorization: Bearer ds4d2f13sdds2q13qxcgbdf245
 ```
 
+[subs="+macros"]
 ```
 HTTP/1.1 401 Unauthorized
 Content-Type: application/problem+json
@@ -19,7 +20,7 @@ WWW-Authenticate: Bearer realm="example", error="invalid_token", error_descripti
 
 {
    "type": "urn:problem-type:belgif:expiredAccessToken",
-   "href": "https://www.belgif.be/specification/rest/api-guide/problems/expiredAccessToken.html",
+   "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/expiredAccessToken.html[]",
    "status": 401,
    "title": "Expired Access Token",
    "detail": "The Bearer access token found in the Authorization HTTP header has expired"

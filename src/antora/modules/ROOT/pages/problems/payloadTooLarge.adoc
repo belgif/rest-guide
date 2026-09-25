@@ -15,13 +15,14 @@ POST /attachments
 
 returns
 
+[subs="+macros"]
 ```
 HTTP/1.1 413 Payload Too Large
 Content-Type: application/problem+json
 
 {
    "type": "urn:problem-type:belgif:payloadTooLarge",
-   "href": "https://www.belgif.be/specification/rest/api-guide/problems/payloadTooLarge.html",
+   "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/payloadTooLarge.html[]",
    "status": 413,
    "title": "Payload Too Large",
    "detail": "Request message must not be larger than 10 MB",

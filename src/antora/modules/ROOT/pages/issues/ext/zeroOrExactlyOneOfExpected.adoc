@@ -11,11 +11,11 @@ This cross-parameter input validation issue type indicates that exactly one or n
 +
 A typical use case for this issue type is enforcing optional mutually exclusive inputs.
 Example footnote:[For brevity, only the issue itself is shown here. Typically, this will be located inside the issues[\] array of an HTTP 400 xref:../../index.adoc#bad-request[Bad Request] Problem.]::
-[source,json]
+[source,json,subs="+macros"]
 ----
 {
   "type": "urn:problem-type:belgif-ext:input-validation:zeroOrExactlyOneOfExpected",
-  "href": "https://www.belgif.be/specification/rest/api-guide/issues/ext/zeroOrExactlyOneOfExpected.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/ext/zeroOrExactlyOneOfExpected.html[]",
   "title": "Exactly one or none of these inputs must be present",
   "detail": "Exactly one or none of these inputs must be present: x, y",
   "inputs": [ <1>

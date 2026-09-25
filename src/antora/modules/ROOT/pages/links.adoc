@@ -53,9 +53,9 @@ In a JSON response, they can be added anywhere.
 
 .Resource links
 ====
-GET {API}/organizations/0202239951
+GET pass:attributes[{API}/organizations/0202239951]
 
-[subs="normal"]
+[subs="+attributes"]
 ```json
 {
   "self": "{API}/organizations/0202239951"
@@ -70,9 +70,9 @@ GET {API}/organizations/0202239951
 
 The `href` in `succeededBy` is a link to the corresponding organization's document resource, while `owner` is a sensitive identifier and therefore has no link.
 
-PATCH {API}/organizations/0202239951
+PATCH pass:attributes[{API}/organizations/0202239951]
 
-[subs="normal"]
+[subs="+attributes"]
 ```json
 {
   "succeededBy": {
@@ -116,7 +116,7 @@ Hyperlinks for xref:resources-collection.adoc#pagination[Pagination] inside coll
 [[collection-links]]
 .Pagination links
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```json
 {
    "self": "{API}/organizations?page=2&pageSize=10",
