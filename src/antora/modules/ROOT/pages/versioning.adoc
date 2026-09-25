@@ -94,9 +94,9 @@ Note that reusable OpenAPI documents are to be versioned as well, as specified i
 
 Following REST API has version `2.1.2`, as specified in its OpenAPI definition, while only the major version part `v2` is part of the base URL:
 
-[source,yaml,subs="normal"]
+[source,yaml]
 ----
-openapi: "3.0.3"
+openapi: "3.0.4"
 info:
   title: petShop
   description: API exposing my pet shop's functionality
@@ -107,7 +107,7 @@ servers:
 
 Following asynchronous API has version `3.7.1`, as specified in its AsyncAPI definition, while only the major version part `v3` is part of the asynchronous messages' `service` and `type` properties:
 
-[source,yaml,subs="normal"]
+[source,yaml]
 ----
 asyncapi: 3.0.0
 info:
@@ -117,7 +117,7 @@ info:
     The meeting API allows you to manage meetings and get notifications upon meeting changes.
 ----
 
-[source,json,subs="normal"]
+[source,json]
 ----
 {
   "specversion": "1.0",

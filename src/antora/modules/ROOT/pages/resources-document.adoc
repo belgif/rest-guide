@@ -535,7 +535,7 @@ a|
 |Bad request
 a|The dynamic path segment containing the identity key has a wrong data format:
 
-[source,json, subs="normal"]
+[source,json, subs="+macros"]
 ----
 {
   "type": "urn:problem-type:belgif:badRequest",
