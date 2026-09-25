@@ -7,7 +7,7 @@
 ** xref:resources-controller.adoc[]
 * xref:json.adoc[]
 * xref:api_specifications.adoc[]
-* xref:hypermedia.adoc[]
+* xref:links.adoc[]
 * xref:errorhandling.adoc[]
 * xref:versioning.adoc[]
 * xref:performance.adoc[]

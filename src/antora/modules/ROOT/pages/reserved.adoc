@@ -65,7 +65,7 @@ a|
 ----
 "next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
-| xref:hypermedia.adoc[Links]
+| xref:links.adoc[Links]
 
 |[[rel-previous]]prev
 |The previous-reference contains the absolute URL of the previous page in a paged collection result.
@@ -74,7 +74,7 @@ a|
 ----
 "prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
-| xref:hypermedia.adoc[Links]
+| xref:links.adoc[Links]
 
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
@@ -83,7 +83,7 @@ a|
 ----
 "self": "{API}/enterprises/202239951[/enterprises/202239951^]"
 ----
-| xref:hypermedia.adoc[Links]
+| xref:links.adoc[Links]
 
 |[[rel-href]]href
 |A reference (absolute URL) to another resource.
@@ -92,7 +92,7 @@ a|
 ----
 "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
 ----
-| xref:hypermedia.adoc[Links]
+| xref:links.adoc[Links]
 
 |[[rel-first]]first
 |A reference (absolute URL) to the first page in a paged collection result.

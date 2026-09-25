@@ -1,6 +1,6 @@
 = Document
 
-A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and xref:hypermedia.adoc#links[_links_] to other related resources.
+A document resource is a _singular concept_ that is referring to a business entity or object instance. A document’s state representation typically includes both _fields with values_ and xref:links.adoc#links[_links_] to other related resources.
 
 *Documents in a collection*
 
@@ -66,7 +66,7 @@ In domain modeling, an entity can be modeled as a child of another entity, when 
 * it is not possible to change the parent of a child
 
 Occasionally complex documents have so many related resources that putting all these different concepts in a single API becomes unmanageable. For example, an employer document could link to related resources describing employees, debts, taxes, mandates, declarations, risks, etc.
-In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
+In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:links.adoc#rule-hyp-links[[hyp-links\]]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
 
 .Child entities
 [rule, child-ent]

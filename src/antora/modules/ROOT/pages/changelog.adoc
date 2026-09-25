@@ -87,7 +87,7 @@
 * 2023-06-14
 ** add /doc/openapi.[json,yaml] to list of reserved resources xref:reserved.adoc#resource-names[Resource names]
 ** updated xref:resources-document.adoc#rule-id-name[[id-name\]]: naming convention for OpenAPI types for identifiers and codes
-** updated xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]: avoid cross-API links, make self links optional
+** updated xref:links.adoc#rule-hyp-links[[hyp-links\]]: avoid cross-API links, make self links optional
 ** new: xref:api_specifications.adoc#rule-req-valid[[req-valid\]]: handling unknown request parameters
 ** updated list of xref:api_specifications.adoc#openapi-tools[OpenAPI tools]
 * 2023-03-17
@@ -158,16 +158,16 @@
 ** add list of reserved resource names to xref:reserved.adoc[]
 ** document `select` reserved query param to filter resource representation (xref:resources-document.adoc#document-consult[Consult (Document)])
 * 2018-11-26
-** add SelfLink type in xref:hypermedia.adoc[]
+** add SelfLink type in xref:links.adoc[]
 ** recommend American English for xref:json.adoc[] property names and xref:api_specifications.adoc#schemas[Schemas]
 ** add recommendations on typing of properties in xref:api_specifications.adoc#schemas[Schemas] (integer/string, enums)
 * 2018-09-09
-** HttpLink type updated in xref:hypermedia.adoc[] to be read only instead of required
+** HttpLink type updated in xref:links.adoc[] to be read only instead of required
 ** new rule in xref:api_specifications.adoc#schemas[Schemas] for enum values
 * 2018-08-09
 ** Standardized Problem response for several use cases in xref:errorhandling.adoc[] and updated Problem examples throughout the guide
 * 2018-08-08
-** added clarifications and example for use of `HttpLink` to xref:hypermedia.adoc[]
+** added clarifications and example for use of `HttpLink` to xref:links.adoc[]
 ** changed guideline for JSON Schemas to single root type per file and add rule on common BelGov schemas
 * 2018-06-29
 ** added files with common data types containing types referenced throughout the guide
