@@ -1,0 +1,237 @@
+= HTTP
+
+[[how-to-use-each-method]]
+== Methods
+
+HTTP defines a standard set of methods (verbs) with their own semantics so that we handle similar situations in the same way, removing unnecessary variation.
+
+These methods are described in detail in xref:methods.adoc[HTTP Methods] and are summarized in the table below. xref:resources.adoc[Resource archetypes] describes when to use which methods for each resource type.
+
+[rule, meth-http]
+.Use appropriate HTTP method
+====
+The HTTP methods SHOULD be used that are appropriate for the type of action performed on the resource.
+
+The table below lists the usages of HTTP methods for each resource archetype. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
+
+The recently introduced HTTP method `QUERY` is not yet widely supported and SHOULD NOT be used.
+====
+
+
+[cols="1,1,1,1,4,2", options="header"]
+|===
+|Method
+|Document
+|Collection
+|Controller
+|Request body
+|Response body
+
+|<<GET>>
+|xref:resources-document.adoc#document-consult[ consult]
+|xref:resources-collection.adoc#collections-consult[ search]
+|xref:resources-controller.adoc#controller[ idempotent actions without side effects]
+|Empty
+|Resource(s)
+
+|<<POST>>
+|xref:resources.adoc#rule-sens-dat[operations when input is sensitive]
+|xref:resources-collection.adoc#create-resource[ create document]
+|xref:resources-controller.adoc#controller[ action with side effects or requiring request body]
+|Representation of the created resource
+or controller info
+| Optional for resource creation. Depends on use case.
+
+
+|<<PUT>>
+|xref:resources-document.adoc#document-full-update[ full update]
+|-
+|-
+|Representation of the updated resource
+|Optional
+
+|<<PATCH>>
+|xref:resources-document.adoc#document-partial-update[ partial update]
+|-
+|-
+|Fields of the resource to update
+|Optional
+
+|<<DELETE>>
+|xref:resources-document.adoc#remove-document[ remove]
+|xref:resources-collection.adoc#remove-collection-items[remove selection of items]
+|-
+|Empty
+|Optional
+
+|<<HEAD>>
+|X
+|X
+|X
+|Empty
+|Empty
+
+|<<OPTIONS>>
+|X
+|X
+|X
+|Empty
+|Optional
+
+|===
+
+
+[[status-codes-by-method]]
+== Status Codes
+
+HTTP defines a standard set of response status codes. They are described in detail in xref:statuscodes.adoc[] and are summarized in the table below. The xref:resources.adoc[Resource archetypes] chapter describes the most common status codes to use for operations on each resource type.
+
+[rule, stat-codes]
+.Use appropriate HTTP status codes
+====
+The HTTP response status code SHOULD be returned that best describes the outcome of the treatment of the request.
+
+The table below list most common combinations of a status code for each HTTP method, though may not be exhaustive. Combinations explicitly excluded ( `-`) SHOULD NOT be used.
+====
+
+[cols="3,1,1,2,1,1,1,1", options="header"]
+|===
+|Code
+|GET
+|HEAD
+|PUT
+|POST
+|PATCH
+|DELETE
+|OPTIONS
+
+|<<http-200,200 OK>>
+|X
+|X
+|X
+|X (controller only)
+|X
+|X
+|X
+
+ |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
+ |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
+ |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
+  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
+  |<<http-303,303 See Other>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
+  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
+  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
+ |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
+  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
+  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
+  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-500,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
+  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
+|===
+
+== [[media-types]] [[message-body]] Message body
+
+The message _body_ or _content_ of an HTTP request or response is the data that is being transferred. The message body is optional and may be empty.
+
+The HTTP protocol supports content negotiation for media types of the response.
+
+[rule, cnt-negot]
+.Content negotiation
+====
+REST clients SHOULD specify the media type(s) that is(/are) acceptable for the response in the `Accept` HTTP header.
+
+A REST response or request with message body MUST include the `Content-Type` HTTP header to indicate the media type of the HTTP body.
+
+Status code xref:statuscodes.adoc#http-406[406] MUST be used to indicate that the requested media type could not be provided.
+
+Status code xref:statuscodes.adoc#http-415[415] MUST be used to indicate an unsupported media type in the request body.
+
+If a resource supports multiple content types through negotiation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see xref:performance.adoc#Caching[Caching]).
+====
+
+.Content negotiation
+====
+Request HTTP headers:
+```
+Accept: image/jpeg, image/png
+```
+Response HTTP headers:
+```
+Content-Type: image/png
+Vary: Accept
+```
+====
+
+[discrete]
+=== JSON
+
+The primary media type for REST APIs to support is *JSON* (Javascript Object Notation).
+The choice for JSON is particularly useful to supporting JavaScript clients.
+
+[discrete]
+=== XML
+
+On specific client request, a REST service can expose XML messages defined by *XML Schema*.
+
+
+```
+Content-Type: application/xml;charset=UTF-8
+```
+
+Always stick to *UTF-8* encoding and specify the charset in the `Content-Type` HTTP header.
+
+CAUTION: It is not recommended to implement both JSON / XML in each REST service.
+It would require to define and implement two representations of the same data.
+Automatic conversion between the two standards will almost never give a satisfying result.
+
+
+[discrete]
+[[media-types-openapi]]
+=== Media types in OpenAPI
+
+Message body media types can be specified in an OpenAPI description.
+
+For JSON, the media type specified in OpenAPI should not contain a `charset` parameter, because this is known to lead to problems in some server software when treating requests without the parameter in the `Accept` header.
+
+OpenAPI 3.0 allows to specify a different media type for each request or response format.
+Default media types across all operations cannot be specified.
+
+[[media-type-openapi3]]
+.Specifying media types in OpenAPI
+====
+```yaml
+  /organizations/{enterpriseNumber}/logo:
+    get:
+      summary: Get the logo of the organization
+      operationId: getLogo
+      parameters:
+        - in: query
+          name: enterpriseNumber
+          schema:
+            $ref: "organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "404":
+          description: Enterprise number was not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "problem/v1/#/components/schemas/InputValidationProblem"
+        default:
+          "$ref": "problem/v1/problem-v1.yaml#/components/responses/ProblemResponse"
+```
+====

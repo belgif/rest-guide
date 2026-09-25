@@ -50,7 +50,7 @@ The URI **SHOULD NOT contain a file extension**.
 A notable exception to this rule is the OpenAPI description (see xref:api_specifications.adoc#doc-resource[doc resource]).
 ====
 
-Instead, look at how to express xref:mediatypes.adoc[] using HTTP headers.
+Instead, look at how to express xref:http.adoc#media-types[media types] using HTTP headers.
 
 .URI extensions
 ====

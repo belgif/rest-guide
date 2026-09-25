@@ -1,9 +1,36 @@
-= JSON
+= JSON format
 
 All RESTful services must support *JSON* (Javascript Object Notation https://tools.ietf.org/html/rfc7159[RFC 7159^]).
 
-For extensibility, the payload (if any) of a RESTful request or response should always be a JSON object instead of an array, string, number, etc (xref:versioning.adoc#rule-evo-object[[evo-object\]]).
-This way the request or response can always be extended with new properties ( xref:versioning.adoc#rule-evo-compat[[evo-compat\]]).
+[rule, rep-struct]
+.Representation of structured data
+====
+Structured data MUST be made available in JSON format (https://tools.ietf.org/html/rfc8259[RFC 8259^]) with media type `application/json`.
+JSON text MUST be encoded using *UTF-8*.
+====
+
+Some legacy clients erroneously decode JSON message bodies using a non-UTF-8 encoding by default.
+To work around this, a charset parameter may be added to the `Content-Type` HTTP header, even though it has no meaning according to the JSON RFC.
+
+```
+Content-Type: application/json;charset=UTF-8
+```
+
+Media types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
+
+* `application/merge-patch+json` for JSON Merge Patch message bodies (see xref:resources-document.adoc#partial-update[Partial update])
+* `application/problem+json` for Problem Detail for HTTP APIs (RFC 9457) message bodies (see xref:errorhandling.adoc[])
+
+For extensibility, the JSON body of a RESTful request or response should always be a JSON object instead of an array, string, number, etc.
+
+[rule, evo-object]
+.JSON object as top level structure
+====
+In a JSON request or response body, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
+
+JSON objects support compatible extension by adding new properties.
+This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
+====
 
 [rule, jsn-naming]
 .Naming of JSON properties

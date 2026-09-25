@@ -244,7 +244,7 @@ WARNING: `href` links to descriptions of standardized problem types will change 
 The library https://github.com/belgif/rest-problem-java[`belgif-rest-problem-java`] provides implementation support for these problem types when developing Java applications.
 
 
-The standardized problem types are described on their individual pages:
+The standardized problem types are described on their individual pages in the annex:
 
 * xref:problems/badRequest.adoc[Bad Request]
 * xref:problems/noAccessToken.adoc[No Access Token]

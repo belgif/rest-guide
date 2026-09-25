@@ -112,8 +112,8 @@
 ** added: use Retry-After HTTP header in xref:problems/tooManyFailedRequests.adoc[] and xref:problems/tooManyRequests.adoc[]
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (xref:errorhandling.adoc[])
-** updated: clarify use of charset in JSON media type (xref:mediatypes.adoc[])
-** added: how to specify media types in OpenAPI 3 (xref:mediatypes.adoc#media-type-openapi3[Specifying media types in OpenAPI])
+** updated: clarify use of charset in JSON media type (xref:http.adoc#media-types[])
+** added: how to specify media types in OpenAPI 3 (xref:http.adoc#media-type-openapi3[Specifying media types in OpenAPI])
 * 2020-12-02
 ** new: standardized problem types internalServerError, badGateway, tooManyFailedRequests, payloadTooLarge (xref:errorhandling.adoc#standardized-problem-types[Standardized problem types])
 * 2020-11-04
@@ -144,7 +144,7 @@
 ** new rule: naming of identifiers in xref:resources-document.adoc[]
 ** add status code `303 See Other` to xref:resources-collection.adoc#create-resource[ Create a new resource ]
 ** new rule: use tags in xref:api_specifications.adoc#openapi[OpenAPI]
-** new section: how to specify xref:mediatypes.adoc#media-types-openapi[ media types in OpenAPI]
+** new section: how to specify xref:http.adoc#media-types-openapi[ media types in OpenAPI]
 ** update rules: naming of xref:reserved.adoc#json-properties[JSON properties] and naming of xref:api_specifications.adoc#schemas[Schemas] to make names more meaningful
 ** new rule: use `description` and avoid `title` to describe xref:api_specifications.adoc#schemas[Schemas]
 ** updated rule: String and integer types (xref:api_specifications.adoc#schemas[Schemas]). String based codes should have a unique representation.
@@ -188,7 +188,7 @@
 ** removed collector, added "Non-CRUD operations" under xref:resources-document.adoc[] section
 * 2018-03-14
 ** added reserved HTTP headers and rule on custom http headers (xref:reserved.adoc#reserved-HTTP-headers[reserved HTTP headers])
-** content negotiation and JSON subtypes added to xref:mediatypes.adoc[]
+** content negotiation and JSON subtypes added to xref:http.adoc#media-types[]
 ** xref:resources-collection.adoc#collections-consult[Consulting a collection]: empty items array mandatory when collection is empty
 ** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
 * 2018-03-07

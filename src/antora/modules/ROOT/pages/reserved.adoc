@@ -169,8 +169,8 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |HTTP Header  | Type     | Description | Reference
 
 |Location     | Response | Used in redirection, or when a new resource has been created. |xref:resources-collection.adoc#create-a-new-resource[Create a new resource​], xref:methods.adoc#POST[POST], status codes xref:statuscodes.adoc#http-301[301], xref:statuscodes.adoc#http-303[303] and xref:statuscodes.adoc#http-307[307]
-|Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | xref:mediatypes.adoc[]
-|Content-Type	| Request/Response | The Media type of the body of the request. | xref:mediatypes.adoc[]
+|Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | xref:http.adoc#media-types[]
+|Content-Type	| Request/Response | The Media type of the body of the request. | xref:http.adoc#media-types[]
 |X-HTTP-Method-Override | Request | Override the method specified in the request. | xref:methods.adoc#PATCH[PATCH]
 |Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable or quota reached | xref:problems/serviceUnavailable.adoc[], xref:problems/tooManyRequests.adoc[], xref:problems/tooManyFailedRequests.adoc[]
 |Allow        | Response | Valid methods for a specified resource. | xref:statuscodes.adoc#http-405[405 Method Not Allowed]

@@ -9,7 +9,7 @@ The REST uniform interface is based on three fundamental elements:
 [arabic]
 . xref:resources.adoc[] – How can we express where the data is being transferred to or from?
 . xref:methods.adoc[] – What are the protocol mechanisms used to transfer the data?
-. xref:mediatypes.adoc[] – What type of data is being transferred?
+. xref:http.adoc#media-types[Hypermedia] – What type of data is being transferred?
 
 == API
 

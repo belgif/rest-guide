@@ -1,9 +1,6 @@
-= Hypermedia controls
+= Links
 
-Thanks to _hypermedia controls_ a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
-
-[[links]]
-== Links
+Thanks to links (_hypermedia controls_) a client can navigate through the REST API without hardcoding URIs to specific resources. It suffices to know a limited set of entry points and navigate to the desired information. This adds _flexibility_ to the evolution of the API and increases _loose coupling_ between client and server.
 
 [rule, hyp-links]
 .Links to self and other resources
