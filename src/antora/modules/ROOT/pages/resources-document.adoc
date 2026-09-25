@@ -666,7 +666,7 @@ PUT {API}/employers/93017373[^] HTTP/1.1
 
 {
     "employerId": 93017373,
-    "name": "Belgacom"
+    "name": "Proximus"
 }
 
 ```
@@ -696,7 +696,7 @@ a|
 ----
 {
     "employerId": 93017373,
-    "name": "Belgacom"
+    "name": "Proximus"
 }
 ----
 
@@ -800,7 +800,7 @@ a|
 ----
 {
     "employerId": 93017373,
-    "name": "Belgacom",
+    "name": "Proximus",
     "bankrupt": false
 }
 ----

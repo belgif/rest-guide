@@ -380,7 +380,6 @@ GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/organizations?page=2&pageSize=2",
   "items": [
     {
       "href": "{API}/organizations/0202239951",
@@ -414,7 +413,6 @@ GET {API}/organizations?after=0244640631[^] HTTP/1.1
 [source,json, subs="normal"]
 ----
 {
-  "self": "{API}/organizations?afterEnterprise=0244640631&pageSize=2[/organizations?after=0244640631&pageSize=2^]",
   "items": [
     {
       "href": "{API}/organizations/0202239951[/organizations/0202239951^]",
@@ -447,12 +445,12 @@ Absent optional values are set to their default value if one is specified in the
 
 3+|Request
 |body
-|​The data of the resource to create.
+|The data of the resource to create.
 a|
 [source,json]
 ----
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951"
