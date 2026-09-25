@@ -10,7 +10,7 @@ One of following strategies may be chosen for internationalization:
 * Offer descriptions in all applicable languages, i.e. for APIs offered by the Belgian Government in French, Dutch, German and sometimes English as well. This approach is not scalable to a high number of languages.
   The descriptions may be filtered by a `lang` query parameter.
 
-[rule, int-conlang]
+[rule#rule-int-conlang]
 .Content-Language
 ====
 For internationalized content, the `Content-Language` response header MUST be used to indicate the natural language(s) of the intended audience of the response content.
@@ -24,7 +24,7 @@ If no `Content-Language` is specified, the default is that the content is intend
 
 As for xref:http.adoc[], HTTP supports content negotiation for the language used in response content.
 
-[rule, int-negot]
+[rule#rule-int-negot]
 .Accept-Language header
 ====
 When API responses include textual descriptions in a single language, users can indicate their preferred language by adding the `Accept-Language` HTTP request header (https://datatracker.ietf.org/doc/html/rfc9110#name-accept-language[RFC 9110]).
@@ -67,7 +67,7 @@ Content-Language: nl
 
 It may be decided to include all supported translations for descriptions in a resource's representation.
 
-[rule, multi-lang]
+[rule#rule-multi-lang]
 .Multi-language descriptions
 ====
 A multi-language description SHOULD be represented by a JSON object with {iso639-1}[ISO 639-1] language codes as property names and the corresponding textual description as values.

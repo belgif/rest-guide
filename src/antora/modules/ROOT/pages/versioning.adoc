@@ -23,7 +23,7 @@ Backwards-incompatible changes, requiring a big bang release, are only feasible 
 
 In this case, the major version number could be kept the same as only a single version of the API is active at a given time and it can be easier to keep the base URL of the API unchanged.
 
-[rule, api-evol]
+[rule#rule-api-evol]
 .Prefer API evolution
 ====
 We strongly encourage using API evolution when possible and discourage versioning:
@@ -41,7 +41,7 @@ This way the request or response can always be extended with new properties.
 
 With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
 
-[rule, evo-compat]
+[rule#rule-evo-compat]
 .Compatible extensions
 ====
 Apply the following rules to evolve RESTful or asynchronous APIs in a backward-compatible way:
@@ -59,7 +59,7 @@ Note that while clients must ignore unknown response fields, APIs may refuse req
 
 Redirection (301 Moved Permanently) MAY be supported when a URL has to change, but don't assume clients are configured to automatically follow them.
 
-[rule, evo-deprec]
+[rule#rule-evo-deprec]
 .Deprecation
 ====
 Deprecation MAY be used to indicate parts of an API are not recommended to be used anymore.
@@ -77,7 +77,7 @@ However, this isn't possible for response elements, so there is always remains s
 [[api-versioning]]
 == API versioning
 
-[rule, api-version]
+[rule#rule-api-version]
 .Version numbering
 ====
 The version string of an API SHOULD contain a major, minor and optionally a patch number.
@@ -132,7 +132,7 @@ info:
 
 Similar guidelines apply to sunset an old major version of an API apply as for removal of deprecated elements.
 
-[rule, ver-del]
+[rule#rule-ver-del]
 .Removing an old version
 ====
 Before removing an old API version:

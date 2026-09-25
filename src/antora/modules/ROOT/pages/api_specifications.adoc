@@ -1,7 +1,7 @@
 [[api-specs]]
 = API specifications
 
-[rule, ctr-first]
+[rule#rule-ctr-first]
 .API contract-first approach
 ====
 The contract-first principle SHOULD be followed when developing an API.
@@ -17,7 +17,7 @@ In this case, special attention should be given that the API specifications rema
 OpenAPI is the dominating standard for REST API documentation, having gained wide industry support.
 It is based on http://swagger.io/[Swagger^], which was standardized as OpenAPI.
 
-[rule, oas-contra]
+[rule#rule-oas-contra]
 .OpenAPI
 ====
 The description of a new REST API SHOULD be provided using https://spec.openapis.org/oas/v3.0[*OpenAPI 3.0*].
@@ -31,7 +31,7 @@ The OpenAPI standard also includes a list of supported primitive https://spec.op
 
 You can visualize OpenAPI documents using some of the tools listed in <<openapi-tools>>.
 
-[rule, oas-yaml]
+[rule#rule-oas-yaml]
 .Use YAML format for OpenAPI
 ====
 OpenAPI documents SHOULD be made available in YAML format, and OPTIONALLY in JSON format as well.
@@ -41,7 +41,7 @@ According to usage, a conversion step to JSON might be necessary considering lim
 ====
 
 
-[rule, oas-doc]
+[rule#rule-oas-doc]
 .OpenAPI as documentation
 ====
 OpenAPI authors SHOULD add sufficient documentation so that the OpenAPI can be used as an entry point to start using the API.
@@ -55,7 +55,7 @@ Alongside the definitions of allowed interactions (operations, schemas, ...), su
 * Linking to any documentation not part of the OpenAPI, using the `externalDocs` property.
 ====
 
-[rule, oas-descr]
+[rule#rule-oas-descr]
 .Free-text documentation
 ====
 Free-text documentation can be added throughout an OpenAPI:
@@ -113,7 +113,7 @@ components:
 ```
 ====
 
-[rule, oas-tags]
+[rule#rule-oas-tags]
 .Use tags to group operations
 ====
 When an API has many operations, https://spec.openapis.org/oas/v3.0#tag-object[tags] SHOULD be used to group them together.
@@ -162,7 +162,7 @@ paths:
 ----
 ====
 
-[rule, openapi-opid]
+[rule#rule-openapi-opid]
 .operationId
 ====
 A unique `operationId` MUST be specified on each operation.
@@ -182,7 +182,7 @@ Code generators use it to generate method names and generally take care of trans
 ```
 ====
 
-[rule, opbody-req]
+[rule#rule-opbody-req]
 .Required request payload
 ====
 Request payloads are optional by default in OpenAPI, even though they usually need to be required. It is most of the time an omission if this default wasn't changed.
@@ -206,7 +206,7 @@ OpenAPI authors MUST specify the `required` property on a `requestBody` explicit
 ```
 ====
 
-[rule, sec-req]
+[rule#rule-sec-req]
 .Security requirements
 ====
 The `security` field defined at the root level of the OpenAPI entry document, or on an operation object, can be used to specify security requirements for interactions with the API.
@@ -242,7 +242,7 @@ components:
 ```
 ====
 
-[rule, gen-header]
+[rule#rule-gen-header]
 .General HTTP headers
 ====
 [[general-http-headers]]
@@ -265,7 +265,7 @@ Examples of headers that should be specified on operations that support them:
 * `If-Modified-Since`
 ====
 
-[rule, doc-refdata]
+[rule#rule-doc-refdata]
 .`doc` and `refData` resources
 ====
 [[doc-resource,doc resource]]
@@ -302,7 +302,7 @@ Note that these are exceptions to the rule that API resource URLs shouldn't have
 ```
 ====
 
-[rule, oas-defaul]
+[rule#rule-oas-defaul]
 .`default` values
 ====
 [[default-values,default values]]
@@ -311,7 +311,7 @@ Absent optional properties in a request are set by the API provider to their `de
 Default values MUST be schema-valid.
 ====
 
-[rule, path-param]
+[rule#rule-path-param]
 .Naming of path parameters
 ====
 Path parameters SHOULD use *lowerCamelCase* notation.
@@ -336,7 +336,7 @@ paths:
 ----
 |===
 
-[rule, oas-exampl]
+[rule#rule-oas-exampl]
 .Add examples in OpenAPI
 ====
 Add examples to an OpenAPI document.
@@ -377,7 +377,7 @@ Example values MUST be schema-valid.
 ----
 ====
 
-[rule, oas-comp]
+[rule#rule-oas-comp]
 .Component definitions
 ====
 Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided.
@@ -389,7 +389,7 @@ For abbreviations as well, all letters except the first one should be lowercased
 Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
 ====
 
-[rule, oas-reuse]
+[rule#rule-oas-reuse]
 .Reusable OpenAPI documents
 ====
 Instead of specifying everything directly in the `openapi.yaml` file of an API, OpenAPI allows to reference schemas (data types) and other components from other files.
@@ -435,7 +435,7 @@ A type can be referenced from another OpenAPI document:
 ```
 ====
 
-[rule, oas-comdef]
+[rule#rule-oas-comdef]
 .Common definitions for Belgian government institutions
 ====
 [[belgif-openapi-types, Common OpenAPI definitions]]
@@ -449,7 +449,7 @@ Other types for business concepts commonly used by Belgian government institutio
 [[schemas]]
 == Schemas
 
-[rule, oas-types]
+[rule#rule-oas-types]
 .Naming of schemas (data types)
 ====
 
@@ -470,18 +470,18 @@ A schema name SHOULD refer to the business meaning rather than how it is defined
 
 `additionalProperties` can be used to put restrictions on other properties of a JSON object than those specified in the schema.
 
-[rule, addi-prop]
+[rule#rule-addi-prop]
 .additionalProperties
 ====
 `additionalProperties` SHOULD be used exclusively to describe an object uniquely representing a map of key-value pairs.
 The keys of such maps don't need to respect the naming rules for JSON properties (lowerCamelCase and English).
 
-Other uses of `additionalProperties` (e.g. `additionalProperties: false`) SHOULD be avoided, in order to support API evolution (xref:versioning.adoc#rule-evo-object[[evo-object\]]).
+Other uses of `additionalProperties` (e.g. `additionalProperties: false`) SHOULD be avoided, in order to support API evolution (xref:versioning.adoc#rule-evo-compat[[evo-compat\]]).
 ====
 
 An example is the description a map of `embedded` resources, as described in xref:performance.adoc#embedding[Embedding].
 
-[rule, prop-req]
+[rule#rule-prop-req]
 .Required properties
 ====
 You can declare properties of a JSON object as mandatory by adding them to the `required` list.
@@ -515,7 +515,7 @@ required: [firstName] # firstName isn't explicitly declared as a property
 |===
 ====
 
-[rule, req-valid]
+[rule#rule-req-valid]
 .Unknown input
 ====
 An API SHOULD refuse unknown input, i.e. unknown body (JSON) properties in the payload or unknown query request parameters. A xref:problems/badRequest.adoc#bad-request[ Bad Request] problem response should be returned with an issue of type `urn:problem-type:belgif:input-validation:unknownInput`.
@@ -534,7 +534,7 @@ If unknown request fields would be accepted, certain client errors cannot be rec
 
 Unknown HTTP headers are usually metadata added automatically by technical components that do not change the API's expected behavior and thereby can be ignored.
 
-[rule, oas-rdonly]
+[rule#rule-oas-rdonly]
 .readOnly properties
 ====
 Properties SHOULD be declared as `readOnly: true` when appropriate.
@@ -552,7 +552,7 @@ Above guideline is compliant with the https://datatracker.ietf.org/doc/html/draf
 
 The OpenAPI 3.0 Specification has a different definition, that allows to omit properties from requests that are both `readOnly` and `required`. This has been changed in OpenAPI 3.1 to achieve full compatibility with the JSON Schema Specification. Hence, to be forward-compatible, OpenAPI documents should not depend on this 3.0 behavior.
 
-[rule, oas-enum]
+[rule#rule-oas-enum]
 .Enum values
 ====
 [[enum-rule, Enum values rule]]
@@ -578,7 +578,7 @@ State:
 
 When defining a type for an identifier or code, like the above example, the guidelines under xref:resources-document.adoc#section-identifier[Identifier] apply, even when not used as a URL path parameter of a document resource.
 
-[rule, dec-type]
+[rule#rule-dec-type]
 .Decimals
 ====
 [[decimals, Decimals]]
@@ -637,7 +637,7 @@ EuroCentAmount:
 While the OpenAPI Specification is well suited to document APIs and express constraints on requests and responses, the full expressiveness of OpenAPI schemas may cause interoperability problems with the type system of common programming languages. This guide adds some restrictions on the use of OpenAPI schemas to avoid such problems.
 
 .Composing schemas with allOf
-[rule, sch-allof]
+[rule#rule-sch-allof]
 ====
 The `allOf` JSON Schema keyword expresses that a value must be valid against *all* of a list of subschemas.
 
@@ -648,7 +648,7 @@ To model polymorphism, the `discriminator` keyword on a parent schema designates
 ====
 
 .Discriminator mapping
-[rule, sch-discr]
+[rule#rule-sch-discr]
 ====
 The URI-reference syntax (e.g. `"#/components/schemas/Child"`) SHOULD be used to provide an explicit `mapping` of discriminator values to schemas.
 ====
@@ -812,7 +812,7 @@ No child schema resolved for discriminator value `"third"`
 ====
 
 .Using `oneOf`
-[rule, sch-oneof]
+[rule#rule-sch-oneof]
 ====
 The `oneOf` JSON Schema keyword expresses that a value must be valid against *exactly one* of a list of subschemas. A value that is valid for more than one subschema, is considered invalid against the combined `oneOf` schema.
 

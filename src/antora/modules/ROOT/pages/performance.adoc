@@ -5,7 +5,7 @@
 
 In order to reduce the number of requests, optional embedding of subresources may be used.
 
-[rule, prf-embed]
+[rule#rule-prf-embed]
 .Embedding subresources
 ====
 Embedded subresources MUST be put in a JSON object named `embedded` at root level of the JSON document.
@@ -86,7 +86,7 @@ GET pass:attributes[{API}/employer/409536968?embed=employees(address)]
 [#caching]
 == Caching
 
-[rule, prf-cach]
+[rule#rule-prf-cach]
 .HTTP Caching
 ====
 HTTP caching SHOULD be considered for resource types for which the same resources are repeatedly retrieved by clients.
@@ -120,7 +120,7 @@ If-Modified-Since: Mon, 03 Jan 2011 17:45:57 GMT
 
 If the resource hasn't changed since `Mon, 03 Jan 2011 17:45:57 GMT` the server will return with an empty body with the xref:statuscodes.adoc#http-304[`304`] response code.
 
-[rule, prf-lstmod]
+[rule#rule-prf-lstmod]
 .Precision of `Last-Modified` header
 ====
 The `Last-Modified` header doesn't allow subsecond precision, which may lead to incorrect cache hits if there are two updates within a second.

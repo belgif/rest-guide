@@ -13,7 +13,7 @@ The REST uniform interface is based on three fundamental elements:
 
 == API
 
-[rule, api-scope]
+[rule#rule-api-scope]
 .API scope
 ====
 An API bundles a set of resources which are _functionally related_ and form an autonomous _unit of business logic_.
@@ -22,7 +22,7 @@ An API bundles a set of resources which are _functionally related_ and form an a
 Compare an API to the concept of https://www.informit.com/articles/article.aspx?p=2755721[_Services_ in service-orientation^] or the concept of https://martinfowler.com/bliki/BoundedContext.html[_Bounded Contexts_ in Domain-Driven Development^].
 
 
-[rule, uri-format]
+[rule#rule-uri-format]
 .API format
 ====
 The URLs of a REST API SHOULD have the following structure:
@@ -49,7 +49,7 @@ In order to be compliant to the _uniform interface_ as described by Roy Fielding
 . *xref:links.adoc[]* -- Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
 
 
-[rule, api-matur]
+[rule#rule-api-matur]
 .Maturity level
 ====
 All REST services *MUST at least respect level 2* and desirably achieve level 3.

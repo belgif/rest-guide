@@ -50,7 +50,7 @@ For any problem occurred during processing, whether it be caused by the client o
           description: An absolute URI that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
 ```
 
-[rule, err-problem]
+[rule#rule-err-problem]
 .Use of RFC 9457 Problem Details
 ====
 Any information on a problem SHOULD be provided in the Problem Detail format, as specified in https://tools.ietf.org/html/rfc9457[Problem Details for HTTP APIs (RFC 9457, which obsoletes RFC 7807) ]:
@@ -128,7 +128,7 @@ BelGov-Trace-Id: d9e35127-e9b1-4201-a211-2b52e52508df
 ```
 ====
 
-[rule, prb-type, subs="none"]
+[rule#rule-prb-type, subs="none"]
 .Problem type
 ====
 Problem `type` SHOULD be specified as a URN in one of following formats:
@@ -162,7 +162,7 @@ Reverse FQDN notation for `<org>` is not recommended in order to keep the identi
 ```
 ====
 
-[rule, err-sanit]
+[rule#rule-err-sanit]
 .Error sanitization
 ====
 A problem MUST NOT leak sensitive implementation and infrastructure details.
@@ -199,7 +199,7 @@ Content-Type: application/problem+json
 }
 ```
 
-[rule, prb-defaul]
+[rule#rule-prb-defaul]
 .Default problem response in OpenAPI
 ====
 [[default-problem-response]]

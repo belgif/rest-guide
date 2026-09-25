@@ -65,7 +65,7 @@ Occasionally complex documents have so many related resources that putting all t
 In that case, model the related resources in a separate API and link to the principal resource not by including a link (URL) across APIs (see xref:links.adoc#rule-hyp-links[[hyp-links\]]) but just by adding the <<section-identifier, identifier>> of the principal resource in the representation.
 
 .Child entities
-[rule, child-ent]
+[rule#rule-child-ent]
 ====
 
 Interactions with entities that are, in a conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
@@ -157,7 +157,7 @@ a|
 [[section-identifier]]
 == Identifier
 
-[rule, id-choice]
+[rule#rule-id-choice]
 .Choice of identifier
 ====
 The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.
@@ -185,7 +185,7 @@ When designing an identifier, various requirements may be of importance specific
 ** default configurations of Apache HTTPD, Apache Tomcat (used by Spring Boot) and Spring Security are known to block requests with an escaped slash in a path parameter value
 * sortable (for technical reasons e.g. pagination)
 
-[rule, id-design]
+[rule#rule-id-design]
 .Designing new identifiers
 ====
 [[new-identifiers]]
@@ -266,7 +266,7 @@ A _code_ is a special type of identifier:
 * it has an exhaustive list of possible values that doesn't change frequently over time
 * each value identifies a concept (examples: a country, a gender, ...).
 
-[rule,cod-design]
+[rule#rule-cod-design]
 .Designing new codes
 ====
 New code types SHOULD be represented as string values in lowerCamelCase.
@@ -298,7 +298,7 @@ PaymentMethodCode:
 ```
 ====
 
-[rule, id-numer]
+[rule#rule-id-numer]
 .Representing existing numerical identifiers
 ====
 When defining the type for a property representing an existing numerical code or identifier:
@@ -344,7 +344,7 @@ CountryNisCode:
 
 ====
 
-[rule, id-name]
+[rule#rule-id-name]
 .Identifier name
 ====
 Following naming guidelines should be applied when using an identifier or code in a REST API:
@@ -565,7 +565,7 @@ a|The dynamic path segment containing the identity key has a wrong data format:
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used when consulting a document.
 ====
 
-[rule, res-repres]
+[rule#rule-res-repres]
 .Retrieve partial resource representation
 ====
 The `select` query parameter is reserved to return a resource representation with only the specified properties.
@@ -725,7 +725,7 @@ a|
 [[document-partial-update]]
 === Partial update
 
-[rule, doc-patch]
+[rule#rule-doc-patch]
 .JSON Merge patch
 ====
 Use `PATCH` when you like to do a partial update of a document resource.
@@ -901,7 +901,7 @@ For example, a REST API may return this response code when a client tries to DEL
 
 Some operations need to be performed asynchronously, as they take too long to complete.
 
-[rule, lng-task]
+[rule#rule-lng-task]
 .Long-running tasks
 ====
 Long-running tasks MUST be represented as a resource.
