@@ -143,7 +143,7 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 |`/update`  | `PUT /accounts/+{emailAddress}+` +
 `PATCH /accounts/+{emailAddress}+` | `POST /accounts/update`
 |`/delete`  | `DELETE /accounts/+{emailAddress}+` | `POST /accounts/delete`
-|`/query`  | `GET /documents?createdBy=+{emailAddress}+` | `POST /documents/query`
+|`/search`  | `GET /documents?createdBy=+{emailAddress}+` | `POST /documents/search`
 |_none_ | `POST /accounts/+{emailAddress}+/profilePictures` | `POST /accounts/profilePictures`
 |_none_ | `POST /accounts/+{emailAddress}+/deactivate` | `POST /accounts/deactivate`
 |===
