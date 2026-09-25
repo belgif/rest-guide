@@ -369,24 +369,26 @@ Request:
 GET /stores/{storeId}/orders/{orderId} <1>
 ```
 Response:
-```YAML
+[source,yaml, subs="+attributes"]
+----
 {
   "id": 123,  #<2>
   "customer": 456, #<3>
   "store": {
      "id": 789, #<4>
-     "href": "/stores/789"
+     "href": "{API}/stores/789"
   },
   "paymentMethod": "creditCard",
   "deliveryMethod": {
      "code": "deliveredAtHome", #<5>
-     "href": "/refData/deliveryMethods/deliveredAtHome"
+     "href": "{API}/refData/deliveryMethods/deliveredAtHome"
   }
 }
-```
+----
 
 OpenAPI schemas (not all are listed for brevity):
-```YAML
+[source,yaml]
+----
 Order: #<6>
   type: object
   properties:
@@ -418,7 +420,7 @@ StoreId: #<7>
   type: integer
   format: int32
   minimum: 1
-```
+----
 
 <1> `id` as path parameter always prefixed with resource type to be able to distinguish multiple path parameters
 <2> `id` as property of the consulted resource

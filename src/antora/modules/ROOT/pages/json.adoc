@@ -76,16 +76,17 @@ a|
 In below example, `enterpriseNumber` should be used even though the `enterprise` prefix is clear by its context.
 This is because `enterpriseNumber` is a fixed denomination (declared in  Crossroads Bank for Enterprises) and using just `number` would rather cause confusion to type of identifier being used.
 
-```json
+[source,json, subs="+attributes"]
+----
 {
   "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
-    "enterpriseNumber": "0202239951"
-    "href": "/organizations/0202239951"
+    "enterpriseNumber": "0202239951",
+    "href": "{API}/organizations/0202239951"
   }
 }
-```
+----
 
 [rule, jsn-null]
 .Null values
