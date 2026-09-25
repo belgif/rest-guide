@@ -1059,6 +1059,6 @@ _Note:_ There currently is no implementation of this REST guide for Spectral.
 [options="header"]
 |===
 |Name|Link
-|OpenAPI 3.0 specification| http://spec.openapis.org/oas/v3.0.3.html
+|OpenAPI 3.0 specification| https://spec.openapis.org/oas/v3.0
 |Swagger's OpenAPI Guide | https://swagger.io/docs/specification/v3_0/about/
 |===
