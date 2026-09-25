@@ -256,7 +256,7 @@ Direction is ascending by default. To indicate descending, prefix property with 
 |===
 
 [[filtering]]
-== Filtering
+=== Filtering
 
 [rule, col-filter]
 .Filtering items in a collection
@@ -331,7 +331,7 @@ a|
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
 ====
 
-== [[pagination]] Pagination
+=== [[pagination]] Pagination
 
 [rule, col-paging]
 .Paging over a large collection
