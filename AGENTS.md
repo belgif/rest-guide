@@ -27,7 +27,7 @@ One node module at project root.
 src/antora/
   antora.yml                          # Antora component descriptor (name: api-guide, version: ~)
   extensions/
-    rule-block-extension.js           # Custom asciidoctor.js block processor for [rule, <id>]
+    rule-block-extension.js           # Custom asciidoctor.js block processor for [rule#rule-<id>]
   modules/ROOT/
     nav.adoc                          # Navigation tree
     pages/                            # One .adoc file per page

@@ -17,23 +17,13 @@ module.exports.register = function (registry) {
   registry.block('rule', function () {
     const self = this
     self.onContext('example')
-    self.positionalAttributes(['ruleId'])
     self.process(function (parent, reader, attrs) {
       const ruleAnchor = attrs['id']
-      let ruleId = attrs['ruleId']
-      if (ruleAnchor) {
-        const match = /^rule-(.+)$/.exec(ruleAnchor)
-        if (!match) {
-          throw new Error(`rule block id must start with "rule-" (line ${reader.$cursor_line_number()})`)
-        }
-        ruleId = match[1]
-      } else if (ruleId) {
-        // Keep compatibility with existing [rule, ruleId] blocks.
-        attrs['id'] = `rule-${ruleId}`
-      } else {
-        throw new Error(`rule block is missing its identifier (line ${reader.$cursor_line_number()})`)
+      const match = /^rule-(.+)$/.exec(ruleAnchor || '')
+      if (!match) {
+        throw new Error(`rule block id must be "rule-<ruleId>" (line ${reader.$cursor_line_number()})`)
       }
-      delete attrs['ruleId']
+      const ruleId = match[1]
       attrs['reftext'] = `[${ruleId}]`
       const title = attrs['title'] || ''
       attrs['title'] = `Rule: ${title} <<${ruleAnchor}>>`
