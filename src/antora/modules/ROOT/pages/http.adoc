@@ -27,14 +27,14 @@ The recently introduced HTTP method `QUERY` is not yet widely supported and SHOU
 |Request body
 |Response body
 
-|<<GET>>
-|xref:resources-document.adoc#document-consult[ consult]
-|xref:resources-collection.adoc#collections-consult[ search]
-|xref:resources-controller.adoc#controller[ idempotent actions without side effects]
+|xref:methods.adoc#get[GET]
+|xref:resources-document.adoc#document-consult[consult]
+|xref:resources-collection.adoc#collections-consult[search]
+|xref:resources-controller.adoc#controller[idempotent actions without side effects]
 |Empty
 |Resource(s)
 
-|<<POST>>
+|xref:methods.adoc#post[POST]
 |xref:resources.adoc#rule-sens-dat[operations when input is sensitive]
 |xref:resources-collection.adoc#create-resource[ create document]
 |xref:resources-controller.adoc#controller[ action with side effects or requiring request body]
@@ -43,35 +43,35 @@ or controller info
 | Optional for resource creation. Depends on use case.
 
 
-|<<PUT>>
+|xref:methods.adoc#put[PUT]
 |xref:resources-document.adoc#document-full-update[ full update]
 |-
 |-
 |Representation of the updated resource
 |Optional
 
-|<<PATCH>>
+|xref:methods.adoc#patch[PATCH]
 |xref:resources-document.adoc#document-partial-update[ partial update]
 |-
 |-
 |Fields of the resource to update
 |Optional
 
-|<<DELETE>>
+|xref:methods.adoc#delete[DELETE]
 |xref:resources-document.adoc#remove-document[ remove]
 |xref:resources-collection.adoc#remove-collection-items[remove selection of items]
 |-
 |Empty
 |Optional
 
-|<<HEAD>>
+|xref:methods.adoc#head[HEAD]
 |X
 |X
 |X
 |Empty
 |Empty
 
-|<<OPTIONS>>
+|xref:methods.adoc#options[OPTIONS]
 |X
 |X
 |X
@@ -105,7 +105,7 @@ The table below list most common combinations of a status code for each HTTP met
 |DELETE
 |OPTIONS
 
-|<<http-200,200 OK>>
+|xref:statuscodes.adoc#http-200[200 OK]
 |X
 |X
 |X
@@ -114,27 +114,27 @@ The table below list most common combinations of a status code for each HTTP met
 |X
 |X
 
- |<<http-201,201 Created>>	|-	|-	|X (creation only) |X	|-	|-	|-
- |<<http-202,202 Accepted>>	|-	|-	|-	|X	|-	|-	|X
- |<<http-204,204 No Content>>	|-	|X	|X	|X	|X	|X	|-
-  |<<http-301,301 Moved Permanently>> |X	|X	|X	|X	|X	|X	|X
-  |<<http-303,303 See Other>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-304,304 Not Modified>>	|X	|X	|-	|-	|-	|-	|-
-  |<<http-307,307 Temporary Redirect>> 	|X	|X	|X	|X	|X	|X	|X
-  |<<http-400,400 Bad Request>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-401,401 Unauthorized>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-403,403 Forbidden>>	|X	|X	|X	|X	|X	|X	|X
- |<<http-404,404 Not Found>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-405,405 Method Not Allowed>>	|X	|X	|X	|X	|X	|X	|-
-  |<<http-406,406 Not Acceptable>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-409,409 Conflict>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-412,412 Precondition Failed>> 	|-	|-	|X	|X	|X	|X	|-
-  |<<http-413,413 Payload Too Large	>>|-	|-	|X	|X	|X	|-	|-
-  |<<http-415,415 Unsupported Media Type>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-429,429 Too Many Requests>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-500,500 Internal Server Error>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-502,502 Bad Gateway>>	|X	|X	|X	|X	|X	|X	|X
-  |<<http-503,503 Service Unavailable>> 	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-201[201 Created]	|-	|-	|X (creation only) |X	|-	|-	|-
+ |xref:statuscodes.adoc#http-202[202 Accepted]	|-	|-	|-	|X	|-	|-	|X
+ |xref:statuscodes.adoc#http-204[204 No Content]	|-	|X	|X	|X	|X	|X	|-
+ |xref:statuscodes.adoc#http-301[301 Moved Permanently] |X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-303[303 See Other]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-304[304 Not Modified]	|X	|X	|-	|-	|-	|-	|-
+ |xref:statuscodes.adoc#http-307[307 Temporary Redirect] 	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-400[400 Bad Request]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-401[401 Unauthorized]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-403[403 Forbidden]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-404[404 Not Found]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-405[405 Method Not Allowed]	|X	|X	|X	|X	|X	|X	|-
+ |xref:statuscodes.adoc#http-406[406 Not Acceptable]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-409[409 Conflict] 	|-	|-	|X	|X	|X	|X	|-
+ |xref:statuscodes.adoc#http-412[412 Precondition Failed] 	|-	|-	|X	|X	|X	|X	|-
+ |xref:statuscodes.adoc#http-413[413 Payload Too Large	]|-	|-	|X	|X	|X	|-	|-
+ |xref:statuscodes.adoc#http-415[415 Unsupported Media Type]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-429[429 Too Many Requests]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-500[500 Internal Server Error]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-502[502 Bad Gateway]	|X	|X	|X	|X	|X	|X	|X
+ |xref:statuscodes.adoc#http-503[503 Service Unavailable] 	|X	|X	|X	|X	|X	|X	|X
 |===
 
 == [[media-types]] [[message-body]] Message body
@@ -154,7 +154,7 @@ Status code xref:statuscodes.adoc#http-406[406] MUST be used to indicate that th
 
 Status code xref:statuscodes.adoc#http-415[415] MUST be used to indicate an unsupported media type in the request body.
 
-If a resource supports multiple content types through negotiation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see xref:performance.adoc#Caching[Caching]).
+If a resource supports multiple content types through negotiation, the response header `Vary: Accept` MUST be added to avoid undesired cache hits (also see xref:performance.adoc#caching[Caching]).
 ====
 
 .Content negotiation

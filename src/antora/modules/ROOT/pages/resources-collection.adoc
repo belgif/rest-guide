@@ -331,7 +331,7 @@ a|
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
 ====
 
-== [[Pagination]] [[pagination]] Pagination
+== [[pagination]] Pagination
 
 [rule, col-paging]
 .Paging over a large collection

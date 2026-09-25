@@ -14,12 +14,12 @@ A list of reserved words exists for common used practices
 |[[query-param-page]]page
 |When a collection resources is paged, use this parameter to request a specific page. Page numbers are 1-based.
 |?page=3&pageSize=20
-|xref:resources-collection.adoc#Pagination[Pagination]
+|xref:resources-collection.adoc#pagination[Pagination]
 
 |[[query-param-pageSize]]pageSize
 |When a collection resources is paged, use this parameter to specify the page size.
 |?page=3&pageSize=20
-|xref:resources-collection.adoc#Pagination[Pagination]
+|xref:resources-collection.adoc#pagination[Pagination]
 
 |[[query-param-q]]q
 |The standard search parameter to do a full-text search.
@@ -65,7 +65,7 @@ a|
 ----
 "next": "{API}/enterprises?page=3&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
-| xref:hypermedia.adoc#Links[Links]
+| xref:hypermedia.adoc[Links]
 
 |[[rel-previous]]prev
 |The previous-reference contains the absolute URL of the previous page in a paged collection result.
@@ -74,7 +74,7 @@ a|
 ----
 "prev": "{API}/enterprises?page=1&pageSize=2[/enterprises?page=3&pageSize=2^]"
 ----
-| xref:hypermedia.adoc#Links[Links]
+| xref:hypermedia.adoc[Links]
 
 |[[rel-self]]self
 |The self-reference contains the absolute URL of the resource itself.
@@ -83,7 +83,7 @@ a|
 ----
 "self": "{API}/enterprises/202239951[/enterprises/202239951^]"
 ----
-| xref:hypermedia.adoc#Links[Links]
+| xref:hypermedia.adoc[Links]
 
 |[[rel-href]]href
 |A reference (absolute URL) to another resource.
@@ -92,7 +92,7 @@ a|
 ----
 "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
 ----
-| xref:hypermedia.adoc#Links[Links]
+| xref:hypermedia.adoc[Links]
 
 |[[rel-first]]first
 |A reference (absolute URL) to the first page in a paged collection result.
@@ -101,7 +101,7 @@ a|
 ----
 "first": "{API}/enterprises?pageSize=2"
 ----
-| xref:resources-collection.adoc#Pagination[Pagination]
+| xref:resources-collection.adoc#pagination[Pagination]
 
 |[[rel-last]]last
 |A reference (absolute URL) to the last page in a paged collection result.
@@ -110,7 +110,7 @@ a|
 ----
 "last": "{API}/enterprises?page=4&pageSize=2",
 ----
-| xref:resources-collection.adoc#Pagination[Pagination]
+| xref:resources-collection.adoc#pagination[Pagination]
 
 | items
 | an array with the items of a collection result.
@@ -125,17 +125,17 @@ a|
 | page
 | the index of a page in a paged collection result
 |
-| xref:resources-collection.adoc#Pagination[Pagination]
+| xref:resources-collection.adoc#pagination[Pagination]
 
 | pageSize
 | the maximum number of items in a page of a paged collection result.
 |
-| xref:resources-collection.adoc#Pagination[Pagination]
+| xref:resources-collection.adoc#pagination[Pagination]
 
 | embedded
 | a map of embedded subresources, with URIs as property key and the resource as value
 |
-| xref:performance.adoc#embedding-resources[Embedding resources]
+| xref:performance.adoc#embedding[Embedding resources]
 
 |===
 
@@ -168,10 +168,10 @@ However, for backwards compatibility reasons, headers with the `X-` prefix may s
 |===
 |HTTP Header  | Type     | Description | Reference
 
-|Location     | Response | Used in redirection, or when a new resource has been created. |xref:resources-collection.adoc#create-a-new-resource[Create a new resource​], xref:methods.adoc#POST[POST], status codes xref:statuscodes.adoc#http-301[301], xref:statuscodes.adoc#http-303[303] and xref:statuscodes.adoc#http-307[307]
+|Location     | Response | Used in redirection, or when a new resource has been created. |xref:resources-collection.adoc#create-resource[Create a new resource], xref:methods.adoc#post[POST], status codes xref:statuscodes.adoc#http-301[301], xref:statuscodes.adoc#http-303[303] and xref:statuscodes.adoc#http-307[307]
 |Accept       | Request  | Media type(s) that is(/are) acceptable for the response. | xref:http.adoc#media-types[]
 |Content-Type	| Request/Response | The Media type of the body of the request. | xref:http.adoc#media-types[]
-|X-HTTP-Method-Override | Request | Override the method specified in the request. | xref:methods.adoc#PATCH[PATCH]
+|X-HTTP-Method-Override | Request | Override the method specified in the request. | xref:methods.adoc#patch[PATCH]
 |Retry-After  | Response | Suggest amount of time for the client to wait before retrying the request when temporarily unavailable or quota reached | xref:problems/serviceUnavailable.adoc[], xref:problems/tooManyRequests.adoc[], xref:problems/tooManyFailedRequests.adoc[]
 |Allow        | Response | Valid methods for a specified resource. | xref:statuscodes.adoc#http-405[405 Method Not Allowed]
 |ETag         | Request  | Identifier for returned response content |  xref:performance.adoc#conditional-requests[Conditional requests]

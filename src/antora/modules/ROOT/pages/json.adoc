@@ -18,7 +18,7 @@ Content-Type: application/json;charset=UTF-8
 
 Media types of format `application/<subtype>+json` may be used for standardized JSON formats, though REST APIs should also accept requests using the generic `application/json` media type:
 
-* `application/merge-patch+json` for JSON Merge Patch message bodies (see xref:resources-document.adoc#partial-update[Partial update])
+* `application/merge-patch+json` for JSON Merge Patch message bodies (see xref:resources-document.adoc#document-partial-update[Partial update])
 * `application/problem+json` for Problem Detail for HTTP APIs (RFC 9457) message bodies (see xref:errorhandling.adoc[])
 
 For extensibility, the JSON body of a RESTful request or response should always be a JSON object instead of an array, string, number, etc.

@@ -21,7 +21,7 @@ The action was successfully received, understood, and accepted.
 |**200 (“OK”) should be used to indicate nonspecific success**
 
 In most cases, 200 is the code the client hopes to see. It indicates that the REST API successfully carried out whatever action the client requested, and that no more specific code in the 2xx series is appropriate. Unlike the 204 status code, a 200 response should include a response body.
-|xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+|xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |[[http-201]]201 Created
@@ -29,22 +29,22 @@ In most cases, 200 is the code the client hopes to see. It indicates that the RE
 
 A REST API responds with the 201 status code whenever a collection creates, or a store adds, a new resource at the client’s request. The response body may be empty or contain a partial or full representation of the new resource.
 There may also be times when a new resource is created as a result of some custom POST action, in which case 201 would also be an appropriate response.
-|​xref:methods.adoc#POST[POST] 
+|xref:methods.adoc#post[POST]
 
-xref:methods.adoc#PUT[PUT] only in case it is used to create a new document resource. 
+xref:methods.adoc#put[PUT] only in case it is used to create a new document resource.
 
 |[[http-202]]202 Accepted
 |**202 (“Accepted”) must be used to indicate successful start of an asynchronous action**
 
 A 202 response indicates that the client’s request will be handled asynchronously. This response status code tells the client that the request appears valid, but it still may have problems once it’s finally processed. A 202 response is typically used for actions that take a long while to process (see xref:resources-document.adoc#long-running-tasks[Long-running tasks]).
 A POST method may send 202 responses, but other methods should not.
-|​xref:methods.adoc#POST[POST] 
+|xref:methods.adoc#post[POST] 
 
 |[[http-204]]204 No Content
 |**204 (“No Content”) should be used when the response body is intentionally empty**
 
 The 204 status code is usually sent out in response to a PUT, POST, PATCH or DELETE request, when the REST API declines to send back any status message or representation in the response message’s body. 
-|xref:methods.adoc#POST[POST], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+|xref:methods.adoc#post[POST], xref:methods.adoc#head[HEAD], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 |===
 
@@ -62,7 +62,7 @@ Further action must be taken in order to complete the request.
 
 The 301 status code indicates that the REST API’s resource model has been significantly redesigned and a new permanent URI has been assigned to the client’s requested resource. The REST API should specify the new URI in the response’s Location header.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |[[http-303]]303 See Other
@@ -74,14 +74,14 @@ It can be used when a long-running action has finished its work, but instead of 
 |All methods are acceptable.
 
 Mostly used with 
- xref:methods.adoc#POST[POST].
+ xref:methods.adoc#post[POST].
 
 
 |[[http-304]]304 Not Modified
 |**304 (“Not Modified”) should be used to preserve bandwidth**
 
 This status code is similar to 204 (“No Content”) in that the response body must be empty. The key distinction is that 204 is used when there is nothing to send in the body, whereas 304 is used when there is state information associated with a resource but the client already has the most recent version of the representation. This status code is used in conjunction with conditional HTTP requests.
-|xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD]
+|xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD]
 
 |[[http-307]]307 Temporary Redirect
 |**307 (“Temporary Redirect”) should be used to tell clients to resubmit the request to another URI**
@@ -90,7 +90,7 @@ A 307 response indicates that the REST API is not going to process the client’
 
 A REST API can use this status code to assign a temporary URI to the client’s requested resource. For example, a `307` response can be used to shift a client request over to another host.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 |===
 
@@ -107,7 +107,7 @@ The request contains bad syntax or cannot be fulfilled.
 |**400 (“Bad Request”) may be used to indicate nonspecific failure**
 400 is the generic client-side error status, used when no other 4xx error code is appropriate.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |[[http-401]]401 Unauthorized
@@ -115,7 +115,7 @@ xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST
 
 A 401 error response indicates that the client tried to operate on a protected resource without providing the proper authorization. It may have provided the wrong credentials or none at all.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |[[http-403]]403 Forbidden
@@ -123,7 +123,7 @@ xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST
 
 A 403 error response indicates that the client’s request is formed correctly, but the REST API refuses to honor it. A 403 response is not a case of insufficient client credentials; that would be `401 (“Unauthorized”)`.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 
@@ -132,8 +132,8 @@ xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST
 
 The 404 error status code indicates that the REST API can’t map the client’s URI to a resource.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS], 
-xref:methods.adoc#POST[POST] (if parent resource not found)
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS], 
+xref:methods.adoc#post[POST] (if parent resource not found)
 
 
 |[[http-405]]405 Method Not Allowed
@@ -144,7 +144,7 @@ For example, when a PUT or POST action is performed on a read-only resource supp
 
 A 405 response must include the Allow header, which lists the HTTP methods that the resource supports. For example: `Allow: GET, POST`
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 
@@ -153,14 +153,14 @@ xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST
 
 The 406 error response indicates that the API is not able to generate any of the client’s preferred media types, as indicated by the `Accept` request header. For example, a client request for data formatted as `application/xml` will receive a 406 response if the API is only willing to format data as `application/json`.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |[[http-409]]409 Conflict
 |**409 (“Conflict”) should be used when a request conflicts with data on the server**
 
 The 409 error response tells the client that they tried to put the REST API’s resources into an impossible or inconsistent state. For example, a REST API may return this response code when a client tries to DELETE a non-empty store resource.
-|xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE]
+|xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE]
 
 
 |[[http-412]]412 Precondition Failed|
@@ -169,20 +169,20 @@ The 409 error response tells the client that they tried to put the REST API’s 
 The 412 error response indicates that the client specified one or more preconditions in its request headers, effectively telling the REST API to carry out its request only if certain conditions were met. A 412 response indicates that those conditions were not met, so instead of carrying out the request, the API sends this status code.
 
 **Only use for http://tools.ietf.org/html/rfc7232[conditional HTTP requests^], not constraints expressed in the HTTP payload. ** Use <<http-409,`409 Conflict`>> instead.
-|xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE]
+|xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE]
 
 |[[http-413]]413 Payload Too Large|
 **413 (“Payload Too Large”) should be used when a request is refused because its payload  is too large**
 
 The 413 error response indicates that the request is larger than the server is willing or able to process.
-|xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH]
+|xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH]
 
 |[[http-415]]415 Unsupported Media Type
 |**415 (“Unsupported Media Type”) must be used when the media type of a request’s payload cannot be processed**
 
 The 415 error response indicates that the API is not able to process the client’s supplied media type, as indicated by the `Content-Type` request header. For example, a client request including data formatted as `application/xml` will receive a 415 response if the API is only willing to process data formatted as application/json.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 
@@ -193,7 +193,7 @@ The response representations SHOULD include details explaining the condition, an
  
 Responses with the 429 status code MUST NOT be stored by a cache.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 
 |===
@@ -213,17 +213,17 @@ The server failed to fulfill an apparently valid request.
 
 A 500 error is never the client’s fault and therefore it is reasonable for the client to retry the exact same request that triggered this response, and hope to GET a different response.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 |[[http-502]]502 Bad Gateway
 |** The 502 ("Bad Gateway") status code indicates that the server, while acting as a gateway or proxy, received an invalid response from an inbound server it accessed while attempting to fulfill the request.**
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 |[[http-503]]503 Service Unavailable
 |**503 (“Service Unavailable”) indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay.**
 
 The server MAY send a Retry-After header field to suggest an appropriate amount of time for the client to wait before retrying the request.
 |All: 
-xref:methods.adoc#GET[GET], xref:methods.adoc#HEAD[HEAD], xref:methods.adoc#POST[POST], xref:methods.adoc#PUT[PUT], xref:methods.adoc#PATCH[PATCH], xref:methods.adoc#DELETE[DELETE], xref:methods.adoc#OPTIONS[OPTIONS]
+xref:methods.adoc#get[GET], xref:methods.adoc#head[HEAD], xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE], xref:methods.adoc#options[OPTIONS]
 
 |===

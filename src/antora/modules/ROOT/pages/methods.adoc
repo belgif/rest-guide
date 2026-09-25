@@ -1,10 +1,10 @@
 = HTTP Methods
 
 == GET
-**GET should be used to retrieve a representation of a resource and may be used to execute an idempotent xref:resources-controller.adoc#Controller[controller] operation without side-effects.** It is a strict read-only method, which should never modify the state of the resource.
+**GET should be used to retrieve a representation of a resource and may be used to execute an idempotent xref:resources-controller.adoc#controller[controller] operation without side-effects.** It is a strict read-only method, which should never modify the state of the resource.
 
 == POST
-*POST should be used to xref:resources-collection.adoc#create-resource[create a new resource] in a collection, to execute a xref:resources-controller.adoc#Controller[controller] resource or as alternative for operations with xref:resources.adoc#rule-sens-date[sensitive input data].*
+*POST should be used to xref:resources-collection.adoc#create-resource[create a new resource] in a collection, to execute a xref:resources-controller.adoc#controller[controller] resource or as alternative for operations with xref:resources.adoc#rule-sens-date[sensitive input data].*
 
 When using for resource creation, the POST request’s body contains the suggested state representation of the new resource to be added to the server-owned collection. The response should contain a Location HTTP header containing the URI of the newly created resource, while the body contains either its (partial or full) representation or is empty.
 

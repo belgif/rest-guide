@@ -3,7 +3,7 @@
 * 2026-06-12
 ** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-dat\]] on sensitive data in URLs or headers
 ** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
-** added link to example schema to xref:resources-collection.adoc#Pagination[Pagination]
+** added link to example schema to xref:resources-collection.adoc#pagination[Pagination]
 ** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
 ** new rule xref:api_specifications.adoc#rule-sch-sec-req[[sch-sec-req\]]: security requirements must be consistent with security schemes
 ** new rule xref:api_specifications.adoc#rule-opbody-req[[sch-opbody-req\]]: `required` should be specified explicitly on request bodies
@@ -121,7 +121,7 @@
 ** updated: status codes made consistent in various locations (xref:resources-collection.adoc[], xref:resources-document.adoc[], xref:methods.adoc[] and xref:statuscodes.adoc[])
 ** added: status codes xref:statuscodes.adoc#http-429[ 429 Too Many Requests] and  xref:statuscodes.adoc#http-502[ 502 Bad Gateway]  (xref:statuscodes.adoc[])
 ** added: table about how to use each HTTP method (xref:methods.adoc#http-methods[ HTTP Methods])
-** added: table listing xref:statuscodes.adoc#status-codes-by-method[acceptable status codes for each method] (xref:statuscodes.adoc#status-codes[ Status Codes])
+** added: table listing xref:http.adoc#status-codes-by-method[acceptable status codes for each method] (xref:statuscodes.adoc#status-codes[ Status Codes])
 * 2020-09-09
 ** new: recommend use of CloudEvents specification (xref:events.adoc#events[])
 ** add guidelines on API health checks (xref:health.adoc[])
