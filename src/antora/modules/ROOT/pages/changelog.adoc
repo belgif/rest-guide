@@ -3,7 +3,7 @@
 * 2026-06-12
 ** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-dat\]] on sensitive data in URLs or headers
 ** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
-** added link to example schema to xref:resources-collection.adoc#Pagination[Pagination]
+** added link to example schema to xref:resources-collection.adoc#pagination[Pagination]
 ** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
 ** new rule xref:api_specifications.adoc#rule-sch-sec-req[[sch-sec-req\]]: security requirements must be consistent with security schemes
 ** new rule xref:api_specifications.adoc#rule-opbody-req[[sch-opbody-req\]]: `required` should be specified explicitly on request bodies
@@ -87,7 +87,7 @@
 * 2023-06-14
 ** add /doc/openapi.[json,yaml] to list of reserved resources xref:reserved.adoc#resource-names[Resource names]
 ** updated xref:resources-document.adoc#rule-id-name[[id-name\]]: naming convention for OpenAPI types for identifiers and codes
-** updated xref:hypermedia.adoc#rule-hyp-links[[hyp-links\]]: avoid cross-API links, make self links optional
+** updated xref:links.adoc#rule-hyp-links[[hyp-links\]]: avoid cross-API links, make self links optional
 ** new: xref:api_specifications.adoc#rule-req-valid[[req-valid\]]: handling unknown request parameters
 ** updated list of xref:api_specifications.adoc#openapi-tools[OpenAPI tools]
 * 2023-03-17
@@ -112,8 +112,8 @@
 ** added: use Retry-After HTTP header in xref:problems/tooManyFailedRequests.adoc[] and xref:problems/tooManyRequests.adoc[]
 * 2021-06-24
 ** updated: use URNs as problem type and add href for problem documentation (xref:errorhandling.adoc[])
-** updated: clarify use of charset in JSON media type (xref:mediatypes.adoc[])
-** added: how to specify media types in OpenAPI 3 (xref:mediatypes.adoc#media-type-openapi3[Specifying media types in OpenAPI])
+** updated: clarify use of charset in JSON media type (xref:http.adoc#media-types[])
+** added: how to specify media types in OpenAPI 3 (xref:http.adoc#media-type-openapi3[Specifying media types in OpenAPI])
 * 2020-12-02
 ** new: standardized problem types internalServerError, badGateway, tooManyFailedRequests, payloadTooLarge (xref:errorhandling.adoc#standardized-problem-types[Standardized problem types])
 * 2020-11-04
@@ -121,7 +121,7 @@
 ** updated: status codes made consistent in various locations (xref:resources-collection.adoc[], xref:resources-document.adoc[], xref:methods.adoc[] and xref:statuscodes.adoc[])
 ** added: status codes xref:statuscodes.adoc#http-429[ 429 Too Many Requests] and  xref:statuscodes.adoc#http-502[ 502 Bad Gateway]  (xref:statuscodes.adoc[])
 ** added: table about how to use each HTTP method (xref:methods.adoc#http-methods[ HTTP Methods])
-** added: table listing xref:statuscodes.adoc#status-codes-by-method[acceptable status codes for each method] (xref:statuscodes.adoc#status-codes[ Status Codes])
+** added: table listing xref:http.adoc#status-codes-by-method[acceptable status codes for each method] (xref:statuscodes.adoc#status-codes[ Status Codes])
 * 2020-09-09
 ** new: recommend use of CloudEvents specification (xref:events.adoc#events[])
 ** add guidelines on API health checks (xref:health.adoc[])
@@ -144,7 +144,7 @@
 ** new rule: naming of identifiers in xref:resources-document.adoc[]
 ** add status code `303 See Other` to xref:resources-collection.adoc#create-resource[ Create a new resource ]
 ** new rule: use tags in xref:api_specifications.adoc#openapi[OpenAPI]
-** new section: how to specify xref:mediatypes.adoc#media-types-openapi[ media types in OpenAPI]
+** new section: how to specify xref:http.adoc#media-types-openapi[ media types in OpenAPI]
 ** update rules: naming of xref:reserved.adoc#json-properties[JSON properties] and naming of xref:api_specifications.adoc#schemas[Schemas] to make names more meaningful
 ** new rule: use `description` and avoid `title` to describe xref:api_specifications.adoc#schemas[Schemas]
 ** updated rule: String and integer types (xref:api_specifications.adoc#schemas[Schemas]). String based codes should have a unique representation.
@@ -158,16 +158,16 @@
 ** add list of reserved resource names to xref:reserved.adoc[]
 ** document `select` reserved query param to filter resource representation (xref:resources-document.adoc#document-consult[Consult (Document)])
 * 2018-11-26
-** add SelfLink type in xref:hypermedia.adoc[]
+** add SelfLink type in xref:links.adoc[]
 ** recommend American English for xref:json.adoc[] property names and xref:api_specifications.adoc#schemas[Schemas]
 ** add recommendations on typing of properties in xref:api_specifications.adoc#schemas[Schemas] (integer/string, enums)
 * 2018-09-09
-** HttpLink type updated in xref:hypermedia.adoc[] to be read only instead of required
+** HttpLink type updated in xref:links.adoc[] to be read only instead of required
 ** new rule in xref:api_specifications.adoc#schemas[Schemas] for enum values
 * 2018-08-09
 ** Standardized Problem response for several use cases in xref:errorhandling.adoc[] and updated Problem examples throughout the guide
 * 2018-08-08
-** added clarifications and example for use of `HttpLink` to xref:hypermedia.adoc[]
+** added clarifications and example for use of `HttpLink` to xref:links.adoc[]
 ** changed guideline for JSON Schemas to single root type per file and add rule on common BelGov schemas
 * 2018-06-29
 ** added files with common data types containing types referenced throughout the guide
@@ -188,7 +188,7 @@
 ** removed collector, added "Non-CRUD operations" under xref:resources-document.adoc[] section
 * 2018-03-14
 ** added reserved HTTP headers and rule on custom http headers (xref:reserved.adoc#reserved-HTTP-headers[reserved HTTP headers])
-** content negotiation and JSON subtypes added to xref:mediatypes.adoc[]
+** content negotiation and JSON subtypes added to xref:http.adoc#media-types[]
 ** xref:resources-collection.adoc#collections-consult[Consulting a collection]: empty items array mandatory when collection is empty
 ** relax the rule on `additionalProperties` to be compatible with its use for embedded resources
 * 2018-03-07

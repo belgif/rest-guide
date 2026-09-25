@@ -10,9 +10,9 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 
 .Collection name
 ====
-{API}/employers[^] - a collection of employers
+pass:attributes[{API}/employers] - a collection of employers
 
-{API}/employers/+{employerId}+/subsidiaries[^] - a collection of subsidiaries as a child resource of an employer.
+pass:attributes[{API}/employers/\{employerId}/subsidiaries] - a collection of subsidiaries as a child resource of an employer.
 ====
 
 [[collections-consult, Searching a collection]]
@@ -43,14 +43,14 @@ The representation of a collection MUST contain a list of links to child resourc
 * The number of items in the collection result set MAY be included in the response using the `total` property. If the response is paginated, its value MUST correspond to the number of items regardless of pagination, rather than only the number of items in the current page.
 ====
 
-CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, hypermedia links, etc. your API will break.
+CAUTION: A collection resource, like other resources, MUST always return a JSON object as top-level data structure to support extensibility (xref:versioning.adoc#rule-evo-object[[evo-object\]]). Do not return a JSON array, because the moment you like to add paging, links, etc. your API will break.
 
 .Consulting a collection
 ====
 
-[subs=normal]
+[subs="+attributes"]
 ----
-GET {API}/employers?title=P*[^] HTTP/1.1
+GET {API}/employers?title=P* HTTP/1.1
 ----
 
 [cols="1,2,3"]
@@ -68,18 +68,18 @@ a|see <<sorting>>, <<filtering>> and <<pagination>>
 
 |body
 2+a|
-[source,json,subs="normal"]
+[source,json,subs="+attributes"]
 ----
 {
  "items":[
    {
-     "href":"{API}/employers/93017373[/employers/93017373^]",
+     "href":"{API}/employers/93017373",
      "title":"Proximus",
      "employerId": 93017373,
      "enterpriseNumber": "0202239951"
    },
    {
-     "href":"{API}/employers/20620259[/employers/20620259^]",
+     "href":"{API}/employers/20620259",
      "title":"Partena VZW",
      "employerId": 20620259,
      "enterpriseNumber": "0409536968"
@@ -131,6 +131,7 @@ EmployerLink:
 If input with a complex structure is needed, a `/search` controller with `POST` may be used.
 
 .Request
+[subs="+attributes"]
 ----
 POST {API}/employers/search
 ----
@@ -165,13 +166,13 @@ In this case, the full representations MUST be included in an 'embedded' propert
 
 .Consulting a collection with embedded items
 ====
-[subs=normal]
+[subs="+attributes"]
 ```
-GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
+GET {API}/appendices/employerclasses?embed=items HTTP/1.1​
 ```
 
 .Response
-[subs=normal]
+[subs="+attributes"]
 ```JSON
 {
  "items": [
@@ -185,14 +186,14 @@ GET {API}/appendices/employerclasses?embed=items[^] HTTP/1.1​
  ],
  "total":2,
  "embedded": {
-   "{API}/appendices/employerclasses/2[/appendices/employerclasses/2^]": {
+   "{API}/appendices/employerclasses/2": {
      "value": "2",
      "description": {
        "nl": "Bijzondere categorie voor werkgevers die voor hun arbeiders een speciale bijdrage verschuldigd zijn.",
        "fr": "Catégorie particulière pour les employeurs redevables pour les ouvriers d'une cotisation spéciale."
       }
    },
-   "{API}/appendices/employerclasses/0[/appendices/employerclasses/0^]": {
+   "{API}/appendices/employerclasses/0": {
      "value": "0",
      "description": {
       "nl": "Algemene categorie voor werkgevers van commerciële of niet-commerciële aard.",
@@ -256,7 +257,7 @@ Direction is ascending by default. To indicate descending, prefix property with 
 |===
 
 [[filtering]]
-== Filtering
+=== Filtering
 
 [rule, col-filter]
 .Filtering items in a collection
@@ -278,9 +279,9 @@ For example, the query
 
 .Searching in a collection
 ====
-[subs=normal]
+[subs="+attributes"]
 ```
-GET {API}/enterprises?title=P*[^] HTTP/1.1
+GET {API}/enterprises?title=P* HTTP/1.1
 ```
 
 [cols="1,2,3"]
@@ -301,7 +302,7 @@ GET {API}/enterprises?title=P*[^] HTTP/1.1
 |body
 a|
 a|
-[source,json, subs=normal]
+[source,json, subs="+attributes"]
 ----
 {
   "items": [
@@ -331,7 +332,7 @@ a|
 WARNING: xref:statuscodes.adoc#http-204[204 No content] should not be used with GET.
 ====
 
-== [[Pagination]] [[pagination]] Pagination
+=== [[pagination]] Pagination
 
 [rule, col-paging]
 .Paging over a large collection
@@ -372,15 +373,14 @@ A reusable `PageQueryParameter` OpenAPI component is defined in https://github.c
 
 .Offset-based pagination
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
 GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 ```
 
-[source,json, subs="normal"]
+[source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/organizations?page=2&pageSize=2",
   "items": [
     {
       "href": "{API}/organizations/0202239951",
@@ -406,29 +406,28 @@ GET {API}/organizations?page=2&pageSize=2 HTTP/1.1
 
 .Cursor-based pagination
 ====
-[subs="normal"]
+[subs="+attributes"]
 ```
-GET {API}/organizations?after=0244640631[^] HTTP/1.1
+GET {API}/organizations?after=0244640631 HTTP/1.1
 ```
 
-[source,json, subs="normal"]
+[source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/organizations?afterEnterprise=0244640631&pageSize=2[/organizations?after=0244640631&pageSize=2^]",
   "items": [
     {
-      "href": "{API}/organizations/0202239951[/organizations/0202239951^]",
+      "href": "{API}/organizations/0202239951",
       "title": "Proximus"
     },
     {
-      "href": "{API}/organizations/0212165526[/organizations/0212165526^]",
+      "href": "{API}/organizations/0212165526",
       "title": "CPAS de Silly"
     }
   ],
   "pageSize": 2,
   "total": 7,
-  "first": "{API}/organizations?pageSize=2[/organizations?pageSize=2^]",
-  "next": "{API}/organizations?after=0212165526&pageSize=2[/organizations?after=0212165526&pageSize=2^]"
+  "first": "{API}/organizations?pageSize=2",
+  "next": "{API}/organizations?after=0212165526&pageSize=2"
 }
 ----
 ====
@@ -447,12 +446,12 @@ Absent optional values are set to their default value if one is specified in the
 
 3+|Request
 |body
-|​The data of the resource to create.
+|The data of the resource to create.
 a|
 [source,json]
 ----
 {
-  "name": "Belgacom",
+  "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951"

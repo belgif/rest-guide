@@ -80,7 +80,7 @@ Family:
 
 .Query parameters for subresources more than one level deep
 ====
-GET {API}/employer/409536968?embed=employees(address)
+GET pass:attributes[{API}/employer/409536968?embed=employees(address)]
 ====
 
 [#caching]

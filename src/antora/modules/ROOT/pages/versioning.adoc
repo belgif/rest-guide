@@ -36,14 +36,8 @@ NOTE: Use of media type versioning (using Accept/Content-Type HTTP headers) isn'
 
 == API evolution
 
-[rule, evo-object]
-.JSON object as top level structure
-====
-In a request or response body, if any, you MUST always return a JSON object (and not e.g. an array) as a top level data structure to support future extensibility.
-
-JSON objects support compatible extension by adding new properties.
-This allows you to easily extend your response and e.g. add pagination later, without breaking backwards compatibility.
-====
+For extensibility, the JSON body of a RESTful request or response should always be a JSON object instead of an array, string, number, etc. (xref:json.adoc#rule-evo-object[[evo-object\]]).
+This way the request or response can always be extended with new properties.
 
 With Postel’s Law in mind, here are some rules for providers and consumers that allow us to make compatible changes without versioning:
 

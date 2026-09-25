@@ -14,6 +14,7 @@ const oldAnchorOverrides = {
   'status-codes': 'statuscodes.html',
   'media-types': 'mediatypes.html',
   performance: 'performance.html',
+  'json': 'json.html',
   'json-2': 'json.html',
   'api-specs': 'api_specifications.html',
   'hypermedia-controls': 'hypermedia.html',

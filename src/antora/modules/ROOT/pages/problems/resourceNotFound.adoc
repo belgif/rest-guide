@@ -8,6 +8,7 @@
 
 Either the resource path isn't specified in the API's OpenAPI description.
 
+[subs="+macros"]
 ```
 GET /enterprises
 
@@ -16,7 +17,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource Not Found",
   "detail": "No resource /enterprises found"
@@ -25,7 +26,7 @@ Content-Type: application/problem+json
 
 Either a path parameter or an optional child resource path doesn't resolve to an existing resource. Look for more details in the `issues` property.
 
-[source,role="primary",subs="attributes+"]
+[source,role="primary",subs="normal"]
 .Parent resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901
@@ -35,7 +36,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource not found",
   "detail": "No resource /enterprises/0206731645 found",
@@ -50,7 +51,7 @@ Content-Type: application/problem+json
 }
 ----
 
-[source,role="secondary",subs="attributes+"]
+[source,role="secondary",subs="normal"]
 .Child resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901
@@ -60,7 +61,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource not found",
   "detail": "No resource /enterprises/0206731645/employees/12345678901 found",
@@ -75,7 +76,7 @@ Content-Type: application/problem+json
 }
 ----
 
-[source,role="secondary",subs="attributes+"]
+[source,role="secondary",subs="normal"]
 .Optional child singleton resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901/profilePicture
@@ -85,7 +86,7 @@ Content-Type: application/problem+json
 
 {
   "type": "urn:problem-type:belgif:resourceNotFound",
-  "href": "https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html",
+  "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource not found",
   "detail": "No resource /enterprises/0206731645/employees/12345678901/profilePicture found",
