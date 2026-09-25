@@ -49,10 +49,6 @@ a|
 ```
 | `/endUserLicenseAgreement`
 |===
-
-Example in case of a sensitive identifier:
-
-`POST /persons/idCardPicture` with `ssin` in request body.
 ====
 
 == Child resources
@@ -515,14 +511,14 @@ GET {API}/employers/93017373[^] HTTP/1.1
 |body
 |The representation of the entity, including links to other resources.
 a|
-[source,json, subs="normal"]
+[source,json, subs="attributes, verbatim"]
 ----
 {
   "name": "Proximus",
   "employerId": 93017373,
   "enterprise": {
     "enterpriseNumber": "0202239951",
-    "href": "{API}/enterprises/0202239951[/enterprises/0202239951^]"
+    "href": "{API}/enterprises/0202239951"
   }
 }
 ----
@@ -537,7 +533,7 @@ a|
 |Bad request
 a|The dynamic path segment containing the identity key has a wrong data format:
 
-[source,json]
+[source,json, subs="normal"]
 ----
 {
   "type": "urn:problem-type:belgif:badRequest",
