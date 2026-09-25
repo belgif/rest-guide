@@ -26,7 +26,7 @@ Content-Type: application/problem+json
 
 Either a path parameter or an optional child resource path doesn't resolve to an existing resource. Look for more details in the `issues` property.
 
-[source,role="primary",subs="normal"]
+[source,role="primary",subs="+macros"]
 .Parent resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901
@@ -51,7 +51,7 @@ Content-Type: application/problem+json
 }
 ----
 
-[source,role="secondary",subs="normal"]
+[source,role="secondary",subs="+macros"]
 .Child resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901
@@ -76,7 +76,7 @@ Content-Type: application/problem+json
 }
 ----
 
-[source,role="secondary",subs="normal"]
+[source,role="secondary",subs="+macros"]
 .Optional child singleton resource not found
 ----
 GET /enterprises/0206731645/employees/12345678901/profilePicture

@@ -97,7 +97,7 @@ If the parameter's name is a noun, it SHOULD be singular.
 GET /cars?color=black&color=blue
 ```
 
-[source,yaml,subs="normal"]
+[source,yaml]
 .OpenAPI
 ----
 parameters:
