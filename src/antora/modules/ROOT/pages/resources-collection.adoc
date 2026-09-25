@@ -27,7 +27,7 @@ When searching requires input parameters with a complex structure (e.g. extensiv
 Any <<Pagination, pagination>> input parameters SHOULD still be included as query parameters, allowing to re-send the same payload to retrieve the next page of results.
 ====
 
-The recently introduced HTTP method `QUERY`, providing an alternative to a `/search` controller, SHOULD NOT be used yet (xref:methods.adoc#rule-meth-http[[meth-http\]]).
+The recently introduced HTTP method `QUERY`, providing an alternative to a `/search` controller, SHOULD NOT be used yet (xref:http.adoc#rule-meth-http[[meth-http\]]).
 
 [rule, col-repres]
 .Representation of a collection
