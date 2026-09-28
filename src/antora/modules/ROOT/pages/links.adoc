@@ -53,7 +53,7 @@ In a JSON response, they can be added anywhere.
 
 .Resource links
 ====
-GET pass:attributes[{API}/organizations/0202239951]
+pass:v,a,q[`GET {API}/organizations/0202239951`]
 
 [subs="+attributes"]
 ```json
@@ -72,7 +72,7 @@ GET pass:attributes[{API}/organizations/0202239951]
 
 The `href` in `succeededBy` is a link to the corresponding organization's document resource, while `owner` is a sensitive identifier and therefore has no link.
 
-PATCH pass:attributes[{API}/organizations/0202239951]
+pass:v,a,q[`PATCH {API}/organizations/0202239951`]
 
 [subs="+attributes"]
 ```json

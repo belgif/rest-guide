@@ -29,7 +29,7 @@ The URLs of a REST API SHOULD have the following structure:
 
 `https://`[green]#_host_#`/`[green]#_pathPrefix_#`/`[green]#_apiName_#`/v`[green]#_majorVersion_#`/`[green]#_resources_#
 
-[gray]#_example:_ \https://api.socialsecurity.be/REST/employerProfile/v1/profiles#
+[gray]#_example:_ pass:a[{API}/REST/employerProfile/v1/profiles]#
 
 `https://`:: Services are at least secured on transport level using a one-way TLS connection. The implicit port is 443.
 host:: Hostname is determined by the environment where the API is deployed

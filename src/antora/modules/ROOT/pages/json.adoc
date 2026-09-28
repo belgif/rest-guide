@@ -49,28 +49,30 @@ Properties used from other standards, like OpenID Connect and OAuth2, are allowe
 ====
 
 |===
-|KO|OK
+|[green]#GOOD#|[red]#BAD#
 
-|SSIN | ssin
-|street_RRN | streetRrn
-|customerInformation | customer
-|descriptionStringLength140 | description
+| ssin |SSIN
+| streetRrn |street_RRN
+| customer |customerInformation
+| description |descriptionStringLength140
 a|
-```JSON
-"country": {
-  "countryNisCode": 150,
-  "countryIsoCode": "BE",
-  "countryName": "Belgium"
-}
-```
-a|
-```JSON
+[source,json]
+----
 "country": {
   "nisCode": 150,
   "isoCode": "BE",
   "name": "Belgium"
 }
-```
+----
+a|
+[source,json]
+----
+"country": {
+  "countryNisCode": 150,
+  "countryIsoCode": "BE",
+  "countryName": "Belgium"
+}
+----
 |===
 
 In below example, `enterpriseNumber` should be used even though the `enterprise` prefix is clear by its context.

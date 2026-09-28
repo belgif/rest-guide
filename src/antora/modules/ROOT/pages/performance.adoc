@@ -24,63 +24,88 @@ Note that it not possible to specify more than one schema this way in OpenAPI, s
 
 .Embedding subresources
 ====
-`GET http://myrestapi/family/32456?embed=children&embed=parents`
+pass:v,a,q[`GET {API}/organizations/0123456789?embed=succeededBy&embed=absorbedOrganizations`]
 
-```JSON
+[source,json,subs="+attributes"]
+----
 {
-  "self": "http://myrestapi/family/32456",
-  "family": {
-    "parents": [{
-      "ssin": "12345678901",
-      "href": "http://myrestapi/persons/12345678901"
-    }],
-    "children": [{
-      "ssin": "98765432101",
-      "href": "http://myrestapi/persons/98765432101"
-    }]
+  "enterpriseNumber": "0123456789",
+  "name": "My enterprise",
+  "status": "absorbed",
+  "succeededBy": {
+    "enterpriseNumber": "0456789123",
+    "href": "{API}/organizations/0456789123"
   },
-  "embedded": {
-    "http://myrestapi/persons/12345678901": {
-      "self": "http://myrestapi/persons/12345678901",
-      "ssin": "12345678901",
-      "givenName": "Jane",
-      "familyName": "Doe"
+  "absorbedOrganizations": [
+    {
+      "enterpriseNumber": "0234567891",
+      "href": "{API}/organizations/0234567891"
     },
-    "http://myrestapi/persons/98765432101": {
-      "self": "http://myrestapi/persons/98765432101",
-      "ssin": "98765432101",
-      "givenName": "Bobby",
-      "familyName": "Doe"
+    {
+      "enterpriseNumber": "0345678912",
+      "href": "{API}/organizations/0345678912"
+    }
+  ],
+  "embedded": {
+    "{API}/organizations/0456789123": {
+      "enterpriseNumber": "0456789123",
+      "name": "My new enterprise",
+      "status": "active"
+    },
+    "{API}/organizations/0234567891": {
+      "enterpriseNumber": "0234567891",
+      "name": "My absorbed enterprise 1",
+      "status": "absorbed",
+      "succeededBy": {
+        "enterpriseNumber": "0456789123",
+        "href": "{API}/organizations/0456789123"
+      }
+    },
+    "{API}/organizations/0345678912": {
+      "enterpriseNumber": "0345678912",
+      "name": "My absorbed enterprise 2",
+      "status": "absorbed",
+      "succeededBy": {
+        "enterpriseNumber": "0456789123",
+        "href": "{API}/organizations/0456789123"
+      }
     }
   }
 }
-```
+----
 
 .JSON schema
 
 ```YAML
-Family:
+Organization:
   description: A family
   type: object
   properties:
-    parents:
+    enterpriseNumber:
+      "$ref": "./organization-identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
+    name:
+      type: string
+    status:
+      type: string
+      enum:
+        - active
+        - absorbed
+    succeededBy:
+      "$ref": "#/components/schemas/OrganizationReference"
+    absorbedOrganizations:
       type: array
       items:
-        $ref: '#/components/schemas/PersonRef'
-    children:
-      type: array
-      items:
-        $ref: '#/components/schemas/PersonRef'
+        "$ref": "#/components/schemas/OrganizationReference"
     embedded:
       type: object
       additionalProperties:
-        $ref: 'person.yaml#/components/schemas/Person'
+        "$ref": "#/components/schemas/Organization"
 ```
 ====
 
 .Query parameters for subresources more than one level deep
 ====
-GET pass:attributes[{API}/employer/409536968?embed=employees(address)]
+`GET pass:attributes[{API}/employer/409536968?embed=employees(address)]`
 ====
 
 [#caching]

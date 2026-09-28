@@ -10,7 +10,7 @@ Any resource is uniquely identified by a Uniform Resource Identifier or URI ({rf
 
 
 NOTE: URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ] +
-example:   \https://api.socialsecurity.be/demo/v1/employers/406798006?lang=nl
+example:   pass:a[{API}]/demo/v1/employers/406798006?lang=nl
 
 URIs must be intuitively structured.
 
@@ -28,17 +28,17 @@ Trailing slashes MUST NOT be used.
 .URI notation
 ====
 |===
-|GOOD|BAD
+|[green]#GOOD#|[red]#BAD#
 
-|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331# +
-| [red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats/331# +
-[red]#\https://api.socialsecurity.be/demo/v1/social-secretariats/331# +
+|[green]#pass:a[{API}]/socialSecretariats/331# +
+| [red]#pass:a[{API}]/Social_Secretariats/331# +
+[red]#pass:a[{API}]/social-secretariats/331# +
 
-|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331#
-|[red]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331/#
+|[green]#pass:a[{API}]/socialSecretariats/331#
+|[red]#pass:a[{API}]/socialSecretariats/331/#
 
-|[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats?country=BE# +
-|[red]#\https://api.socialsecurity.be/demo/v1/Social_Secretariats?Country=BE#
+|[green]#pass:a[{API}]/socialSecretariats?country=BE# +
+|[red]#pass:a[{API}]/Social_Secretariats?Country=BE#
 |===
 ====
 
@@ -54,8 +54,8 @@ Instead, look at how to express xref:http.adoc#media-types[media types] using HT
 
 .URI extensions
 ====
-[green]#GOOD: \https://api.socialsecurity.be/demo/v1/socialSecretariats/331# +
-[red]#BAD: \https://api.socialsecurity.be/demo/v1/socialSecretariats/331.json#
+[green]#GOOD: pass:a[{API}]/socialSecretariats/331# +
+[red]#BAD: pass:a[{API}]/socialSecretariats/331.json#
 ====
 
 
@@ -71,13 +71,13 @@ The query component of a URI contains a set of parameters to be interpreted as a
 [[query-parameters]]
 .Query parameters
 ====
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats**?q=sdworx**# +
+[green]#pass:a[{API}]/socialSecretariats**?q=sdworx**# +
 Filter the resource collection using a search string.
 
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?select=(name,address)**# +
+[green]#pass:a[{API}]/socialSecretariats/331**?select=(name,address)**# +
 Filter the resource properties to the ones specified in the `select` query parameter.
 
-[green]#\https://api.socialsecurity.be/demo/v1/socialSecretariats/331**?lang=nl**# +
+[green]#pass:a[{API}]/socialSecretariats/331**?lang=nl**# +
 Only return translatable properties in Dutch.
 ====
 

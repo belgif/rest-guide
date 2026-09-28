@@ -323,7 +323,7 @@ Alternatively, the claim-check pattern can be used to only split off parts of th
 .Claim-check pattern
 ====
 The following example shows a message in which the entire _data_ is replaced by a reference:
-[source,json]
+[source,json,subs="+attributes"]
 ----
 {
     "specversion": "1.0",
@@ -332,13 +332,13 @@ The following example shows a message in which the entire _data_ is replaced by 
     "source": "urn:async-source:be.belgif.example",
     "id": "b73b2241-d57a-4c9f-aa7e-d4eb611a3b5c",
     "datacontenttype": "application/json",
-    "dataref": "https://meeting.example.belgif.be/data/456789"
+    "dataref": "{API}/meetings/456789"
 }
 ----
 
 The following example shows a message in which only parts of the _data_ are replaced by a reference:
 
-[source,json]
+[source,json,subs="+attributes"]
 ----
 {
     "specversion": "1.0",
@@ -350,8 +350,8 @@ The following example shows a message in which only parts of the _data_ are repl
        "id": "1234",
        "name": "Board Meeting",
        "attachments": [
-         "https://meeting.example.belgif.be/attachments/1",
-         "https://meeting.example.belgif.be/attachments/2"
+         "{API}/attachments/1",
+         "{API}/attachments/2"
        ]
     }
 }

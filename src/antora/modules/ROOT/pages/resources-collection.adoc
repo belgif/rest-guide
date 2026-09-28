@@ -10,9 +10,9 @@ A plural noun SHOULD be used for collection names, for example 'employers' or 'c
 
 .Collection name
 ====
-pass:attributes[{API}/employers] - a collection of employers
+pass:v,a,q[`{API}/employers`] - a collection of employers
 
-pass:attributes[{API}/employers/\{employerId}/subsidiaries] - a collection of subsidiaries as a child resource of an employer.
+pass:v,a,q[`{API}/employers/\{employerId}/subsidiaries`] - a collection of subsidiaries as a child resource of an employer.
 ====
 
 [[collections-consult, Searching a collection]]

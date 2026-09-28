@@ -72,15 +72,6 @@ Free-text documentation can be added throughout an OpenAPI:
 ====
 
 ====
-[red]#BAD#
-```YAML
-components:
-  schemas:
-    Pet:
-      title: a pet in the pet store # title overrides the Pet schema name in visualization tooling
-      type: object
-```
-
 [green]#GOOD#
 ```YAML
 components:
@@ -110,6 +101,15 @@ components:
           title: Owner  # OK. The title is used for code generation and visualization. If the Owner schema can be reused, move it to its own schema component and reference it
           description: The owner of the pet
           type: object
+```
+
+[red]#BAD#
+```YAML
+components:
+  schemas:
+    Pet:
+      title: a pet in the pet store # title overrides the Pet schema name in visualization tooling
+      type: object
 ```
 ====
 
@@ -318,14 +318,7 @@ Path parameters SHOULD use *lowerCamelCase* notation.
 ====
 
 |===
-|KO|OK
-
-a|
-```YAML
-paths:
-  /employers/{EmployerId}:
-    # ....
-```
+|[green]#GOOD#|[red]#BAD#
 
 a|
 [source,YAML]
@@ -334,6 +327,16 @@ paths:
   /employers/{employerId}:
     # ....
 ----
+
+a|
+[source,YAML]
+----
+paths:
+  /employers/{EmployerId}:
+    # ....
+----
+
+
 |===
 
 [rule#rule-oas-exampl]
@@ -728,7 +731,7 @@ RestrictedSchema:
     type: object # object type already in ObjectSchema, but will generate inheritance in code generation
 ```
 
-| *KO* : properties should not be duplicated in subschemas
+| *[red]#BAD#* : properties should not be duplicated in subschemas
 a|
 ```YAML
 ParentSchema:
