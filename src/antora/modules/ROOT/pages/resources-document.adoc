@@ -189,7 +189,7 @@ When designing an identifier, various requirements may be of importance specific
 .Designing new identifiers
 ====
 [[new-identifiers]]
-For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, http://tools.ietf.org/html/rfc4122[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
+For new identifiers, a string based format SHOULD be used: textual lowerCamelCase string codes, https://www.rfc-editor.org/info/rfc9562/[UUID^], URI or other custom formats. Take into account the requirements that follow from the ways the identifier will be used.
 
 Each identifier MUST be represented by only one single string value, so that a string equality check can be used to test if two identifiers are identical. This means that capitalization, whitespace or leading zeroes are significant.
 
@@ -598,7 +598,6 @@ GET /employers/93017373?select=(name)
 [source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/employers/93017373?select=(name)",
   "name": "Proximus"
 }
 ----
@@ -613,7 +612,6 @@ GET /employers/93017373?select=(name,address(street(name,code)))
 [source,json, subs="+attributes"]
 ----
 {
-  "self": "{API}/employers/93017373",
   "name": "Proximus",
   "address": {
     "street": {
@@ -924,21 +922,22 @@ The schema https://github.com/belgif/openapi-common/blob/master/src/main/openapi
 
 `POST /images/tasks`
 
-```
+[source,subs="+attributes"]
+----
 HTTP/1.1 202 Accepted
 Content-Type: application/json;charset=UTF-8
-Location: http://www.example.org/images/tasks/1
+Location: {API}/images/tasks/1
 Date: Sun, 13 Sep 2018 01:49:27 GMT
-```
-```JSON
+----
+[source,json]
+----
 {
-  "self": "/images/tasks",
   "status": {
     "state": "processing",
     "pollAfter": "2018-09-13T01:59:27Z"
   }
 }
-```
+----
 
 The response `202 Accepted` status indicates that the server accepted the request for processing.
 `pollAfter` hints when to check for an updated status at a later time.
@@ -955,7 +954,6 @@ Content-Type: application/json;charset=UTF-8
 ```
 ```JSON
 {
-  "self": "/images/tasks/1",
   "status": {
     "state": "processing",
     "pollAfter": "2018-09-13T02:09:27Z"
@@ -965,32 +963,33 @@ Content-Type: application/json;charset=UTF-8
 
 _When processing has completed_
 
-```
+[source,subs="+attributes"]
+----
 HTTP/1.1 303 See Other
-Location: http://www.example.org/images/1
+Location: {API}/images/1
 Content-Type: application/json;charset=UTF-8
-```
-```JSON
+----
+[source,json]
+----
 {
-  "self": "/images/tasks/1",
   "status": {
     "state": "done",
     "completed":"2018-09-13T02:10:00Z"
   }
 }
-```
+----
 
 The `Location` header refers to the result of the task.
 
 _In case of failure during processing_
 
-```
+----
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-```
-```JSON
+----
+[source,json,subs="+attributes"]
+----
 {
-  "self": "/images/tasks/1",
   "status": {
     "state": "failed",
     "completed":"2018-09-13T02:10:00Z",
@@ -999,12 +998,12 @@ Content-Type: application/json;charset=UTF-8
       "title": "Bad Request",
       "status": 400,
       "type": "urn:problem-type:example:invalidImageFormat",
-      "href": "https://example.org/example/v1/refData/problemTypes/urn:problem-type:example:invalidImageFormat",
+      "href": "{API}/example/v1/refData/problemTypes/urn:problem-type:example:invalidImageFormat",
       "detail": "Invalid image format"
     }
   }
 }
-```
+----
 
 Note that the status code is `200 OK` as the retrieval of the task's status succeeded.
 The cause of failure is represented using an embedded Problem object, as defined in xref:errorhandling.adoc[].

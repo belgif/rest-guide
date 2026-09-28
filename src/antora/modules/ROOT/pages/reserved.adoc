@@ -147,7 +147,7 @@ https://en.wikipedia.org/wiki/List_of_HTTP_header_fields[This list] includes all
 [rule#rule-hdr-case]
 .HTTP header names
 ====
-Applications MUST treat HTTP header names as case-insensitive as per the https://www.rfc-editor.org/rfc/rfc7230#section-3.2[HTTP specification].
+Applications MUST treat HTTP header names as case-insensitive as per the https://www.rfc-editor.org/info/rfc7230/#section-3.2[HTTP specification].
 
 However, by convention, Kebab-Case with uppercase SHOULD be used for readability and consistency.
 ====

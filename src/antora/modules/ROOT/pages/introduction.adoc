@@ -28,11 +28,6 @@ These Belgif resources may also be useful when developing RESTful webservices:
 * Contact: mailto:rest-styleguide@gcloud.belgium.be[rest-styleguide@gcloud.belgium.be]
 ****
 
-[NOTE]
-====
-For brevity most URLs in JSON examples are shortened, but in practice they should be in absolute notation.
-====
-
 *Organizations that endorse the Belgif REST guidelines*
 
 [cols="3*^.^a",frame=none,grid=none]

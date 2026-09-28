@@ -148,7 +148,7 @@ a|
 **Dates are written in ISO 8601 full-date format: yyyy-MM-dd**
 
 Dates don't include time zone or offset information.
-See https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#data-types[OpenAPI 3.0 data types^] and https://tools.ietf.org/html/rfc3339#section-5.6[RFC 3339 section 5.6^].
+See https://spec.openapis.org/oas/v3.0.4#data-type-format[OpenAPI 3.0 data types^] and https://www.rfc-editor.org/info/rfc3339/#section-5.6[RFC 3339 section 5.6^].
 
 ```json
 {

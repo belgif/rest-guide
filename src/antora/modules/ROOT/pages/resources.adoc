@@ -1,6 +1,6 @@
 = Resources
 
-:rfc3986: https://tools.ietf.org/html/rfc3986
+:rfc3986: https://www.rfc-editor.org/info/rfc3986/
 
 A REST APIs exposes a set of _resources_. Resources model the _data and functionality of a system_. A resource can be data, processing logic, files, or anything else that a service may have access to.
 

@@ -3,7 +3,7 @@
 
 An even more complete list of HTTP status codes is documented https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml[here^].
 
-http://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
+https://for-get.github.io/http-decision-diagram/httpdd.fsm.html[This HTTP status codes chart] (takes a while to load) shows a decision tree to determine the usage of the correct HTTP status code.
 
 == 1xx  Informational
 Request received, continuing process.
@@ -168,7 +168,7 @@ The 409 error response tells the client that they tried to put the REST API’s 
 
 The 412 error response indicates that the client specified one or more preconditions in its request headers, effectively telling the REST API to carry out its request only if certain conditions were met. A 412 response indicates that those conditions were not met, so instead of carrying out the request, the API sends this status code.
 
-**Only use for http://tools.ietf.org/html/rfc7232[conditional HTTP requests^], not constraints expressed in the HTTP payload. ** Use <<http-409,`409 Conflict`>> instead.
+**Only use for https://www.rfc-editor.org/info/rfc9110/#section-13[conditional HTTP requests^], not constraints expressed in the HTTP payload. ** Use <<http-409,`409 Conflict`>> instead.
 |xref:methods.adoc#post[POST], xref:methods.adoc#put[PUT], xref:methods.adoc#patch[PATCH], xref:methods.adoc#delete[DELETE]
 
 |[[http-413]]413 Payload Too Large|

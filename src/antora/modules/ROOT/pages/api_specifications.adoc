@@ -15,7 +15,7 @@ In this case, special attention should be given that the API specifications rema
 == OpenAPI
 
 OpenAPI is the dominating standard for REST API documentation, having gained wide industry support.
-It is based on http://swagger.io/[Swagger^], which was standardized as OpenAPI.
+It is based on https://swagger.io/[Swagger^], which was standardized as OpenAPI.
 
 [rule#rule-oas-contra]
 .OpenAPI

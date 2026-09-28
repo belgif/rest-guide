@@ -344,7 +344,7 @@ There are two pagination techniques:
 * cursor-based (aka key-based or luke index): a unique key element identifies a page
 
 Cursor-based pagination has some advantages, especially for high volumes.
-Take into account the considerations http://zalando.github.io/restful-api-guidelines/#160[listed in the Zalando API guidelines] before choosing a pagination technique.
+Take into account the considerations https://opensource.zalando.com/restful-api-guidelines/#160[listed in the Zalando API guidelines] before choosing a pagination technique.
 ====
 
 .Reserved JSON properties for pagination
