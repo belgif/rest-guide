@@ -382,12 +382,21 @@ Example values MUST be schema-valid.
 ====
 Duplication of definitions (schemas, responses, parameters, etc.) SHOULD be avoided.
 Rather, define them once under `components`, from which they can be referenced (using `$ref`).
+A `$ref` SHOULD always reference a component of the expected type under `/components/<componentTypes>/<componentName>`, except for path items which can reference `/paths/<pathName>`.
 
 All component names SHOULD be defined in American English and use _UpperCamelCase_ notation.
 For abbreviations as well, all letters except the first one should be lowercased.
 
 Do not use underscores (_), hyphens (-) or dots (.) in a component name, nor use a digit as first letter.
 ====
+
+Only from OpenAPI 3.1 onwards, a `/components/pathItems` section is supported. For OpenAPI 3.0, reusable path items can only be defined under `/paths`. To reference them, forward slashes need to be escaped using `~1` e.g.
+[source,yaml]
+----
+paths:
+  "/organizations/{enterpriseNumber}":
+    "$ref": "./my-paths.yaml#/paths/~1organizations~1{enterpriseNumber}"
+----
 
 [rule#rule-oas-reuse]
 .Reusable OpenAPI documents
