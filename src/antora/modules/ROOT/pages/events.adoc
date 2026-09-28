@@ -261,10 +261,10 @@ NOTE: To reduce complexity of managing multiple versions, versioning is done at 
 `be.belgif.example.meeting.v3.meeting.create.reply`
 `be.belgif.example.meeting.v3.meeting.create.problemReply`
 
-| `type` for query
-| `be.belgif.example.meeting.v3.meetings.query.request`
-`be.belgif.example.meeting.v3.meetings.query.reply`
-`be.belgif.example.meeting.v3.meetings.query.problemReply`
+| `type` to search (query) a collection
+| `be.belgif.example.meeting.v3.meetings.search.request`
+`be.belgif.example.meeting.v3.meetings.search.reply`
+`be.belgif.example.meeting.v3.meetings.search.problemReply`
 |===
 ====
 

@@ -55,7 +55,7 @@ a|
 
 A document may have _child resources_ of any type (singleton document, collection or controller) that represent its specific subordinate concepts. When defining child resources, stick to concepts _within the same API_.
 
-In domain modeling, an entity can be modeled as a child of another entity, when its lifecycle depends on the parent, i.e.:
+In domain modeling, an entity can be modeled as a child of another entity (the _aggregate root_), when its lifecycle depends on the parent, i.e.:
 
 * a child resource cannot be created without a parent
 * if the parent is deleted, the child is deleted as well
@@ -68,7 +68,7 @@ In that case, model the related resources in a separate API and link to the prin
 [rule#rule-child-ent]
 ====
 
-Interactions with entities that are, in a conceptual data model, children of other entities, can be represented in multiple ways in a REST API.
+Interactions with entities that are, in a conceptual data model, children of _aggregate_ entities, can be represented in multiple ways in a REST API.
 
 The *identity* of a child entity can be represented by:
 
@@ -77,7 +77,7 @@ The *identity* of a child entity can be represented by:
 
 If there's a natural business key, whether composite or not, it SHOULD be used instead of introducing a new identifier (also see <<rule-id-choice>>).
 
-Regardless of choice, the identifier of the parent entity SHOULD be included in the full representation of a child and be immutable.
+Regardless of choice, the identifier of the parent SHOULD be included in the full representation of a child and be immutable.
 
 The *path* of a child entity can be designed either as a top-level or child resource path:
 
@@ -86,7 +86,7 @@ The *path* of a child entity can be designed either as a top-level or child reso
 
 | top-level resource path
 a|
-* the parent entity is managed in another API
+* the parent is managed in another API
 * resource nesting would become too deep
 * clients frequently perform operations on the child entities _without_ knowing the parent id
 
