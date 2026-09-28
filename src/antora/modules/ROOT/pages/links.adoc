@@ -63,7 +63,9 @@ GET pass:attributes[{API}/organizations/0202239951]
     "enterpriseNumber": "0123456789",
     "href": "{API}/organizations/0123456789"
   },
-  "owner": "12345678902",
+  "owner": {
+    "ssin": 12345678902",
+  },
   "website": "https://wwww.myenterprise.com"
 }
 ```
@@ -91,7 +93,7 @@ As `website` isn't a reference to another API resource, it is not defined using 
 ```YAML
 components:
   schemas:
-    Enterprise:
+    Organization:
       allOf:
       - "$ref": "./common/v1/common-v1.yaml#/components/schemas/SelfLink"
       - type: object
@@ -101,13 +103,20 @@ components:
           website:
             type: string
             format: uri
-    PersonReference:
-      allOf:
-        - "$ref": "./common/v1/common-v1.yaml#/components/schemas/HttpLink"
+          succeededBy:
+            "$ref": "#/components/schemas/OrganizationReference"
+    OrganizationReference:
+        allOf:
         - type: object
           properties:
-            ssin:
-              "$ref": "./person-identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+            enterpriseNumber:
+              "$ref": "./organization-identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
+        - "$ref": "./common/v1/common-v1.yaml#/components/schemas/HttpLink"
+    PersonReference:
+      type: object
+      properties:
+        ssin:
+          "$ref": "./person-identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
 ```
 ====
 

@@ -1,5 +1,24 @@
 = Changelog
 
+* 2026-09-28
+** new improved look of the guide:
+*** chapters on different pages and a search box
+*** reorganized chapter structure:
+**** standard problem types, lists of HTTP methods and status codes, reserved words and changelog moved to annexes
+**** the xref:http.adoc[HTTP] chapter bundles the rules on use of appropriate HTTP methods, status codes, media types and content negotiation
+** update rule xref:versioning.adoc#rule-evo-compat[[evo-compat\]] and xref:versioning.adoc[] chapter to also cover asynchronous messages. Improve list of compatible extensions : update guideline on input enum values updates and remove redirection.
+** update rule xref:resources-collection.adoc#rule-col-get[[col-get\]]: add alternative `POST /search` controller for complex input structure.
+** update rule xref:api_specifications.adoc#rule-addi-prop[[addi-prop\]]: explicitly recommend against the use of `additionalProperties: false`
+** update rule xref:api_specifications.adoc#rule-oas-comp[[oas-comp\]]: `$ref` should always point to a named component under `/components`, not inline definitions
+
+** updates in xref:events.adoc[] chapter:
+*** distinguish between _event_, _command_ and _query_ archetypes
+*** update rule xref:events.adoc#rule-async-svctype[[async-svctype\]]: new naming convention of `type`
+*** update rule xref:events.adoc#rule-async-ctxt[[async-ctxt\]]: `specversion` attribute and handling unknown context attributes
+*** new rule xref:events.adoc#rule-async-prbl[[async-prbl\]]: problem replies
+*** new rule xref:events.adoc#rule-async-size[[async-size\]]: size of Asynchronous Messages and the claim check pattern
+** examples throughout the guide were updated. Problem examples now use JSON Pointer to refer to input properties in a message body
+
 * 2026-06-12
 ** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-dat\]] on sensitive data in URLs or headers
 ** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping

@@ -7,7 +7,7 @@ nav:
 
 asciidoc:
   attributes:
-    rest-guide-update-date: '2026-06-12'
+    rest-guide-update-date: '2026-09-28'
     full-guide: ''
     API: 'https://api.example.org/demo/v1'
     iso639-1: 'https://www.loc.gov/standards/iso639-2/php/code_list.php'

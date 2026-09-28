@@ -1,6 +1,6 @@
 # Releasing
 
-When preparing a release, first make sure that the changelog (changelog.adoc) and the update-date (in index.adoc) are updated.
+When preparing a release, first make sure that the changelog (changelog.adoc) and the `rest-guide-update-date` (in antora.yml) are updated.
 
 Each push to GitHub triggers a new GitHub Actions build using the `npm-ci-build` workflow.
 
