@@ -53,8 +53,8 @@ In a JSON response, they can be added anywhere.
 ====
 pass:v,a,q[`GET {API}/organizations/0202239951`]
 
-[subs="+attributes"]
-```json
+[source,json,subs="+attributes"]
+----
 {
   "self": "{API}/organizations/0202239951"
   "succeededBy": {
@@ -62,28 +62,28 @@ pass:v,a,q[`GET {API}/organizations/0202239951`]
     "href": "{API}/organizations/0123456789"
   },
   "owner": {
-    "ssin": 12345678902",
+    "ssin": "12345678902"
   },
   "website": "https://wwww.myenterprise.com"
 }
-```
+----
 
 The `href` in `succeededBy` is a link to the corresponding organization's document resource, while `owner` is a sensitive identifier and therefore has no link.
 
 pass:v,a,q[`PATCH {API}/organizations/0202239951`]
 
-[subs="+attributes"]
-```json
+[source,json,subs="+attributes"]
+----
 {
   "succeededBy": {
-    "enterpriseNumber": "0123456789",
+    "enterpriseNumber": "0123456789"
   },
   "owner": {
     "ssin": "12345678902"
   },
   "website": "https://wwww.mynewwebsite.com"
 }
-```
+----
 
 The corresponding JSON schema includes the link types using `allOf`.
 As `website` isn't a reference to another API resource, it is not defined using the `HttpLink` type.

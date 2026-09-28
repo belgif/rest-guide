@@ -18,7 +18,7 @@ The recently introduced HTTP method `QUERY` is not yet widely supported and SHOU
 ====
 
 
-[cols="1,1,1,1,4,2", options="header"]
+[cols="1,1,1,1,3,2", options="header"]
 |===
 |Method
 |Document
