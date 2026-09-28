@@ -87,7 +87,7 @@ function extractAnchors(html) {
 }
 
 function generateRedirects(siteDirArg) {
-  const siteDir = path.resolve(process.cwd(), siteDirArg || 'build/site/api-guide')
+  const siteDir = path.resolve(process.cwd(), siteDirArg || 'build/site')
   const outputFile = path.join(siteDir, 'index.html')
 
   if (!fs.existsSync(siteDir)) {

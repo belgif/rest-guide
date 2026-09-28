@@ -8,13 +8,13 @@ function loadHtml (relativePath) {
 }
 
 test('Rule block title is rendered as h6 with the rule id and data-pagefind-weight', async () => {
-  const html = loadHtml('build/site/api-guide/resources-collection.html')
+  const html = loadHtml('build/site/resources-collection.html')
   expect(html).toContain('<h6 id="rule-col-name" class="title" data-pagefind-weight="10">')
   // Rule block outer div no longer carries the rule id
   expect(html).not.toContain('<div id="rule-col-name"')
 })
 
 test('Generated HTML contains no hidden rule-search-keyword span', async () => {
-  const html = loadHtml('build/site/api-guide/resources-collection.html')
+  const html = loadHtml('build/site/resources-collection.html')
   expect(html).not.toContain('rule-search-keyword')
 })

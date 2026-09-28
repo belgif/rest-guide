@@ -25,7 +25,7 @@ One node module at project root.
 
 ```
 src/antora/
-  antora.yml                          # Antora component descriptor (name: api-guide, version: ~)
+  antora.yml                          # Antora component descriptor (name: ROOT, version: ~)
   extensions/
     rule-block-extension.js           # Custom asciidoctor.js block processor for [rule#rule-<id>]
   modules/ROOT/
@@ -43,7 +43,7 @@ The Antora playbook is `antora-playbook.yml` at the repository root.
 
 ### URL structure
 
-The Antora component is named `api-guide` with `version: ~` (versionless). Combined with `site.url: https://www.belgif.be/specification/rest` in the playbook, this produces stable URLs:
+The Antora component is named `ROOT` with `version: ~` (versionless). Combined with `site.url: https://www.belgif.be/specification/rest/api-guide` in the playbook, this produces stable URLs:
 - Main guide pages: `https://www.belgif.be/specification/rest/api-guide/<page>.html`
 - Problem pages: `https://www.belgif.be/specification/rest/api-guide/problems/<page>.html`
 - Issue pages: `https://www.belgif.be/specification/rest/api-guide/issues/<page>.html`

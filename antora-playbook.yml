@@ -1,7 +1,7 @@
 site:
   title: Belgif REST Guidelines
   url: https://www.belgif.be/specification/rest/api-guide
-  start_page: api-guide::introduction.adoc
+  start_page: ROOT::introduction.adoc
   robots: allow
 
 content:
