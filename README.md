@@ -49,14 +49,15 @@ Examples must follow the following format:
 Rules must follow the following format:
 
 ```
-[rule, <rule-id>]
+[rule#rule-<rule-id>]
 .rule title
 ====
 <the rule, using RFC 2119 key words>
 ====
 ```
 `<rule-id>` should be a shorthand textual identifier for the rule of max 10 characters long. Dashes can be used as word separator.
-An anchor of format `#rule-<rule-id>` to each rule is made. When changing a <rule-id>, an inline asciidoc anchor `[[rule-<rule-id>]]` should be placed at the start of the rule text so the old anchor still works.
+The standard block ID `rule-<rule-id>` is also the rule's anchor, so references can be resolved by AsciiDoc editors. The extension generates the short reftext `[<rule-id>]` and formats the rule title.
+When changing a `<rule-id>`, add the previous anchor as an inline AsciiDoc anchor (for example, `[[rule-old-id]]`) at the start of the rule text so existing links keep working.
 
 # Building the styleguide
 
@@ -64,4 +65,6 @@ The styleguide is built with [Apache Maven](https://maven.apache.org).
 
 With Maven installed, run `mvn` in the root directory of the project. 
 The styleguide will be built in `guide/target/generated-docs/` and bundled as a zip in the `target` directory.
+
+The Antora site build uses `npm run build` and also regenerates `build/site/index.html` so old single-page bookmarks and anchors continue to redirect to the matching multi-page location.
 

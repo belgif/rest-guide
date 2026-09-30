@@ -1,0 +1,50 @@
+= Third-party Notices
+
+The Belgif REST Guide site includes third-party software and assets. This page identifies these components in the published site and links to their license terms.
+
+== Antora Default UI
+
+The site UI is based on the Antora Default UI.
+
+* License: https://www.mozilla.org/en-US/MPL/2.0/[MPL-2.0]
+* Source: https://gitlab.com/antora/antora-ui-default[Antora Default UI]
+
+== Highlight.js
+
+The UI bundle includes Highlight.js for source-code highlighting.The bundled stylesheet retains the attribution “Adapted from the GitHub style by Vasily Polovnyov.”
+
+* Copyright: Copyright (c) 2006, Ivan Sagalaev. All rights reserved.
+* License: https://github.com/highlightjs/highlight.js/blob/main/LICENSE[BSD 3-Clause License]
+* Source: https://github.com/highlightjs/highlight.js[Highlight.js]
+
+== Pagefind
+
+The site search assets were generated with Pagefind and include Pagefind's browser-side JavaScript, CSS, WebAssembly, and search index. Pagefind's distribution also identifies vscode-ripgrep as included software.
+
+* Pagefind copyright: Copyright (c) Pagefind.
+* Pagefind license: https://github.com/Pagefind/pagefind/blob/v1.5.2/LICENSE/LICENSE[MIT License]
+* Included vscode-ripgrep copyright: Copyright (c) Microsoft Corporation.
+* Included vscode-ripgrep license: https://github.com/Pagefind/pagefind/blob/v1.5.2/LICENSE/LICENSE-vscode-ripgrep[MIT License]
+* Source: https://github.com/Pagefind/pagefind[Pagefind]
+
+== Roboto and Roboto Mono fonts
+
+The UI bundle includes Roboto and Roboto Mono web fonts.
+
+* Roboto copyright: Copyright 2011 The Roboto Project Authors.
+* Roboto license: https://github.com/google/fonts/blob/main/ofl/roboto/OFL.txt[OFL-1.1]
+* Roboto Mono copyright: Copyright 2015 The Roboto Mono Project Authors.
+* Roboto Mono license: https://github.com/google/fonts/blob/main/ofl/robotomono/OFL.txt[OFL-1.1]
+
+== Octicons
+
+The UI bundle includes Octicons v11.2.0 in `img/octicons-16.svg`.
+
+* Copyright: Copyright (c) 2020 GitHub Inc.
+* License: https://github.com/primer/octicons/blob/v11.2.0/LICENSE[MIT License]
+* Source: https://github.com/primer/octicons[Octicons]
+
+== License texts
+
+The links above provide the full license texts and upstream notices. Retain this notice and the applicable license texts when redistributing the generated site or its archive. For an offline distribution, include copies of those license texts with the archive.
+
