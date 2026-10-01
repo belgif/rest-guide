@@ -1,5 +1,33 @@
+/* increase article width so everything fits */
+
 .doc {
     max-width: 60rem;
+}
+
+/* lightblue navbar with black text */
+
+.navbar {
+    background: aliceblue;
+    color: black;
+}
+
+.navbar-item, .navbar-brand .navbar-item, .navbar-end .navbar-link, .navbar-end>.navbar-item  {
+    color: black;
+}
+
+.navbar-end .navbar-item.has-dropdown:hover .navbar-link,
+.navbar-end .navbar-link:hover,
+.navbar-end>a.navbar-item:hover {
+    background: aliceblue;
+    color: black;
+}
+
+/** belgif logo in navbar */
+
+.belgif-logo {
+    width: 8rem;
+    height: 1.5rem;
+    object-fit: cover;
 }
 
 /* START fix for scrolling to fragment links from https://gitlab.com/antora/antora-ui-default/-/merge_requests/166/diffs */
