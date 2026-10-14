@@ -135,8 +135,18 @@ a| `dataschema`
 | OPTIONAL
 
 URI (string)
-a| `"https://example.org/eventCatalog/ssin-update-events.yaml#/components/schemas/SsinUpdateEvent"`
-|  Generally, the API definition is used which can be found based on `service`. If present, should point to a section of the AsyncAPI/OpenAPI containing the schema of the message.
+a| _often absent_
+
+`"https://example.org/eventCatalog/ssin-update-events.yaml#/components/schemas/SsinUpdateEvent"`
+a|   Identifies the schema that `data` adheres to. Incompatible changes to the schema SHOULD be reflected by a different URI.
+
+Generally, not needed for exchanges between organizations:
+
+* dynamic lookup of a `dataschema` URI provided by an external party could pose a security risk
+* the `service` and `type` values should be sufficient to determine the schema of `data`
+* consumer-side message validation should be done against the schema expected by the consumer (i.e. the AsyncAPI/OpenAPI used during its development), not against a dynamic schema provided by the producer
+
+If present, `dataschema` should point to a section of the AsyncAPI/OpenAPI containing the schema of the message.
 
 a| `time`
 | OPTIONAL
