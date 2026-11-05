@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
-    "antora": "^3.2.1",
+    "antora": "^3.2.2",
     "http-server": "^14.1.1",
-    "pagefind": "^1.5.2",
+    "pagefind": "^1.6.0",
     "yazl": "^3.3.1"
   }
 }
