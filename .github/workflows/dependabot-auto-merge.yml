@@ -4,5 +4,8 @@ on:
     types: [opened]
 jobs:
   dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
     uses: belgif/workflows/.github/workflows/dependabot-auto-merge-workflow.yml@main
     secrets: inherit
