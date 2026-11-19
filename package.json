@@ -8,8 +8,8 @@
     "test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.65.0",
-    "antora": "^3.2.2",
+    "@playwright/test": "^1.65.1",
+    "antora": "^3.2.3",
     "http-server": "^14.1.1",
     "pagefind": "^1.6.0",
     "yazl": "^3.3.1"
