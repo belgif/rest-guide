@@ -15,7 +15,7 @@ npm run build
 
 Output is generated to `build/site/` (Antora HTML site) and bundled as a zip in `build/site.zip`.
 
-There are no automated tests. The build either succeeds (valid AsciiDoc) or fails.
+There are some automated tests using playwright and a local http server.
 
 ## Architecture
 

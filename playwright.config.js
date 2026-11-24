@@ -13,7 +13,7 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'npx http-server ./build/site -p 4000',
+    command: 'npx serve ./build/site -l 4000 -c ../../serve.json',
     port: 4000, // used to check server is running already; didn't work with 'url' alternative - possibly https://github.com/microsoft/playwright/issues/8513
     reuseExistingServer: !process.env.CI,
   },
