@@ -56,7 +56,7 @@ pass:v,a,q[`GET {API}/organizations/0202239951`]
 [source,json,subs="+attributes"]
 ----
 {
-  "self": "{API}/organizations/0202239951"
+  "self": "{API}/organizations/0202239951",
   "succeededBy": {
     "enterpriseNumber": "0123456789",
     "href": "{API}/organizations/0123456789"
