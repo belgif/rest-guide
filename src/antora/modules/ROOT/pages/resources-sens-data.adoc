@@ -17,7 +17,6 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 
 [cols="2a,1a,3a,3a"]
 |===
-
 |example| suffix |  original URL example                | safe URL example
 
 |consult document
