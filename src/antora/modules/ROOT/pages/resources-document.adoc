@@ -105,11 +105,11 @@ a|
 ====
 Consider following example:
 
-* a _meeting_ is a top level resource: `/meetings/+{meetingId}+`
-* a _meeting_ has _invitation_ child entities
-* an _invitation_ could uniquely be identified by `meetingId` and `personId`, as a person can only be invited to a meeting once. Alternatively, a new globally unique `invitationId` could be introduced.
+* an _order_ is a top level resource: `/orders/+{orderId}+`
+* it has _order line_ child entities, each one representing the quantity of an ordered _product_
+* an _order line_ could uniquely be identified by `orderId` and `productId`, as a product may only be on a single line of an order. Alternatively, a new globally unique `orderLineId` could be introduced.
 
-Following choices are possible to represent _invitation_ entities:
+Following choices are possible to represent _order line_ entities:
 
 [cols="1,2,2"]
 |===
@@ -118,39 +118,39 @@ Following choices are possible to represent _invitation_ entities:
 |composite key
 a|
 
-`/meetings/+{meetingId}+/invitations/+{personId}+` (GET/PUT/PATCH/DELETE)
+`/orders/+{orderId}+/lines/+{productId}+` (GET/PUT/PATCH/DELETE)
 
-`/meetings/+{meetingId}+/invitations` (GET/POST)
+`/orders/+{orderId}+/lines` (GET/POST)
 
-`/invitations` (GET)   *(1)*
+`/orderLines` (GET)   *(1)* _optional_
 
 
 a|
 
-`/invitations/+{meetingId}+:++{personId}++` (GET/PUT/PATCH/DELETE) *(2)*
+`/orders/+{orderId}+:++{productId}++` (GET/PUT/PATCH/DELETE) *(2)*
 
-`/invitations` (GET/POST)
+`/orderLines` (GET/POST)
 
 
 | globally unique id
 
 a|
-`/meetings/+{meetingId}+/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
+`/orders/+{orderId}+/lines/+{orderLineId}+` (GET/PUT/PATCH/DELETE)
 
-`/meetings/+{meetingId}+/invitations` (GET/POST)
+`/orders/+{orderId}+/lines` (GET/POST)
 
-`/invitations` (GET)   *(1)*
+`/orderLines` (GET)   *(1)* _optional_
 
 a|
-`/invitations/+{invitationId}+` (GET/PUT/PATCH/DELETE)
+`/orderLines/+{orderLineId}+` (GET/PUT/PATCH/DELETE)
 
-`/invitations` (GET/POST)
+`/orderLines` (GET/POST)
 
 |===
 
-*(1)* this operation only needs to be defined if it should be possible to query invitations across all meetings, e.g. `GET /invitations?personId=+{personId}+`
+*(1)* this operation only needs to be defined if it should be possible to query order lines across all orders, e.g. `GET /orderLines?productId=+{productId}+`
 
-*(2)* to avoid URL parsing errors, the character used as key separator (`:` in this example) should be chosen so that it isn't allowed as part of `meetingId` or `personId`
+*(2)* to avoid URL parsing errors, the character used as key separator (`:` in this example) should be chosen so that it isn't allowed as part of `orderId` or `productId`
 ====
 
 
@@ -160,7 +160,7 @@ a|
 [rule#rule-id-choice]
 .Choice of identifier
 ====
-The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or SSIN. If such key does not exist, a _surrogate or technical key_ can be created.
+The _identity key_ of a document resource is preferably a _natural business identifier_ uniquely identifying the business resource like an ISBN or VAT number. If such key does not exist, a _surrogate or technical key_ can be created.
 ====
 
 New types of identifiers should be designed carefully. Once an identifier has been introduced, it may get widespread usage in various systems even beyond the scope for which it was initially designed, making it very hard to change its structure later on.

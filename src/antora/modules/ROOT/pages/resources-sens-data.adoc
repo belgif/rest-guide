@@ -1,0 +1,113 @@
+= Sensitive data
+
+[rule#rule-sens-dat]
+.Sensitive data in URLs or headers
+====
+Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters. Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
+The `Authorization` and `Cookie` HTTP headers are an exception, as they are recognized by infrastructure as sensitive and not logged.
+
+For operations that would otherwise be modeled as URLs containing sensitive data, the sensitive data SHOULD instead be put in the request payload of a POST operation.
+A verb suffix `get`, `update`, `delete` or `search` SHOULD be used for operations that would otherwise not use the POST method.
+Resource linking, caching or embedding are not possible for such URLs.
+
+For a single type of interaction with an entity (e.g. get, update, delete or search), avoid introducing multiple API operations. Searching usually supports more parameters, so is more often sensitive.
+
+If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
+====
+
+[cols="2a,1a,3a,3a"]
+|===
+
+|example| suffix |  original URL example                | safe URL example
+
+|consult document
+|`/get`
+| `GET /accounts/+{emailAddress}+`
+| `POST /accounts/get`
+[source,json]
+----
+{
+    "emailAddress": "{emailAddress}"
+}
+----
+
+|update document
+|`/update`
+| `PUT /accounts/+{emailAddress}+` +
+
+`PATCH /accounts/+{emailAddress}+`
+| `POST /accounts/update`
+[source,json]
+----
+{
+    "emailAddress": "{emailAddress}"
+}
+----
+
+|delete document
+|`/delete`
+| `DELETE /accounts/+{emailAddress}+`
+| `POST /accounts/delete`
+[source,json]
+----
+{
+  "emailAddress": "{emailAddress}"
+}
+----
+
+|consult collection
+|`/search`
+| `GET /documents?createdBy=+{emailAddress}+`
+| `POST /documents/search`
+[source,json]
+----
+{
+  "createdBy": "{emailAddress}"
+}
+----
+(same format as complex xref:resources-collection.adoc#collections-consult[collection searches])
+
+|create a document
+|_none_
+| `POST /accounts`
+| `POST /accounts` (no change required)
+
+| controller resource
+|_none_
+| `POST /accounts/+{emailAddress}+/deactivate`
+| `POST /accounts/deactivate`
+[source,json]
+----
+{
+    "createdBy": "user@example.com"
+}
+----
+|===
+
+When a resource with sensitive identifier has child resources that don't have sensitive identifiers, put all identifiers in the request payload.
+
+[cols="2a,2a"]
+|===
+| original URL | safe URL example
+
+| `GET /accounts/+{emailAddress}+/profilePictures/+{profilePictureId}+`
+| `POST /accounts/profilePictures/get`
+[source,json]
+----
+{
+    "emailAddress": "{emailAddress}",
+    "profilePictureId": "{profilePictureId}"
+}
+----
+
+| `POST /accounts/+{emailAddress}+/profilePictures`
+| `POST /accounts/profilePictures`
+[source,json]
+----
+{
+    "emailAddress": "{emailAddress}",
+    "picture": "base64-encoded-image-data"
+}
+----
+_alternative_: multipart request with a separate body part for the picture
+|===

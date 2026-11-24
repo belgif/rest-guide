@@ -5,6 +5,7 @@
 ** xref:resources-document.adoc[]
 ** xref:resources-collection.adoc[]
 ** xref:resources-controller.adoc[]
+** xref:resources-sens-data.adoc[]
 * xref:json.adoc[]
 * xref:api_specifications.adoc[]
 * xref:links.adoc[]

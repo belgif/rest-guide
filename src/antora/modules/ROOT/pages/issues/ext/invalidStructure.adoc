@@ -16,7 +16,7 @@ Example footnote:[For brevity, only the issue itself is shown here. Typically, t
   "href": "link:https://www.belgif.be/specification/rest/api-guide/issues/ext/invalidStructure.html[]",
   "title": "Input value has invalid structure",
   "detail": "SSIN 12345678900 is invalid",
-  "in": "query",
+  "in": "body",
   "name": "ssin",
   "value": "12345678900"
 }

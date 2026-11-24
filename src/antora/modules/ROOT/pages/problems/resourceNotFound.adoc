@@ -54,7 +54,7 @@ Content-Type: application/problem+json
 [source,role="secondary",subs="+macros"]
 .Child resource not found
 ----
-GET /enterprises/0206731645/employees/12345678901
+GET /enterprises/0206731645/subsidiaries/1234567890
 
 HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
@@ -64,13 +64,13 @@ Content-Type: application/problem+json
   "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource not found",
-  "detail": "No resource /enterprises/0206731645/employees/12345678901 found",
+  "detail": "No resource /enterprises/0206731645/subsidiaries/1234567890 found",
   "issues": [
       {
         "in": "path",
-        "name": "employeeSsin",
-        "detail": "Employee with SSIN 12345678901 of enterprise 0206731645 does not exist",
-        "value": "12345678901"
+        "name": "subsidiaryId",
+        "detail": "Subsidiary 1234567890 of enterprise 0206731645 does not exist",
+        "value": "1234567890"
       }
   ]
 }
@@ -79,7 +79,7 @@ Content-Type: application/problem+json
 [source,role="secondary",subs="+macros"]
 .Optional child singleton resource not found
 ----
-GET /enterprises/0206731645/employees/12345678901/profilePicture
+GET /enterprises/0206731645/logo
 
 HTTP/1.1 404 Not Found
 Content-Type: application/problem+json
@@ -89,12 +89,12 @@ Content-Type: application/problem+json
   "href": "link:https://www.belgif.be/specification/rest/api-guide/problems/resourceNotFound.html[]",
   "status": 404,
   "title": "Resource not found",
-  "detail": "No resource /enterprises/0206731645/employees/12345678901/profilePicture found",
+  "detail": "No resource /enterprises/0206731645/logo found",
   "issues": [
       {
         "in": "path",
-        "name": "profilePicture",
-        "detail": "Employee 12345678901 of enterpise 0206731645 does not have a profile picture"
+        "name": "logo",
+        "detail": "Enterpise 0206731645 does not have a logo"
       }
   ]
 }

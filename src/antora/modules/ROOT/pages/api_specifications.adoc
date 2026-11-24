@@ -438,7 +438,7 @@ components:
     Ssin:
       description: "Social Security Identification Number issued by the National Register or CBSS"
       type: string
-      pattern: \d{11}
+      pattern: "^\d{11}$"
 ```
 
 A type can be referenced from another OpenAPI document:

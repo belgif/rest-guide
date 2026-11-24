@@ -52,7 +52,7 @@ In order to be compliant to the _uniform interface_ as described by Roy Fielding
 [rule#rule-api-matur]
 .Maturity level
 ====
-All REST services *MUST at least respect level 2* and desirably achieve level 3.
+All REST services *SHOULD at least respect level 2* and desirably achieve level 3.
 ====
 
 .References

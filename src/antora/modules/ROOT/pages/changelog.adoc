@@ -1,5 +1,7 @@
 = Changelog
 
+* 2026-11-xx
+** moved guidelines on sensitive data to xref:resources-sens-data.adoc[] page and add examples for child resources
 * 2026-09-28
 ** new improved look of the guide:
 *** chapters on different pages and a search box
@@ -20,7 +22,7 @@
 ** examples throughout the guide were updated. Problem examples now use JSON Pointer to refer to input properties in a message body
 
 * 2026-06-12
-** new rule xref:resources.adoc#rule-sens-dat[[rule-sens-dat\]] on sensitive data in URLs or headers
+** new rule xref:resources-sens-data.adoc#rule-sens-dat[[rule-sens-dat\]] on sensitive data in URLs or headers
 ** new rule xref:api_specifications.adoc#rule-sch-discr[[sch-discr\]] split of from xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]] and xref:api_specifications.adoc#rule-sch-allof[[sch-allof\]] on URI-reference syntax for discriminator mapping
 ** added link to example schema to xref:resources-collection.adoc#pagination[Pagination]
 ** update xref:api_specifications.adoc#rule-sch-oneof[[sch-oneof\]]: discriminator mapping should include all `oneOf` subschemas
