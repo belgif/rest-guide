@@ -108,5 +108,5 @@ When a resource with sensitive identifier has child resources that don't have se
     "picture": "base64-encoded-image-data"
 }
 ----
-_alternative_: multipart request with a separate body part for the picture
+A multipart request with a separate body part for the picture could also be used in this example.
 |===
