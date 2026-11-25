@@ -3,21 +3,68 @@
 [rule#rule-sens-dat]
 .Sensitive data in URLs or headers
 ====
-Sensitive data SHOULD be put in a message payload instead of path, query or HTTP header parameters. Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure.
-The `Authorization` and `Cookie` HTTP headers are an exception, as they are recognized by infrastructure as sensitive and not logged.
+Sensitive data SHOULD be put in a message payload instead of path or query parameters. Even though these parameters are encrypted during HTTPS transit, they are often stored in server and infrastructure logs, caches and browser history, which increases their exposure (see https://github.com/OWASP/ASVS/blob/v5.0.0/5.0/en/0x23-V14-Data-Protection.md#v142-general-data-protection[ASVS 5.0 14.2.1], https://community.owasp.org/vulnerabilities/Information_exposure_through_query_strings_in_url[OWASP page] and https://cwe.mitre.org/data/definitions/598.html[CWE-598]).
 
-For operations that would otherwise be modeled as URLs containing sensitive data, the sensitive data SHOULD instead be put in the request payload of a POST operation.
-A verb suffix `get`, `update`, `delete` or `search` SHOULD be used for operations that would otherwise not use the POST method.
+HTTP message bodies and, to a lesser extent, HTTP headers are less likely to be logged or cached by infrastructure so are safer for to carry sensitive data.
+The `Authorization` and `Cookie` headers are safer than other HTTP headers because they are specifically recognized by infrastructure as sensitive and not logged.
+
+For operations that would otherwise be modeled as URLs containing sensitive data, typically a resource identifier path parameter or a search query parameter, one of following alternatives SHOULD be used instead:
+
+* Data minimization: omit sensitive data altogether from the exchange in use cases where this is possible.
+* POST with request body: put the sensitive data in the request body of a POST operation. A verb suffix `get`, `update`, `delete` or `search` SHOULD be used for operations that would otherwise not use the POST method.
 Resource linking, caching or embedding are not possible for such URLs.
-
-For a single type of interaction with an entity (e.g. get, update, delete or search), avoid introducing multiple API operations. Searching usually supports more parameters, so is more often sensitive.
-
-If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
+  ** For a single type of interaction with an entity (e.g. get, update, delete or search), avoid introducing multiple API operations.
+* Use pseudonymized identifiers in the URL that serve as an opaque alias for the sensitive identifier.
 ====
 
+For search parameters, an input for a partial match on sensitive data (e.g. a person's name or address) can also be considered sensitive.
+
+If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, other alternatives may also need to be considered like end-to-end encryption.
+
+.Comparison of alternatives for sensitive data in URLs
+[cols="2"]
+|===
+
+|Omitting sensitive data (data minimization)
+a|
+* Don't include sensitive data that can be retrieved otherwise, e.g. based on the access token,
+* This solution is only possible when the API's functional requirements allow it. When it is, it is generally the preferred solution.
+
+| POST with request body
+a|
+* loss of semantics of the HTTP method: POST is used for operations with no side effects or that are idempotent. This information is now added instead to the URL as a verb suffix.
+* no linking to resource URI or automatic caching (but caching for sensitive data should usually be an explicit decision)
+
+| Pseudonymized identifiers
+a|
+* a pseudonym replaces all occurrences of the sensitive identifier in the URL with a pseudonymized identifier, including message bodies
+* makes the API also reusable for use cases when clients shouldn't have access to the sensitive identifier
+* a pseudonym has usage boundaries (e.g. clients, sessions or operations for which the pseudonym can be used) and a lifecycle (validity period)
+  ** each resource is represented by a unique URL, making caching or linking possible, but only within its defined boundaries as long as the pseudonym is valid
+* solution is not applicable when the sensitive data isn't an identifier or code (e.g. search parameters on part of a person's name or address)
+* more costly to implement (de)pseudonymization, both at clients and server
+* can have a performance impact for the additional (de)pseudonymization calls, depending on their frequency
+* It is easier to secure only the (de)pseudonymization interactions when the sensitive data is not scattered across operations (e.g. verify their message bodies are not logged)
+|===
+
+.Omitting sensitive data
+====
+
+If a user may only access his own account in a Backend-For-Frontend API, his user identifier can be retrieved from the active session or access token and can be omitted from the operation.
+
+|===
+| original URL | safe URL
+
+| `GET /accounts/+{emailAddress}+` | `GET /me`
+|===
+====
+
+
+.POST with request body
+====
 [cols="2a,1a,3a,3a"]
 |===
-|example| suffix |  original URL example                | safe URL example
+|type of interaction| suffix |  original URL | safe URL
 
 |consult document
 |`/get`
@@ -87,7 +134,7 @@ When a resource with sensitive identifier has child resources that don't have se
 
 [cols="2a,2a"]
 |===
-| original URL | safe URL example
+| original URL | safe URL
 
 | `GET /accounts/+{emailAddress}+/profilePictures/+{profilePictureId}+`
 | `POST /accounts/profilePictures/get`
@@ -110,3 +157,80 @@ When a resource with sensitive identifier has child resources that don't have se
 ----
 A multipart request with a separate body part for the picture could also be used in this example.
 |===
+====
+
+.Pseudonymized identifiers
+====
+
+Only the operations to (de)pseudonymize sensitive identifiers exchange the sensitive identifiers, and could require specific permissions.
+
+[cols="2a,2a"]
+|===
+| request | response
+
+|
+`POST /pseudonyms`
+[source,json]
+----
+{
+  "emailAddress": "{emailAddress}"
+}
+----
+|
+[source,json]
+----
+{
+  "pseudonymizedId": "{pseudonymizedId}"
+}
+----
+
+|
+`POST /pseudonyms/resolve`
+[source,json]
+----
+{
+  "pseudonymizedId": "{pseudonymizedId}"
+}
+----
+|
+[source,json]
+----
+{
+  "emailAddress": "{emailAddress}"
+}
+----
+|===
+
+Other operations use the pseudonyms instead of the sensitive identifiers in their URLs and message bodies.
+
+[cols="1,1,2a"]
+|===
+| original URL | safe URL | response
+
+| `GET /accounts/+{emailAddress}+`
+| `GET /accounts/+{pseudonymizedAccountId}+`
+|
+[source,json]
+----
+{
+  "pseudonymizedId": "{pseudonymizedAccountId}",
+  "active": true
+}
+----
+
+| `GET /documents?createdBy=+{emailAddress}+`
+| `GET /documents?createdBy=+{pseudonymizedId}+`
+|
+[source,json]
+----
+{
+  "items": [
+    {
+      "documentId": "1234",
+      "createdBy": "{pseudonymizedAccountId}"
+    }
+  ]
+}
+----
+|===
+====
