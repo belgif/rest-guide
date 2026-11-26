@@ -9,7 +9,7 @@ When referencing another resource within the same API, a link SHOULD be added us
 
 It is NOT RECOMMENDED to link to resources in other APIs to avoid a tight coupling between the APIs, unless the link target is guaranteed to remain very stable (like the `href` links to standard problem types xref:errorhandling.adoc#rule-err-problem[[err-problem\]]).
 
-Entities with a sensitive identifier don't have their own URI (see xref:resources.adoc#rule-sens-dat[[sens-dat\]]), so they don't need to be linked.
+Entities with a sensitive identifier don't have their own URI (see xref:resources-sens-data.adoc#rule-sens-dat[[sens-dat\]]), so they don't need to be linked.
 
 Each resource MAY also contain its own location in a `self` attribute at root level of the JSON document.
 
