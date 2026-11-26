@@ -61,10 +61,18 @@ When changing a `<rule-id>`, add the previous anchor as an inline AsciiDoc ancho
 
 # Building the styleguide
 
-The styleguide is built with [Apache Maven](https://maven.apache.org).
+This is a Node.js project using npm.
 
-With Maven installed, run `mvn` in the root directory of the project. 
-The styleguide will be built in `guide/target/generated-docs/` and bundled as a zip in the `target` directory.
+```bash
+# Build everything
+npm run build
+```
 
-The Antora site build uses `npm run build` and also regenerates `build/site/index.html` so old single-page bookmarks and anchors continue to redirect to the matching multi-page location.
+Output is generated to `build/site/` (Antora HTML site) and bundled as a zip in `build/site.zip`.
 
+The search box only works when the site is served from a web server, not when opened directly in a browser.
+You can run a local web server to serve the site by running :
+```bash
+# Start web server, after first running `npm run build` 
+npm run serve
+```
