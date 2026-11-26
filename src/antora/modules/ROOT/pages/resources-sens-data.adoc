@@ -15,9 +15,9 @@ For a single type of interaction with an entity (e.g. get, update, delete or sea
 If sensitive data needs to be fully hidden from middleboxes, clients or servers, even in the message payload, consider alternatives like end-to-end encryption or pseudonymization.
 ====
 
-[cols="2a,1a,3a,3a"]
+[cols="1a,1a,3a,3a"]
 |===
-|example| suffix |  original URL example                | safe URL example
+|interaction| suffix |  original URL example                | safe URL example
 
 |consult document
 |`/get`
@@ -26,7 +26,7 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 [source,json]
 ----
 {
-    "emailAddress": "{emailAddress}"
+  "emailAddress": "{emailAddress}"
 }
 ----
 
@@ -35,11 +35,18 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 | `PUT /accounts/+{emailAddress}+` +
 
 `PATCH /accounts/+{emailAddress}+`
-| `POST /accounts/update`
-[source,json]
+[source,yaml]
 ----
 {
-    "emailAddress": "{emailAddress}"
+  # new account data
+}
+----
+| `POST /accounts/update`
+[source,yaml]
+----
+{
+  "emailAddress": "{emailAddress}",
+  # new account data
 }
 ----
 
@@ -56,8 +63,8 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 
 |consult collection
 |`/search`
-| `GET /documents?createdBy=+{emailAddress}+`
-| `POST /documents/search`
+| `GET /cases?createdBy=+{emailAddress}+`
+| `POST /cases/search`
 [source,json]
 ----
 {
@@ -78,7 +85,7 @@ If sensitive data needs to be fully hidden from middleboxes, clients or servers,
 [source,json]
 ----
 {
-    "createdBy": "user@example.com"
+  "emailAddress": "user@example.com"
 }
 ----
 |===
@@ -94,19 +101,22 @@ When a resource with sensitive identifier has child resources that don't have se
 [source,json]
 ----
 {
-    "emailAddress": "{emailAddress}",
-    "profilePictureId": "{profilePictureId}"
+  "emailAddress": "{emailAddress}",
+  "profilePictureId": "{profilePictureId}"
 }
 ----
 
 | `POST /accounts/+{emailAddress}+/profilePictures`
+
+_with picture as binary request body_
+
 | `POST /accounts/profilePictures`
 [source,json]
 ----
 {
-    "emailAddress": "{emailAddress}",
-    "picture": "base64-encoded-image-data"
+  "emailAddress": "{emailAddress}",
+  "picture": "base64-encoded-image-data"
 }
 ----
-A multipart request with a separate body part for the picture could also be used in this example.
+A multipart request with a separate body part for the picture can also be used in this example.
 |===

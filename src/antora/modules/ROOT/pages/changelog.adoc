@@ -1,7 +1,8 @@
 = Changelog
 
-* 2026-11-xx
-** moved guidelines on sensitive data to xref:resources-sens-data.adoc[] page and add examples for child resources
+* 2026-12-01
+** move sensitive data guidelines to a dedicated xref:resources-sens-data.adoc[] page and update examples
+** update rule xref:events.adoc#rule-async-ctxt[[async-ctxt\]]: recommend against the use of `dataschema` attribute in cross-organization exchanges
 * 2026-09-28
 ** new improved look of the guide:
 *** chapters on different pages and a search box
