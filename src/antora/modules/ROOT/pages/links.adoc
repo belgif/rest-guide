@@ -114,7 +114,7 @@ components:
       type: object
       properties:
         ssin:
-          "$ref": "./person-identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+          "$ref": "./person-identifier/v2/person-identifier-v2.yaml#/components/schemas/Ssin"
 ```
 ====
 
