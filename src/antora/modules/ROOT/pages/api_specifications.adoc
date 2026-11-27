@@ -425,13 +425,13 @@ While it is not strictly necessary for external definitions to be put in a valid
 
 .Reusable OpenAPI document
 ====
-./person/identifier/v1/person-identifier-v1.yaml
+./person/identifier/v2/person-identifier-v2.yaml
 ```YAML
 openapi: "3.0.3"
 info:
   title: person-identifier
   description: data types for person identifiers
-  version: "1.1.2"
+  version: "2.0.0"
 paths: {} # empty paths property required to be a valid OpenAPI document
 components:
   schemas:
@@ -443,7 +443,7 @@ components:
 
 A type can be referenced from another OpenAPI document:
 ```YAML
-"$ref": "./person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+"$ref": "./person/identifier/v2/person-identifier-v2.yaml#/components/schemas/Ssin"
 ```
 ====
 
@@ -944,13 +944,13 @@ Citizen:
   type: object
   properties:
     ssin:
-      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+      $ref: "./belgif/person/identifier/v2/person-identifier-v2.yaml#/components/schemas/Ssin"
   required: [ssin]
 Professional:
   type: object
   properties:
     ssin:
-      $ref: "./belgif/person/identifier/v1/person-identifier-v1.yaml#/components/schemas/Ssin"
+      $ref: "./belgif/person/identifier/v2/person-identifier-v2.yaml#/components/schemas/Ssin"
     enterpriseNumber:
       $ref: "./belgif/organization/identifier/v1/organization-identifier-v1.yaml#/components/schemas/EnterpriseNumber"
   required: [ssin, enterpriseNumber]
